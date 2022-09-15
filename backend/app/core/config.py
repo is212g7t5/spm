@@ -33,7 +33,7 @@ class Settings(BaseSettings):
             return v
         raise ValueError(v)
 
-    PROJECT_NAME: str = "CITIWEALTH"
+    PROJECT_NAME: str = "IS212G7T5"
     # SENTRY_DSN: Optional[HttpUrl] = 'http://localhost'
 
     # @validator("SENTRY_DSN", pre=True)

@@ -8,6 +8,9 @@ from app.schemas.staff import StaffCreate, StaffUpdate
 
 
 class CRUDStaff(CRUDBase[Staff, StaffCreate, StaffUpdate]):
+    def get(self, db: Session, staff_id: Any) -> Staff:
+        return db.query(self.model).filter(self.model.staff_id == staff_id).first()
+
     def create(self, db: Session, *, obj_in: StaffCreate) -> Staff:
         db_obj = Staff(
             staff_fname=obj_in.staff_fname,
@@ -41,6 +44,12 @@ class CRUDStaff(CRUDBase[Staff, StaffCreate, StaffUpdate]):
     #     if not staff:
     #         return None
     #     return staff
+
+    def remove(self, db: Session, *, staff_id: int) -> Staff:
+        obj = db.query(self.model).get(staff_id)
+        db.delete(obj)
+        db.commit()
+        return obj
 
 
 staff = CRUDStaff(Staff)

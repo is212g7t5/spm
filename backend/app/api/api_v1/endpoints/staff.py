@@ -1,14 +1,12 @@
-from datetime import date
 from typing import Any, List
-from xmlrpc.client import Boolean
 
+from fastapi import APIRouter, Body, Depends, HTTPException
 from pydantic.networks import EmailStr
 from sqlalchemy.orm import Session
 
 from app import crud, schemas
 from app.api import deps
 from app.core.config import settings
-from fastapi import APIRouter, Body, Depends, HTTPException
 
 router = APIRouter()
 
@@ -17,14 +15,12 @@ router = APIRouter()
 def get_all_staff(
     db: Session = Depends(deps.get_db),
     skip: int = 0,
-    limit: int = 100,
-    active_only: bool = True,
     # current_staff: models.Staff = Depends(deps.get_current_active_superuser),
 ) -> Any:
     """
     Retrieve all staffs.
     """
-    staffs = crud.staff.get_multi(db, skip=skip, limit=limit, active_only=active_only)
+    staffs = crud.staff.get_multi(db, skip=skip)
     return staffs
 
 
@@ -48,7 +44,7 @@ def get_staff_by_id(
     """
     Get a specific staff by id.
     """
-    staff = crud.staff.get(db, id=staff_id)
+    staff = crud.staff.get(db, staff_id=staff_id)
     # if staff == current_staff:
     #     return staff
     # if not crud.staff.is_superuser(current_staff):
@@ -102,8 +98,14 @@ def update_staff_by_id(
     """
     Update a staff.
     """
-    staff = crud.staff.get(db, id=staff_id)
+    staff = crud.staff.get(db, staff_id=staff_id)
+    if not staff:
+        raise HTTPException(
+            status_code=404,
+            detail="Staff not found",
+        )
     staff_in = schemas.StaffCreate(
+        staff_id=staff.staff_id,
         staff_fname=staff_fname or staff.staff_fname,
         staff_lname=staff_lname or staff.staff_lname,
         dept=dept or staff.dept,
@@ -112,6 +114,7 @@ def update_staff_by_id(
     )
     staff = crud.staff.update(db, db_obj=staff, obj_in=staff_in)
     return staff
+
 
 @router.delete("/{staff_id}", response_model=schemas.Staff)
 def delete_staff_by_id(
@@ -123,12 +126,11 @@ def delete_staff_by_id(
     """
     Delete a staff.
     """
-    staff = crud.staff.get(db, id=staff_id)
+    staff = crud.staff.get(db, staff_id=staff_id)
     if not staff:
         raise HTTPException(
             status_code=404,
             detail="Staff not found",
         )
-    staff = crud.staff.remove(db, id=staff_id)
+    staff = crud.staff.remove(db, staff_id=staff_id)
     return staff
-
