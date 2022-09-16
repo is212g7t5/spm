@@ -1,3 +1,8 @@
 .mypy_cache
 .coverage
 htmlcov
+
+# virtualenv and other files
+.venv
+mysqlclient-*
+.env
