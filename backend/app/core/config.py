@@ -5,6 +5,9 @@ from typing import Any, Dict, List, Optional, Union
 
 from pydantic import AnyHttpUrl, BaseSettings, EmailStr, PostgresDsn, validator
 
+from dotenv import load_dotenv
+load_dotenv()
+
 
 class Settings(BaseSettings):
     # def __init__(self):
@@ -96,9 +99,7 @@ class Settings(BaseSettings):
     USERS_OPEN_REGISTRATION: bool = True
 
     class Config:
-        case_sensitive = True
         env_file = '.env'
 
 
 settings = Settings()
-print(settings.dict())

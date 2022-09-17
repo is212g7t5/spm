@@ -19,8 +19,7 @@ To resolve: view this link:
 https://stackoverflow.com/questions/61244344/pip-install-mysqlclient-with-python-3-8-not-working
 ```
 
-Load environment variables into a .env file. Pydantic in config.py
-handles the mapping of .env inside the Config class.
+Load environment variables into a .env file. File should be placed in the root directory - backend.
 
 ```
 PYTHONPATH="${PYTHONPATH}:."
