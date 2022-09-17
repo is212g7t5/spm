@@ -2,7 +2,10 @@ import os
 import secrets
 from typing import Any, Dict, List, Optional, Union
 
+from dotenv import load_dotenv
 from pydantic import AnyHttpUrl, BaseSettings, EmailStr, PostgresDsn, validator
+
+load_dotenv()
 
 
 class Settings(BaseSettings):
@@ -95,7 +98,7 @@ class Settings(BaseSettings):
     USERS_OPEN_REGISTRATION: bool = True
 
     class Config:
-        case_sensitive = True
+        env_file = ".env"
 
 
 settings = Settings()
