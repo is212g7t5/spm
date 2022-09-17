@@ -1,11 +1,10 @@
-from dataclasses import fields
 import os
 import secrets
 from typing import Any, Dict, List, Optional, Union
 
+from dotenv import load_dotenv
 from pydantic import AnyHttpUrl, BaseSettings, EmailStr, PostgresDsn, validator
 
-from dotenv import load_dotenv
 load_dotenv()
 
 
@@ -99,7 +98,7 @@ class Settings(BaseSettings):
     USERS_OPEN_REGISTRATION: bool = True
 
     class Config:
-        env_file = '.env'
+        env_file = ".env"
 
 
 settings = Settings()
