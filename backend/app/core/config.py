@@ -45,7 +45,7 @@ class Settings(BaseSettings):
     #         return None
     #     return v
 
-    DB_SERVER: str = os.environ.get("DB_SERVER")
+    DB_SERVER: str = os.getenv("DB_SERVER")
     DB_PORT: str = os.getenv("DB_PORT")
     DB_USER: str = os.getenv("DB_USER")
     DB_PASSWORD: str = os.getenv("DB_PASSWORD")
