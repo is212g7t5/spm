@@ -14,6 +14,14 @@ on:
 permissions:
   contents: read
 
+env:
+  DAY_OF_WEEK: Monday
+  DB_SERVER: localhost
+  DB_PORT: 3306
+  DB_USER: test
+  DB_PASSWORD: test
+  DATABASE: test
+
 jobs:
   build:
 
