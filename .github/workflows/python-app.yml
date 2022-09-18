@@ -6,8 +6,10 @@ name: Python application
 on:
   push:
     branches: [ "master" ]
+    paths: ['backend/**', '.github/**']
   pull_request:
     branches: [ "master" ]
+    paths: ['backend/**', '.github/**']
 
 permissions:
   contents: read
@@ -16,6 +18,10 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./backend
 
     steps:
     - uses: actions/checkout@v3
@@ -27,7 +33,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install flake8 pytest
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        if [ -f requirements.txt ]; then pip install -r requirements.txt;
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
