@@ -9,6 +9,7 @@ class RoleBase(BaseModel):
     role_name: str
 
 
+
 # Properties to receive via API on creation
 class RoleCreate(RoleBase):
     pass
