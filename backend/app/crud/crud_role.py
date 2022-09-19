@@ -9,7 +9,7 @@ from app.schemas.role import RoleCreate, RoleUpdate
 
 class CRUDRole(CRUDBase[Role, RoleCreate, RoleUpdate]):
     def get(self, db: Session, role_id: Any) -> Role:
-        return db.query(self.model).filter(self.model.role_id == role_id).first()
+        return db.query(self.model).get(role_id)
 
     def create(self, db: Session, *, obj_in: RoleCreate) -> Role:
         db_obj = Role(
