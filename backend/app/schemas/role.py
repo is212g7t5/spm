@@ -7,7 +7,7 @@ from pydantic import BaseModel
 class RoleBase(BaseModel):
     role_id: Optional[int]
     role_name: str
-    linked_skill: int #Skill ID foreign key
+
 
 
 # Properties to receive via API on creation

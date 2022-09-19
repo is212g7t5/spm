@@ -6,7 +6,10 @@ from pydantic import BaseModel
 # Shared properties
 class SkillBase(BaseModel):
     skill_id: Optional[int]
+    course_id: str
     skill_name: str
+    skill_desc: str
+    is_active: bool
 
 
 # Properties to receive via API on creation
