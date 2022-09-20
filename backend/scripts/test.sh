@@ -3,4 +3,10 @@
 set -e
 set -x
 
-pytest --cov=app --cov-report=term-missing app/tests "${@}"
+DATABASE="app_automated_test"
+
+alembic upgrade head
+
+pytest --cov=app --cov-report=term-missing app/tests "${@}" || echo "Test completed"
+
+alembic downgrade -1
