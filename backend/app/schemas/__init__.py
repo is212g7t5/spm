@@ -7,6 +7,6 @@ from .registration import (
     RegistrationUpdate,
 )
 from .role import Role, RoleCreate, RoleInDB, RoleUpdate
+from .skill import Skill, SkillCreate, SkillInDB, SkillUpdate
 from .staff import Staff, StaffCreate, StaffInDB, StaffUpdate
 from .token import Token, TokenPayload
-from .skill import Skill, SkillCreate, SkillInDB, SkillUpdate
