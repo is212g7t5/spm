@@ -10,3 +10,4 @@ from .role import Role, RoleCreate, RoleInDB, RoleUpdate
 from .staff import Staff, StaffCreate, StaffInDB, StaffUpdate
 from .token import Token, TokenPayload
 from .skill import Skill, SkillCreate, SkillInDB, SkillUpdate
+from .job import Job, JobCreate, JobInDB, JobUpdate

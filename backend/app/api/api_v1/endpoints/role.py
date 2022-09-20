@@ -19,11 +19,6 @@ def get_all_role(
     Retrieve all roles.
     """
     roles = crud.role.get_multi(db, skip=skip)
-    if not roles:
-        raise HTTPException(
-            status_code=404,
-            detail="Roles not found",
-        )
     return roles
 
 
@@ -36,18 +31,14 @@ def get_role_by_id(
     Get a specific role by id.
     """
     role = crud.role.get(db, role_id=role_id)
-    if not role:
-        raise HTTPException(
-            status_code=404,
-            detail="Role not found",
-        )
     return role
 
 
 @router.post("", response_model=schemas.Role)
 def create_role(
+    *,
     db: Session = Depends(deps.get_db),
-    role_name: str = Body(None, embed=True),
+    role_name: str = Body(...),
 ) -> Any:
     """
     Create new role.
@@ -69,7 +60,7 @@ def update_role_by_id(
     *,
     db: Session = Depends(deps.get_db),
     role_id: int,
-    role_name: str = Body(None, embed=True),
+    role_name: str = Body(None),
 ) -> Any:
     """
     Update a role.
