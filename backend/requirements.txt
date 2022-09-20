@@ -26,7 +26,7 @@ idna==3.3
 importlib-metadata==4.12.0
 importlib-resources==5.9.0
 lxml==4.9.1
-Mako==1.2.1
+Mako==1.2.2
 MarkupSafe==2.1.1
 mypy-extensions==0.4.3
 mysql-connector==2.2.9
