@@ -6,7 +6,7 @@ from pydantic import BaseModel
 class JobBase(BaseModel):
     job_id: Optional[int]
     job_name: str
-    job_desc: str
+    job_desc: Optional[str]
     is_active: bool
 
 

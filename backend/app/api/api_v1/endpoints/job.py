@@ -43,7 +43,7 @@ def get_job_by_id(
 
 @router.post("", response_model=schemas.Job)
 def create_job(
-    *, # TODO: WHATS THIS???
+    *,
     db: Session = Depends(deps.get_db),
     job_name: str = Body(...),
     job_desc: str = Body(...),
