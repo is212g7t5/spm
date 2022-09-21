@@ -46,8 +46,7 @@ def create_job(
     *,
     db: Session = Depends(deps.get_db),
     job_name: str = Body(...),
-    job_desc: str = Body(...),
-    is_active: bool
+    job_desc: str = Body(None),
 ) -> Any:
     """
     Create new job.
@@ -60,7 +59,7 @@ def create_job(
     job_in = schemas.JobCreate(
         job_name=job_name,
         job_desc=job_desc,
-        is_active=is_active,
+        is_active=True,
     )
     job = crud.job.create(db, obj_in=job_in)
     return job
@@ -70,9 +69,9 @@ def update_job_by_id(
     *,
     db: Session = Depends(deps.get_db),
     job_id: int,
-    job_name: str = Body(...),
-    job_desc: str = Body(...),
-    is_active: bool
+    job_name: str = Body(None),
+    job_desc: str = Body(None),
+    is_active: bool = Body(None)
 ) -> Any:
     """
     Update a job.
@@ -87,7 +86,7 @@ def update_job_by_id(
         job_id=job.job_id,
         job_name=job_name or job.job_name,
         job_desc=job_desc or job.job_desc,
-        is_active=is_active or job.is_active
+        is_active=is_active if is_active != None else job.is_active
     )
     job = crud.job.update(db, db_obj=job, obj_in=job_in)
     return job
@@ -109,3 +108,4 @@ def delete_job_by_id(
         )
     job = crud.job.remove(db, job_id=job_id)
     return job
+    
