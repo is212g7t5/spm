@@ -30,6 +30,7 @@ DOWNGRADE_SQL = """
 DROP TABLE IF EXISTS `skill`;
 """
 
+
 def upgrade():
     op.execute(UPGRADE_SQL)
 

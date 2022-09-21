@@ -3,7 +3,7 @@ repos:
     rev: 22.6.0
     hooks:
     - id: black
-      files: ^backend/app/tests/api/api_v1.+.py$
+      files: ^backend/
   - repo: https://github.com/myint/autoflake
     rev: v1.4
     hooks:

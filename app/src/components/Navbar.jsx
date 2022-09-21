@@ -8,9 +8,9 @@ function classNames(...classes) {
 }
 
 function isCurrent(href) {
-  let current_url = document.location.toString().split("/")
-  let page = "/" + current_url[current_url.length - 1];
-  if (page == href) {
+  const currentUrl = document.location.toString().split('/')
+  const page = `/${  currentUrl[currentUrl.length - 1]}`;
+  if (page === href) {
     return true;
   }
   return false;
@@ -31,8 +31,7 @@ export default function Navbar() {
     { name: 'Sign out', href: '#' }
   ])
 
-  const renderNavbarItems = () => {
-    return pageNavigation.map((item) => (
+  const renderNavbarItems = () => pageNavigation.map((item) => (
       <a
         key={item.name}
         href={item.href}
@@ -45,10 +44,8 @@ export default function Navbar() {
         {item.name}
       </a>
     ))
-  }
 
-  const renderDisclosureNavbarItems = () => {
-    return pageNavigation.map((item) => (
+  const renderDisclosureNavbarItems = () => pageNavigation.map((item) => (
       <Disclosure.Button
         key={item.name}
         as="a"
@@ -62,10 +59,8 @@ export default function Navbar() {
         {item.name}
       </Disclosure.Button>
     ))
-  }
 
-  const renderUserNavigation = () => {
-    return userNavigation.map((item) => (
+  const renderUserNavigation = () => userNavigation.map((item) => (
       <Menu.Item key={item.name}>
         {({ active }) => (
           <a
@@ -80,7 +75,6 @@ export default function Navbar() {
         )}
       </Menu.Item>
     ))
-  }
 
   return (
     <Disclosure as="nav" className="bg-cyan-800">
