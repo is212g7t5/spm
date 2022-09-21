@@ -9,8 +9,12 @@ from app.tests.utils.utils import random_lower_string
 def test_create_role(db: Session) -> None:
     role_name = random_lower_string(20)
     role_in = RoleCreate(role_name=role_name)
-    role = crud.role.create(db=db, obj_in=role_in,)
+    role = crud.role.create(
+        db=db,
+        obj_in=role_in,
+    )
     assert role.role_name == role_name
+
 
 def test_get_role(db: Session) -> None:
     role = create_random_role(db)
@@ -18,6 +22,7 @@ def test_get_role(db: Session) -> None:
     assert stored_role
     assert role.role_id == stored_role.role_id
     assert role.role_name == stored_role.role_name
+
 
 def test_update_role(db: Session) -> None:
     role = create_random_role(db)
@@ -28,6 +33,7 @@ def test_update_role(db: Session) -> None:
     assert role2.role_id == role.role_id
     assert role2.role_name == new_role_name
 
+
 def test_delete_role(db: Session) -> None:
     role = create_random_role(db)
     role2 = crud.role.remove(db=db, role_id=role.role_id)
@@ -35,6 +41,8 @@ def test_delete_role(db: Session) -> None:
     assert role3 is None
     assert role2.role_id == role.role_id
     assert role2.role_name == role.role_name
+
+
 # def test_update_item(db: Session) -> None:
 #     title = random_lower_string()
 #     description = random_lower_string()
