@@ -38,7 +38,10 @@ def get_skill_by_id(
 def create_skill(
     *,
     db: Session = Depends(deps.get_db),
+    skill_id: int,
     skill_name: str = Body(...),
+    skill_desc: str = Body(...),
+    is_active: bool,
 ) -> Any:
     """
     Create new skill.
@@ -49,7 +52,10 @@ def create_skill(
             detail="Open staff registration is forbidden on this server",
         )
     skill_in = schemas.SkillCreate(
+        skill_id=skill_id,
         skill_name=skill_name,
+        skill_desc=skill_desc,
+        is_active=is_active,
     )
     skill = crud.skill.create(db, obj_in=skill_in)
     return skill
