@@ -4,34 +4,36 @@ from pydantic import BaseModel
 
 
 # Shared properties
-class RoleBase(BaseModel):
-    role_id: Optional[int]
-    role_name: str
-
+class SkillBase(BaseModel):
+    skill_id: Optional[int]
+    course_id: str
+    skill_name: str
+    skill_desc: str
+    is_active: bool
 
 
 # Properties to receive via API on creation
-class RoleCreate(RoleBase):
+class SkillCreate(SkillBase):
     pass
 
 
 # Properties to receive via API on update
-class RoleUpdate(RoleBase):
+class SkillUpdate(SkillBase):
     pass
 
 
-class RoleInDBBase(RoleBase):
-    role_id: Optional[int] = None
+class SkillInDBBase(SkillBase):
+    skill_id: int
 
     class Config:
         orm_mode = True
 
 
 # Additional properties to return via API
-class Role(RoleInDBBase):
+class Skill(SkillInDBBase):
     pass
 
 
 # # Additional properties stored in DB
-class RoleInDB(RoleInDBBase):
+class SkillInDB(SkillInDBBase):
     pass
