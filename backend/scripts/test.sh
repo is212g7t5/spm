@@ -9,4 +9,4 @@ alembic upgrade head
 
 pytest --cov=app --cov-report=term-missing app/tests "${@}" || echo "Test completed"
 
-alembic downgrade -1
+alembic downgrade -$(ls -p alembic/versions | grep -v /$ | wc -l | sed -e 's/^[ \t]*//')
