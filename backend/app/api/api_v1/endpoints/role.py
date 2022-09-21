@@ -39,7 +39,7 @@ def get_role_by_id(
     if not role:
         raise HTTPException(
             status_code=404,
-            detail="Roles not found",
+            detail="Role not found",
         )
     return role
 
