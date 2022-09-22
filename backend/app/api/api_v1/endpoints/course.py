@@ -18,6 +18,11 @@ def get_all_course(
     Retrieve all courses.
     """
     courses = crud.course.get_multi(db, skip=skip)
+    if not courses:
+        raise HTTPException(
+            status_code=404,
+            detail="Courses not found",
+        )
     return courses
 
 
@@ -30,6 +35,11 @@ def get_course_by_id(
     Get a specific course by id.
     """
     course = crud.course.get(db, course_id=course_id)
+    if not course:
+        raise HTTPException(
+            status_code=404,
+            detail="Course not found",
+        )
     return course
 
 
@@ -100,7 +110,7 @@ def update_course_by_id(
 def delete_course_by_id(
     *,
     db: Session = Depends(deps.get_db),
-    course_id: int,
+    course_id: str,
 ) -> Any:
     """
     Delete a course.
