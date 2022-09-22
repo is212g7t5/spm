@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { ArrowRightIcon, ArrowDownIcon, BookOpenIcon } from '@heroicons/react/20/solid'
-import CourseDesc from './CourseDesc';
+import CourseDescription from './CourseDescription';
 
 function CourseTile ({courseId, courseName, courseDesc}) {
   const [isDescOpen, setIsDescOpen] = useState(false);
@@ -9,7 +9,7 @@ function CourseTile ({courseId, courseName, courseDesc}) {
     <div className="flex flex-col container w-8/12 max-w-5xl mt-5 mx-auto w-full items-center justify-center bg-white rounded-lg shadow">
       <ul className="flex flex-col divide-y w-full">
         <li className="flex flex-row">
-          <div className="select-none cursor-pointer hover:bg-gray-100 flex flex-1 items-center p-4">
+          <div className="select-none cursor-pointer hover:bg-gray-50 flex flex-1 items-center p-4">
             <div className="flex flex-col w-10 h-10 justify-center items-center mr-4">
               <BookOpenIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
             </div>
@@ -25,7 +25,7 @@ function CourseTile ({courseId, courseName, courseDesc}) {
           </div>
         </li>
       </ul>
-      {isDescOpen ? <CourseDesc desc={courseDesc} /> : null}
+      {isDescOpen ? <CourseDescription desc={courseDesc}/> : null}
     </div>
   );
 };
