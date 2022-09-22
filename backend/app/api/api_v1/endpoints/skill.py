@@ -67,6 +67,8 @@ def update_skill_by_id(
     db: Session = Depends(deps.get_db),
     skill_id: int,
     skill_name: str = Body(None),
+    skill_desc: str = Body(None),
+    is_active: bool,
 ) -> Any:
     """
     Update a skill.
@@ -79,7 +81,9 @@ def update_skill_by_id(
         )
     skill_in = schemas.SkillCreate(
         skill_id=skill.skill_id,
-        skill_name=skill_name or skill.skill_name,
+        skill_name=skill.skill_name,
+        skill_desc=skill.skill_desc,
+        is_active=skill.is_active,
     )
     skill = crud.skill.update(db, db_obj=skill, obj_in=skill_in)
     return skill
