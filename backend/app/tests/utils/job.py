@@ -1,4 +1,3 @@
-
 from sqlalchemy.orm import Session
 
 from app import crud, models
@@ -7,6 +6,7 @@ from app.tests.utils.utils import random_lower_string
 
 JOB_NAME_LENGTH = 50
 JOB_DESC_LENGTH = 255
+
 
 def create_random_job(db: Session) -> models.Job:
     job_name = random_lower_string(JOB_NAME_LENGTH)

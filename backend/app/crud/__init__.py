@@ -1,8 +1,8 @@
 from .crud_course import course
+from .crud_job import job
 from .crud_registration import registration
 from .crud_role import role
 from .crud_staff import staff
-from .crud_job import job
 
 # For a new basic set of CRUD operations you could just do
 

@@ -75,7 +75,7 @@ def update_job_by_id(
     job_id: int,
     job_name: str = Body(None),
     job_desc: str = Body(None),
-    is_active: bool = Body(None)
+    is_active: bool = Body(None),
 ) -> Any:
     """
     Update a job.
@@ -90,7 +90,7 @@ def update_job_by_id(
         job_id=job.job_id,
         job_name=job_name or job.job_name,
         job_desc=job_desc or job.job_desc,
-        is_active=is_active if is_active != None else job.is_active
+        is_active=is_active if is_active != None else job.is_active,
     )
     job = crud.job.update(db, db_obj=job, obj_in=job_in)
     return job
