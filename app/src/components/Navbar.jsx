@@ -10,7 +10,7 @@ function classNames(...classes) {
 function isCurrent(href) {
   const currentUrl = document.location.toString().split('/')
   const page = `/${  currentUrl[currentUrl.length - 1]}`;
-  if (page == href) {
+  if (page === href) { // TODO:
     return true;
   }
   return false;
