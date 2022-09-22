@@ -6,3 +6,6 @@ htmlcov
 .venv
 mysqlclient-*
 .env
+
+database-guide.sh
+fastapi-guide.sh
