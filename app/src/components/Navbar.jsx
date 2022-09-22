@@ -10,7 +10,7 @@ function classNames(...classes) {
 function isCurrent(href) {
   const currentUrl = document.location.toString().split('/')
   const page = `/${  currentUrl[currentUrl.length - 1]}`;
-  if (page === href) { // TODO:
+  if (page === href) {
     return true;
   }
   return false;
@@ -21,8 +21,8 @@ export default function Navbar() {
   const [pageNavigation, setPageNavigation] = useState([
     { name: 'Dashboard', href: '#' },
     { name: 'Skills', href: '#' },
-    { name: 'Courses', href: '#' },
-    { name: 'Job Roles', href: '/roles' }
+    { name: 'Courses', href: '/courses' },
+    { name: 'Job Roles', href: '/jobs' }
   ])
 
   const [userNavigation, setUserNavigation] = useState([
