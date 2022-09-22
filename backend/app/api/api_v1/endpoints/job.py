@@ -9,6 +9,7 @@ from app.core.config import settings
 
 router = APIRouter()
 
+
 @router.get("/all", response_model=List[schemas.Job])
 def get_all_job(
     db: Session = Depends(deps.get_db),
@@ -25,6 +26,7 @@ def get_all_job(
         )
     return jobs
 
+
 @router.get("/{job_id}", response_model=schemas.Job)
 def get_job_by_id(
     job_id: int,
@@ -40,6 +42,7 @@ def get_job_by_id(
             detail="Job not found",
         )
     return job
+
 
 @router.post("", response_model=schemas.Job)
 def create_job(
@@ -63,6 +66,7 @@ def create_job(
     )
     job = crud.job.create(db, obj_in=job_in)
     return job
+
 
 @router.put("/{job_id}", response_model=schemas.Job)
 def update_job_by_id(
@@ -91,6 +95,7 @@ def update_job_by_id(
     job = crud.job.update(db, db_obj=job, obj_in=job_in)
     return job
 
+
 @router.delete("/{job_id}", response_model=schemas.Job)
 def delete_job_by_id(
     *,
@@ -108,4 +113,3 @@ def delete_job_by_id(
         )
     job = crud.job.remove(db, job_id=job_id)
     return job
-    

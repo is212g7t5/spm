@@ -2,6 +2,7 @@ from typing import Optional
 
 from pydantic import BaseModel
 
+
 # Shared properties
 class JobBase(BaseModel):
     job_id: Optional[int]

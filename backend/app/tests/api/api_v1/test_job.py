@@ -51,8 +51,7 @@ def test_get_all_jobs(client: TestClient, db: Session) -> None:
 
 
 def test_create_job_no_desc(client: TestClient, db: Session) -> None:
-    data = {"job_name": "Foo",
-            "job_desc": None}
+    data = {"job_name": "Foo", "job_desc": None}
     response = client.post(
         f"{settings.API_V1_STR}/job",
         json=data,
@@ -64,9 +63,9 @@ def test_create_job_no_desc(client: TestClient, db: Session) -> None:
     assert content["is_active"] == True
     assert "job_id" in content
 
+
 def test_create_job_with_desc(client: TestClient, db: Session) -> None:
-    data = {"job_name": "Foo",
-            "job_desc": "Bar"}
+    data = {"job_name": "Foo", "job_desc": "Bar"}
     response = client.post(
         f"{settings.API_V1_STR}/job",
         json=data,
