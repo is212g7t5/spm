@@ -46,6 +46,7 @@ def get_role_by_id(
 
 @router.post("", response_model=schemas.Role)
 def create_role(
+    *,
     db: Session = Depends(deps.get_db),
     role_name: str = Body(None, embed=True),
 ) -> Any:

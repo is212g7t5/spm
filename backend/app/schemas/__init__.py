@@ -1,4 +1,5 @@
 from .course import Course, CourseCreate, CourseInDB, CourseUpdate
+from .job import Job, JobCreate, JobInDB, JobUpdate
 from .msg import Msg
 from .registration import (
     Registration,
