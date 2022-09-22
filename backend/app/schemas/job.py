@@ -4,33 +4,35 @@ from pydantic import BaseModel
 
 
 # Shared properties
-class RoleBase(BaseModel):
-    role_id: Optional[int]
-    role_name: str
+class JobBase(BaseModel):
+    job_id: Optional[int]
+    job_name: str
+    job_desc: Optional[str]
+    is_active: bool
 
 
 # Properties to receive via API on creation
-class RoleCreate(RoleBase):
+class JobCreate(JobBase):
     pass
 
 
 # Properties to receive via API on update
-class RoleUpdate(RoleBase):
+class JobUpdate(JobBase):
     pass
 
 
-class RoleInDBBase(RoleBase):
-    role_id: Optional[int] = None
+class JobInDBBase(JobBase):
+    job_id: Optional[int] = None
 
     class Config:
         orm_mode = True
 
 
 # Additional properties to return via API
-class Role(RoleInDBBase):
+class Job(JobInDBBase):
     pass
 
 
 # # Additional properties stored in DB
-class RoleInDB(RoleInDBBase):
+class JobInDB(JobInDBBase):
     pass
