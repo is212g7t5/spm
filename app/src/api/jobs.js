@@ -1,8 +1,5 @@
 import axios from "axios";
-
-const { REACT_APP_API_BASE_ENDPOINT } = process.env;
-
-const JOB_ENDPOINT = `${REACT_APP_API_BASE_ENDPOINT}/api/v1/jobs`;
+import { JOB_ENDPOINT } from "./config"
 
 export const getJobs = async () => {
   try {
