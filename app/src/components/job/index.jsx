@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getJobs } from "src/api/jobs";
+
 import JobTile from "./JobTile";
 
 function Job() {
@@ -7,23 +8,22 @@ function Job() {
 
   const renderJobList = () =>
     jobs.map((job, index) => (
-      <JobTile jobId={job.job_id} jobName={job.job_name} jobDesc={job.job_desc} id={index} />
+      <JobTile
+        key={index}
+        id={index}
+        jobId={job.job_id}
+        jobName={job.job_name}
+        jobDesc={job.job_desc}
+      />
     ));
 
   useEffect(() => {
-    const getAllJobs = async () => {
-      try {
-        const allJobs = await getJobs();
-        setJobs(allJobs.data);
-      } catch (err) {
-        if (err.response) {
-          if (err.response.status === 404) {
-            console.log("No jobs found!");
-          }
-        }
-      }
-    };
     getAllJobs();
+
+    async function getAllJobs() {
+      const jobsReturnedFromBackend = await getJobs();
+      setJobs(jobsReturnedFromBackend);
+    }
   }, []);
 
   return (

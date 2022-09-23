@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Courses from "./routes/courses";
 import Jobs from "./routes/jobs";
@@ -8,12 +8,19 @@ function App() {
   return (
     <Router>
       <Navbar />
-      <div className="bg-gray-100">
-        <Route exact path="/courses" component={Courses}/>
-        <Route exact path="/jobs" component={Jobs}/>
+      <div className='bg-gray-100'>
+        <Switch>
+          <Route exact path='/'>
+            Nothing to see here
+          </Route>
+          <Route path='/courses' component={Courses} />
+          <Route path='/jobs' component={Jobs} />
+          <Route path='/skills' component={Jobs} />
+          <Route path='/dashboard' component={Jobs} />
+        </Switch>
       </div>
     </Router>
   );
 }
 
-export default App
+export default App;
