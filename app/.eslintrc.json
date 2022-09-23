@@ -1,29 +1,40 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true,
-        "jest": true
-    },
-    "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended",
-        "airbnb",
-        "prettier"
-    ],
-    "overrides": [
-    ],
-    "parserOptions": {
-        "ecmaVersion": "latest",
-        "sourceType": "module"
-    },
-    "plugins": ["react", "react-hooks", "prettier"],
-    "rules": {
-        "react/react-in-jsx-scope": "off",
-        "react/prop-types": 0,
-        "no-unused-vars": "warn",
-        "camelcase": "error",
-        "spaced-comment": "error",
-        "quotes": ["error", "single"],
-        "no-duplicate-imports": "error"
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "jest": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:import/recommended",
+    "plugin:react/recommended",
+    "airbnb",
+    "prettier"
+  ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "moduleDirectory": ["node_modules", "."]
+      }
     }
+  },
+  "overrides": [],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": ["react", "react-hooks", "prettier"],
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": 0,
+    "react/no-array-index-key": "off",
+    "no-unused-vars": "warn",
+    "camelcase": "error",
+    "spaced-comment": "error",
+    "quotes": ["error", "double"],
+    "no-duplicate-imports": "error",
+    "no-use-before-define": "off",
+    "import/prefer-default-export": "off"
+  }
 }
