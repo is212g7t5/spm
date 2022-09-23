@@ -1,5 +1,5 @@
-import Job from '../../components/job';
-import SearchBar from '../../components/SearchBar';
+import Job from "../../components/job";
+import SearchBar from "../../components/SearchBar";
 
 export default function Jobs() {
     return (

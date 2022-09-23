@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import { ArrowRightIcon, ArrowDownIcon, BookOpenIcon } from '@heroicons/react/20/solid'
-import CourseDescription from './CourseDescription';
-import CourseStatusBadge from './CourseStatusBadge';
+import React, { useState } from "react"
+import { ArrowRightIcon, ArrowDownIcon, BookOpenIcon } from "@heroicons/react/20/solid"
+import CourseDescription from "./CourseDescription";
+import CourseStatusBadge from "./CourseStatusBadge";
 
 function CourseTile ({courseId, courseName, courseDesc, courseStatus}) {
   const [isDescOpen, setIsDescOpen] = useState(false);

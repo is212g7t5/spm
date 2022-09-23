@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import JobTile from './JobTile';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import JobTile from "./JobTile";
 
-const getJobsApi = 'http://localhost:8081/api/v1/job/all';
+const getJobsApi = "http://localhost:8081/api/v1/job/all";
 
 function Job() {
 
@@ -25,7 +25,7 @@ function Job() {
             } catch (err) {
                 if (err.response) {
                     if (err.response.status === 404) {
-                        console.log('No jobs found!')
+                        console.log("No jobs found!")
                     }
                 }
             }
@@ -36,7 +36,7 @@ function Job() {
     return (
         <div className="flex flex-col container w-11/12 max-w-7xl mt-10 bg-white p-10 mx-auto w-full rounded-lg shadow-lg shadow-blue-200">
             <h1 className="text-3xl text-left font-bold">View All Job Roles</h1>
-            {jobs.length === 0 ? 'No Jobs Found' : renderJobList()}
+            {jobs.length === 0 ? "No Jobs Found" : renderJobList()}
         </div>
     );
 };

@@ -1,34 +1,34 @@
-import React, { Fragment, useState } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import { PlusIcon } from '@heroicons/react/20/solid'
+import React, { Fragment, useState } from "react"
+import { Disclosure, Menu, Transition } from "@headlessui/react"
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline"
+import { PlusIcon } from "@heroicons/react/20/solid"
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ")
 }
 
 function isCurrent(href) {
-  const currentUrl = document.location.toString().split('/')
+  const currentUrl = document.location.toString().split("/")
   const page = `/${  currentUrl[currentUrl.length - 1]}`;
   if (page === href) {
     return true;
-  }
+  } 
   return false;
 }
 
 export default function Navbar() {
 
   const [pageNavigation, setPageNavigation] = useState([
-    { name: 'Dashboard', href: '#' },
-    { name: 'Skills', href: '#' },
-    { name: 'Courses', href: '/courses' },
-    { name: 'Job Roles', href: '/jobs' }
+    { name: "Dashboard", href: "#" },
+    { name: "Skills", href: "#" },
+    { name: "Courses", href: "/courses" },
+    { name: "Job Roles", href: "/jobs" }
   ])
 
   const [userNavigation, setUserNavigation] = useState([
-    { name: 'Your Learning Journeys', href: '#' },
-    { name: 'Settings', href: '#' },
-    { name: 'Sign out', href: '#' }
+    { name: "Your Learning Journeys", href: "#" },
+    { name: "Settings", href: "#" },
+    { name: "Sign out", href: "#" }
   ])
 
   const renderNavbarItems = () => pageNavigation.map((item) => (
@@ -36,10 +36,10 @@ export default function Navbar() {
         key={item.name}
         href={item.href}
         className={classNames(
-          isCurrent(item.href) ? 'bg-cyan-900 text-white' : 'text-gray-300 hover:bg-cyan-700 hover:text-white',
-          'px-3 py-2 rounded-md text-sm font-medium'
+          isCurrent(item.href) ? "bg-cyan-900 text-white" : "text-gray-300 hover:bg-cyan-700 hover:text-white",
+          "px-3 py-2 rounded-md text-sm font-medium"
         )}
-        aria-current={item.current ? 'page' : undefined}
+        aria-current={item.current ? "page" : undefined}
       >
         {item.name}
       </a>
@@ -51,10 +51,10 @@ export default function Navbar() {
         as="a"
         href={item.href}
         className={classNames(
-          isCurrent(item.href) ? 'bg-cyan-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-          'block px-3 py-2 rounded-md text-base font-medium'
+          isCurrent(item.href) ? "bg-cyan-900 text-white" : "text-gray-300 hover:bg-gray-700 hover:text-white",
+          "block px-3 py-2 rounded-md text-base font-medium"
         )}
-        aria-current={isCurrent(item.href) ? 'page' : undefined}
+        aria-current={isCurrent(item.href) ? "page" : undefined}
       >
         {item.name}
       </Disclosure.Button>
@@ -66,8 +66,8 @@ export default function Navbar() {
           <a
             href={item.href}
             className={classNames(
-              active ? 'bg-gray-100' : '',
-              'block px-4 py-2 text-sm text-gray-700'
+              active ? "bg-gray-100" : "",
+              "block px-4 py-2 text-sm text-gray-700"
             )}
           >
             {item.name}

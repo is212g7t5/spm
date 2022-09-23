@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { ChevronDownIcon, ChevronRightIcon, BriefcaseIcon } from '@heroicons/react/20/solid'
+import React, { useState } from "react"
+import { ChevronDownIcon, ChevronRightIcon, BriefcaseIcon } from "@heroicons/react/20/solid"
 
 function JobTile({ jobId, jobName, jobDesc }) {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
@@ -37,7 +37,7 @@ function JobTile({ jobId, jobName, jobDesc }) {
           </div>
         </li>
       </ul>
-      {isDetailsOpen ? 'Details Open!!!' : null}
+      {isDetailsOpen ? "Details Open!!!" : null}
     </div>
   );
 };

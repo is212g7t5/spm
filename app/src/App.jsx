@@ -1,8 +1,8 @@
-import { BrowserRouter as Router, Route} from 'react-router-dom';
-import './App.css';
-import Courses from './routes/courses';
-import Jobs from './routes/jobs';
-import Navbar from './components/Navbar';
+import { BrowserRouter as Router, Route} from "react-router-dom";
+import "./App.css";
+import Courses from "./routes/courses";
+import Jobs from "./routes/jobs";
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
