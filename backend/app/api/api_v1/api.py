@@ -1,6 +1,13 @@
 from fastapi import APIRouter
 
-from app.api.api_v1.endpoints import course, job, registration, role, staff, job_skill # login,
+from app.api.api_v1.endpoints import (  # login,
+    course,
+    job,
+    job_skill,
+    registration,
+    role,
+    staff,
+)
 
 api_router = APIRouter()
 

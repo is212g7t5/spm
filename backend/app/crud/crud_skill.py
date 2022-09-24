@@ -6,17 +6,18 @@ from app.crud.base import CRUDBase
 from app.models.skill import Skill
 from app.schemas.skill import SkillCreate, SkillUpdate
 
+
 class CRUDSkill(CRUDBase[Skill, SkillCreate, SkillUpdate]):
     def get(self, db: Session, skill_id: Any) -> Skill:
         return db.query(self.model).filter(self.model.skill_id == skill_id).first()
 
     def create(self, db: Session, *, obj_in: SkillCreate) -> Skill:
         db_obj = Skill(
-            skill_id = obj_in.skill_id,
-            course_id = obj_in.course_id,
-            skill_name = obj_in.skill_name,
-            skill_desc = obj_in.skill_desc,
-            is_active = obj_in.is_active,
+            skill_id=obj_in.skill_id,
+            course_id=obj_in.course_id,
+            skill_name=obj_in.skill_name,
+            skill_desc=obj_in.skill_desc,
+            is_active=obj_in.is_active,
         )
         db.add(db_obj)
         db.commit()

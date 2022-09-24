@@ -1,9 +1,9 @@
 from sqlalchemy.orm import Session
 
 from app import crud
-from app.schemas.job_skill import JobSkillCreate #, JobSkillUpdate
-from app.tests.utils.job_skill import create_random_job_skill
+from app.schemas.job_skill import JobSkillCreate  # , JobSkillUpdate
 from app.tests.utils.job import create_random_job
+from app.tests.utils.job_skill import create_random_job_skill
 from app.tests.utils.skill import create_random_skill
 
 
@@ -42,9 +42,12 @@ def test_get_by_job_id(db: Session) -> None:
 
 def test_delete_job_skill(db: Session) -> None:
     job_skill = create_random_job_skill(db)
-    job_skill2 = crud.job_skill.remove(db=db, job_id=job_skill.job_id, skill_id=job_skill.skill_id)
-    job_skill3 = crud.job_skill.get(db=db, job_id=job_skill.job_id, skill_id=job_skill.skill_id)
+    job_skill2 = crud.job_skill.remove(
+        db=db, job_id=job_skill.job_id, skill_id=job_skill.skill_id
+    )
+    job_skill3 = crud.job_skill.get(
+        db=db, job_id=job_skill.job_id, skill_id=job_skill.skill_id
+    )
     assert job_skill3 is None
     assert job_skill2.job_id == job_skill.job_id
     assert job_skill2.skill_id == job_skill.skill_id
-

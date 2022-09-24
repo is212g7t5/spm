@@ -5,7 +5,6 @@ from sqlalchemy.orm import Session
 
 from app import crud, schemas
 from app.api import deps
-from app.core.config import settings
 
 router = APIRouter()
 
@@ -16,7 +15,7 @@ def get_all_job_skill(
     skip: int = 0,
 ) -> Any:
     """
-    Retrieve all job and their assigned skills. 
+    Retrieve all job and their assigned skills.
     One row -> one job id, one skill id
     """
     job_skill = crud.job_skill.get_multi(db, skip=skip)
@@ -28,8 +27,8 @@ def get_all_job_skill(
     return job_skill
 
 
-@router.get("/{job_id}", response_model=schemas.JobSkill)
-def get_job_skill_by_id(
+@router.get("/jobs/{job_id}", response_model=schemas.JobSkill)
+def get_job_skill_by_job_id(
     job_id: int,
     db: Session = Depends(deps.get_db),
 ) -> Any:
@@ -41,6 +40,23 @@ def get_job_skill_by_id(
         raise HTTPException(
             status_code=404,
             detail="Skills under this job not found",
+        )
+    return job_skill
+
+
+@router.get("/skills/{skill_id}", response_model=schemas.JobSkill)
+def get_job_skill_by_skill_id(
+    skill_id: int,
+    db: Session = Depends(deps.get_db),
+) -> Any:
+    """
+    Retrieve a specific job with their skills.
+    """
+    job_skill = crud.job_skill.get_by_skill_id(db, skill_id=skill_id)
+    if not job_skill:
+        raise HTTPException(
+            status_code=404,
+            detail="Jobs under this skill not found",
         )
     return job_skill
 
@@ -61,7 +77,7 @@ def create_job_skill(
             status_code=401, detail="Job has been assigned this skill in database"
         )
     job_skill_in = schemas.JobSkillCreate(
-        job_id=job_id, 
+        job_id=job_id,
         skill_id=skill_id,
     )
     job_skill = crud.job_skill.create(db, obj_in=job_skill_in)
@@ -72,7 +88,7 @@ def create_job_skill(
 # def update_job_skill_by_id(
 #     *,
 #     db: Session = Depends(deps.get_db),
-#     job_id: int, 
+#     job_id: int,
 #     skill_id: int,
 # ) -> Any:
 #     """
@@ -96,7 +112,7 @@ def create_job_skill(
 def delete_job_skill_by_id(
     *,
     db: Session = Depends(deps.get_db),
-    job_id: int, 
+    job_id: int,
     skill_id: int,
 ) -> Any:
     """
