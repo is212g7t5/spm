@@ -68,7 +68,7 @@ def update_skill_by_id(
     skill_id: int,
     skill_name: str = Body(None),
     skill_desc: str = Body(None),
-    is_active: bool,
+    is_active: bool = Body(None),
 ) -> Any:
     """
     Update a skill.
