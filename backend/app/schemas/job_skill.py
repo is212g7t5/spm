@@ -5,8 +5,8 @@ from pydantic import BaseModel
 
 # Shared properties
 class JobSkillBase(BaseModel):
-    job_id: int
-    skill_id: int
+    job_id: Optional[int]
+    skill_id: Optional[int]
 
 
 # Properties to receive via API on creation

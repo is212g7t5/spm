@@ -4,6 +4,7 @@ from .crud_registration import registration
 from .crud_role import role
 from .crud_staff import staff
 from .crud_job_skill import job_skill
+from .crud_skill import skill
 
 # For a new basic set of CRUD operations you could just do
 
