@@ -15,11 +15,39 @@ class CRUDSkillCourse(CRUDBase[Skill_Course, SkillCourseCreate, SkillCourseUpdat
             .first()
         )
 
-    def get_by_skill_id(self, db: Session, skill_id: Any) -> Skill_Course:
-        return db.query(self.model).filter(self.model.skill_id == skill_id).first()
+    def get_by_skill_id(
+        self,
+        db: Session,
+        *,
+        skill_id: Any,
+        skip: int = 0,
+        limit: int = 100,
+        active_only: bool = False
+    ) -> Skill_Course:
+        return (
+            db.query(self.model)
+            .filter(self.model.skill_id == skill_id)
+            .offset(skip)
+            .limit(limit)
+            .all()
+        )
 
-    def get_by_course_id(self, db: Session, course_id: Any) -> Skill_Course:
-        return db.query(self.model).filter(self.model.course_id == course_id).first()
+    def get_by_course_id(
+        self,
+        db: Session,
+        *,
+        course_id: Any,
+        skip: int = 0,
+        limit: int = 100,
+        active_only: bool = False
+    ) -> Skill_Course:
+        return (
+            db.query(self.model)
+            .filter(self.model.course_id == course_id)
+            .offset(skip)
+            .limit(limit)
+            .all()
+        )
 
     def create(self, db: Session, *, obj_in: SkillCourseCreate) -> Skill_Course:
         db_obj = Skill_Course(

@@ -27,15 +27,14 @@ def get_all_skill_course(
     return skill_course
 
 
-@router.get("/skills/{skill_id}", response_model=schemas.SkillCourse)
+@router.get("/skills/{skill_id}", response_model=List[schemas.SkillCourse])
 def get_skill_course_by_skill_id(
-    skill_id: int,
-    db: Session = Depends(deps.get_db),
+    skill_id: int, db: Session = Depends(deps.get_db), skip: int = 0
 ) -> Any:
     """
     Retrieve a specific skill with their courses.
     """
-    skill_course = crud.skill_course.get_by_skill_id(db, skill_id=skill_id)
+    skill_course = crud.skill_course.get_by_skill_id(db, skill_id=skill_id, skip=skip)
     if not skill_course:
         raise HTTPException(
             status_code=404,
@@ -44,15 +43,16 @@ def get_skill_course_by_skill_id(
     return skill_course
 
 
-@router.get("/courses/{course_id}", response_model=schemas.SkillCourse)
+@router.get("/courses/{course_id}", response_model=List[schemas.SkillCourse])
 def get_skill_course_by_course_id(
-    course_id: str,
-    db: Session = Depends(deps.get_db),
+    course_id: str, db: Session = Depends(deps.get_db), skip: int = 0
 ) -> Any:
     """
     Retrieve a specific course with their skills.
     """
-    skill_course = crud.skill_course.get_by_course_id(db, course_id=course_id)
+    skill_course = crud.skill_course.get_by_course_id(
+        db, course_id=course_id, skip=skip
+    )
     if not skill_course:
         raise HTTPException(
             status_code=404,

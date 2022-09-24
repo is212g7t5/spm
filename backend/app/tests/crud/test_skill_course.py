@@ -20,20 +20,10 @@ def test_create_skill_course(db: Session) -> None:
     assert skill_course.course_id == course_id
 
 
-def test_get_by_skill_id(db: Session) -> None:
+def test_get_skill_course(db: Session) -> None:
     skill_course = create_random_skill_course(db)
-    stored_skill_course = crud.skill_course.get_by_skill_id(
-        db=db, skill_id=skill_course.skill_id
-    )
-    assert stored_skill_course
-    assert skill_course.skill_id == stored_skill_course.skill_id
-    assert skill_course.course_id == stored_skill_course.course_id
-
-
-def test_get_by_course_id(db: Session) -> None:
-    skill_course = create_random_skill_course(db)
-    stored_skill_course = crud.skill_course.get_by_course_id(
-        db=db, course_id=skill_course.course_id
+    stored_skill_course = crud.skill_course.get(
+        db=db, skill_id=skill_course.skill_id, course_id=skill_course.course_id
     )
     assert stored_skill_course
     assert skill_course.skill_id == stored_skill_course.skill_id
