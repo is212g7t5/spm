@@ -23,7 +23,13 @@ def test_get_job_skill_by_job_id(client: TestClient, db: Session) -> None:
     )
     assert response.status_code == 200
     content = response.json()
-    assert content["job_id"] == job_skill.job_id
+
+    is_job_skill_in_response = False
+    for obj in content:
+        if obj["job_id"] == job_skill.job_id:
+            is_job_skill_in_response = True
+            break
+    assert is_job_skill_in_response
 
 
 def test_get_job_skill_by_skill_id(client: TestClient, db: Session) -> None:
@@ -33,7 +39,13 @@ def test_get_job_skill_by_skill_id(client: TestClient, db: Session) -> None:
     )
     assert response.status_code == 200
     content = response.json()
-    assert content["skill_id"] == job_skill.skill_id
+
+    is_job_skill_in_response = False
+    for obj in content:
+        if obj["skill_id"] == job_skill.skill_id:
+            is_job_skill_in_response = True
+            break
+    assert is_job_skill_in_response
 
 
 def test_get_job_skill_by_job_id_non_existent(client: TestClient, db: Session) -> None:

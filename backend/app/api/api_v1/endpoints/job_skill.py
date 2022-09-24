@@ -27,15 +27,14 @@ def get_all_job_skill(
     return job_skill
 
 
-@router.get("/jobs/{job_id}", response_model=schemas.JobSkill)
+@router.get("/jobs/{job_id}", response_model=List[schemas.JobSkill])
 def get_job_skill_by_job_id(
-    job_id: int,
-    db: Session = Depends(deps.get_db),
+    job_id: int, db: Session = Depends(deps.get_db), skip: int = 0
 ) -> Any:
     """
     Retrieve a specific job with their skills.
     """
-    job_skill = crud.job_skill.get_by_job_id(db, job_id=job_id)
+    job_skill = crud.job_skill.get_by_job_id(db, job_id=job_id, skip=skip)
     if not job_skill:
         raise HTTPException(
             status_code=404,
@@ -44,15 +43,14 @@ def get_job_skill_by_job_id(
     return job_skill
 
 
-@router.get("/skills/{skill_id}", response_model=schemas.JobSkill)
+@router.get("/skills/{skill_id}", response_model=List[schemas.JobSkill])
 def get_job_skill_by_skill_id(
-    skill_id: int,
-    db: Session = Depends(deps.get_db),
+    skill_id: int, db: Session = Depends(deps.get_db), skip: int = 0
 ) -> Any:
     """
     Retrieve a specific job with their skills.
     """
-    job_skill = crud.job_skill.get_by_skill_id(db, skill_id=skill_id)
+    job_skill = crud.job_skill.get_by_skill_id(db, skill_id=skill_id, skip=skip)
     if not job_skill:
         raise HTTPException(
             status_code=404,

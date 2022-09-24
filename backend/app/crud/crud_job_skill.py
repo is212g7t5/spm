@@ -15,11 +15,39 @@ class CRUDJobSkill(CRUDBase[Job_Skill, JobSkillCreate, JobSkillUpdate]):
             .first()
         )
 
-    def get_by_job_id(self, db: Session, job_id: Any) -> Job_Skill:
-        return db.query(self.model).filter(self.model.job_id == job_id).first()
+    def get_by_job_id(
+        self,
+        db: Session,
+        *,
+        job_id: Any,
+        skip: int = 0,
+        limit: int = 100,
+        active_only: bool = False
+    ) -> Job_Skill:
+        return (
+            db.query(self.model)
+            .filter(self.model.job_id == job_id)
+            .offset(skip)
+            .limit(limit)
+            .all()
+        )
 
-    def get_by_skill_id(self, db: Session, skill_id: Any) -> Job_Skill:
-        return db.query(self.model).filter(self.model.skill_id == skill_id).first()
+    def get_by_skill_id(
+        self,
+        db: Session,
+        *,
+        skill_id: Any,
+        skip: int = 0,
+        limit: int = 100,
+        active_only: bool = False
+    ) -> Job_Skill:
+        return (
+            db.query(self.model)
+            .filter(self.model.skill_id == skill_id)
+            .offset(skip)
+            .limit(limit)
+            .all()
+        )
 
     def create(self, db: Session, *, obj_in: JobSkillCreate) -> Job_Skill:
         db_obj = Job_Skill(

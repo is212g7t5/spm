@@ -20,9 +20,11 @@ def test_create_job_skill(db: Session) -> None:
     assert job_skill.skill_id == skill_id
 
 
-def test_get_by_job_id(db: Session) -> None:
+def test_get_job_skill(db: Session) -> None:
     job_skill = create_random_job_skill(db)
-    stored_job = crud.job_skill.get_by_job_id(db=db, job_id=job_skill.job_id)
+    stored_job = crud.job_skill.get(
+        db=db, job_id=job_skill.job_id, skill_id=job_skill.skill_id
+    )
     assert stored_job
     assert job_skill.job_id == stored_job.job_id
     assert job_skill.skill_id == stored_job.skill_id
