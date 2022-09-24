@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `job_skill` (
     `Skill_ID` int NOT NULL,
     primary key (`Job_ID`, `Skill_ID`),
     FOREIGN KEY `FK1_job_skill` (`Job_ID`) REFERENCES job(`Job_ID`),
-    FOREIGN KEY `FK1_skill_job` (`Skill_ID`) REFERENCES skill(`Skill_ID`)
+    FOREIGN KEY `FK2_job_skill` (`Skill_ID`) REFERENCES skill(`Skill_ID`)
 ) DEFAULT CHARSET=utf8;
 """
 
