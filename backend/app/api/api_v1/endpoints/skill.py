@@ -38,10 +38,9 @@ def get_skill_by_id(
 def create_skill(
     *,
     db: Session = Depends(deps.get_db),
-    skill_id: int,
     skill_name: str = Body(...),
     skill_desc: str = Body(...),
-    is_active: bool,
+    is_active: bool = Body(...),
 ) -> Any:
     """
     Create new skill.
