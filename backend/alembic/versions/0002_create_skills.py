@@ -17,10 +17,12 @@ depends_on = None
 UPGRADE_SQL = """
 CREATE TABLE IF NOT EXISTS `skill` (
     `Skill_ID` int NOT NULL AUTO_INCREMENT,
+    `Course_ID` varchar(20) NOT NULL,
     `Skill_Name` varchar(50) NOT NULL,
     `Skill_Desc` varchar(255),
     `Is_Active` boolean,
     PRIMARY KEY (`Skill_ID`),
+    FOREIGN KEY `FK1_role_skill` (`Course_ID`) REFERENCES course(`Course_ID`)
 ) DEFAULT CHARSET=utf8;
 """
 
