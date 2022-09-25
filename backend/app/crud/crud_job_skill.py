@@ -65,18 +65,5 @@ class CRUDJobSkill(CRUDBase[Job_Skill, JobSkillCreate, JobSkillUpdate]):
         db.commit()
         return obj
 
-    # def update(
-    #     self,
-    #     db: Session,
-    #     *,
-    #     db_obj: Job_Skill,
-    #     obj_in: Union[JobSkillUpdate, Dict[str, Any]],
-    # ) -> Job_Skill:
-    #     if isinstance(obj_in, dict):
-    #         update_data = obj_in
-    #     else:
-    #         update_data = obj_in.dict(exclude_unset=True)
-    #     return super().update(db, db_obj=db_obj, obj_in=update_data)
-
 
 job_skill = CRUDJobSkill(Job_Skill)

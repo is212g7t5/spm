@@ -122,29 +122,3 @@ def test_delete_job_skill_by_id_non_existent(client: TestClient, db: Session) ->
     assert response.status_code == 404
     content = response.json()
     assert content["detail"] == "Combination of job and skill not found"
-
-
-# def test_update_job_skill_by_id(client: TestClient, db: Session) -> None:
-#     job_skill = create_random_job_skill(db)
-#     data = {"job_id": 123, "skill_id": 456}
-#     assert job_skill.job_id != job_skill["job_id"]
-#     assert job_skill.skill_id != job_skill["skill_id"]
-#     response = client.put(
-#         f"{settings.API_V1_STR}/job_skill/{job_skill.job_id}&{job_skill.skill_id}",
-#         json=data,
-#     )
-#     assert response.status_code == 200
-#     content = response.json()
-#     assert content["job_id"] == job_skill.job_id
-#     assert content["skill_id"] == data["skill_id"]
-
-
-# def test_update_job_skill_by_id_non_existent(client: TestClient, db: Session) -> None:
-#     data = {"job_id": 123, "skill_id": 456}
-#     response = client.put(
-#         f"{settings.API_V1_STR}/job_skill/999999",
-#         json=data,
-#     )
-#     assert response.status_code == 404
-#     content = response.json()
-#     assert content["detail"] == "Job and its skills not found"
