@@ -1,5 +1,6 @@
 import random
 import string
+from xmlrpc.client import boolean
 
 
 def random_lower_string(length) -> str:
@@ -8,6 +9,16 @@ def random_lower_string(length) -> str:
 
 def random_email() -> str:
     return f"{random_lower_string()}@{random_lower_string()}.com"
+
+
+def random_numbers(length) -> int:
+    min = pow(10, length - 1)
+    max = pow(10, length) - 1
+    return random.randint(min, max)
+
+
+def random_boolean() -> boolean:
+    return random.getrandbits(1)
 
 
 # def get_superuser_token_headers(client: TestClient) -> Dict[str, str]:
