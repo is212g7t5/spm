@@ -15,15 +15,15 @@ depends_on = None
 
 
 UPGRADE_SQL = """
-ALTER TABLE IF NOT EXISTS `skill` (
-    DROP COLUMN `Course_ID`;
-)
+ALTER TABLE IF NOT EXISTS `skill`
+DROP COLUMN `Course_ID`;
+
 """
 
 DOWNGRADE_SQL = """
 ALTER TABLE `skill`
-ADD CONSTRAINT `Course_ID`
-FOREIGN KEY `FK1_role_skill` (`Course_ID`) REFERENCES course(`Course_ID`);
+ADD `Course_ID` varchar(20) NOT NULL,
+FOREIGN KEY `FK1_skill_course` (`Course_ID`) REFERENCES course(`Course_ID`);
 """
 
 
