@@ -15,8 +15,7 @@ depends_on = None
 
 
 UPGRADE_SQL = """
-ALTER TABLE IF NOT EXISTS `skill`
-DROP COLUMN `Course_ID`;
+ALTER TABLE `skill` DROP COLUMN IF EXISTS `Course_ID`;
 """
 
 DOWNGRADE_SQL = """
