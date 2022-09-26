@@ -10,5 +10,6 @@ from .registration import (
 )
 from .role import Role, RoleCreate, RoleInDB, RoleUpdate
 from .skill import Skill, SkillCreate, SkillInDB, SkillUpdate
+from .skill_course import SkillCourse, SkillCourseCreate, SkillCourseInDBBase
 from .staff import Staff, StaffCreate, StaffInDB, StaffUpdate
 from .token import Token, TokenPayload
