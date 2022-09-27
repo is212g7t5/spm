@@ -17,7 +17,7 @@ depends_on = None
 UPGRADE_SQL = """
 ALTER TABLE `skill`
 DROP FOREIGN KEY `FK1_role_skill`,
-DROP COLUMN 'Course_ID`;
+DROP COLUMN `Course_ID`;
 """
 
 DOWNGRADE_SQL = """
