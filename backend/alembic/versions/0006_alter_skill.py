@@ -1,4 +1,4 @@
-"""Init database
+"""Alter Skill Drop Foreign Key
 
 Revision ID: 0006
 Revises: 0005
@@ -16,14 +16,14 @@ depends_on = None
 
 UPGRADE_SQL = """
 ALTER TABLE `skill`
-DROP FOREIGN KEY `FK1_role_skill`,
+DROP FOREIGN KEY `skill_ibfk_1`,
 DROP COLUMN `Course_ID`;
 """
 
 DOWNGRADE_SQL = """
 ALTER TABLE `skill`
 ADD `Course_ID` varchar(20) NOT NULL,
-ADD FOREIGN KEY `FK1_skill_course` (`Course_ID`) REFERENCES course(`Course_ID`);
+ADD FOREIGN KEY `FK1_role_skill` (`Course_ID`) REFERENCES course(`Course_ID`);
 """
 
 
