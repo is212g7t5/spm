@@ -1,6 +1,6 @@
 # Description
 <!-- Please add link to Jira Ticket here -->
-Fixes [Jira ticket](https://is212g7t5.atlassian.net/jira/software/c/projects/G7T5/boards/4/backlog?view=detail&selectedIssue=G7T5-21&issueLimit=100)
+Fixes [Jira ticket #]()
 <!-- Add Screenshots if there are changes or additions in frontend components -->
 ## Type of change
 
