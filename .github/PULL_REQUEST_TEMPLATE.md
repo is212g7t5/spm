@@ -1,38 +1,28 @@
 # Description
-
-Please include a summary of the change and which issue is fixed. Please also include relevant motivation and context. List any dependencies that are required for this change.
-
-Fixes # (issue)
-
+<!-- Please add link to Jira Ticket here -->
+Fixes [Jira ticket](https://is212g7t5.atlassian.net/jira/software/c/projects/G7T5/boards/4/backlog?view=detail&selectedIssue=G7T5-21&issueLimit=100)
+<!-- Add Screenshots if there are changes or additions in frontend components -->
 ## Type of change
 
 Please delete options that are not relevant.
 
 - [ ] Bug fix (non-breaking change which fixes an issue)
 - [ ] New feature (non-breaking change which adds functionality)
-- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
-- [ ] This change requires a documentation update
+- [ ] Refactor
+- [ ] Migration
 
 # How Has This Been Tested?
+- [ ] I have added the corresponding testcases into the [testcase document](https://docs.google.com/spreadsheets/d/1QOyUN_kFN0fddLkjAQz2DK3jou3cWdN9CJsNbl3v0Kg/edit#gid=0)
 
-Please describe the tests that you ran to verify your changes. Provide instructions so we can reproduce. Please also list any relevant details for your test configuration
+Please indicate the testcase ID you have added or are using
 
-- [ ] Test A
-- [ ] Test B
-
-**Test Configuration**:
-* Firmware version:
-* Hardware:
-* Toolchain:
-* SDK:
+- [ ] G7T5-1-1
+- [ ] G7T5-1-2
 
 # Checklist:
 
+- [ ] I have added the appropriate labels to my PR
 - [ ] My code follows the style guidelines of this project
-- [ ] I have performed a self-review of my own code
-- [ ] I have commented my code, particularly in hard-to-understand areas
-- [ ] I have made corresponding changes to the documentation
 - [ ] My changes generate no new warnings
 - [ ] I have added tests that prove my fix is effective or that my feature works
 - [ ] New and existing unit tests pass locally with my changes
-- [ ] Any dependent changes have been merged and published in downstream modules
