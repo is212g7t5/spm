@@ -15,13 +15,15 @@ depends_on = None
 
 
 UPGRADE_SQL = """
-ALTER TABLE `skill` DROP COLUMN `Course_ID`;
+ALTER TABLE `skill`
+DROP FOREIGN KEY `FK1_role_skill`,
+DROP COLUMN 'Course_ID`;
 """
 
 DOWNGRADE_SQL = """
 ALTER TABLE `skill`
 ADD `Course_ID` varchar(20) NOT NULL,
-FOREIGN KEY `FK1_skill_course` (`Course_ID`) REFERENCES course(`Course_ID`);
+ADD FOREIGN KEY `FK1_skill_course` (`Course_ID`) REFERENCES course(`Course_ID`);
 """
 
 
