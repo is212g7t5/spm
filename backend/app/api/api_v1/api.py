@@ -3,9 +3,11 @@ from fastapi import APIRouter
 from app.api.api_v1.endpoints import (  # login,
     course,
     job,
+    job_skill,
     registration,
     role,
     skill,
+    skill_course,
     staff,
 )
 
@@ -26,3 +28,7 @@ api_router.include_router(
 )
 api_router.include_router(skill.router, prefix="/skill", tags=["skill"])
 api_router.include_router(job.router, prefix="/job", tags=["job"])
+api_router.include_router(job_skill.router, prefix="/job_skill", tags=["job_skill"])
+api_router.include_router(
+    skill_course.router, prefix="/skill_course", tags=["skill_course"]
+)
