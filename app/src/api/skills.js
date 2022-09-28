@@ -13,7 +13,7 @@ export const getSkills = async () => {
     if (res) {
       return res.data;
     }
-    throw res.error;
+    throw new Error("No data returned from backend");
   } catch (error) {
     console.log(error);
     return [];
@@ -27,7 +27,7 @@ export const getSkillsByJobRole = async () => {
     if (res) {
       return res.data;
     }
-    throw res.error;
+    throw new Error("No data returned from backend");
   } catch (error) {
     console.log(error);
     return [];

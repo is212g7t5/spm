@@ -13,7 +13,7 @@ export const getLearningJourney = async () => {
     if (res) {
       return res.data;
     }
-    throw res.error;
+    throw new Error("No data returned from backend");
   } catch (error) {
     console.log(error);
     return [];
@@ -26,7 +26,7 @@ export const createLearningJourneyWithJobId = async () => {
     if (res) {
       return res.data;
     }
-    throw res.error;
+    throw new Error("No data returned from backend");
   } catch (error) {
     console.log(error);
     return [];
