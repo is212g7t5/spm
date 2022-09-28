@@ -19,6 +19,11 @@ def get_all_skill(
     Retrieve all skills.
     """
     skills = crud.skill.get_multi(db, skip=skip)
+    if not skills:
+        raise HTTPException(
+            status_code=404,
+            detail="Skills not found",
+        )
     return skills
 
 
@@ -31,6 +36,11 @@ def get_skill_by_id(
     Get a specific skill by id.
     """
     skill = crud.skill.get(db, skill_id=skill_id)
+    if not skill:
+        raise HTTPException(
+            status_code=404,
+            detail="Skill not found",
+        )
     return skill
 
 
@@ -39,8 +49,7 @@ def create_skill(
     *,
     db: Session = Depends(deps.get_db),
     skill_name: str = Body(...),
-    skill_desc: str = Body(...),
-    is_active: bool = Body(...),
+    skill_desc: str = Body(None),
 ) -> Any:
     """
     Create new skill.
@@ -51,10 +60,9 @@ def create_skill(
             detail="Open staff registration is forbidden on this server",
         )
     skill_in = schemas.SkillCreate(
-        skill_id=skill_id,
         skill_name=skill_name,
         skill_desc=skill_desc,
-        is_active=is_active,
+        is_active=True,
     )
     skill = crud.skill.create(db, obj_in=skill_in)
     return skill
@@ -80,9 +88,9 @@ def update_skill_by_id(
         )
     skill_in = schemas.SkillCreate(
         skill_id=skill.skill_id,
-        skill_name=skill.skill_name,
-        skill_desc=skill.skill_desc,
-        is_active=skill.is_active,
+        skill_name=skill_name or skill.skill_name,
+        skill_desc=skill_desc or skill.skill_desc,
+        is_active=is_active if is_active != None else skill.is_active,
     )
     skill = crud.skill.update(db, db_obj=skill, obj_in=skill_in)
     return skill

@@ -7,7 +7,7 @@ from pydantic import BaseModel
 class SkillBase(BaseModel):
     skill_id: Optional[int]
     skill_name: str
-    skill_desc: str
+    skill_desc: Optional[str]
     is_active: bool
 
 
