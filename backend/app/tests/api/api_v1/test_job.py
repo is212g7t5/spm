@@ -1,14 +1,8 @@
-from sqlite3 import Cursor
-from urllib import response
 from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
 
 from app.core.config import settings
-
-from app.schemas.job_skill import JobSkillCreate
-
 from app.tests.utils.job import create_random_job
-from app.tests.utils.skill import create_random_skill
 from app.tests.utils.job_skill import add_skill_to_job, create_random_job_skill
 
 
@@ -70,7 +64,10 @@ def test_get_all_jobs(client: TestClient, db: Session) -> None:
             break
     assert is_job_in_response
 
-def test_get_all_jobs_and_skills_one_job_one_skill(client: TestClient, db: Session) -> None:
+
+def test_get_all_jobs_and_skills_one_job_one_skill(
+    client: TestClient, db: Session
+) -> None:
     job_skill_instance = create_random_job_skill(db)
 
     response = client.get(
@@ -80,7 +77,7 @@ def test_get_all_jobs_and_skills_one_job_one_skill(client: TestClient, db: Sessi
     assert response.status_code == 200
     assert len(response.json()) == 3
     content = response.json()
-    
+
     is_job_skill_in_response = False
     for obj in content:
         if obj["job_id"] == job_skill_instance.job_id:
@@ -95,9 +92,14 @@ def test_get_all_jobs_and_skills_one_job_one_skill(client: TestClient, db: Sessi
             break
     assert is_job_skill_in_response
 
-def test_get_all_jobs_and_skills_one_job_many_skills(client: TestClient, db:Session) -> None:
+
+def test_get_all_jobs_and_skills_one_job_many_skills(
+    client: TestClient, db: Session
+) -> None:
     job_skill_instance = create_random_job_skill(db)
-    extra_skills = add_skill_to_job(db, job_skill_instance.job, 2) # total of 3 skills to job
+    extra_skills = add_skill_to_job(
+        db, job_skill_instance.job, 2
+    )  # total of 3 skills to job
     extra_skills.append(job_skill_instance.skill)
 
     response = client.get(
@@ -126,6 +128,7 @@ def test_get_all_jobs_and_skills_one_job_many_skills(client: TestClient, db:Sess
                     break
 
     assert job_skill_in_response == 3
+
 
 def test_create_job_no_desc(client: TestClient, db: Session) -> None:
     data = {"job_name": "Foo", "job_desc": None}

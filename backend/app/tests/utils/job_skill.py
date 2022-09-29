@@ -16,6 +16,7 @@ def create_random_job_skill(db: Session) -> models.Job_Skill:
     job_skill_obj.skill = skill
     return job_skill_obj
 
+
 def add_skill_to_job(db: Session, job: models.Job, skills_to_add: int):
     new_skills = []
     for i in range(skills_to_add):
