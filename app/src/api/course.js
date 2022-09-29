@@ -11,7 +11,7 @@ export const getCourses = async () => {
   try {
     const res = await axiosCourseInstance.get("/all");
     if (res) {
-      return res.data;
+      return transformSnakeCourses(res.data);
     }
     throw new Error("No data returned from backend");
   } catch (error) {
@@ -19,3 +19,18 @@ export const getCourses = async () => {
     return [];
   }
 };
+
+function transformSnakeCourses(snakeCourses) {
+  return snakeCourses.map((course) => courseSnakeToCamel(course));
+}
+function courseSnakeToCamel(snakeCaseCourse) {
+  return {
+    courseId: snakeCaseCourse.course_id,
+    courseName: snakeCaseCourse.course_name,
+    courseDesc: snakeCaseCourse.course_desc,
+    courseStatus: snakeCaseCourse.course_status,
+    courseType: snakeCaseCourse.course_type,
+    courseCategory: snakeCaseCourse.course_category,
+    isActive: snakeCaseCourse.is_active,
+  };
+}

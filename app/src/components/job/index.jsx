@@ -1,97 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { getJobs } from "src/api/jobs";
+import { getAllJobsAndSkills } from "src/api/jobs";
 
 import JobTile from "./JobTile";
 
-const mockJobs = [
-  {
-    jobId: 1,
-    jobName: "Software Engineer",
-    jobDesc:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit autem sequi quos deleniti vitae quasi nemo quia quam accusamus nobis a ducimus deserunt numquam earum, dignissimos mollitia tempora saepe magnam ex beatae unde dolorem? At ipsa placeat accusantium ea consequuntur. Laudantium beatae, sapiente cumque placeat dolores magni explicabo minima aliquam!",
-    skills: [
-      {
-        skillId: 1,
-        skillName: "Java",
-        skillDesc:
-          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit autem sequi quos deleniti vitae quasi nemo quia quam accusamus nobis a ducimus deserunt numquam earum, dignissimos mollitia tempora saepe magnam ex beatae unde dolorem? At ipsa placeat accusantium ea consequuntur. Laudantium beatae, sapiente cumque placeat dolores magni explicabo minima aliquam!",
-      },
-      {
-        skillId: 2,
-        skillName: "Python",
-        skillDesc: "Python Description",
-      },
-      {
-        skillId: 3,
-        skillName: "C",
-        skillDesc: "C Description",
-      },
-    ],
-  },
-  {
-    jobId: 2,
-    jobName: "Software Engineer",
-    jobDesc: "Software Engineer Description",
-    skills: [
-      {
-        skillId: 1,
-        skillName: "Java",
-        skillDesc: "Java Description",
-      },
-      {
-        skillId: 2,
-        skillName: "Python",
-        skillDesc: "Python Description",
-      },
-      {
-        skillId: 3,
-        skillName: "C",
-        skillDesc: "C Description",
-      },
-    ],
-  },
-  {
-    jobId: 3,
-    jobName: "Software Engineer",
-    jobDesc: "Software Engineer Description",
-    skills: [
-      {
-        skillId: 1,
-        skillName: "Java",
-        skillDesc: "Java Description",
-      },
-      {
-        skillId: 2,
-        skillName: "Python",
-        skillDesc: "Python Description",
-      },
-      {
-        skillId: 3,
-        skillName: "C",
-        skillDesc: "C Description",
-      },
-    ],
-  },
-];
-
 function Job() {
-  const [jobs, setJobs] = useState(mockJobs);
+  const [jobs, setJobs] = useState([]);
 
   const renderJobs = jobs.map(({ jobId, jobName, jobDesc, skills }, index) => (
-    <JobTile
-      key={index}
-      jobId={jobId}
-      jobName={jobName}
-      jobDesc={jobDesc}
-      skills={skills}
-    />
+    <JobTile key={index} jobId={jobId} jobName={jobName} jobDesc={jobDesc} skills={skills} />
   ));
 
   useEffect(() => {
     getAllJobs();
 
     async function getAllJobs() {
-      const jobsReturnedFromBackend = await getJobs();
+      const jobsReturnedFromBackend = await getAllJobsAndSkills();
       setJobs(jobsReturnedFromBackend);
     }
   }, []);
