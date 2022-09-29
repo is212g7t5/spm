@@ -1,11 +1,14 @@
+from tkinter.tix import Select
 from typing import Any, List
 
 from fastapi import APIRouter, Body, Depends, HTTPException
 from sqlalchemy.orm import Session
+from sqlalchemy import text
 
 from app import crud, schemas
 from app.api import deps
 from app.core.config import settings
+from app.schemas import job
 
 router = APIRouter()
 
@@ -26,6 +29,30 @@ def get_all_job(
         )
     return jobs
 
+@router.get("/skills")
+def get_skills_for_all_jobs(
+    db: Session = Depends(deps.get_db),
+) -> Any:
+    """
+    Get all skills for all jobs.
+    """
+    sql_query = text(
+    '''
+    SELECT 
+        j.Job_ID, j.Job_Name, j.Job_Desc, j.Is_Active as is_job_active, 
+        s.Skill_ID, s.Skill_Name, s.Skill_Desc, s.Is_Active as is_skill_active  
+    FROM job as j
+    LEFT JOIN job_skill ON j.job_ID = job_skill.job_ID
+    LEFT JOIN skill as s ON job_skill.Skill_ID = s.Skill_ID;
+    ''')
+    jobs_with_skills = db.execute(sql_query)
+    if not jobs_with_skills:
+        raise HTTPException(
+            status_code=404,
+            detail="Error getting all jobs with their skills",
+        )
+
+    return jobs_with_skills.all()
 
 @router.get("/{job_id}", response_model=schemas.Job)
 def get_job_by_id(
@@ -42,7 +69,6 @@ def get_job_by_id(
             detail="Job not found",
         )
     return job
-
 
 @router.post("", response_model=schemas.Job)
 def create_job(
