@@ -14,7 +14,6 @@ class CRUDSkill(CRUDBase[Skill, SkillCreate, SkillUpdate]):
     def create(self, db: Session, *, obj_in: SkillCreate) -> Skill:
         db_obj = Skill(
             skill_id=obj_in.skill_id,
-            course_id=obj_in.course_id,
             skill_name=obj_in.skill_name,
             skill_desc=obj_in.skill_desc,
             is_active=obj_in.is_active,

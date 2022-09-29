@@ -1,4 +1,4 @@
-"""Init database
+"""Create job_skill Table
 
 Revision ID: 0004
 Revises: 0003
