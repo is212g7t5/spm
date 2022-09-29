@@ -3,8 +3,12 @@ import { ArrowRightIcon, ArrowDownIcon, BookOpenIcon } from "@heroicons/react/20
 import CourseDescription from "./CourseDescription";
 import CourseStatusBadge from "./CourseStatusBadge";
 
-function CourseTile({ courseId, courseName, courseDesc, courseStatus }) {
+function CourseTile({ courseId, courseName, courseDesc, courseStatus, registrationStatus, completionStatus }) {
   const [isDescOpen, setIsDescOpen] = useState(false);
+
+  if (courseStatus === "Retired") {
+    return (null);
+  }
 
   return (
     <div className='flex flex-col container w-8/12 max-w-5xl mt-5 mx-auto w-full items-center justify-center bg-white rounded-lg shadow'>
@@ -17,7 +21,7 @@ function CourseTile({ courseId, courseName, courseDesc, courseStatus }) {
             <div className='flex-1 pl-3'>
               <div className='font-medium text-left'>
                 {courseName}
-                <CourseStatusBadge status={courseStatus} />
+                <CourseStatusBadge registrationStatus={registrationStatus} completionStatus={completionStatus} />
               </div>
               <div className='text-gray-600 text-sm text-left'>{courseId}</div>
             </div>
