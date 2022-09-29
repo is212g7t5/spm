@@ -39,20 +39,26 @@ def get_skills_for_all_jobs(
     sql_query = text(
     '''
     SELECT 
-        j.Job_ID, j.Job_Name, j.Job_Desc, j.Is_Active as is_job_active, 
-        s.Skill_ID, s.Skill_Name, s.Skill_Desc, s.Is_Active as is_skill_active  
+        j.Job_ID as job_id,
+        j.Job_Name as job_name,
+        j.Job_Desc as job_desc,
+        j.Is_Active as is_job_active, 
+        s.Skill_ID as skill_id,
+        s.Skill_Name as skill_name,
+        s.Skill_Desc as skill_desc,
+        s.Is_Active as is_skill_active
     FROM job as j
     LEFT JOIN job_skill ON j.job_ID = job_skill.job_ID
     LEFT JOIN skill as s ON job_skill.Skill_ID = s.Skill_ID;
     ''')
-    jobs_with_skills = db.execute(sql_query)
+    jobs_with_skills = db.execute(sql_query).all()
     if not jobs_with_skills:
         raise HTTPException(
             status_code=404,
             detail="Error getting all jobs with their skills",
         )
 
-    return jobs_with_skills.all()
+    return jobs_with_skills
 
 @router.get("/{job_id}", response_model=schemas.Job)
 def get_job_by_id(
