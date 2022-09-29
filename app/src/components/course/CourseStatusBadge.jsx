@@ -10,7 +10,7 @@ export default function CourseStatusBadge({registrationStatus, completionStatus}
 
   if (completionStatus === "Completed") {
     return (
-      <span className={`${statusToBadgeClass[completionStatus]} px-2 py-1 text-xs font-medium rounded-full ml-2`}>
+      <span className={`${statusToBadgeClass[completionStatus]} text-sm font-medium mx-3 px-2.5 py-0.5 rounded`}>
         {completionStatus}
       </span>
     );
