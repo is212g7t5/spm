@@ -1,6 +1,7 @@
 from typing import Any, List
 
 from fastapi import APIRouter, Body, Depends, HTTPException
+from sqlalchemy import text
 from sqlalchemy.orm import Session
 
 from app import crud, schemas
@@ -25,6 +26,46 @@ def get_all_job(
             detail="Jobs not found",
         )
     return jobs
+
+
+@router.get("/skills")
+def get_all_jobs_and_all_skills(
+    db: Session = Depends(deps.get_db),
+) -> Any:
+    """
+    Get all jobs and all their skills.
+    """
+    sql_query = text(
+        """
+    SELECT
+        j.Job_ID as job_id,
+        j.Job_Name as job_name,
+        j.Job_Desc as job_desc,
+        j.Is_Active as is_job_active,
+        s.Skill_ID as skill_id,
+        s.Skill_Name as skill_name,
+        s.Skill_Desc as skill_desc,
+        s.Is_Active as is_skill_active
+    FROM job as j
+    LEFT JOIN job_skill ON j.job_ID = job_skill.job_ID
+    LEFT JOIN skill as s ON job_skill.Skill_ID = s.Skill_ID;
+    """
+    )
+    db_cursor_obj = db.execute(sql_query)
+    if not db_cursor_obj:
+        raise HTTPException(
+            status_code=404,
+            detail="Error getting all jobs with their skills",
+        )
+
+    jobs_with_skills = db_cursor_obj.all()
+    if not jobs_with_skills:
+        raise HTTPException(
+            status_code=404,
+            detail="No jobs with skils in the database",
+        )
+
+    return jobs_with_skills
 
 
 @router.get("/{job_id}", response_model=schemas.Job)
