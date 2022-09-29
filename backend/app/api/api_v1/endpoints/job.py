@@ -29,11 +29,11 @@ def get_all_job(
 
 
 @router.get("/skills")
-def get_skills_for_all_jobs(
+def get_all_jobs_and_all_skills(
     db: Session = Depends(deps.get_db),
 ) -> Any:
     """
-    Get all skills for all jobs.
+    Get all jobs and all their skills.
     """
     sql_query = text(
         """
@@ -51,11 +51,18 @@ def get_skills_for_all_jobs(
     LEFT JOIN skill as s ON job_skill.Skill_ID = s.Skill_ID;
     """
     )
-    jobs_with_skills = db.execute(sql_query).all()
-    if not jobs_with_skills:
+    db_cursor_obj = db.execute(sql_query)
+    if not db_cursor_obj:
         raise HTTPException(
             status_code=404,
             detail="Error getting all jobs with their skills",
+        )
+
+    jobs_with_skills = db_cursor_obj.all()
+    if not jobs_with_skills:
+        raise HTTPException(
+            status_code=404,
+            detail="No jobs with skils in the database",
         )
 
     return jobs_with_skills

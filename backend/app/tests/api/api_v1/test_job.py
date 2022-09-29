@@ -21,7 +21,7 @@ def test_get_all_jobs_and_skills_non_existent(client: TestClient, db: Session) -
     )
     assert response.status_code == 404
     content = response.json()
-    assert content["detail"] == "Error getting all jobs with their skills"
+    assert content["detail"] == "No jobs with skils in the database"
 
 
 def test_get_jobs_by_id(client: TestClient, db: Session) -> None:
