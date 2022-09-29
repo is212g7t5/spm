@@ -27,7 +27,7 @@ export default function Navbar() {
           : "text-gray-300 hover:bg-cyan-700 hover:text-white",
         "px-3 py-2 rounded-md text-sm font-medium",
       )}
-      aria-current={item.current ? "page" : undefined}
+      aria-current={isCurrent(item.href) ? "page" : undefined}
     >
       {item.name}
     </a>
