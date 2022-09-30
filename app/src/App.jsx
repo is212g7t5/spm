@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import "./App.css";
-import Courses from "./routes/courses";
-import Jobs from "./routes/jobs";
-import Navbar from "./components/Navbar";
-import LearningJourneys from "./routes/learningJourneys";
+import "src/App.css";
+import Courses from "src/routes/courses";
+import Jobs from "src/routes/jobs";
+import Navbar from "src/components/Navbar";
+import LearningJourneys from "src/routes/learningJourneys";
 
 function App() {
   return (
