@@ -26,8 +26,12 @@ export default function CourseContainer() {
             courseStatus: "Not Registered",
             courseDesc:
                 "Web applications are commonly used today by governments, enterprises, and even individuals to provide information, market products, etc. Ability to create web applications is thus a crucial skill for graduates in Information Systems. This course is designed to equip students with the knowledge and skill to develop well-styled database-driven web applications.",
-        },
+        }
     ];
+
+    const renderCourseCards = courseData.map((course, index) => (
+        <CourseCard courseName={course.courseName} courseId={course.courseId}  />
+    ))
 
     const statusToColor = {
         "Completed": "bg-green-500",
@@ -53,15 +57,7 @@ export default function CourseContainer() {
             <div className="flex ml-5 max-w-4xl bg-white rounded-lg border border-gray-200 shadow-lg">
                 <div className="grid grid-cols-3 gap-3 m-2">
                     <AddCourseButton />
-
-
-                    <CourseCard courseName="Intro to Programming" courseId="IS111" completionStatus="Completed" registrationStatus="Registered" />
-                    <CourseCard courseName="Intro to Programming" courseId="IS111" completionStatus="Not Completed" registrationStatus="Registered" />
-                    <CourseCard courseName="Intro to Programming" courseId="IS111" completionStatus="Not Completed" registrationStatus="Rejected" />
-                    <CourseCard courseName="Intro to Programming" courseId="IS111" completionStatus="Not Completed" registrationStatus="Waitlisted" />
-                    <CourseCard courseName="Intro to Programming" courseId="IS111" completionStatus="Not Completed" registrationStatus="Not Registered" />
-                    <CourseCard courseName="Intro to Programming" courseId="IS111" completionStatus="Completed" registrationStatus="Registered" />
-                    <CourseCard courseName="Intro to Programming" courseId="IS111" completionStatus="Completed" registrationStatus="Registered" />
+                    {renderCourseCards}
                 </div>
             </div>
         </>
