@@ -3,11 +3,15 @@ import { ArrowRightIcon, ArrowDownIcon, BookOpenIcon } from "@heroicons/react/20
 import CourseDescription from "./CourseDescription";
 import CourseStatusBadge from "./CourseStatusBadge";
 
-function CourseTile({ courseId, courseName, courseDesc, courseStatus }) {
+function CourseTile({ courseId, courseName, courseDesc, courseStatus, registrationStatus, completionStatus }) {
   const [isDescOpen, setIsDescOpen] = useState(false);
 
+  if (courseStatus === "Retired") {
+    return (null);
+  }
+
   return (
-    <div className='flex flex-col container w-8/12 max-w-5xl mt-5 mx-auto w-full items-center justify-center bg-white rounded-lg shadow'>
+    <div className='flex flex-col container w-8/12 max-w-5xl mt-5 mx-auto w-full items-center justify-center bg-white rounded-lg shadow transition duration-150'>
       <ul className='flex flex-col divide-y w-full'>
         <li className='flex flex-row'>
           <div className='select-none cursor-pointer hover:bg-gray-50 flex flex-1 items-center p-4'>
@@ -17,7 +21,7 @@ function CourseTile({ courseId, courseName, courseDesc, courseStatus }) {
             <div className='flex-1 pl-3'>
               <div className='font-medium text-left'>
                 {courseName}
-                <CourseStatusBadge status={courseStatus} />
+                <CourseStatusBadge registrationStatus={registrationStatus} completionStatus={completionStatus} />
               </div>
               <div className='text-gray-600 text-sm text-left'>{courseId}</div>
             </div>
@@ -28,9 +32,9 @@ function CourseTile({ courseId, courseName, courseDesc, courseStatus }) {
                 onClick={() => setIsDescOpen(!isDescOpen)}
               >
                 {isDescOpen ? (
-                  <ArrowDownIcon className='w-5 h-5' aria-hidden='true' />
+                  <ArrowDownIcon className='w-5 h-5 transition ease-in-out' aria-hidden='true' />
                 ) : (
-                  <ArrowRightIcon className='w-5 h-5' aria-hidden='true' />
+                  <ArrowRightIcon className='w-5 h-5 transition ease-in-out' aria-hidden='true' />
                 )}
               </button>
             </div>

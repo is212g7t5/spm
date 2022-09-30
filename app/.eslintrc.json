@@ -35,6 +35,8 @@
     "quotes": ["error", "double"],
     "no-duplicate-imports": "error",
     "no-use-before-define": "off",
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "prefer-template": "off",
+    "no-shadow": "off"
   }
 }

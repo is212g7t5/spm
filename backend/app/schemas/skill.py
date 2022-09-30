@@ -6,9 +6,8 @@ from pydantic import BaseModel
 # Shared properties
 class SkillBase(BaseModel):
     skill_id: Optional[int]
-    course_id: str
     skill_name: str
-    skill_desc: str
+    skill_desc: Optional[str]
     is_active: bool
 
 

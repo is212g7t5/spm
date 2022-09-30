@@ -4,3 +4,6 @@ HELP.md
 .idea
 **/__pycache__/
 */.idea
+
+# workspace config
+.vscode

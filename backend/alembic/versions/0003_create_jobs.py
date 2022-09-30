@@ -1,4 +1,4 @@
-"""Init database
+"""Create job Table
 
 Revision ID: 0003
 Revises: 0002

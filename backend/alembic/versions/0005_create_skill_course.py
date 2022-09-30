@@ -1,4 +1,4 @@
-"""Init database
+"""Create skill_course Table
 
 Revision ID: 0005
 Revises: 0004
