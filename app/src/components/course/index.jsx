@@ -13,7 +13,8 @@ function Course() {
     case users.manager.name:
       return <div/>;
     default:
-      return <div/>;
+      // temporary addition for development, should not render anything without permission
+      return <StaffCourse/>; 
   }
 }
 
