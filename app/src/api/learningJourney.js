@@ -20,9 +20,9 @@ export const getLearningJourney = async () => {
   }
 };
 
-export const createLearningJourneyWithJobId = async () => {
+export const createLearningJourneyWithJobId = async (jobId) => {
   try {
-    const res = await axiosLJInstance.post("/");
+    const res = await axiosLJInstance.post(`/jobId=${jobId}`);
     if (res) {
       return res.data;
     }
