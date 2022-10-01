@@ -2,12 +2,14 @@ from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
 
 from app.core.config import settings
-from app.tests.utils.staff import create_random_staff
 from app.tests.utils.job import create_random_job
 from app.tests.utils.learning_journey import create_random_learning_journey
+from app.tests.utils.staff import create_random_staff
 
 
-def test_get_all_learning_journeys_non_existent(client: TestClient, db: Session) -> None:
+def test_get_all_learning_journeys_non_existent(
+    client: TestClient, db: Session
+) -> None:
     response = client.get(
         f"{settings.API_V1_STR}/learning_journey/all",
     )
@@ -28,7 +30,9 @@ def test_get_learning_journey_by_id(client: TestClient, db: Session) -> None:
     assert content["job_id"] == learning_journey.job_id
 
 
-def test_get_learning_journey_by_id_non_existent(client: TestClient, db: Session) -> None:
+def test_get_learning_journey_by_id_non_existent(
+    client: TestClient, db: Session
+) -> None:
     response = client.get(
         f"{settings.API_V1_STR}/learning_journey/999999",
     )
@@ -53,7 +57,9 @@ def test_get_learning_journey_by_staff_id(client: TestClient, db: Session) -> No
     assert is_learning_journey_in_response
 
 
-def test_get_learning_journey_by_staff_id_non_existent(client: TestClient, db: Session) -> None:
+def test_get_learning_journey_by_staff_id_non_existent(
+    client: TestClient, db: Session
+) -> None:
     response = client.get(
         f"{settings.API_V1_STR}/learning_journey/Staff/999999",
     )
@@ -62,7 +68,9 @@ def test_get_learning_journey_by_staff_id_non_existent(client: TestClient, db: S
     assert content["detail"] == "Learning journeys under this staff not found"
 
 
-def test_get_learning_journey_by_staff_and_job_id(client: TestClient, db: Session) -> None:
+def test_get_learning_journey_by_staff_and_job_id(
+    client: TestClient, db: Session
+) -> None:
     learning_journey = create_random_learning_journey(db)
     response = client.get(
         f"{settings.API_V1_STR}/learning_journey/Staff_and_Job/{learning_journey.staff_id}&{learning_journey.job_id}",
@@ -79,7 +87,9 @@ def test_get_learning_journey_by_staff_and_job_id(client: TestClient, db: Sessio
     assert is_learning_journey_in_response
 
 
-def test_get_learning_journey_by_staff_and_job_id_non_existent(client: TestClient, db: Session) -> None:
+def test_get_learning_journey_by_staff_and_job_id_non_existent(
+    client: TestClient, db: Session
+) -> None:
     response = client.get(
         f"{settings.API_V1_STR}/learning_journey/Staff_and_Job/999999&999999",
     )
@@ -116,7 +126,7 @@ def test_create_learning_journey(client: TestClient, db: Session) -> None:
         f"{settings.API_V1_STR}/learning_journey",
         json=data,
     )
-    
+
     assert response.status_code == 200
     content = response.json()
     assert content["staff_id"] == data["staff_id"]
@@ -136,10 +146,10 @@ def test_delete_learning_journey_by_id(client: TestClient, db: Session) -> None:
     assert content["job_id"] == learning_journey.job_id
 
 
-def test_delete_learning_journey_by_id_non_existent(client: TestClient, db: Session) -> None:
-    response = client.delete(
-        f"{settings.API_V1_STR}/learning_journey/999999"
-    )
+def test_delete_learning_journey_by_id_non_existent(
+    client: TestClient, db: Session
+) -> None:
+    response = client.delete(f"{settings.API_V1_STR}/learning_journey/999999")
     assert response.status_code == 404
     content = response.json()
     assert content["detail"] == "Learning journey not found"

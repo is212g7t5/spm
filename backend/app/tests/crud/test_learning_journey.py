@@ -1,11 +1,10 @@
 from sqlalchemy.orm import Session
 
 from app import crud
-from app.schemas.learning_journey import LJCreate, LJUpdate
-from app.tests.utils.staff import create_random_staff
+from app.schemas.learning_journey import LJCreate
 from app.tests.utils.job import create_random_job
 from app.tests.utils.learning_journey import create_random_learning_journey
-from app.tests.utils.utils import random_lower_string
+from app.tests.utils.staff import create_random_staff
 
 
 def test_create_learning_journey(db: Session) -> None:
@@ -36,9 +35,7 @@ def test_delete_learning_journey(db: Session) -> None:
     learning_journey2 = crud.learning_journey.remove(
         db=db, lj_id=learning_journey.lj_id
     )
-    learning_journey3 = crud.learning_journey.get(
-        db=db, lj_id=learning_journey.lj_id
-    )
+    learning_journey3 = crud.learning_journey.get(db=db, lj_id=learning_journey.lj_id)
     assert learning_journey3 is None
     assert learning_journey2.lj_id == learning_journey.lj_id
     assert learning_journey2.staff_id == learning_journey.staff_id
