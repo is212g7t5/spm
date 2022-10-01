@@ -19,7 +19,7 @@ export default function JobTile({ jobId, jobName, jobDesc, skills }) {
         onClick={() => setIsDetailsOpen(!isDetailsOpen)}
         aria-hidden="true"
       >
-        <BriefcaseIcon className='fs-5 ml-1 mr-2 h-5 w-5' ria-hidden='true' />
+        <BriefcaseIcon className='fs-5 ml-1 mr-2 h-5 w-5' aria-hidden='true' />
         <div className='ml-5'>
           <div className='font-medium text-left'>{jobName}</div>
           <div className='text-gray-600 text-sm text-left'>{jobId}</div>

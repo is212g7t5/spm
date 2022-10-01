@@ -33,7 +33,7 @@ export default function CourseCard({ courseId, courseName }) {
 
     return (
         <div className="flex flex-col p-2 max-w-xs max-h-32 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-            <h5 className="mb-0.5 text-base text-center font-semibold tracking-tight text-gray-900 dark:text-white">
+            <h5 className="mb-0.5 lg:text-base text-xs text-center font-semibold tracking-tight text-gray-900 dark:text-white">
                 <div className={`inline-flex mr-1.5 w-3 h-3 rounded-full ${statusToColor[courseStatus]}`} />
                 {courseId}: {courseName}
 
