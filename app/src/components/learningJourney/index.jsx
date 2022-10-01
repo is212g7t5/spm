@@ -1,35 +1,11 @@
 import React from "react";
+import { mockLearningJourneys }  from "src/utils/mocks";
 import LearningJourneyTile from "./LearningJourneyTile";
 
 function LearningJourney() {
-  const LearningJourneyData = [
-    {
-      learningId: 1,
-      jobName: "Visual Designer",
-      jobDesc: "Designing visual elements that users see and interact with in order to create a good user experience.",
-      isJobActive: true
-    },
-    {
-      learningId: 2,
-      jobName: "Software Engineer",
-      jobDesc: "Designing, developing, and testing software that runs on a computer or mobile device.",
-      isJobActive: true
-    },
-    {
-      learningId: 3,
-      jobName: "Accountant",
-      jobDesc: "Accountants are responsible for preparing and examining financial records.",
-      isJobActive: false
-    },
-    {
-      learningId: 4,
-      jobName: "Data Scientist",
-      jobDesc: "Data scientists are responsible for collecting, analyzing, and interpreting large amounts of data.",
-      isJobActive: true
-    }
-  ];
 
-  const learningJourneyList = LearningJourneyData.map((learningJourney, index) => (
+
+  const learningJourneyList = mockLearningJourneys.map((learningJourney, index) => (
     <LearningJourneyTile 
       key={index}
       learningId={learningJourney.learningId}
