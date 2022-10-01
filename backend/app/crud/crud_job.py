@@ -11,11 +11,13 @@ class CRUDJob(CRUDBase[Job, JobCreate, JobUpdate]):
     def get(self, db: Session, job_id: Any) -> Job:
         return db.query(self.model).filter(self.model.job_id == job_id).first()
 
+    def get_by_job_name(self, db: Session, job_name: Any) -> Job:
+        return db.query(self.model).filter(self.model.job_name == job_name).first()
+
     def create(self, db: Session, *, obj_in: JobCreate) -> Job:
         db_obj = Job(
             job_name=obj_in.job_name,
             job_desc=obj_in.job_desc,
-            is_active=obj_in.is_active,
         )
         db.add(db_obj)
         db.commit()
