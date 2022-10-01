@@ -6,14 +6,14 @@ import Login from "./user/Login";
 
 export default function Navbar() {
   const [pageNavigation, setPageNavigation] = useState([
-    { name: "Dashboard", href: "#" },
+    { name: "Dashboard", href: "/" },
     { name: "Skills", href: "#" },
     { name: "Courses", href: "/courses" },
     { name: "Job Roles", href: "/jobs" },
   ]);
 
   const [userNavigation, setUserNavigation] = useState([
-    { name: "Your Learning Journeys", href: "#" },
+    { name: "Your Learning Journeys", href: "/" },
     { name: "Settings", href: "#" },
     { name: "Sign out", href: "#" },
   ]);
