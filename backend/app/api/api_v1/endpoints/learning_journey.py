@@ -22,25 +22,7 @@ def get_all_learning_journey(
     if not learning_journey:
         raise HTTPException(
             status_code=404,
-            detail="Learning Journeys not found",
-        )
-    return learning_journey
-
-
-@router.get("/Staff/{staff_id}", response_model=List[schemas.LJ])
-def get_learning_journey_by_staff_id(
-    staff_id: int, db: Session = Depends(deps.get_db), skip: int = 0
-) -> Any:
-    """
-    Retrieve a specific staff id with its learning journeys.
-    """
-    learning_journey = crud.learning_journey.get_by_staff_id(
-        db, staff_id=staff_id, skip=skip
-    )
-    if not learning_journey:
-        raise HTTPException(
-            status_code=404,
-            detail="Learning journeys under this staff not found",
+            detail="Learning journeys not found",
         )
     return learning_journey
 
@@ -62,18 +44,20 @@ def get_learning_journey_by_lj_id(
     return learning_journey
 
 
-@router.get("/Jobs/{job_id}", response_model=List[schemas.LJ])
-def get_learning_journey_by_job_id(
-    job_id: int, db: Session = Depends(deps.get_db), skip: int = 0
+@router.get("/Staff/{staff_id}", response_model=List[schemas.LJ])
+def get_learning_journey_by_staff_id(
+    staff_id: int, db: Session = Depends(deps.get_db), skip: int = 0
 ) -> Any:
     """
-    Retrieve a specific job id with its learning journeys.
+    Retrieve a specific staff id with its learning journeys.
     """
-    learning_journey = crud.learning_journey.get_by_job_id(db, job_id=job_id, skip=skip)
+    learning_journey = crud.learning_journey.get_by_staff_id(
+        db, staff_id=staff_id, skip=skip
+    )
     if not learning_journey:
         raise HTTPException(
             status_code=404,
-            detail="Learning journeys under this job not found",
+            detail="Learning journeys under this staff not found",
         )
     return learning_journey
 
@@ -115,8 +99,8 @@ def create_learning_journey(
         staff_id=staff_id,
         job_id=job_id,
     )
-    lj = crud.learning_journey.create(db, obj_in=lj_in)
-    return lj
+    learning_journey = crud.learning_journey.create(db, obj_in=lj_in)
+    return learning_journey
 
 
 @router.delete("/{lj_id}", response_model=schemas.LJ)
@@ -132,7 +116,7 @@ def delete_learning_journey_by_id(
     if not learning_journey:
         raise HTTPException(
             status_code=404,
-            detail="Role not found",
+            detail="Learning journey not found",
         )
     learning_journey = crud.learning_journey.remove(db, lj_id=lj_id)
     return learning_journey

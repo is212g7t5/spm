@@ -34,9 +34,9 @@ CREATE TABLE IF NOT EXISTS `learning_journey_course` (
 """
 
 DOWNGRADE_SQL = """
-DROP TABLE IF EXISTS `learning_journey`;
-
 DROP TABLE IF EXISTS `learning_journey_course`;
+
+DROP TABLE IF EXISTS `learning_journey`;
 """
 
 

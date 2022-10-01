@@ -1,5 +1,6 @@
 import random
 import string
+import math
 from xmlrpc.client import boolean
 
 
@@ -7,8 +8,9 @@ def random_lower_string(length) -> str:
     return "".join(random.choices(string.ascii_lowercase, k=length))
 
 
-def random_email() -> str:
-    return f"{random_lower_string()}@{random_lower_string()}.com"
+def random_email(length) -> str:
+    length = math.floor((length - len("@.com")) / 2)
+    return f"{random_lower_string(length)}@{random_lower_string(length)}.com"
 
 
 def random_numbers(length) -> int:
