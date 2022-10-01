@@ -7,6 +7,9 @@ import Navbar from "./components/Navbar";
 import LearningJourneys from "./routes/learningJourneys";
 import { UserProvider } from "./components/user/UserContext";
 
+// TODO: DELETE
+import CourseContainer from "./components/learningJourney/CourseContainer";
+
 function App() {
   return (
     <UserProvider>
@@ -18,6 +21,9 @@ function App() {
           <Route path='/jobs' component={Jobs} />
           <Route path='/skills' component={Jobs} />
           <Route path='/dashboard' component={Jobs} />
+          {/* TODO: DELETE */}
+          <Route path='/courseContainer' component={CourseContainer}/>
+          
         </Switch>
       </Router>
     </UserProvider>
