@@ -2,7 +2,7 @@ import React from "react";
 import CourseContainer from "./CourseContainer";
 import JobAndSkillsContainer from "./JobAndSkillsContainer";
 
-function LearningJourneyDetails( { ljId }) {
+function LearningJourneyDetails({ ljId }) {
     return (
         <>
             <h1 className="my-2 lg:text-2xl font-bold lg:text-center">Learning Journey {ljId}</h1>

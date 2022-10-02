@@ -41,5 +41,4 @@ export default function CourseCard({ courseId, courseName }) {
             <div className="flex flex-wrap overflow-auto">{skillList}</div>
         </div>
     )
-
 }
