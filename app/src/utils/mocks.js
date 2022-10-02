@@ -69,6 +69,33 @@ export const mockJobs = [
     },
 ];
 
+export const mockJobAndSkills = {
+    jobId: 1,
+    jobName: "Data Analyst",
+    jobDesc: "Turn data into meaningful insights",
+    isActive: true,
+    skills: [
+      {
+        skillId: 1,
+        skillName: "Python Pandas",
+        skillDesc: "Basic EDA",
+        isActive: true
+      },
+      {
+        skillId: 2,
+        skillName: "Tensorflow",
+        skillDesc: "ML",
+        isActive: true
+      },
+      {
+        skillId: 3,
+        skillName: "Patience",
+        skillDesc: "Data cleaning is lotsa work",
+        isActive: true
+      }
+    ]
+}
+
 export const mockCourses = [
   {
     courseId: "IS111",

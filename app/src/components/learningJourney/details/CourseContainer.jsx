@@ -29,17 +29,17 @@ export default function CourseContainer() {
     ));
 
     return (
-        <>
-            <div className="flex items-end">
-                <h2 className="ml-6 mr-3 mt-1 text-2xl font-semibold">Added Courses</h2>
+        <div className="flex flex-col col-span-4 lg:col-span-3">
+            <div className="lg:flex items-end">
+                <h2 className="ml-6 mr-3 mt-1 lg:text-2xl font-semibold">Added Courses</h2>
                 {renderStatusToColorLegend}
             </div>
-            <div className="flex ml-5 max-w-4xl bg-white rounded-lg border border-gray-200 shadow-lg">
-                <div className="grid grid-cols-3 gap-3 m-2">
+            <div className="flex ml-5 max-w-xs lg:max-w-4xl max-h-72 lg:max-h-screen overflow-auto bg-white rounded-lg border border-gray-200 shadow-lg">
+                <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 m-2">
                     <AddCourseButton />
                     {renderCourseCards}
                 </div>
             </div>
-        </>
+        </div>
     )
 }
