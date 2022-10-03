@@ -1,4 +1,4 @@
-import LearningJourney from "../../components/learningJourney";
+import LearningJourney from "src/components/learningJourney";
 
 export default function LearningJourneys() {
   return (

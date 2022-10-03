@@ -1,20 +1,17 @@
-import React, { useContext } from "react";
-import { users, UserContext } from "../user/UserContext";
+import { useUserContext } from "src/contexts/UserContext";
 import StaffCourse from "./staff/StaffCourse";
 
 function Course() {
-  const [user, setUser] = useContext(UserContext);
+  const { currentUserType } = useUserContext();
 
-  switch (user || "login") {
-    case users.staff.name:
-      return <StaffCourse/>;
-    case users.hr.name:
-      return <div/>;
-    case users.manager.name:
-      return <div/>;
+  switch (currentUserType) {
+    case "HR":
+      return <p>You are logged in as HR so you see no courses</p>;
+    case "MANAGER":
+      return <p>You are logged in as MANAGER so you see no courses</p>;
     default:
       // temporary addition for development, should not render anything without permission
-      return <StaffCourse/>; 
+      return <StaffCourse />;
   }
 }
 

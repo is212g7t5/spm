@@ -1,26 +1,26 @@
-import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { UserProvider } from "src/contexts/UserContext";
+import { Courses, Jobs, LearningJourneys, createLearningJourney } from "src/routes";
+
+import Layout from "./layout";
 import "./App.css";
-import Courses from "./routes/courses";
-import Jobs from "./routes/jobs";
-import Navbar from "./components/Navbar";
-import LearningJourneys from "./routes/learningJourneys";
-import { UserProvider } from "./components/user/UserContext";
 
 function App() {
   return (
-    <UserProvider>
-      <Router>
-        <Navbar />
-        <Switch>
-          <Route exact path='/' component={LearningJourneys} />
-          <Route path='/courses' component={Courses} />
-          <Route path='/jobs' component={Jobs} />
-          <Route path='/skills' component={Jobs} />
-          <Route path='/dashboard' component={Jobs} />
-        </Switch>
-      </Router>
-    </UserProvider>
+    <Router>
+      <UserProvider>
+        <Layout>
+          <Switch>
+            <Route exact path='/' component={LearningJourneys} />
+            <Route exact path='/courses' component={Courses} />
+            <Route exact path='/jobs' component={Jobs} />
+            <Route exact path='/skills' component={Jobs} />
+            <Route exact path='/dashboard' component={Jobs} />
+            <Route exact path='/create-learning-journey' component={createLearningJourney} />
+          </Switch>
+        </Layout>
+      </UserProvider>
+    </Router>
   );
 }
 
