@@ -1,4 +1,4 @@
-import React, { useState, createContext, useContext } from "react";
+import React, { useState, createContext, useContext, useMemo } from "react";
 
 export const USER_TYPES = {
   STAFF: { key: "staff", name: "Staff" },
@@ -24,12 +24,12 @@ export function UserProvider({ children }) {
     sessionStorage.setItem("user", userType);
   };
 
-  const UserContextState = {
+  const UserContextState = useMemo(() => ({
     isUserLoggedin,
     setIsUserLoggedIn,
     currentUserType,
     setUserTypeToStateAndSession,
-  };
+  }), [isUserLoggedin, setIsUserLoggedIn, currentUserType, setUserTypeToStateAndSession]);
 
   return <UserContext.Provider value={UserContextState}>{children}</UserContext.Provider>;
 }

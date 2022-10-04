@@ -3,7 +3,7 @@ import { ChevronDownIcon, ChevronRightIcon, BriefcaseIcon } from "@heroicons/rea
 import { createLearningJourneyWithJobId } from "src/api/learningJourney";
 import SkillBadge from "./SkillBadge";
 
-export default function JobTile({ jobId, jobName, jobDesc, skills }) {
+export default function JobTile({ jobId, jobName, jobDesc, skills, isActive }) {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
   const handleCreateLJButtonClick = (e) => {
@@ -21,15 +21,28 @@ export default function JobTile({ jobId, jobName, jobDesc, skills }) {
       >
         <BriefcaseIcon className='fs-5 ml-1 mr-2 h-5 w-5' aria-hidden='true' />
         <div className='ml-5'>
-          <div className='font-medium text-left'>{jobName}</div>
+          <div className="flex space-x-5 items-center">
+            <div className={"font-medium text-left " + (isActive ? "" : "text-gray-400")}>{jobName}</div>
+            {isActive ? "" : <CreateInactiveBadge/>}
+          </div>
           <div className='text-gray-600 text-sm text-left'>{jobId}</div>
         </div>
         <CreateLearningJourneyButton handleCreateLJButtonClick={handleCreateLJButtonClick} />
         <JobTileButton isDetailsOpen={isDetailsOpen} setIsDetailsOpen={setIsDetailsOpen} />
       </div>
-      {isDetailsOpen && <JobTileDescription jobDesc={jobDesc} skills={skills} />}
+      <div className="mx-3">
+        {isDetailsOpen && <JobTileDescription jobDesc={jobDesc} skills={skills} />}
+      </div>
     </div>
   );
+}
+
+function CreateInactiveBadge() {
+  return (
+    <span className='bg-gray-200 text-gray-400 mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800'>
+      Inactive
+    </span>
+  )
 }
 
 function CreateLearningJourneyButton({ handleCreateLJButtonClick }) {
@@ -62,7 +75,7 @@ function JobTileDescription({ jobDesc, skills }) {
   ));
 
   return (
-    <div className='m-auto flex flex-col w-11/12 p-5 px-10'>
+    <div className='m-auto flex flex-col w-full p-5 px-10 bg-slate-100 rounded-lg'>
       <p className='font-medium text-justify'>{jobDesc}</p>
       <div className='flex mt-5'>{renderSkillsForJobRole}</div>
     </div>
