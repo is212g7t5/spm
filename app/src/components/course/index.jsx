@@ -5,6 +5,8 @@ function Course() {
   const { currentUserType } = useUserContext();
 
   switch (currentUserType) {
+    case "STAFF":
+      return <StaffCourse />;
     case "HR":
       return <p>You are logged in as HR so you see no courses</p>;
     case "MANAGER":
