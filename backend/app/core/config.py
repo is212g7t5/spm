@@ -50,8 +50,10 @@ class Settings(BaseSettings):
     DB_USER: str = os.getenv("DB_USER")
     DB_PASSWORD: str = os.getenv("DB_PASSWORD")
     DATABASE: str = os.getenv("DATABASE")
-    SQLALCHEMY_DATABASE_URI: str = "mysql+mysqldb://{}:{}@{}:{}/{}".format(
-        DB_USER, DB_PASSWORD, DB_SERVER, DB_PORT, DATABASE
+    SQLALCHEMY_DATABASE_URI: str = (
+        "mysql+mysqldb://{}:{}@{}:{}/{}?local_infile=1".format(
+            DB_USER, DB_PASSWORD, DB_SERVER, DB_PORT, DATABASE
+        )
     )
 
     @validator("SQLALCHEMY_DATABASE_URI", pre=True)

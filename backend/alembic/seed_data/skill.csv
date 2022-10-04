@@ -1,0 +1,17 @@
+skill_id,skill_name,skill_desc,is_active
+330001,Communication,"Being able to communicate effectively is one of the most important life skills to learn. Communication itself is defined as transferring information to produce greater understanding.",1
+330002,Organization,"Skills that allow you to use your resources efficiently and effectively. Being organized means you manage your time, energy and workspace well and can accomplish all your assigned tasks successfully.",1
+330003,Teamwork,"Ability to work cooperatively with others",1
+330004,Critical Thinking,"Act of analyzing facts to understand a problem or topic thoroughly. The critical thinking process typically includes steps such as collecting information and data, asking thoughtful questions and analyzing possible solutions.",1
+330005,Socialization,"Social skills are used to communicate with others daily in a variety of ways including verbal, nonverbal, written and visual.",1
+330006,Creativity,"Developing new ideas, increasing efficiency and devising solutions to complex problems.",1
+330007,Adaptability,"Ability to be flexible and adjust to changing factors, conditions or environments.",1
+330008,Systems Design,"Systems design is an interdisciplinary engineering activity that enables the realization of successful systems.",1
+330009,Six Sigma,"Set of techniques and tools for process improvement.",1
+330010,Data Management,"The practice of collecting, keeping, and using data securely, efficiently, and cost-effectively",1
+330011,Financial Reporting,"Systematic process of recording and representing a company’s financial data.",1
+330012,Leadership,"The ability of an individual, group or organization to lead, influence or guide other individuals, teams, or entire organizations.",1
+330013,IT Systems Handling,"The ability to handle the hardware, Software, data, databases, data communication lines, network and telecommunications equipment, Internet-related information technology infrastructure, wide area network and other information technology equipment, owned, leased or licensed by the Company or any of its Subsidiaries.",1
+330014,Networking Technology,"Networking technology allows for the exchange of data between large and small information systems used primarily by businesses and educational institutions.",1
+330015,Cybersecurity,"The practice of protecting critical systems and sensitive information from digital attacks.",1
+330016,Innovation,"The ability to generate ideas that create value and improve processes, from inventing a machine to finding a faster route to work.",1
