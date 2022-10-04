@@ -1,12 +1,11 @@
 from typing import Any, List
 
-from fastapi import APIRouter, Body, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
 from app import crud, schemas
 from app.api import deps
-from app.core.config import settings
 
 router = APIRouter()
 
@@ -86,27 +85,17 @@ def get_job_by_id(
 
 
 @router.post("", response_model=schemas.Job)
-def create_job(
-    *,
-    db: Session = Depends(deps.get_db),
-    job_name: str = Body(...),
-    job_desc: str = Body(None),
-) -> Any:
+def create_job(*, db: Session = Depends(deps.get_db), job_in: schemas.JobCreate) -> Any:
     """
     Create new job.
     """
-    if not settings.USERS_OPEN_REGISTRATION:
+    job = crud.job.get_by_job_name(db, job_name=job_in.job_name)
+    if job:
         raise HTTPException(
-            status_code=403,
-            detail="Open staff registration is forbidden on this server",
+            status_code=409,
+            detail="job_name already exists",
         )
-    job_in = schemas.JobCreate(
-        job_name=job_name,
-        job_desc=job_desc,
-        is_active=True,
-    )
-    job = crud.job.create(db, obj_in=job_in)
-    return job
+    return crud.job.create(db, obj_in=job_in)
 
 
 @router.put("/{job_id}", response_model=schemas.Job)
@@ -114,9 +103,7 @@ def update_job_by_id(
     *,
     db: Session = Depends(deps.get_db),
     job_id: int,
-    job_name: str = Body(None),
-    job_desc: str = Body(None),
-    is_active: bool = Body(None),
+    job_in: schemas.JobUpdate,
 ) -> Any:
     """
     Update a job.
@@ -127,14 +114,12 @@ def update_job_by_id(
             status_code=404,
             detail="Job not found",
         )
-    job_in = schemas.JobCreate(
-        job_id=job.job_id,
-        job_name=job_name or job.job_name,
-        job_desc=job_desc or job.job_desc,
-        is_active=is_active if is_active != None else job.is_active,
-    )
-    job = crud.job.update(db, db_obj=job, obj_in=job_in)
-    return job
+    if job_in.job_name and crud.job.get_by_job_name(db, job_name=job_in.job_name):
+        raise HTTPException(
+            status_code=409,
+            detail="job_name already exists",
+        )
+    return crud.job.update(db, db_obj=job, obj_in=job_in)
 
 
 @router.delete("/{job_id}", response_model=schemas.Job)
@@ -152,5 +137,4 @@ def delete_job_by_id(
             status_code=404,
             detail="Job not found",
         )
-    job = crud.job.remove(db, job_id=job_id)
-    return job
+    return crud.job.remove(db, job_id=job_id)

@@ -31,9 +31,7 @@ def test_update_job(db: Session) -> None:
     job = create_random_job(db)
     new_job_name = random_lower_string(20)
     assert new_job_name != job.job_name
-    job_update = JobUpdate(
-        job_name=new_job_name, job_desc=job.job_desc, is_active=job.is_active
-    )
+    job_update = JobUpdate(job_name=new_job_name)
     job2 = crud.job.update(db=db, db_obj=job, obj_in=job_update)
     assert job2.job_id == job.job_id
     assert job2.job_desc == job.job_desc
