@@ -26,11 +26,11 @@ def session_scope():
 def clear_tables():
     with session_scope() as conn:
         conn.execute("SET FOREIGN_KEY_CHECKS = 0;")
+        print(Base.metadata.sorted_tables)
         for table in Base.metadata.sorted_tables:
             conn.execute(f"TRUNCATE {table.name};")
         conn.execute("SET FOREIGN_KEY_CHECKS = 1;")
         conn.commit()
-
 
 @pytest.fixture(scope="function")
 def db() -> Generator:
@@ -41,9 +41,9 @@ def db() -> Generator:
 
 @pytest.fixture(scope="module")
 def client() -> Generator:
+    clear_tables()
     with TestClient(app) as c:
         yield c
-    clear_tables()
 
 
 # @pytest.fixture(scope="module")

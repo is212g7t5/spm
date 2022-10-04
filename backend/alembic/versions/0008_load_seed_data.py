@@ -5,8 +5,9 @@ Revises: 0007
 Create Date: 2022-10-04 00:00:00
 
 """
-from alembic import op
 import os
+
+from alembic import op
 
 # revision identifiers, used by Alembic.
 revision = "0008"
@@ -104,7 +105,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 
 def upgrade():
-    directory = os.getcwd().replace('\\', '/')
+    directory = os.getcwd().replace("\\", "/")
     seed_data_path = directory + "/alembic/seed_data/"
     op.execute(UPGRADE_SQL.format(seed_data_path))
 
