@@ -32,6 +32,7 @@ def clear_tables():
         conn.execute("SET FOREIGN_KEY_CHECKS = 1;")
         conn.commit()
 
+
 @pytest.fixture(scope="function")
 def db() -> Generator:
     s = SessionLocal()
