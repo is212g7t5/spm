@@ -1,0 +1,113 @@
+"""Load Seed Data
+
+Revision ID: 0008
+Revises: 0007
+Create Date: 2022-10-04 00:00:00
+
+"""
+from alembic import op
+import os
+
+# revision identifiers, used by Alembic.
+revision = "0008"
+down_revision = "0007"
+branch_labels = None
+depends_on = None
+
+
+UPGRADE_SQL = """
+LOAD DATA LOCAL INFILE '{0}courses.csv'
+REPLACE INTO TABLE course
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;
+
+LOAD DATA LOCAL INFILE '{0}role.csv'
+REPLACE INTO TABLE role
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;
+
+LOAD DATA LOCAL INFILE '{0}staff.csv'
+REPLACE INTO TABLE staff
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;
+
+LOAD DATA LOCAL INFILE '{0}registration.csv'
+REPLACE INTO TABLE registration
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;
+
+LOAD DATA LOCAL INFILE '{0}skill.csv'
+REPLACE INTO TABLE skill
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;
+
+LOAD DATA LOCAL INFILE '{0}job.csv'
+REPLACE INTO TABLE job
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;
+
+LOAD DATA LOCAL INFILE '{0}learning_journey.csv'
+REPLACE INTO TABLE learning_journey
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;
+
+LOAD DATA LOCAL INFILE '{0}learning_journey_course.csv'
+REPLACE INTO TABLE learning_journey_course
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;
+
+LOAD DATA LOCAL INFILE '{0}job_skill.csv'
+REPLACE INTO TABLE job_skill
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;
+
+LOAD DATA LOCAL INFILE '{0}skill_course.csv'
+REPLACE INTO TABLE skill_course
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;
+"""
+
+DOWNGRADE_SQL = """
+SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE TABLE skill_course;
+TRUNCATE TABLE learning_journey_course;
+TRUNCATE TABLE job_skill;
+TRUNCATE TABLE learning_journey;
+TRUNCATE TABLE registration;
+TRUNCATE TABLE course;
+TRUNCATE TABLE role;
+TRUNCATE TABLE staff;
+TRUNCATE TABLE skill;
+TRUNCATE TABLE job;
+SET FOREIGN_KEY_CHECKS = 1;
+"""
+
+
+def upgrade():
+    directory = os.getcwd().replace('\\', '/')
+    seed_data_path = directory + "/alembic/seed_data/"
+    op.execute(UPGRADE_SQL.format(seed_data_path))
+
+
+def downgrade():
+    op.execute(DOWNGRADE_SQL)
