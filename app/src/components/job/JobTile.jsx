@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { ChevronDownIcon, ChevronRightIcon, BriefcaseIcon } from "@heroicons/react/20/solid";
-import { createLearningJourneyWithJobId } from "src/api/learningJourney";
+import { useHistory } from "react-router-dom";
 import SkillBadge from "./SkillBadge";
 
 export default function JobTile({ jobId, jobName, jobDesc, skills, isActive }) {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
+  const history = useHistory();
+
   const handleCreateLJButtonClick = (e) => {
     e.stopPropagation();
-    const res = createLearningJourneyWithJobId(jobId);
-    console.log(res);
+    history.push(`create-learning-journey/${jobId}`);
   };
 
   return (
@@ -17,20 +18,22 @@ export default function JobTile({ jobId, jobName, jobDesc, skills, isActive }) {
       <div
         className='flex p-5 m-3 items-center justify-between bg-white rounded-lg shadow hover:shadow-lg cursor-pointer'
         onClick={() => setIsDetailsOpen(!isDetailsOpen)}
-        aria-hidden="true"
+        aria-hidden='true'
       >
         <BriefcaseIcon className='fs-5 ml-1 mr-2 h-5 w-5' aria-hidden='true' />
         <div className='ml-5'>
-          <div className="flex space-x-5 items-center">
-            <div className={"font-medium text-left " + (isActive ? "" : "text-gray-400")}>{jobName}</div>
-            {isActive ? "" : <CreateInactiveBadge/>}
+          <div className='flex space-x-5 items-center'>
+            <div className={"font-medium text-left " + (isActive ? "" : "text-gray-400")}>
+              {jobName}
+            </div>
+            {isActive ? "" : <CreateInactiveBadge />}
           </div>
           <div className='text-gray-600 text-sm text-left'>{jobId}</div>
         </div>
         <CreateLearningJourneyButton handleCreateLJButtonClick={handleCreateLJButtonClick} />
         <JobTileButton isDetailsOpen={isDetailsOpen} setIsDetailsOpen={setIsDetailsOpen} />
       </div>
-      <div className="mx-3">
+      <div className='mx-3'>
         {isDetailsOpen && <JobTileDescription jobDesc={jobDesc} skills={skills} />}
       </div>
     </div>
@@ -42,7 +45,7 @@ function CreateInactiveBadge() {
     <span className='bg-gray-200 text-gray-400 mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800'>
       Inactive
     </span>
-  )
+  );
 }
 
 function CreateLearningJourneyButton({ handleCreateLJButtonClick }) {

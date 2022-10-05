@@ -1,0 +1,1 @@
+// The component to create react toastify goes in here

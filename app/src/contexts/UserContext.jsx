@@ -24,12 +24,15 @@ export function UserProvider({ children }) {
     sessionStorage.setItem("user", userType);
   };
 
-  const UserContextState = useMemo(() => ({
-    isUserLoggedin,
-    setIsUserLoggedIn,
-    currentUserType,
-    setUserTypeToStateAndSession,
-  }), [isUserLoggedin, setIsUserLoggedIn, currentUserType, setUserTypeToStateAndSession]);
+  const UserContextState = useMemo(
+    () => ({
+      isUserLoggedin,
+      setIsUserLoggedIn,
+      currentUserType,
+      setUserTypeToStateAndSession,
+    }),
+    [isUserLoggedin, setIsUserLoggedIn, currentUserType, setUserTypeToStateAndSession],
+  );
 
   return <UserContext.Provider value={UserContextState}>{children}</UserContext.Provider>;
 }

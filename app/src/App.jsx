@@ -16,7 +16,7 @@ function App() {
             <Route exact path='/jobs' component={Jobs} />
             <Route exact path='/skills' component={Jobs} />
             <Route exact path='/dashboard' component={Jobs} />
-            <Route exact path='/create-learning-journey' component={createLearningJourney} />
+            <Route path='/create-learning-journey' component={createLearningJourney} />
           </Switch>
         </Layout>
       </UserProvider>

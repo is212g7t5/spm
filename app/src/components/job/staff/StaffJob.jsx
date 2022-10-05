@@ -6,7 +6,14 @@ function StaffJob() {
   const [jobs, setJobs] = useState([]);
 
   const renderJobs = jobs.map(({ jobId, jobName, jobDesc, skills, isActive }, index) => (
-    <JobTile key={index} jobId={jobId} jobName={jobName} jobDesc={jobDesc} skills={skills} isActive={isActive}/>
+    <JobTile
+      key={index}
+      jobId={jobId}
+      jobName={jobName}
+      jobDesc={jobDesc}
+      skills={skills}
+      isActive={isActive}
+    />
   ));
 
   useEffect(() => {
