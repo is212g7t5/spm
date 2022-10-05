@@ -1,17 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { mockCourses } from "src/utils/mocks";
+import { getLearningJourneyCoursesById } from "src/api/learningJourneyCourse";
 import AddCourseButton from "./AddCourseButton";
 import CourseCard from "./CourseCard";
 
-
-
-export default function CourseContainer() {
+export default function CourseContainer({ ljId }) {
 
     // Call Get all Courses for LJ API here
+    const [ljCourseIds, setLjCourseIds] = useState([]);
 
-    const renderCourseCards = mockCourses.map((course, index) => (
-        <CourseCard courseName={course.courseName} courseId={course.courseId}  />
+    const renderCourseCards = ljCourseIds.map((ljCourseId, index) => (
+        <CourseCard courseId={ljCourseId}  />
     ))
+
+    useEffect(() => {
+        async function getAllCoursesForLJ(ljId) {
+            const courseIdsReturnedFromBackend = await getLearningJourneyCoursesById(ljId);
+            setLjCourseIds(courseIdsReturnedFromBackend);
+        }
+
+        getAllCoursesForLJ(ljId);
+    }, []);
 
     const statusToColor = {
         "Completed": "bg-green-500",

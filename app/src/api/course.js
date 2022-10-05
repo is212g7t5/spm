@@ -20,6 +20,19 @@ export const getCourses = async () => {
   }
 };
 
+export const getCourseById = async (courseId) => {
+  try {
+    const res = await axiosCourseInstance.get(`/${courseId}`);
+    if (res) {
+      return courseSnakeToCamel(res.data);
+    }
+    throw new Error("No data returned from backend");
+  } catch (error) {
+    console.log(error);
+    return {};
+  }
+}
+
 function transformSnakeCourses(snakeCourses) {
   return snakeCourses.map((course) => courseSnakeToCamel(course));
 }

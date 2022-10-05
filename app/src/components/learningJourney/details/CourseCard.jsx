@@ -1,33 +1,60 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { getCourseById } from "src/api/course";
+import { getSkillIdsForCourse } from "src/api/skillCourse";
 import CourseSkillBadge from "./CourseSkillBadge";
 
 
-export default function CourseCard({ courseId, courseName }) {
+export default function CourseCard({ courseId }) {
     const statusToColor = {
         "Completed": "bg-green-500",
         "Rejected": "bg-red-500",
         "Waitlisted": "bg-blue-500",
         "Registered": "bg-yellow-500",
-        "Not Registered": "bg-purple-500"
+        "Ongoing": "bg-purple-500"
     };
 
-    // I assume we call some API "Get all skills for course" here
-    const skillData = [
-        "People Management", "Data Analysis", "Project Management", "Figma", "Innovation", "Graphic Design"
-    ]
+    const [courseName, setCourseName] = useState("");
 
-    // Call Get Registration for Course_ID API here
+    const [courseSkillIds, setCourseSkillIds] = useState([]);
+
+    useEffect(() => {
+        async function getCourseName(courseId) {
+            const course = await getCourseById(courseId);
+            setCourseName(course.courseName);
+        }
+
+        async function getCourseSkillIds(courseId) {
+            const skillIds = await getSkillIdsForCourse(courseId);
+            setCourseSkillIds(skillIds);
+        }
+
+        getCourseName(courseId);
+        getCourseSkillIds(courseId);
+    }, []);
+
+    // TODO: Call Get Registration for Course_ID API here
     const registrationData = {
         "regStatus": "Waitlisted",
-        "completionStatus": "Not Completed"
+        "completionStatus": "Ongoing"
     }
 
-    const courseStatus = registrationData.completionStatus === "Completed" ? registrationData.completionStatus : registrationData.regStatus
+    const courseStatus = registrationData.completionStatus.length > 0 ? registrationData.completionStatus : registrationData.regStatus
 
-    const skillList = skillData.map((skill, index) => (
+    // I assume we call some API "Get all skills for course" here
+    // const skillData = [
+    //     "People Management", "Data Analysis", "Project Management", "Figma", "Innovation", "Graphic Design"
+    // ]
+    // const skillList = skillData.map((skill, index) => (
+    //     <CourseSkillBadge
+    //         key={index}
+    //         skillId={skill}
+    //         skillName={skill}
+    //     />
+    // ))
+    const skillList = courseSkillIds.map((skillId, index) => (
         <CourseSkillBadge
             key={index}
-            skillName={skill}
+            skillId={skillId}
         />
     ))
 
