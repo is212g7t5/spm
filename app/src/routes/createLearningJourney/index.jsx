@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Switch, Route, useParams, useHistory, useRouteMatch } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function CreateLearningJourney() {
   const { path, url } = useRouteMatch();
@@ -17,6 +18,7 @@ function FailedLearningJourney() {
   const history = useHistory();
   useEffect(() => {
     history.push("/jobs");
+    toast.error("You have been redirected. Please select a Job Role to create a learning journey");
   }, []);
 
   return <div>Redirecting...</div>;

@@ -4,6 +4,8 @@ import { useHistory, Link } from "react-router-dom";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { PlusIcon } from "@heroicons/react/20/solid";
+import { toast } from "react-toastify";
+
 import Login from "./Login";
 
 export default function Navbar() {
@@ -111,6 +113,7 @@ function CreateLJButton() {
 
   const redirectToChooseJobs = () => {
     history.push("/jobs");
+    toast.success("Select a Job Role to start!");
   };
 
   return (
