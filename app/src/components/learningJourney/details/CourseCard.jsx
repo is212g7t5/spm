@@ -10,7 +10,8 @@ export default function CourseCard({ courseId }) {
         "Rejected": "bg-red-500",
         "Waitlisted": "bg-blue-500",
         "Registered": "bg-yellow-500",
-        "Ongoing": "bg-purple-500"
+        "Ongoing": "bg-purple-500",
+        "Not Registered": "bg-gray-500"
     };
 
     const [courseName, setCourseName] = useState("");
@@ -38,6 +39,7 @@ export default function CourseCard({ courseId }) {
         "completionStatus": "Ongoing"
     }
 
+    // if no registrationData, courseStatus = "Not Registered"
     const courseStatus = registrationData.completionStatus.length > 0 ? registrationData.completionStatus : registrationData.regStatus
 
     // I assume we call some API "Get all skills for course" here

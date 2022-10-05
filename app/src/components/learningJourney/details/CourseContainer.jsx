@@ -26,7 +26,8 @@ export default function CourseContainer({ ljId }) {
         "Rejected": "bg-red-500",
         "Waitlisted": "bg-blue-500",
         "Registered": "bg-yellow-500",
-        "Not Registered": "bg-purple-500"
+        "Ongoing": "bg-purple-500",
+        "Not Registered": "bg-gray-500"
     };
 
     const renderStatusToColorLegend = Object.entries(statusToColor).map(([key, value], index) => (
