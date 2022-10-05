@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { mockCourses } from "src/utils/mocks";
 import { getLearningJourneyCoursesById } from "src/api/learningJourneyCourse";
 import AddCourseButton from "./AddCourseButton";
 import CourseCard from "./CourseCard";
