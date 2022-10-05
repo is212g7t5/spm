@@ -1,6 +1,6 @@
 import Courses from "./courses";
 import Jobs from "./jobs";
 import LearningJourneys from "./learningJourneys";
-import createLearningJourney from "./createLearningJourney";
+import CreateLearningJourneyPage from "./createLearningJourneyPage";
 
-export { Courses, Jobs, LearningJourneys, createLearningJourney };
+export { Courses, Jobs, LearningJourneys, CreateLearningJourneyPage };

@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 import { ChevronDownIcon, ChevronRightIcon, BriefcaseIcon } from "@heroicons/react/20/solid";
 import { useHistory } from "react-router-dom";
+import { useLJCreationContext } from "src/contexts/LJCreationContext";
+
 import SkillBadge from "./SkillBadge";
 
 export default function JobTile({ jobId, jobName, jobDesc, skills, isActive }) {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
+  const { setSelectedJobRole } = useLJCreationContext();
   const history = useHistory();
 
   const handleCreateLJButtonClick = (e) => {
     e.stopPropagation();
-    history.push(`create-learning-journey/${jobId}`);
+    setSelectedJobRole({ jobId, jobName, jobDesc, skills, isActive });
+    history.push("create-learning-journey");
   };
 
   return (

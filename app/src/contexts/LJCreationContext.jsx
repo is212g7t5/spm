@@ -2,7 +2,7 @@ import React, { useState, createContext, useContext, useMemo } from "react";
 
 // Do not remove default unused vars as typescript uses this for type hinting
 const defaultLJCreationContextState = {
-  selectedJobRole: "",
+  selectedJobRole: {},
   setSelectedJobRole: (JobDetails) => {},
   selectedCourseIds: [],
   addCourseIdToLJ: (courseId) => {},

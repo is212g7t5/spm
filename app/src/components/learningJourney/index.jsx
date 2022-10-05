@@ -4,7 +4,6 @@ import LearningJourneyTile from "./LearningJourneyTile";
 
 function LearningJourney() {
 
-
   const learningJourneyList = mockLearningJourneys.map((learningJourney, index) => (
     <LearningJourneyTile 
       key={index}

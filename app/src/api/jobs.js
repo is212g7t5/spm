@@ -5,8 +5,8 @@ export const getJobs = async () => {
   try {
     const res = await axios.get(`${JOB_ENDPOINT}/all`);
     if (res) {
-      console.log(transformJobs(res.data));
-      return transformJobs(res.data);
+      console.log(transformJobsFromSnakeToCamel(res.data));
+      return transformJobsFromSnakeToCamel(res.data);
     }
     throw new Error("No data returned from backend");
   } catch (error) {
@@ -19,6 +19,7 @@ export const getAllJobsAndSkills = async () => {
   try {
     const res = await axios.get(`${JOB_ENDPOINT}/skills`);
     if (res) {
+      console.log(combineSkillsToJobs(res.data))
       return combineSkillsToJobs(res.data);
     }
     throw new Error("No data returned from backend");
@@ -29,28 +30,28 @@ export const getAllJobsAndSkills = async () => {
 };
 
 // Utility Functions
-function transformJobs(snakeCaseJobs) {
-  return snakeCaseJobs.map((job) => transformJob(job));
+function transformJobsFromSnakeToCamel(snakeCaseJobs) {
+  return snakeCaseJobs.map((job) => transformOneJob(job));
 }
-function transformJob(snakeCaseJob) {
+function transformOneJob(snakeCaseJob) {
   return {
     jobId: snakeCaseJob.job_id,
     jobName: snakeCaseJob.job_name,
     jobDesc: snakeCaseJob.job_desc,
-    isActive: snakeCaseJob.is_active,
+    isActive: snakeCaseJob.is_job_active,
     skills: []
   };
 }
 
-function transformSkills(snakeCaseSkills) {
-  return snakeCaseSkills.map((skill) => transformSkill(skill));
+function transformSkillsFromSnakeToCamel(snakeCaseSkills) {
+  return snakeCaseSkills.map((skill) => transformOneSkill(skill));
 }
-function transformSkill(snakeCaseSkill) {
+function transformOneSkill(snakeCaseSkill) {
   return {
     skillId: snakeCaseSkill.skill_id,
     skillName: snakeCaseSkill.skill_name,
     skillDesc: snakeCaseSkill.skill_desc,
-    isActive: snakeCaseSkill.is_active,
+    isActive: snakeCaseSkill.is_skill_active,
   };
 }
 
