@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { ChevronDownIcon, ChevronRightIcon, StarIcon } from "@heroicons/react/20/solid";
-import JobBadge from "./JobBadge";
+import CourseBadge from "./CourseBadge";
 
-export default function SkillTile({ skillId, skillName, skillDesc, jobs }) {
+export default function SkillTile({ skillId, skillName, skillDesc, courses }) {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
   return (
@@ -12,29 +12,15 @@ export default function SkillTile({ skillId, skillName, skillDesc, jobs }) {
         onClick={() => setIsDetailsOpen(!isDetailsOpen)}
         aria-hidden="true"
       >
-        <StarIcon className='fs-5 ml-1 mr-2 h-5 w-5' aria-hidden='true' />
-        <div className='ml-5'>
-          <div className='font-medium text-left'>{skillName}</div>
-          {/* skillName and skillId is in the middle of the container, can't seem to shift left. Padding, border and margin are not the cause. Please help  */}
-          <div className='text-gray-600 text-sm text-left'>{skillId}</div>
+        <div className='ml-5 flex items-center'>
+        <StarIcon className='fs-5 m-1 mr-2 h-5 w-5' aria-hidden='true' />
+          <div className='font-medium'>{skillName}<div className='text-gray-600 text-sm text-left'>{skillId}</div></div>
         </div>
         <SkillTileButton isDetailsOpen={isDetailsOpen} setIsDetailsOpen={setIsDetailsOpen} />
       </div>
-      {isDetailsOpen && <SkillTileDescription skillDesc={skillDesc} jobs={jobs} />}
-      {/* Can't seem to render jobs for skill */}
+      {isDetailsOpen && <SkillTileDescription skillDesc={skillDesc} courses={courses} />}
+      {/* Can't seem to render courses for skill */}
     </div>
-  );
-}
-
-function CreateLearningJourneyButton({ handleCreateLJButtonClick }) {
-  return (
-    <button
-      type='button'
-      className='mr-5 ml-auto text-white bg-orange-500 hover:bg-orange-600 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-1'
-      onClick={handleCreateLJButtonClick}
-    >
-      <span>Create Learning Journey</span>
-    </button>
   );
 }
 
@@ -50,16 +36,16 @@ function SkillTileButton({ isDetailsOpen, setIsDetailsOpen }) {
   );
 }
 
-function SkillTileDescription({ skillDesc, jobs }) {
-  const renderJobRolesForSkill = jobs.map(({ jobId, jobName, jobDesc }, index) => (
-    <JobBadge key={`job-${jobId}`} jobName={jobName} />
+function SkillTileDescription({ skillDesc, courses }) {
+  const renderCoursesForSkill = courses.map(({ courseId, courseName, courseDesc }, index) => (
+    <CourseBadge key={`course-${courseId}`} courseName={courseName} />
   ));
 
   return (
     <div className='m-auto flex flex-col w-11/12 p-5 px-10'>
       <p className='font-medium text-justify'>{skillDesc}</p>
-      <div className='flex mt-5'>{renderJobRolesForSkill}</div>
-      {/* render jobroles for skill not working for some reason */}
+      <div className='flex mt-5'>{renderCoursesForSkill}</div>
+      {/* render courses for skill not working for some reason */}
     </div>
   );
 }

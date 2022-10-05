@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { getSkills } from "src/api/skills"; // Check api
+import { getSkills, getAllSkillsAndCourses } from "src/api/skills";
 
 import SkillTile from "./SkillTile";
 
 function Skill() {
   const [skills, setSkills] = useState([]);
 
-  const renderSkills = skills.map(({ skillId, skillName, skillDesc, jobs }, index) => (
-    <SkillTile key={index} skillId={skillId} skillName={skillName} skillDesc={skillDesc} jobs={jobs} />
+  const renderSkills = skills.map(({ skillId, skillName, skillDesc, courses }, index) => (
+    <SkillTile key={index} skillId={skillId} skillName={skillName} skillDesc={skillDesc} courses={courses} />
   ));
 
   useEffect(() => {

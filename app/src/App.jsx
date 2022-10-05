@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { UserProvider } from "src/contexts/UserContext";
-import { Courses, Jobs, LearningJourneys, createLearningJourney } from "src/routes";
+import { Courses, Jobs, LearningJourneys, createLearningJourney, Skills } from "src/routes";
 
 import Layout from "./layout";
 import "./App.css";
@@ -14,7 +14,7 @@ function App() {
             <Route exact path='/' component={LearningJourneys} />
             <Route exact path='/courses' component={Courses} />
             <Route exact path='/jobs' component={Jobs} />
-            <Route exact path='/skills' component={Jobs} />
+            <Route exact path='/skills' component={Skills} />
             <Route exact path='/dashboard' component={Jobs} />
             <Route exact path='/create-learning-journey' component={createLearningJourney} />
           </Switch>

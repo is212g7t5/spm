@@ -1,6 +1,5 @@
 import axios from "axios";
 import { SKILL_ENDPOINT } from "./config";
-// import { JOB_ENDPOINT } from "./config";
 
 export const getSkills = async () => {
   try {
@@ -16,18 +15,18 @@ export const getSkills = async () => {
   }
 };
 
-// export const getAllJobsAndSkills = async () => {
-//   try {
-//     const res = await axios.get(`${JOB_ENDPOINT}/skills`);
-//     if (res) {
-//       return combineSkillsToJobs(res.data);
-//     }
-//     throw new Error("No data returned from backend");
-//   } catch (error) {
-//     console.log(error);
-//     return [];
-//   }
-// };
+export const getAllSkillsAndCourses = async () => {
+  try {
+    const res = await axios.get(`${SKILL_ENDPOINT}/courses`);
+    if (res) {
+      return combineCoursesToSkills(res.data);
+    }
+    throw new Error("No data returned from backend");
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
 
 // Utility Functions
 function transformSkills(snakeCaseSkills) {
@@ -39,20 +38,52 @@ function transformSkill(snakeCaseSkill) {
     skillName: snakeCaseSkill.skill_name,
     skillDesc: snakeCaseSkill.skill_desc,
     isActive: snakeCaseSkill.is_active,
-    jobs: []
+    courses: []
   };
 }
 
-function transformJobs(snakeCaseJobs) {
-  return snakeCaseJobs.map((job) => transformJob(job));
+function transformCourses(snakeCaseCourses) {
+  return snakeCaseCourses.map((course) => transformCourse(course));
 }
-function transformJob(snakeCaseJob) {
+function transformCourse(snakeCaseCourse) {
   return {
-    jobId: snakeCaseJob.job_id,
-    jobName: snakeCaseJob.job_name,
-    jobDesc: snakeCaseJob.job_desc,
-    isActive: snakeCaseJob.is_active,
+    courseId: snakeCaseCourse.course_id,
+    courseName: snakeCaseCourse.course_name,
+    courseDesc: snakeCaseCourse.course_desc,
+    isActive: snakeCaseCourse.is_active,
   };
+}
+
+function combineCoursesToSkills(coursesAndSkillsArray) {
+  const skillsCombinedWithCorrespondingCourses = {};
+
+  coursesAndSkillsArray.forEach((skillAndCourseInstance) => {
+    if (skillsCombinedWithCorrespondingCourses[skillAndCourseInstance.skill_id]) {
+      skillsCombinedWithCorrespondingCourses[skillAndCourseInstance.skill_id].courses.push({
+        courseId: skillAndCourseInstance.course_id,
+        courseName: skillAndCourseInstance.course_name,
+        courseDesc: skillAndCourseInstance.course_desc,
+        isActive: skillAndCourseInstance.is_course_active,
+      });
+    } else {
+      skillsCombinedWithCorrespondingCourses[skillAndCourseInstance.skill_id] = {
+        skillId: skillAndCourseInstance.skill_id,
+        skillName: skillAndCourseInstance.skill_name,
+        skillDesc: skillAndCourseInstance.skill_desc,
+        isActive: skillAndCourseInstance.is_skill_active,
+        courses: [
+          {
+            courseId: skillAndCourseInstance.course_id,
+            courseName: skillAndCourseInstance.course_name,
+            courseDesc: skillAndCourseInstance.course_desc,
+            isActive: skillAndCourseInstance.is_course_active,
+          },
+        ],
+      };
+    }
+  });
+
+  return Object.values(skillsCombinedWithCorrespondingCourses);
 }
 
 // function combineJobsToSkills(jobsAndSkillsArray) {
