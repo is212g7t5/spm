@@ -22,7 +22,7 @@ export const getLearningJourneys = async () => {
 
 export const getLearningJourneysByStaffId = async (staffId) => {
   try {
-    const res = await axiosLJInstance.get(`/Staff/staffId=${staffId}`);
+    const res = await axiosLJInstance.get(`/Staff/${staffId}`);
     if (res) {
       console.log(transformLearningJourneys(res.data));
       return transformLearningJourneys(res.data);
