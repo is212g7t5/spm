@@ -31,17 +31,17 @@ export default function HRCreateJob() {
   }
 
   const handleJobNameChange = (e) => {
+    e.preventDefault();
     if (e.target.value.length <= 50) {
       setJobName(e.target.value);
-      e.preventDefault();
     }
   }
 
   const handleJobDescChange = (e) => {
+    e.preventDefault();
     if (e.target.value.length <= 255) {
       setJobDesc(e.target.value);
     }
-    e.preventDefault();
   }
 
   const renderErrors = errors && errors.map && errors.map((error) => (<p>{error}</p>));
