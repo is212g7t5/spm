@@ -25,6 +25,7 @@ export default function HRCreateJob() {
       }
       setErrors(errorList);
     } else {
+      setErrors([]);
       setDisplayPopup(true);
     }
   }
