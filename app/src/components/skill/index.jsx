@@ -14,7 +14,7 @@ function Skill() {
     getAllSkills();
 
     async function getAllSkills() {
-      const skillsReturnedFromBackend = await getSkills();
+      const skillsReturnedFromBackend = await getAllSkillsAndCourses();
       setSkills(skillsReturnedFromBackend);
     }
   }, []);

@@ -5,7 +5,7 @@ export const getSkills = async () => {
   try {
     const res = await axios.get(`${SKILL_ENDPOINT}/all`);
     if (res) {
-      console.log(transformSkills(res.data))
+      console.log(transformSkills(res.data));
       return transformSkills(res.data);
     }
     throw new Error("No data returned from backend");
@@ -19,6 +19,9 @@ export const getAllSkillsAndCourses = async () => {
   try {
     const res = await axios.get(`${SKILL_ENDPOINT}/courses`);
     if (res) {
+      console.log(res);
+      console.log(res.data)
+      console.log(combineCoursesToSkills(res.data));
       return combineCoursesToSkills(res.data);
     }
     throw new Error("No data returned from backend");
@@ -58,70 +61,17 @@ function combineCoursesToSkills(coursesAndSkillsArray) {
   const skillsCombinedWithCorrespondingCourses = {};
 
   coursesAndSkillsArray.forEach((skillAndCourseInstance) => {
-    if (skillsCombinedWithCorrespondingCourses[skillAndCourseInstance.skill_id]) {
-      skillsCombinedWithCorrespondingCourses[skillAndCourseInstance.skill_id].courses.push({
-        courseId: skillAndCourseInstance.course_id,
-        courseName: skillAndCourseInstance.course_name,
-        courseDesc: skillAndCourseInstance.course_desc,
-        isActive: skillAndCourseInstance.is_course_active,
-      });
-    } else {
       skillsCombinedWithCorrespondingCourses[skillAndCourseInstance.skill_id] = {
         skillId: skillAndCourseInstance.skill_id,
         skillName: skillAndCourseInstance.skill_name,
         skillDesc: skillAndCourseInstance.skill_desc,
-        isActive: skillAndCourseInstance.is_skill_active,
-        courses: [
-          {
-            courseId: skillAndCourseInstance.course_id,
-            courseName: skillAndCourseInstance.course_name,
-            courseDesc: skillAndCourseInstance.course_desc,
-            isActive: skillAndCourseInstance.is_course_active,
-          },
-        ],
+        isActive: skillAndCourseInstance.is_active,
+        courses: skillAndCourseInstance.courses
       };
-    }
+// how to populate course_name for each array of course related to skill?
   });
 
   return Object.values(skillsCombinedWithCorrespondingCourses);
 }
 
-// function combineJobsToSkills(jobsAndSkillsArray) {
-//   const skillsCombinedWithCorrespondingJobs = {};
 
-//   jobsAndSkillsArray.forEach((skillAndJobInstance) => {
-//     if (skillsCombinedWithCorrespondingJobs[skillAndJobInstance.skill_id]) {
-//       skillsCombinedWithCorrespondingJobs[skillAndJobInstance.skill_id].jobs.push({
-//         jobId: skillAndJobInstance.job_id,
-//         jobName: skillAndJobInstance.job_name,
-//         jobDesc: skillAndJobInstance.job_desc,
-//         isActive: skillAndJobInstance.is_job_active,
-//       });
-//     } else {
-//       skillsCombinedWithCorrespondingJobs[skillAndJobInstance.job_id] = {
-//         skillId: skillAndJobInstance.skill_id,
-//         skillName: skillAndJobInstance.skill_name,
-//         skillDesc: skillAndJobInstance.skill_desc,
-//         isActive: skillAndJobInstance.is_skill_active,
-//         skills: [
-//           {
-//             jobId: skillAndJobInstance.job_id,
-//             jobName: skillAndJobInstance.job_name,
-//             jobDesc: skillAndJobInstance.job_desc,
-//             isActive: skillAndJobInstance.is_job_active,
-//           },
-//         ],
-//       };
-//     }
-//   });
-
-//   return Object.values(skillsCombinedWithCorrespondingJobs);
-// }
-
-// Schema for skills
-// {
-//   "skill_id": int
-//   "skill_name" str
-//   "skill_desc" str
-//   "is_active" boolean
-// }
