@@ -16,7 +16,7 @@ export default function Login() {
   }, []);
 
   return (
-    <Menu as='div' className='relative my-auto ml-5'>
+    <Menu as='div' className='relative my-auto ml-5 z-50'>
       <div>
         <Menu.Button className='relative inline-flex items-center rounded-md border border-transparent bg-callToActionColor1 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-callToActionColor2 focus:outline-none focus:ring-2 focus:ring-callToActionColor3 focus:ring-offset-2 focus:ring-offset-gray-800'>
           <span>{currentUserType || "Login"}</span>

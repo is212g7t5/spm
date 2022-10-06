@@ -7,9 +7,9 @@ const axiosSkillInstance = axios.create({
   headers: { "X-Custom-Header": "foobar" },
 });
 
-export const getSkills = async () => {
+export const getAllSkills = async () => {
   try {
-    const res = await axiosSkillInstance.get("/");
+    const res = await axiosSkillInstance.get("/all");
     if (res) {
       return res.data;
     }
@@ -20,10 +20,9 @@ export const getSkills = async () => {
   }
 };
 
-// BE to be updated
-export const getSkillsByJobRole = async () => {
+export const getAllActiveSkills = async () => {
   try {
-    const res = await axiosSkillInstance.get("/skills/role");
+    const res = await axiosSkillInstance.get("/all?active_only=true");
     if (res) {
       return res.data;
     }
@@ -32,4 +31,4 @@ export const getSkillsByJobRole = async () => {
     console.log(error);
     return [];
   }
-};
+}
