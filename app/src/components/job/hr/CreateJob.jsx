@@ -74,7 +74,7 @@ export default function HRCreateJob() {
                 <p className="text-right text-sm">{jobDesc.length}/255</p>
               </label>
             </div>
-            <button type="submit" className="text-white bg-orange-500 hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
+            <button type="submit" className="text-white bg-orange-500 hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Create Job</button>
           </form>
           <div className="pt-5 text-red-500">
             {renderErrors}
