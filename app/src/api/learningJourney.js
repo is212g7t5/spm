@@ -7,11 +7,25 @@ const axiosLJInstance = axios.create({
   headers: { "X-Custom-Header": "foobar" },
 });
 
-export const getLearningJourney = async () => {
+export const getLearningJourneys = async () => {
   try {
-    const res = await axiosLJInstance.get("/");
+    const res = await axiosLJInstance.get("/all");
     if (res) {
       return res.data;
+    }
+    throw new Error("No data returned from backend");
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
+export const getLearningJourneysByStaffId = async (staffId) => {
+  try {
+    const res = await axiosLJInstance.get(`/Staff/staffId=${staffId}`);
+    if (res) {
+      console.log(transformLearningJourneys(res.data));
+      return transformLearningJourneys(res.data);
     }
     throw new Error("No data returned from backend");
   } catch (error) {
@@ -32,3 +46,15 @@ export const createLearningJourneyWithJobId = async (jobId) => {
     return [];
   }
 };
+
+// Utility Functions
+function transformLearningJourneys(snakeCaseLJs) {
+  return snakeCaseLJs.map((LJ) => transformLJ(LJ));
+}
+function transformLJ(snakeCaseLJ) {
+  return {
+    lJId: snakeCaseLJ.lj_id,
+    staffId: snakeCaseLJ.staff_id,
+    jobId: snakeCaseLJ.job_id,
+  };
+}
