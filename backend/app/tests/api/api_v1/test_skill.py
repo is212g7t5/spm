@@ -9,7 +9,6 @@ def test_get_all_skills_non_existent(client: TestClient, db: Session) -> None:
     response = client.get(
         f"{settings.API_V1_STR}/skill/all",
     )
-    print(response.json())
     assert response.status_code == 404
     content = response.json()
     assert content["detail"] == "Skills not found"
@@ -55,6 +54,26 @@ def test_get_all_skills(client: TestClient, db: Session) -> None:
             is_course_in_response = True
             break
     assert is_course_in_response
+
+
+def test_get_all_skills_active_only(client: TestClient, db: Session) -> None:
+    skill = create_random_skill(db, is_active=False)
+    response = client.get(
+        f"{settings.API_V1_STR}/skill/all?active_only=true",
+    )
+    assert response.status_code == 200
+    content = response.json()
+    assert len(content) == 2
+
+    course_not_in_response = True
+    for obj in content:
+        if obj["skill_id"] == skill.skill_id:
+            assert obj["skill_name"] == skill.skill_name
+            assert obj["skill_desc"] == skill.skill_desc
+            assert obj["is_active"] == skill.is_active
+            course_not_in_response = False
+            break
+    assert course_not_in_response
 
 
 def test_create_skill_no_desc(client: TestClient, db: Session) -> None:

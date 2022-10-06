@@ -14,11 +14,12 @@ router = APIRouter()
 def get_all_skill(
     db: Session = Depends(deps.get_db),
     skip: int = 0,
+    active_only: bool = False,
 ) -> Any:
     """
     Retrieve all skills.
     """
-    skills = crud.skill.get_multi(db, skip=skip)
+    skills = crud.skill.get_multi(db, skip=skip, active_only=active_only)
     if not skills:
         raise HTTPException(
             status_code=404,
