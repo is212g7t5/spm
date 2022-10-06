@@ -21,8 +21,8 @@ export default function Navbar() {
       href={item.href}
       className={classNames(
         isCurrent(item.href)
-          ? "bg-cyan-900 text-white"
-          : "text-gray-300 hover:bg-gray-700 hover:text-white",
+          ? "bg-tertiaryColor text-textColor"
+          : "text-textColor2 hover:bg-primaryColor hover:text-textColor",
         "block px-3 py-2 rounded-md text-base font-medium",
       )}
       aria-current={isCurrent(item.href) ? "page" : undefined}
@@ -32,7 +32,7 @@ export default function Navbar() {
   ));
 
   return (
-    <Disclosure as='nav' className='bg-cyan-800'>
+    <Disclosure as='nav' className='bg-secondaryColor'>
       {({ open }) => (
         <>
           <div className='flex h-16 justify-between mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
@@ -63,7 +63,7 @@ function MobileNavbarItems({ open }) {
     <div className='flex'>
       <div className='ml-2 mr-2 flex items-center md:hidden'>
         {/* Mobile menu button */}
-        <Disclosure.Button className='inline-flex items-center justify-center rounded-md p-2 text-gray-300 hover:bg-cyan-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'>
+        <Disclosure.Button className='inline-flex items-center justify-center rounded-md p-2 text-textColor2 hover:bg-primaryColor hover:text-textColor focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'>
           <span className='sr-only'>Open main menu</span>
           {open ? (
             <XMarkIcon className='block h-6 w-6' aria-hidden='true' />
@@ -83,8 +83,8 @@ function DeskopNavbarItems({ pageNavigation }) {
       key={routingItem.name}
       className={classNames(
         isCurrent(routingItem.href)
-          ? "bg-cyan-900 text-white"
-          : "text-gray-300 hover:bg-cyan-700 hover:text-white",
+          ? "bg-tertiaryColor text-textColor"
+          : "text-textColor2 hover:bg-primaryColor hover:text-textColor",
         "px-3 py-2 rounded-md text-sm font-medium",
       )}
       aria-current={isCurrent(routingItem.href) ? "page" : undefined}
@@ -97,7 +97,7 @@ function DeskopNavbarItems({ pageNavigation }) {
     <div className='hidden md:ml-6 md:flex md:items-center md:space-x-4 md:mr-auto'>
       <Link
         to='/'
-        className='text-lg font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white'
+        className='text-lg font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-textColor'
       >
         LJPS
       </Link>
@@ -117,7 +117,7 @@ function CreateLJButton() {
     <div className='flex-shrink-0 items-center my-auto ml-auto'>
       <button
         type='button'
-        className='relative inline-flex items-center rounded-md border border-transparent bg-orange-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-800'
+        className='relative inline-flex items-center rounded-md border border-transparent bg-callToActionColor1 px-4 py-2 text-sm font-medium text-textColor shadow-sm hover:bg-callToActionColor2 focus:outline-none focus:ring-2 focus:ring-callToActionColor3 focus:ring-offset-2 focus:ring-offset-gray-800'
         onClick={redirectToCreateLJPage}
       >
         <PlusIcon className='-ml-1 mr-2 h-5 w-5' aria-hidden='true' />
