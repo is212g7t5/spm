@@ -5,4 +5,4 @@ import Skills from "./skills";
 import LearningJourneys from "./learningJourneys";
 import CreateLearningJourneyPage from "./createLearningJourneyPage";
 
-export { Courses, CreateJob, Jobs, LearningJourneys, CreateLearningJourneyPage };
+export { Courses, CreateJob, Jobs, LearningJourneys, CreateLearningJourneyPage, Skills };
