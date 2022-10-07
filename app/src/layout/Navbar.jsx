@@ -23,8 +23,8 @@ export default function Navbar() {
       href={item.href}
       className={classNames(
         isCurrent(item.href)
-          ? "bg-tertiary text-textColor"
-          : "text-textColor2 hover:bg-primary hover:text-textColor",
+          ? "bg-tertiary text-white"
+          : "text-white hover:bg-primary hover:text-white",
         "block px-3 py-2 rounded-md text-base font-medium",
       )}
       aria-current={isCurrent(item.href) ? "page" : undefined}
@@ -65,7 +65,7 @@ function MobileNavbarItems({ open }) {
     <div className='flex'>
       <div className='ml-2 mr-2 flex items-center md:hidden'>
         {/* Mobile menu button */}
-        <Disclosure.Button className='inline-flex items-center justify-center rounded-md p-2 text-textColor2 hover:bg-primary hover:text-textColor focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'>
+        <Disclosure.Button className='inline-flex items-center justify-center rounded-md p-2 text-white hover:bg-primary hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'>
           <span className='sr-only'>Open main menu</span>
           {open ? (
             <XMarkIcon className='block h-6 w-6' aria-hidden='true' />
@@ -85,8 +85,8 @@ function DeskopNavbarItems({ pageNavigation }) {
       key={routingItem.name}
       className={classNames(
         isCurrent(routingItem.href)
-          ? "bg-tertiary text-textColor"
-          : "text-textColor2 hover:bg-primary hover:text-textColor",
+          ? "bg-tertiary text-white"
+          : "text-white hover:bg-primary hover:text-white",
         "px-3 py-2 rounded-md text-sm font-medium",
       )}
       aria-current={isCurrent(routingItem.href) ? "page" : undefined}
@@ -99,7 +99,7 @@ function DeskopNavbarItems({ pageNavigation }) {
     <div className='hidden md:ml-6 md:flex md:items-center md:space-x-4 md:mr-auto'>
       <Link
         to='/'
-        className='text-lg font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-textColor'
+        className='text-lg font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white'
       >
         LJPS
       </Link>

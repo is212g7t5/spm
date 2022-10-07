@@ -5,7 +5,7 @@ const defaultLJCreationContextState = {
   selectedJobRole: {},
   setSelectedJobRole: (JobDetails) => {},
   selectedCourseDetails: [],
-  addCourseIdToLJ: (courseId) => {},
+  addCourseToLJ: (courseDetails) => {},
   removeCourseIdFromLJ: (courseId) => {},
 };
 const LJCreationContext = createContext(defaultLJCreationContextState);
@@ -14,8 +14,8 @@ export function LJCreationContextProvider({ children }) {
   const [selectedJobRole, setSelectedJobRole] = useState(null);
   const [selectedCourseDetails, setSelectedCourseDetails] = useState([]);
 
-  const addCourseIdToLJ = (courseId) => {
-    setSelectedCourseDetails([...selectedCourseDetails, courseId]);
+  const addCourseToLJ = (courseDetails) => {
+    setSelectedCourseDetails([...selectedCourseDetails, courseDetails]);
   };
 
   const removeCourseIdFromLJ = (courseId) => {
@@ -27,10 +27,16 @@ export function LJCreationContextProvider({ children }) {
       selectedJobRole,
       setSelectedJobRole,
       selectedCourseDetails,
-      addCourseIdToLJ,
+      addCourseToLJ,
       removeCourseIdFromLJ,
     }),
-    [selectedJobRole, setSelectedJobRole, selectedCourseDetails, addCourseIdToLJ, removeCourseIdFromLJ],
+    [
+      selectedJobRole,
+      setSelectedJobRole,
+      selectedCourseDetails,
+      addCourseToLJ,
+      removeCourseIdFromLJ,
+    ],
   );
 
   return (
