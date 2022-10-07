@@ -25,7 +25,7 @@ export default function JobTile({ jobId, jobName, jobDesc, skills, isActive }) {
         aria-hidden='true'
       >
         <BriefcaseIcon className='fs-5 ml-1 mr-2 h-5 w-5' aria-hidden='true' />
-        <div className='ml-5'>
+        <div className='ml-5 mr-auto'>
           <div className='flex space-x-5 items-center'>
             <div className={"font-medium text-left " + (isActive ? "" : "text-gray-400")}>
               {jobName}
@@ -34,7 +34,9 @@ export default function JobTile({ jobId, jobName, jobDesc, skills, isActive }) {
           </div>
           <div className='text-gray-600 text-sm text-left'>{jobId}</div>
         </div>
-        <CreateLearningJourneyButton handleCreateLJButtonClick={handleCreateLJButtonClick} />
+        {skills.length >= 1 && (
+          <CreateLearningJourneyButton handleCreateLJButtonClick={handleCreateLJButtonClick} />
+        )}
         <JobTileButton isDetailsOpen={isDetailsOpen} setIsDetailsOpen={setIsDetailsOpen} />
       </div>
       <div className='mx-3'>
@@ -66,7 +68,7 @@ function CreateLearningJourneyButton({ handleCreateLJButtonClick }) {
 
 function JobTileButton({ isDetailsOpen, setIsDetailsOpen }) {
   return (
-    <button className='w-10 text-right flex justify-end' type='button'>
+    <button className='ml-5 w-5 text-right flex justify-end' type='button'>
       {isDetailsOpen ? (
         <ChevronDownIcon className='w-5 h-5' aria-hidden='true' />
       ) : (
@@ -84,7 +86,11 @@ function JobTileDescription({ jobDesc, skills }) {
   return (
     <div className='m-auto flex flex-col w-full p-5 px-10 bg-slate-100 rounded-lg'>
       <p className='font-medium text-justify'>{jobDesc}</p>
-      <div className='flex mt-5'>{renderSkillsForJobRole}</div>
+      {skills.length ? (
+        <div className='flex mt-5'>{renderSkillsForJobRole}</div>
+      ) : (
+        "No current skills"
+      )}
     </div>
   );
 }

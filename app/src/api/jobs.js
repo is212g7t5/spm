@@ -19,7 +19,7 @@ export const getAllJobsAndSkills = async () => {
   try {
     const res = await axios.get(`${JOB_ENDPOINT}/skills`);
     if (res) {
-      console.log(combineSkillsToJobs(res.data))
+      console.log(combineSkillsToJobs(res.data));
       return combineSkillsToJobs(res.data);
     }
     throw new Error("No data returned from backend");
@@ -45,8 +45,8 @@ export const getJobById = async (jobId) => {
 export const createJob = async (jobName, jobDesc) => {
   try {
     const res = await axios.post(`${JOB_ENDPOINT}`, {
-      "job_name": jobName,
-      "job_desc": jobDesc,
+      job_name: jobName,
+      job_desc: jobDesc,
     });
     if (res) {
       return res.data;
@@ -55,7 +55,7 @@ export const createJob = async (jobName, jobDesc) => {
   } catch (error) {
     return error.response.data;
   }
-}
+};
 
 // Utility Functions
 function transformJobsFromSnakeToCamel(snakeCaseJobs) {
@@ -67,7 +67,7 @@ function transformOneJob(snakeCaseJob) {
     jobName: snakeCaseJob.job_name,
     jobDesc: snakeCaseJob.job_desc,
     isActive: snakeCaseJob.is_job_active,
-    skills: []
+    skills: [],
   };
 }
 
@@ -87,28 +87,25 @@ function combineSkillsToJobs(skillsAndJobsArray) {
   const jobsCombinedWithCorrespondingSkills = {};
 
   skillsAndJobsArray.forEach((jobAndSkillInstance) => {
-    if (jobsCombinedWithCorrespondingSkills[jobAndSkillInstance.job_id]) {
-      jobsCombinedWithCorrespondingSkills[jobAndSkillInstance.job_id].skills.push({
-        skillId: jobAndSkillInstance.skill_id,
-        skillName: jobAndSkillInstance.skill_name,
-        skillDesc: jobAndSkillInstance.skill_desc,
-        isActive: jobAndSkillInstance.is_skill_active,
-      });
-    } else {
+    const skillInstance = {
+      skillId: jobAndSkillInstance.skill_id,
+      skillName: jobAndSkillInstance.skill_name,
+      skillDesc: jobAndSkillInstance.skill_desc,
+      isActive: jobAndSkillInstance.is_skill_active,
+    };
+
+    if (!(jobAndSkillInstance.job_id in jobsCombinedWithCorrespondingSkills)) {
       jobsCombinedWithCorrespondingSkills[jobAndSkillInstance.job_id] = {
         jobId: jobAndSkillInstance.job_id,
         jobName: jobAndSkillInstance.job_name,
         jobDesc: jobAndSkillInstance.job_desc,
         isActive: jobAndSkillInstance.is_job_active,
-        skills: [
-          {
-            skillId: jobAndSkillInstance.skill_id,
-            skillName: jobAndSkillInstance.skill_name,
-            skillDesc: jobAndSkillInstance.skill_desc,
-            isActive: jobAndSkillInstance.is_skill_active,
-          },
-        ],
+        skills: [],
       };
+    }
+
+    if (skillInstance.skillId) {
+      jobsCombinedWithCorrespondingSkills[jobAndSkillInstance.job_id].skills.push(skillInstance);
     }
   });
 
