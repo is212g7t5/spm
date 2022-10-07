@@ -11,7 +11,7 @@ import Login from "./Login";
 export default function Navbar() {
   const [pageNavigation, setPageNavigation] = useState([
     { name: "Dashboard", href: "/" },
-    { name: "Skills", href: "#" },
+    { name: "Skills", href: "/skills" },
     { name: "Courses", href: "/courses" },
     { name: "Job Roles", href: "/jobs" },
   ]);
