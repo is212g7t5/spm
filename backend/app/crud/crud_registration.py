@@ -43,5 +43,18 @@ class CRUDRegistration(CRUDBase[Registration, RegistrationCreate, RegistrationUp
         db.commit()
         return obj
 
+    def get_by_staff_and_course_id(
+        self,
+        db: Session,
+        *,
+        staff_id: Any,
+        course_id: Any,
+    ) -> Registration: 
+        return (
+            db.query(self.model)
+            .filter(self.model.staff_id == staff_id, self.model.course_id == course_id)
+            .first()
+        )
+
 
 registration = CRUDRegistration(Registration)
