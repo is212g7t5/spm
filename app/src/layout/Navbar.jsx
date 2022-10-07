@@ -23,8 +23,8 @@ export default function Navbar() {
       href={item.href}
       className={classNames(
         isCurrent(item.href)
-          ? "bg-tertiaryColor text-textColor"
-          : "text-textColor2 hover:bg-primaryColor hover:text-textColor",
+          ? "bg-tertiary text-textColor"
+          : "text-textColor2 hover:bg-primary hover:text-textColor",
         "block px-3 py-2 rounded-md text-base font-medium",
       )}
       aria-current={isCurrent(item.href) ? "page" : undefined}
@@ -34,7 +34,7 @@ export default function Navbar() {
   ));
 
   return (
-    <Disclosure as='nav' className='bg-secondaryColor'>
+    <Disclosure as='nav' className='bg-secondary'>
       {({ open }) => (
         <>
           <div className='flex h-16 justify-between mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
@@ -65,7 +65,7 @@ function MobileNavbarItems({ open }) {
     <div className='flex'>
       <div className='ml-2 mr-2 flex items-center md:hidden'>
         {/* Mobile menu button */}
-        <Disclosure.Button className='inline-flex items-center justify-center rounded-md p-2 text-textColor2 hover:bg-primaryColor hover:text-textColor focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'>
+        <Disclosure.Button className='inline-flex items-center justify-center rounded-md p-2 text-textColor2 hover:bg-primary hover:text-textColor focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'>
           <span className='sr-only'>Open main menu</span>
           {open ? (
             <XMarkIcon className='block h-6 w-6' aria-hidden='true' />
@@ -85,8 +85,8 @@ function DeskopNavbarItems({ pageNavigation }) {
       key={routingItem.name}
       className={classNames(
         isCurrent(routingItem.href)
-          ? "bg-tertiaryColor text-textColor"
-          : "text-textColor2 hover:bg-primaryColor hover:text-textColor",
+          ? "bg-tertiary text-textColor"
+          : "text-textColor2 hover:bg-primary hover:text-textColor",
         "px-3 py-2 rounded-md text-sm font-medium",
       )}
       aria-current={isCurrent(routingItem.href) ? "page" : undefined}

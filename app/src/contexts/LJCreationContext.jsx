@@ -4,7 +4,7 @@ import React, { useState, createContext, useContext, useMemo } from "react";
 const defaultLJCreationContextState = {
   selectedJobRole: {},
   setSelectedJobRole: (JobDetails) => {},
-  selectedCourseIds: [],
+  selectedCourseDetails: [],
   addCourseIdToLJ: (courseId) => {},
   removeCourseIdFromLJ: (courseId) => {},
 };
@@ -12,25 +12,25 @@ const LJCreationContext = createContext(defaultLJCreationContextState);
 
 export function LJCreationContextProvider({ children }) {
   const [selectedJobRole, setSelectedJobRole] = useState(null);
-  const [selectedCourseIds, setSelectedCourseIds] = useState([]);
+  const [selectedCourseDetails, setSelectedCourseDetails] = useState([]);
 
   const addCourseIdToLJ = (courseId) => {
-    setSelectedCourseIds([...selectedCourseIds, courseId]);
+    setSelectedCourseDetails([...selectedCourseDetails, courseId]);
   };
 
   const removeCourseIdFromLJ = (courseId) => {
-    setSelectedCourseIds(selectedCourseIds.filter((id) => id !== courseId));
+    setSelectedCourseDetails(selectedCourseDetails.filter((id) => id !== courseId));
   };
 
   const LJCreationContextState = useMemo(
     () => ({
       selectedJobRole,
       setSelectedJobRole,
-      selectedCourseIds,
+      selectedCourseDetails,
       addCourseIdToLJ,
       removeCourseIdFromLJ,
     }),
-    [selectedJobRole, setSelectedJobRole, selectedCourseIds, addCourseIdToLJ, removeCourseIdFromLJ],
+    [selectedJobRole, setSelectedJobRole, selectedCourseDetails, addCourseIdToLJ, removeCourseIdFromLJ],
   );
 
   return (
