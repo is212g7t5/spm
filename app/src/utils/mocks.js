@@ -1,100 +1,100 @@
 export const mockJobs = [
-    {
-      jobId: 1,
-      jobName: "Software Engineer",
-      jobDesc:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit autem sequi quos deleniti vitae quasi nemo quia quam accusamus nobis a ducimus deserunt numquam earum, dignissimos mollitia tempora saepe magnam ex beatae unde dolorem? At ipsa placeat accusantium ea consequuntur. Laudantium beatae, sapiente cumque placeat dolores magni explicabo minima aliquam!",
-      skills: [
-        {
-          skillId: 1,
-          skillName: "Java",
-          skillDesc:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit autem sequi quos deleniti vitae quasi nemo quia quam accusamus nobis a ducimus deserunt numquam earum, dignissimos mollitia tempora saepe magnam ex beatae unde dolorem? At ipsa placeat accusantium ea consequuntur. Laudantium beatae, sapiente cumque placeat dolores magni explicabo minima aliquam!",
-        },
-        {
-          skillId: 2,
-          skillName: "Python",
-          skillDesc: "Python Description",
-        },
-        {
-          skillId: 3,
-          skillName: "C",
-          skillDesc: "C Description",
-        },
-      ],
-    },
-    {
-      jobId: 2,
-      jobName: "Software Engineer",
-      jobDesc: "Software Engineer Description",
-      skills: [
-        {
-          skillId: 1,
-          skillName: "Java",
-          skillDesc: "Java Description",
-        },
-        {
-          skillId: 2,
-          skillName: "Python",
-          skillDesc: "Python Description",
-        },
-        {
-          skillId: 3,
-          skillName: "C",
-          skillDesc: "C Description",
-        },
-      ],
-    },
-    {
-      jobId: 3,
-      jobName: "Software Engineer",
-      jobDesc: "Software Engineer Description",
-      skills: [
-        {
-          skillId: 1,
-          skillName: "Java",
-          skillDesc: "Java Description",
-        },
-        {
-          skillId: 2,
-          skillName: "Python",
-          skillDesc: "Python Description",
-        },
-        {
-          skillId: 3,
-          skillName: "C",
-          skillDesc: "C Description",
-        },
-      ],
-    },
-];
-
-export const mockJobAndSkills = {
+  {
     jobId: 1,
-    jobName: "Data Analyst",
-    jobDesc: "Turn data into meaningful insights",
-    isActive: true,
+    jobName: "Software Engineer",
+    jobDesc:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit autem sequi quos deleniti vitae quasi nemo quia quam accusamus nobis a ducimus deserunt numquam earum, dignissimos mollitia tempora saepe magnam ex beatae unde dolorem? At ipsa placeat accusantium ea consequuntur. Laudantium beatae, sapiente cumque placeat dolores magni explicabo minima aliquam!",
     skills: [
       {
         skillId: 1,
-        skillName: "Python Pandas",
-        skillDesc: "Basic EDA",
-        isActive: true
+        skillName: "Java",
+        skillDesc:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit autem sequi quos deleniti vitae quasi nemo quia quam accusamus nobis a ducimus deserunt numquam earum, dignissimos mollitia tempora saepe magnam ex beatae unde dolorem? At ipsa placeat accusantium ea consequuntur. Laudantium beatae, sapiente cumque placeat dolores magni explicabo minima aliquam!",
       },
       {
         skillId: 2,
-        skillName: "Tensorflow",
-        skillDesc: "ML",
-        isActive: true
+        skillName: "Python",
+        skillDesc: "Python Description",
       },
       {
         skillId: 3,
-        skillName: "Patience",
-        skillDesc: "Data cleaning is lotsa work",
-        isActive: true
-      }
-    ]
-}
+        skillName: "C",
+        skillDesc: "C Description",
+      },
+    ],
+  },
+  {
+    jobId: 2,
+    jobName: "Software Engineer",
+    jobDesc: "Software Engineer Description",
+    skills: [
+      {
+        skillId: 1,
+        skillName: "Java",
+        skillDesc: "Java Description",
+      },
+      {
+        skillId: 2,
+        skillName: "Python",
+        skillDesc: "Python Description",
+      },
+      {
+        skillId: 3,
+        skillName: "C",
+        skillDesc: "C Description",
+      },
+    ],
+  },
+  {
+    jobId: 3,
+    jobName: "Software Engineer",
+    jobDesc: "Software Engineer Description",
+    skills: [
+      {
+        skillId: 1,
+        skillName: "Java",
+        skillDesc: "Java Description",
+      },
+      {
+        skillId: 2,
+        skillName: "Python",
+        skillDesc: "Python Description",
+      },
+      {
+        skillId: 3,
+        skillName: "C",
+        skillDesc: "C Description",
+      },
+    ],
+  },
+];
+
+export const mockJobAndSkills = {
+  jobId: 1,
+  jobName: "Data Analyst",
+  jobDesc: "Turn data into meaningful insights",
+  isActive: true,
+  skills: [
+    {
+      skillId: 1,
+      skillName: "Python Pandas",
+      skillDesc: "Basic EDA",
+      isActive: true,
+    },
+    {
+      skillId: 2,
+      skillName: "Tensorflow",
+      skillDesc: "ML",
+      isActive: true,
+    },
+    {
+      skillId: 3,
+      skillName: "Patience",
+      skillDesc: "Data cleaning is lotsa work",
+      isActive: true,
+    },
+  ],
+};
 
 export const mockCourses = [
   {
@@ -135,29 +135,70 @@ export const mockCourses = [
   },
 ];
 
+export const mockSkillAndCourses = [
+  {
+    skillId: 1,
+    skillName: "Python Pandas",
+    skillDesc: "Basic EDA",
+    isActive: true,
+    courses: [
+      {
+        courseId: 1,
+        courseName: "Introduction to Information Systems 1",
+        courseStatus: "Active",
+        courseDesc:
+          "In this course students acquire foundational computer programming concepts and skills through Python, a widely-used programming language. Upon successful completion of this course, the students will understand and be able to appropriately apply fundamental programming concepts including variables, functions, parameters, loops and conditions as well as basic data structures including arrays (lists in Python) and hash tables (dictionaries in Python) in simple applications.",
+        registrationStatus: "Registered",
+        completionStatus: "Completed",
+      },
+      {
+        courseId: 2,
+        courseName: "Introduction to Information Systems 2",
+        courseStatus: "Active",
+        courseDesc:
+          "In this course students acquire foundational computer programming concepts and skills through Python, a widely-used programming language. Upon successful completion of this course, the students will understand and be able to appropriately apply fundamental programming concepts including variables, functions, parameters, loops and conditions as well as basic data structures including arrays (lists in Python) and hash tables (dictionaries in Python) in simple applications.",
+        registrationStatus: "Registered",
+        completionStatus: "Completed",
+      },
+      {
+        courseId: 3,
+        courseName: "Introduction to Information Systems 3",
+        courseStatus: "Active",
+        courseDesc:
+          "In this course students acquire foundational computer programming concepts and skills through Python, a widely-used programming language. Upon successful completion of this course, the students will understand and be able to appropriately apply fundamental programming concepts including variables, functions, parameters, loops and conditions as well as basic data structures including arrays (lists in Python) and hash tables (dictionaries in Python) in simple applications.",
+        registrationStatus: "Registered",
+        completionStatus: "Completed",
+      },
+    ],
+  },
+];
+
 export const mockLearningJourneys = [
   {
     learningId: 1,
     jobName: "Visual Designer",
-    jobDesc: "Designing visual elements that users see and interact with in order to create a good user experience.",
-    isJobActive: true
+    jobDesc:
+      "Designing visual elements that users see and interact with in order to create a good user experience.",
+    isJobActive: true,
   },
   {
     learningId: 2,
     jobName: "Software Engineer",
-    jobDesc: "Designing, developing, and testing software that runs on a computer or mobile device.",
-    isJobActive: true
+    jobDesc:
+      "Designing, developing, and testing software that runs on a computer or mobile device.",
+    isJobActive: true,
   },
   {
     learningId: 3,
     jobName: "Accountant",
     jobDesc: "Accountants are responsible for preparing and examining financial records.",
-    isJobActive: false
+    isJobActive: false,
   },
   {
     learningId: 4,
     jobName: "Data Scientist",
-    jobDesc: "Data scientists are responsible for collecting, analyzing, and interpreting large amounts of data.",
-    isJobActive: true
-  }
+    jobDesc:
+      "Data scientists are responsible for collecting, analyzing, and interpreting large amounts of data.",
+    isJobActive: true,
+  },
 ];

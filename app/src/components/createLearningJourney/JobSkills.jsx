@@ -1,6 +1,7 @@
-export default function JobSkills({ skills }) {
+// import { AcademicCapIcon } from "@heroicons/react/20/solid";
+export default function JobSkills({ skills, openModal }) {
   const renderSkillsForJobRole = skills.map((skill, index) => (
-    <SkillBody key={index} skill={skill} />
+    <SkillBody key={index} skill={skill} openModal={openModal} />
   ));
 
   return (
@@ -13,10 +14,14 @@ export default function JobSkills({ skills }) {
     </div>
   );
 }
-function SkillBody({ skill }) {
+function SkillBody({ skill, openModal }) {
   const { skillId, skillName, skillDesc } = skill;
   return (
-    <div className='flex flex-col w-full p-3 px-5 bg-primary rounded-lg mt-5'>
+    <div
+      className='flex flex-col w-full mt-5 p-3 px-5 justify-between bg-primary rounded-lg shadow hover:shadow-2xl hover:bg-secondary cursor-pointer'
+      aria-hidden='true'
+      onClick={openModal}
+    >
       <p className='text-lg font-bold text-white dark:text-white'>{skillName}</p>
       <p className='text-base text-white text-jusify'>{skillDesc}</p>
     </div>

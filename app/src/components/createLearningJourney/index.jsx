@@ -3,10 +3,16 @@ import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useLJCreationContext } from "src/contexts/LJCreationContext";
 
+import { mockSkillAndCourses } from "src/utils/mocks";
+
 import JobSkills from "./JobSkills";
 import CoursesList from "./CoursesList";
+import CourseModal from "./CourseModal";
 
 export default function index() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [coursesAndSkillsMapping, setCoursesAndSkillsMapping] = useState([]);
+
   const history = useHistory();
   const { selectedJobRole } = useLJCreationContext();
 
@@ -19,9 +25,28 @@ export default function index() {
     }
   }, []);
 
-  if (!selectedJobRole) {
+  useEffect(() => {
+    getCoursesAndSetState();
+
+    async function getCoursesAndSetState() {
+      // const allCoursesAndSkills = getAllSkillsAndCourses();
+      const allCoursesAndSkills = mockSkillAndCourses;
+      setCoursesAndSkillsMapping(allCoursesAndSkills);
+    }
+  }, []);
+
+  if (!selectedJobRole || !coursesAndSkillsMapping) {
     return <div>Loading ...</div>;
   }
+
+  const closeModal = (e) => {
+    setIsModalOpen(false);
+  };
+
+  const openModal = (e) => {
+    console.log("openinng the modal");
+    setIsModalOpen(true);
+  };
 
   return (
     <div className='flex flex-col container w-9/12 max-w-7xl mt-10 p-10 mx-auto w-full bg-white rounded-lg shadow-lg shadow-blue-200 justify-around'>
@@ -30,8 +55,13 @@ export default function index() {
         You have selected Role: {selectedJobRole.jobName}
       </p>
       <JobTileDescription jobDesc={selectedJobRole.jobDesc} />
-      <JobSkills skills={selectedJobRole.skills} />
+      <JobSkills skills={selectedJobRole.skills} openModal={openModal} />
       <CoursesList />
+      <CourseModal
+        coursesToRender={coursesAndSkillsMapping}
+        isModalOpen={isModalOpen}
+        closeModal={closeModal}
+      />
     </div>
   );
 }
