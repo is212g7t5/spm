@@ -3,11 +3,11 @@ import DropdownButton from "./DropdownButton";
 
 function LearningJourneyTile({ LJId, jobName, jobDesc, isJobActive }) {
   if (!isJobActive) {
-    return (null);
+    return null;
   }
 
   return (
-    <div className="max-w-sm bg-white rounded-lg border border-gray-100 hover:shadow-lg hover:shadow-orange-200 mt-10 mx-auto">
+    <div className='max-w-sm bg-white rounded-lg border border-gray-100 hover:shadow-lg hover:shadow-orange-200 mt-10 mx-auto'>
       <DropdownButton />
 
       <div className="flex flex-col items-center pb-10">
@@ -16,7 +16,7 @@ function LearningJourneyTile({ LJId, jobName, jobDesc, isJobActive }) {
         <span className="text-md text-gray-500 italic">{jobName}</span>
         <span className="text-sm p-5 text-center">{jobDesc}</span>
       </div>
-  </div>
+    </div>
   );
 }
 

@@ -21,9 +21,9 @@ export const getSkills = async () => {
 };
 
 // BE to be updated
-export const getSkillsByJobRole = async () => {
+export const getSkillsByJobId = async () => {
   try {
-    const res = await axiosSkillInstance.get("/skills/role");
+    const res = await axiosSkillInstance.get("/skills/JobId");
     if (res) {
       return res.data;
     }
