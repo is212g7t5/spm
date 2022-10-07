@@ -3,21 +3,21 @@ import { getLearningJourneyCoursesById } from "src/api/learningJourneyCourse";
 import AddCourseButton from "./AddCourseButton";
 import CourseCard from "./CourseCard";
 
-export default function CourseContainer({ ljId, staffId }) {
+export default function CourseContainer({ LJId, staffId }) {
 
-    const [ljCourseIds, setLjCourseIds] = useState([]);
+    const [LJCourseIds, setLJCourseIds] = useState([]);
 
-    const renderCourseCards = ljCourseIds.map((ljCourseId, index) => (
-        <CourseCard courseId={ljCourseId} staffId={staffId}  />
+    const renderCourseCards = LJCourseIds.map((LJCourseId, index) => (
+        <CourseCard courseId={LJCourseId} staffId={staffId}  />
     ))
 
     useEffect(() => {
-        async function getAllCoursesForLJ(ljId) {
-            const courseIdsReturnedFromBackend = await getLearningJourneyCoursesById(ljId);
-            setLjCourseIds(courseIdsReturnedFromBackend);
+        async function getAllCoursesForLJ(LJId) {
+            const courseIdsReturnedFromBackend = await getLearningJourneyCoursesById(LJId);
+            setLJCourseIds(courseIdsReturnedFromBackend);
         }
 
-        getAllCoursesForLJ(ljId);
+        getAllCoursesForLJ(LJId);
     }, []);
 
     const statusToColor = {

@@ -7,11 +7,11 @@ const axiosLJInstance = axios.create({
     headers: { "X-Custom-Header": "foobar" },
 });
 
-export const getLearningJourneyCoursesById = async (ljId) => {
+export const getLearningJourneyCoursesById = async (LJId) => {
     try {
-        const res = await axiosLJInstance.get(`/${ljId}`);
+        const res = await axiosLJInstance.get(`/${LJId}`);
         if (res) {
-            return extractCourseIds(res.data);
+            return extractCourseIdsFromLJAndCourseIdsObjects(res.data);
         }
         throw new Error("No data returned from backend");
     } catch (error) {
@@ -20,10 +20,10 @@ export const getLearningJourneyCoursesById = async (ljId) => {
     }
 };
 
-function extractCourseIds(ljAndCourseIdsArray) {
+function extractCourseIdsFromLJAndCourseIdsObjects(LJAndCourseIds) {
     const courseIdArray = [];
-    ljAndCourseIdsArray.forEach((ljAndCourseIdInstance) => {
-        courseIdArray.push(ljAndCourseIdInstance.course_id);
+    LJAndCourseIds.forEach((LJAndCourseIdInstance) => {
+        courseIdArray.push(LJAndCourseIdInstance.course_id);
     });
     return courseIdArray;
 }
