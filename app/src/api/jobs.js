@@ -30,6 +30,34 @@ export const getAllJobsAndSkills = async () => {
   }
 };
 
+export const getJobById = async (jobId) => {
+  try {
+    const res = await axios.get(`${JOB_ENDPOINT}/${jobId}`);
+    if (res) {
+      return transformJobs(res.data);
+    }
+    throw new Error("No data returned from backend");
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
+export const createJob = async (jobName, jobDesc) => {
+  try {
+    const res = await axios.post(`${JOB_ENDPOINT}`, {
+      "job_name": jobName,
+      "job_desc": jobDesc,
+    });
+    if (res) {
+      return res.data;
+    }
+    throw new Error("No data returned from backend");
+  } catch (error) {
+    return error.response.data;
+  }
+}
+
 // Utility Functions
 function transformJobs(snakeCaseJobs) {
   return snakeCaseJobs.map((job) => transformJob(job));

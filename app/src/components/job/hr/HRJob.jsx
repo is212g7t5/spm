@@ -22,8 +22,8 @@ function HRJob() {
 
   const history = useHistory();
 
-  const redirectToCreateLJPage = () => {
-    history.push("/jobs");
+  const redirectToCreateJobPage = () => {
+    history.push("/create-job");
   };
 
   return (
@@ -31,13 +31,13 @@ function HRJob() {
       <div className="flex justify-between">
         <h1 className='text-3xl text-left font-bold'>View All Job Roles</h1>
         <button
-        type='button'
-        className='relative inline-flex items-center rounded-md border border-orange-500 bg-transparent px-4 py-2 text-sm font-medium text-orange-500 shadow-sm hover:text-orange-600 hover:border-orange-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-800'
-        onClick={redirectToCreateLJPage}
-      >
-        <BriefcaseIcon className='-ml-1 mr-2 h-5 w-5' aria-hidden='true' />
-        <span>Create New Job</span>
-      </button>
+          type='button'
+          className='relative inline-flex items-center rounded-md border border-orange-500 bg-transparent px-4 py-2 text-sm font-medium text-orange-500 shadow-sm hover:text-orange-600 hover:border-orange-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-800'
+          onClick={redirectToCreateJobPage}
+        >
+          <BriefcaseIcon className='-ml-1 mr-2 h-5 w-5' aria-hidden='true' />
+          <span>Create New Job</span>
+        </button>
       </div>
       {jobs.length === 0 ? "No Jobs Found" : renderJobs}
     </div>
