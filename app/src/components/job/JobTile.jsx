@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { ChevronDownIcon, ChevronRightIcon, BriefcaseIcon, PencilSquareIcon } from "@heroicons/react/20/solid";
+import { ChevronDownIcon, ChevronRightIcon, BriefcaseIcon } from "@heroicons/react/20/solid";
 import { useHistory } from "react-router-dom";
 import { useLJCreationContext } from "src/contexts/LJCreationContext";
-import { useUserContext } from "src/contexts/UserContext";
+
 import SkillBadge from "./SkillBadge";
 
 export default function JobTile({ jobId, jobName, jobDesc, skills, isActive }) {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
-  const { currentUserType } = useUserContext();
+
   const { setSelectedJobRole } = useLJCreationContext();
   const history = useHistory();
 
@@ -17,10 +17,6 @@ export default function JobTile({ jobId, jobName, jobDesc, skills, isActive }) {
     history.push("create-learning-journey");
   };
 
-  const handleEditJobButtonClick = (e) => {
-    e.stopPropagation();
-  }
-
   return (
     <div className='container flex-col'>
       <div
@@ -28,45 +24,25 @@ export default function JobTile({ jobId, jobName, jobDesc, skills, isActive }) {
         onClick={() => setIsDetailsOpen(!isDetailsOpen)}
         aria-hidden='true'
       >
-        <div className='flex items-center'>
-          <BriefcaseIcon className='fs-5 ml-1 mr-2 h-5 w-5' aria-hidden='true' />
-          <div className='ml-5'>
-            <div className='flex space-x-5 items-center'>
-              <div className={"font-medium text-left " + (isActive ? "" : "text-gray-400")}>{jobName}</div>
-              {isActive ? "" : <CreateInactiveBadge/>}
+        <BriefcaseIcon className='fs-5 ml-1 mr-2 h-5 w-5' aria-hidden='true' />
+        <div className='ml-5 mr-auto'>
+          <div className='flex space-x-5 items-center'>
+            <div className={"font-medium text-left " + (isActive ? "" : "text-gray-400")}>
+              {jobName}
             </div>
-            <div className='text-gray-600 text-sm text-left'>{jobId}</div>
+            {isActive ? "" : <CreateInactiveBadge />}
           </div>
+          <div className='text-gray-600 text-sm text-left'>{jobId}</div>
         </div>
-        <div className='flex items-center'>
-          <div className='flex flex-col'>
-            {skills.length >= 1 && (
-              <CreateLearningJourneyButton handleCreateLJButtonClick={handleCreateLJButtonClick} />
-            )}
-            {currentUserType === "HR" && 
-              (<CreateEditJobButton handleEditJobButtonClick={handleEditJobButtonClick}/>
-            )}
-          </div>
-          <JobTileButton isDetailsOpen={isDetailsOpen} setIsDetailsOpen={setIsDetailsOpen} />
-        </div>
+        {skills.length >= 1 && (
+          <CreateLearningJourneyButton handleCreateLJButtonClick={handleCreateLJButtonClick} />
+        )}
+        <JobTileButton isDetailsOpen={isDetailsOpen} setIsDetailsOpen={setIsDetailsOpen} />
       </div>
       <div className='mx-3'>
         {isDetailsOpen && <JobTileDescription jobDesc={jobDesc} skills={skills} />}
       </div>
     </div>
-  );
-}
-
-function CreateEditJobButton({ handleEditJobButtonClick }) {
-  return (
-    <button
-      type='button'
-      className='w-full flex items-center justify-center ml-auto text-textColor bg-secondaryColor hover:bg-tertiaryColor focus:ring-4 rounded-lg text-sm px-5 py-2.5 text-center m-1'
-      onClick={handleEditJobButtonClick}
-    >
-      <PencilSquareIcon className='mr-2 h-5 w-5' aria-hidden='true' />
-      <span>Edit</span>
-    </button>
   );
 }
 
@@ -78,11 +54,11 @@ function CreateInactiveBadge() {
   );
 }
 
-function  CreateLearningJourneyButton({ handleCreateLJButtonClick }) {
+function CreateLearningJourneyButton({ handleCreateLJButtonClick }) {
   return (
     <button
       type='button'
-      className='w-full ml-auto text-white bg-orange-500 hover:bg-orange-600 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-1'
+      className='mr-5 ml-auto text-white bg-orange-500 hover:bg-orange-600 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-1'
       onClick={handleCreateLJButtonClick}
     >
       <span>Create Learning Journey</span>
