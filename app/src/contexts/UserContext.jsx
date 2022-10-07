@@ -12,6 +12,7 @@ const defaultUserContextState = {
   setIsUserLoggedIn: (loggedInStatus) => {},
   currentUserType: "",
   setUserTypeToStateAndSession: (userType) => {},
+  currentUserId: "1",
 };
 const UserContext = createContext(defaultUserContextState);
 
