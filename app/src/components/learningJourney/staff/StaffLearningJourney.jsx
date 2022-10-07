@@ -6,8 +6,8 @@ import LearningJourneyTile from "../LearningJourneyTile";
 function StaffLearningJourney(staffId) {
   const [learningJourneys, setLearningJourneys] = useState([]);
 
-  const renderLearningJourneys = learningJourneys.map(({ lJId, jobName, jobDesc, isJobActive }, index) => (
-    <LearningJourneyTile key={index} lJId={lJId} jobName={jobName} jobDesc={jobDesc} isJobActive={isJobActive}/>
+  const renderLearningJourneys = learningJourneys.map(({ LJId, jobName, jobDesc, isJobActive }, index) => (
+    <LearningJourneyTile key={index} LJId={LJId} jobName={jobName} jobDesc={jobDesc} isJobActive={isJobActive}/>
   ));
 
   useEffect(() => {

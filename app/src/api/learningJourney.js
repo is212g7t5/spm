@@ -53,7 +53,7 @@ function transformLearningJourneys(snakeCaseLJs) {
 }
 function transformLJ(snakeCaseLJ) {
   return {
-    lJId: snakeCaseLJ.lj_id,
+    LJId: snakeCaseLJ.lj_id,
     staffId: snakeCaseLJ.staff_id,
     jobId: snakeCaseLJ.job_id,
   };

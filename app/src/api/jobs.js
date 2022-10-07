@@ -32,7 +32,6 @@ export const getJobById = async (jobId) => {
   try {
     const res = await axios.get(`${JOB_ENDPOINT}/${jobId}`);
     if (res) {
-      console.log(transformJobs(res.data));
       return transformJobs(res.data);
     }
     throw new Error("No data returned from backend");
