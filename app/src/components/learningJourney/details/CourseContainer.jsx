@@ -3,13 +3,12 @@ import { getLearningJourneyCoursesById } from "src/api/learningJourneyCourse";
 import AddCourseButton from "./AddCourseButton";
 import CourseCard from "./CourseCard";
 
-export default function CourseContainer({ ljId }) {
+export default function CourseContainer({ ljId, staffId }) {
 
-    // Call Get all Courses for LJ API here
     const [ljCourseIds, setLjCourseIds] = useState([]);
 
     const renderCourseCards = ljCourseIds.map((ljCourseId, index) => (
-        <CourseCard courseId={ljCourseId}  />
+        <CourseCard courseId={ljCourseId} staffId={staffId}  />
     ))
 
     useEffect(() => {

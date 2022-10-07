@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { getCourseById } from "src/api/course";
 import { getSkillIdsForCourse } from "src/api/skillCourse";
+import { getRegistrationByStaffAndCourseId } from "src/api/registration";
 import CourseSkillBadge from "./CourseSkillBadge";
 
 
-export default function CourseCard({ courseId }) {
+export default function CourseCard({ courseId, staffId }) {
     const statusToColor = {
         "Completed": "bg-green-500",
         "Rejected": "bg-red-500",
@@ -18,6 +19,8 @@ export default function CourseCard({ courseId }) {
 
     const [courseSkillIds, setCourseSkillIds] = useState([]);
 
+    const [courseStatus, setCourseStatus] = useState("")
+
     useEffect(() => {
         async function getCourseName(courseId) {
             const course = await getCourseById(courseId);
@@ -29,30 +32,20 @@ export default function CourseCard({ courseId }) {
             setCourseSkillIds(skillIds);
         }
 
+        async function getCourseStatus(staffId, courseId) {
+            const registrationData = await getRegistrationByStaffAndCourseId(staffId, courseId);
+            if (Object.keys(registrationData).length === 0) {
+                setCourseStatus("Not Registered");
+            } else {
+                setCourseStatus(registrationData.completionStatus.length > 0 ? registrationData.completionStatus.trim() : registrationData.regStatus.trim());
+            }
+        }
+
         getCourseName(courseId);
         getCourseSkillIds(courseId);
+        getCourseStatus(staffId, courseId);
     }, []);
 
-    // TODO: Call Get Registration for Course_ID API here
-    const registrationData = {
-        "regStatus": "Waitlisted",
-        "completionStatus": "Ongoing"
-    }
-
-    // if no registrationData, courseStatus = "Not Registered"
-    const courseStatus = registrationData.completionStatus.length > 0 ? registrationData.completionStatus : registrationData.regStatus
-
-    // I assume we call some API "Get all skills for course" here
-    // const skillData = [
-    //     "People Management", "Data Analysis", "Project Management", "Figma", "Innovation", "Graphic Design"
-    // ]
-    // const skillList = skillData.map((skill, index) => (
-    //     <CourseSkillBadge
-    //         key={index}
-    //         skillId={skill}
-    //         skillName={skill}
-    //     />
-    // ))
     const skillList = courseSkillIds.map((skillId, index) => (
         <CourseSkillBadge
             key={index}
