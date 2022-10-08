@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getJobById } from "src/api/jobs";
 import { getLearningJourneysByStaffId } from "src/api/learningJourney";
+import { mockLearningJourneys } from "src/utils/mocks";
 import LearningJourneyTile from "../LearningJourneyTile";
 
 function StaffLearningJourney(staffId) {
@@ -36,7 +37,9 @@ function StaffLearningJourney(staffId) {
         learningJourneysReturnedFromBackend[i].isJobActive = result[i].isActive;
       }
 
-      setLearningJourneys(learningJourneysReturnedFromBackend);
+      setLearningJourneys(mockLearningJourneys)
+
+      // setLearningJourneys(learningJourneysReturnedFromBackend);
     }
   }, []);
 

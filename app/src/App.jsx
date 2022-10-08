@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { UserProvider } from "src/contexts/UserContext";
 import { LJCreationContextProvider } from "src/contexts/LJCreationContext";
-import { Courses, Jobs, CreateJob, LearningJourneys, createLearningJourneyPage, Skills } from "src/routes";
+import { Courses, Jobs, CreateJob, LearningJourneys, CreateLearningJourneyPage, Skills } from "src/routes";
 
 import Layout from "./layout";
 import "./App.css";
@@ -21,7 +21,7 @@ function App() {
               <Route exact path='/create-job' component={CreateJob} />
               <Route exact path='/skills' component={Skills} />
               <Route exact path='/dashboard' component={Jobs} />
-              <Route path='/create-learning-journey' component={createLearningJourneyPage} />
+              <Route path='/create-learning-journey' component={CreateLearningJourneyPage} />
             </Switch>
           </Layout>
           <ToastContainer

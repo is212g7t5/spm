@@ -25,12 +25,12 @@ export default function index() {
   return (
     <div className='flex flex-col container w-9/12 max-w-7xl mt-10 p-10 mx-auto w-full bg-white rounded-lg shadow-lg shadow-blue-200 justify-around'>
       <h1 className='text-3xl text-left font-bold'>Create your Learning Journey</h1>
-      <CreateLJBody selectedJobRole={selectedJobRole} />
+      <CreateLearningJourney selectedJobRole={selectedJobRole} />
     </div>
   );
 }
 
-function CreateLJBody({ selectedJobRole }) {
+function CreateLearningJourney({ selectedJobRole }) {
   return (
     <div className='flex-grid lg:grid-cols-2 2xl:grid-cols-3 gap-4 mt-5'>
       <p className='font-medium text-xl text-justify'>
