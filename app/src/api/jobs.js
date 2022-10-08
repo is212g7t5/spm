@@ -33,12 +33,12 @@ export const getJobById = async (jobId) => {
   try {
     const res = await axios.get(`${JOB_ENDPOINT}/${jobId}`);
     if (res) {
-      return transformJobsFromSnakeToCamel(res.data);
+      return transformOneJob(res.data);
     }
     throw new Error("No data returned from backend");
   } catch (error) {
     console.log(error);
-    return [];
+    return {};
   }
 };
 
@@ -66,7 +66,7 @@ function transformOneJob(snakeCaseJob) {
     jobId: snakeCaseJob.job_id,
     jobName: snakeCaseJob.job_name,
     jobDesc: snakeCaseJob.job_desc,
-    isActive: snakeCaseJob.is_job_active,
+    isActive: snakeCaseJob.is_active,
     skills: [],
   };
 }

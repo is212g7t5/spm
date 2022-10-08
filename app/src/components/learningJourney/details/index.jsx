@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import CourseContainer from "./CourseContainer";
 import JobAndSkillsContainer from "./JobAndSkillsContainer";
 
-function LearningJourneyDetails({ ljId }) {
+function LearningJourneyDetails({ LJId }) {
     return (
         <>
-            <h1 className="my-2 lg:text-2xl font-bold lg:text-center">Learning Journey {ljId}</h1>
+            <h1 className="my-2 lg:text-2xl font-bold lg:text-center">Learning Journey {LJId}</h1>
             <div className="grid grid-cols-4">
                 <CourseContainer />
-                <JobAndSkillsContainer />
+                <JobAndSkillsContainer LJId={LJId} />
             </div>
         </>
     )
