@@ -26,6 +26,7 @@ class Settings(BaseSettings):
         "http://localhost:3000",
         "http://localhost:8080",
         "http://localhost:8081",
+        "https://spm-g7t5.netlify.app",
     ]
 
     @validator("BACKEND_CORS_ORIGINS", pre=True)
