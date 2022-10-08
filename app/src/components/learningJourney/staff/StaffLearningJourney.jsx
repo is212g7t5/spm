@@ -6,9 +6,17 @@ import LearningJourneyTile from "../LearningJourneyTile";
 function StaffLearningJourney(staffId) {
   const [learningJourneys, setLearningJourneys] = useState([]);
 
-  const renderLearningJourneys = learningJourneys.map(({ LJId, jobName, jobDesc, isJobActive }, index) => (
-    <LearningJourneyTile key={index} LJId={LJId} jobName={jobName} jobDesc={jobDesc} isJobActive={isJobActive}/>
-  ));
+  const renderLearningJourneys = learningJourneys.map(
+    ({ LJId, jobName, jobDesc, isJobActive }, index) => (
+      <LearningJourneyTile
+        key={index}
+        LJId={LJId}
+        jobName={jobName}
+        jobDesc={jobDesc}
+        isJobActive={isJobActive}
+      />
+    ),
+  );
 
   useEffect(() => {
     let result;
@@ -17,12 +25,12 @@ function StaffLearningJourney(staffId) {
 
     async function getAllLearningJourneysAndDetails() {
       const learningJourneysReturnedFromBackend = await getLearningJourneysByStaffId(staffId);
-      for (let i = 0; i < learningJourneysReturnedFromBackend.length; i+=1) {
+      for (let i = 0; i < learningJourneysReturnedFromBackend.length; i += 1) {
         jobsPromise.push(getJobById(learningJourneysReturnedFromBackend[i].jobId));
       }
 
       result = await Promise.all(jobsPromise);
-      for (let i = 0; i < jobsPromise.length; i+=1) {
+      for (let i = 0; i < jobsPromise.length; i += 1) {
         learningJourneysReturnedFromBackend[i].jobName = result[i].jobName;
         learningJourneysReturnedFromBackend[i].jobDesc = result[i].jobDesc;
         learningJourneysReturnedFromBackend[i].isJobActive = result[i].isActive;

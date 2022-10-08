@@ -19,8 +19,6 @@ export const getAllSkillsAndCourses = async () => {
   try {
     const res = await axios.get(`${SKILL_ENDPOINT}/courses`);
     if (res) {
-      console.log(res);
-      console.log(res.data)
       console.log(combineCoursesToSkills(res.data));
       return combineCoursesToSkills(res.data);
     }
