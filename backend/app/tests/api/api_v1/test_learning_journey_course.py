@@ -108,7 +108,7 @@ def test_create_learning_journey_course(client: TestClient, db: Session) -> None
 def test_delete_learning_journey_course_by_id(client: TestClient, db: Session) -> None:
     learning_journey_course = create_random_learning_journey_course(db)
     response = client.delete(
-        f"{settings.API_V1_STR}/learning_journey_course/{learning_journey_course.lj_id}&{learning_journey_course.course_id}"
+        f"{settings.API_V1_STR}/learning_journey_course/courses/{learning_journey_course.lj_id}&{learning_journey_course.course_id}"
     )
     assert response.status_code == 200
     content = response.json()
@@ -120,7 +120,7 @@ def test_delete_learning_journey_course_by_id_non_existent(
     client: TestClient, db: Session
 ) -> None:
     response = client.delete(
-        f"{settings.API_V1_STR}/learning_journey_course/999999&999999"
+        f"{settings.API_V1_STR}/learning_journey_course/courses/999999&999999"
     )
     assert response.status_code == 404
     content = response.json()
