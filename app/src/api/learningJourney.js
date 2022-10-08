@@ -1,5 +1,6 @@
 import axios from "axios";
 import { LEARNING_JOURNEY_ENDPOINT } from "./config";
+import { deleteLearningJourneyCourseWithLJId } from "./learningJourneyCourse"
 
 const axiosLJInstance = axios.create({
   baseURL: LEARNING_JOURNEY_ENDPOINT,
@@ -40,6 +41,28 @@ export const createLearningJourneyWithJobId = async (jobId) => {
     if (res) {
       return res.data;
     }
+    throw new Error("No data returned from backend");
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
+export const deleteLearningJourneyWithLJId = async (ljId) => {
+  try {
+    const res1 = deleteLearningJourneyCourseWithLJId(ljId);
+    if (res1) {
+      try {
+        const res2 = await axiosLJInstance.delete(`/lj_Id=${ljId}`);
+        if (res2) {
+          return res2.data;
+        }
+        throw new Error("No data returned from backend");
+      }
+      catch (error) {
+        console.log(error);
+    }
+  }
     throw new Error("No data returned from backend");
   } catch (error) {
     console.log(error);
