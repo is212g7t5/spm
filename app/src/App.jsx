@@ -3,7 +3,7 @@ import { ToastContainer } from "react-toastify";
 import { UserProvider } from "src/contexts/UserContext";
 import { LJCreationContextProvider } from "src/contexts/LJCreationContext";
 import { UpdateJobContextProvider } from "src/contexts/UpdateJobContext";
-import { Courses, Jobs, CreateJob, UpdateJob, LearningJourneys, CreateLearningJourneyPage } from "src/routes";
+import { Courses, Jobs, CreateJob, UpdateJob, LearningJourneys, CreateLearningJourneyPage, Skills } from "src/routes";
 
 import Layout from "./layout";
 import "./App.css";
@@ -20,6 +20,7 @@ function App() {
                 <Route exact path='/' component={LearningJourneys} />
                 <Route exact path='/courses' component={Courses} />
                 <Route exact path='/jobs' component={Jobs} />
+                <Route exact path='/skills' component={Skills} />
                 <Route exact path='/create-job' component={CreateJob} />
                 <Route exact path='/update-job' component={UpdateJob} />
                 <Route exact path='/skills' component={Jobs} />
