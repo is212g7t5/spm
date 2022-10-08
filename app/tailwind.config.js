@@ -14,6 +14,7 @@ module.exports = {
         callToActionColor2: "#c2410c",
         callToActionColor3: "#ff9400",
         backgroundColor: "#D9D9D9", 
+        dimBackgroundColor: "#111827",
         textColor: "#FFFFFF",
         textColor2: "#F3F4F6"
       }

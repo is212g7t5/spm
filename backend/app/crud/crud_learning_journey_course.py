@@ -22,7 +22,7 @@ class CRUDLJCourse(CRUDBase[Learning_Journey_Course, LJCourseCreate, LJCourseUpd
         lj_id: Any,
         skip: int = 0,
         limit: int = 100,
-        active_only: bool = False
+        active_only: bool = False,
     ) -> Learning_Journey_Course:
         return (
             db.query(self.model)
@@ -49,6 +49,19 @@ class CRUDLJCourse(CRUDBase[Learning_Journey_Course, LJCourseCreate, LJCourseUpd
         db.delete(obj)
         db.commit()
         return obj
+
+    def remove_all_under_id(
+        self,
+        db: Session,
+        *,
+        lj_id: int,
+        skip: int = 0,
+    ) -> Learning_Journey_Course:
+        objs = db.query(self.model).filter(self.model.lj_id == lj_id).offset(skip).all()
+        for obj in objs:
+            db.delete(obj)
+            db.commit()
+        return objs
 
 
 learning_journey_course = CRUDLJCourse(Learning_Journey_Course)

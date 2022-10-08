@@ -1,9 +1,9 @@
-from typing import Any, List
 import json
+from typing import Any, List
 
 from fastapi import APIRouter, Body, Depends, HTTPException
-from sqlalchemy.orm import Session
 from sqlalchemy import text
+from sqlalchemy.orm import Session
 
 from app import crud, schemas
 from app.api import deps

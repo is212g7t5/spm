@@ -96,7 +96,7 @@ def create_learning_journey_course(
     return learning_journey_course
 
 
-@router.delete("/{lj_id}&{course_id}", response_model=schemas.LJCourse)
+@router.delete("/courses/{lj_id}&{course_id}", response_model=schemas.LJCourse)
 def delete_learning_journey_course_by_id(
     *,
     db: Session = Depends(deps.get_db),
@@ -116,5 +116,29 @@ def delete_learning_journey_course_by_id(
         )
     learning_journey_course = crud.learning_journey_course.remove(
         db, lj_id=lj_id, course_id=course_id
+    )
+    return learning_journey_course
+
+
+@router.delete("/all/{lj_id}", response_model=List[schemas.LJCourse])
+def delete_all_courses_in_learning_journey_course_by_id(
+    *,
+    db: Session = Depends(deps.get_db),
+    lj_id: int,
+    skip: int = 0,
+) -> Any:
+    """
+    Delete all courses under a learning journey.
+    """
+    learning_journey_course = crud.learning_journey_course.get_by_lj_id(
+        db, lj_id=lj_id, skip=skip
+    )
+    if not learning_journey_course:
+        raise HTTPException(
+            status_code=404,
+            detail="No courses in learning journey",
+        )
+    learning_journey_course = crud.learning_journey_course.remove_all_under_id(
+        db, lj_id=lj_id, skip=skip
     )
     return learning_journey_course
