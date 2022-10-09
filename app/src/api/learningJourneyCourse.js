@@ -10,7 +10,7 @@ const axiosLJCourseInstance = axios.create({
 
 export const deleteLearningJourneyCourseWithLJId = async (ljId) => {
   try {
-    const res = await axiosLJCourseInstance.delete(`all/lj_id=${ljId}`);
+    const res = await axiosLJCourseInstance.delete(`all/${ljId}`);
     if (res) {
       return res.data;
     }
