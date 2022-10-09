@@ -8,7 +8,7 @@ function LearningJourneyTile({ LJId, jobName, jobDesc, isJobActive }) {
 
   return (
     <div className='max-w-sm bg-white rounded-lg border border-gray-100 hover:shadow-lg hover:shadow-orange-200 mt-10 mx-auto'>
-      <DropdownButton />
+      <DropdownButton ljId={LJId} />
 
       <div className="flex flex-col items-center pb-10">
       <img className="mb-3 w-24 h-24 rounded-full shadow-lg" src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3580&q=80" alt="Person" />

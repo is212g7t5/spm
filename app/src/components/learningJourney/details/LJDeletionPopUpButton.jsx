@@ -7,7 +7,9 @@ function LJDeletionPopUpButton({ljId}) {
 
     return (
         <div>
-            <button type="button" className="text-callToActionColor1" onClick={onClick}>delete?</button>
+            <a href="/#" className="block py-2 px-4 text-sm text-red-600 hover:bg-gray-100" onClick={onClick}>
+                Delete
+            </a>
             {isOpen && <LJDeletionPopUp ljId={ljId} />}
         </div>
     );
