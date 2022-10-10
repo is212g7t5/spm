@@ -18,7 +18,7 @@ export const getSkillById = async (skillId) => {
     console.log(error);
     return {};
   }
-}
+};
 
 export const getSkills = async () => {
   try {
