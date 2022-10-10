@@ -7,7 +7,7 @@ const axiosJobSkillInstance = axios.create({
   headers: { "X-Custom-Header": "foobar" },
 });
 
-export const getSkills = async () => {
+export const getJobSkills = async () => {
   try {
     const res = await axiosJobSkillInstance.get("/all");
     if (res) {
@@ -19,6 +19,19 @@ export const getSkills = async () => {
     return [];
   }
 };
+
+export const getSkillIdsForJobId = async (jobId) => {
+  try {
+    const res = await axiosJobSkillInstance.get(`/jobs/${jobId}`);
+    if (res) {
+      return extractSkillIdsFromJobSkills(res.data);
+    }
+    throw new Error("No data returned from backend");
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+}
 
 // BE to be updated
 export const getSkillsByJobRole = async () => {
@@ -33,3 +46,11 @@ export const getSkillsByJobRole = async () => {
     return [];
   }
 };
+
+function extractSkillIdsFromJobSkills(jobSkills) {
+  const skillIdArray = [];
+  jobSkills.forEach((jobSkillInstance) => {
+    skillIdArray.push(jobSkillInstance.skill_id)
+  });
+  return skillIdArray;
+}
