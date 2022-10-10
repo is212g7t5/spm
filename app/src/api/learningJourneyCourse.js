@@ -7,12 +7,15 @@ const axiosLJCourseInstance = axios.create({
   headers: { "X-Custom-Header": "foobar" },
 });
 
-export const createLearningJourneyCourseMapping = async (LJId, courseIds) => {
+export const createLJCourseMapping = async (LJId, courseIds) => {
   try {
     const LJCoursePromise = [];
     for (let i = 0; i < courseIds.length; i+=1) {
       LJCoursePromise.push(
-        axiosLJCourseInstance.post(`/learningJourneyId=${LJId}&courseId=${courseIds[i]}`)
+        axiosLJCourseInstance.post('', {
+          lj_id: LJId,
+          course_id: courseIds[i],
+        })
       );
     }
     const res = await Promise.all(LJCoursePromise);
