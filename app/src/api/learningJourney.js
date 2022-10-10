@@ -49,24 +49,19 @@ export const createLearningJourneyWithJobId = async (jobId) => {
 };
 
 export const deleteLJWithLJId = async (ljId) => {
-  try {
-    const deleteLJCourseRes = deleteLearningJourneyCourseWithLJId(ljId);
-    if (deleteLJCourseRes) {
-      try {
-        const deleteLJRes = await axiosLJInstance.delete(`/${ljId}`);
-        if (!deleteLJRes) {
-          throw new Error("No data returned from backend");
-        }
+  const deleteLJCourseRes = deleteLearningJourneyCourseWithLJId(ljId.LJId);
+  if (deleteLJCourseRes) {
+    try {
+      const deleteLJRes = await axiosLJInstance.delete(`/${ljId.LJId}`);
+      if (!deleteLJRes) {
+        throw new Error("No data returned from backend");
       }
-      catch (error) {
-        console.log(error);
     }
+    catch (error) {
+      console.log(error)
+    };
   }
-    throw new Error("No data returned from backend");
-  } catch (error) {
-    console.log(error);
-    return [];
-  }
+  return [];
 };
 
 // Utility Functions
