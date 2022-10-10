@@ -43,14 +43,14 @@ export default function HRUpdateJob() {
           <h1 className='text-3xl text-left font-bold'>Update Job</h1>
           <form onSubmit={handleSubmit} className='pt-10'>
             <div className='mb-6'>
-              {JobNameInput({ jobName, setJobName })}
+              <JobNameInput jobName={jobName} setJobName={setJobName} />
             </div>
             <div className='mb-6'>
-              {JobDescTextArea({ jobDesc, setJobDesc })}
+              <JobDescTextArea jobDesc={jobDesc} setJobDesc={setJobDesc} />
             </div>
             <div className='mb-6'>
               <p className='block mb-2 text-md font-medium text-gray-900'>Job Status</p>
-              {JobIsActiveToggle({ jobIsActive, setJobIsActive })}
+              <JobIsActiveToggle jobIsActive={jobIsActive} setJobIsActive={setJobIsActive} />
             </div>
             <button
               type='submit'
