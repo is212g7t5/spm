@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ChevronDownIcon, ChevronRightIcon, BriefcaseIcon, PencilSquareIcon } from "@heroicons/react/20/solid";
 import { useHistory } from "react-router-dom";
 import { useLJCreationContext } from "src/contexts/LJCreationContext";
+import { useUpdateJobContext } from "src/contexts/UpdateJobContext";
 import { useUserContext } from "src/contexts/UserContext";
 import SkillBadge from "./SkillBadge";
 
@@ -9,6 +10,7 @@ export default function JobTile({ jobId, jobName, jobDesc, skills, isActive }) {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const { currentUserType } = useUserContext();
   const { setSelectedJobRole } = useLJCreationContext();
+  const { setUpdateJobRole } = useUpdateJobContext();
   const history = useHistory();
 
   const handleCreateLJButtonClick = (e) => {
@@ -19,6 +21,8 @@ export default function JobTile({ jobId, jobName, jobDesc, skills, isActive }) {
 
   const handleEditJobButtonClick = (e) => {
     e.stopPropagation();
+    setUpdateJobRole({ jobId, jobName, jobDesc, skills, isActive });
+    history.push("update-job");
   }
 
   return (
