@@ -114,11 +114,13 @@ def update_job_by_id(
             status_code=404,
             detail="Job not found",
         )
-    if job_in.job_name and crud.job.get_by_job_name(db, job_name=job_in.job_name):
-        raise HTTPException(
-            status_code=409,
-            detail="job_name already exists",
-        )
+    if job_in.job_name:
+        existing_job = crud.job.get_by_job_name(db, job_name=job_in.job_name)
+        if existing_job and existing_job != job:
+            raise HTTPException(
+                status_code=409,
+                detail="job_name already exists",
+            )
     return crud.job.update(db, db_obj=job, obj_in=job_in)
 
 

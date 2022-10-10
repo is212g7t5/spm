@@ -375,6 +375,21 @@ def test_update_job_duplicate_job_name(client: TestClient, db: Session) -> None:
     assert content["detail"] == "job_name already exists"
 
 
+def test_update_job_own_job_name(client: TestClient, db: Session) -> None:
+    job = create_random_job(db)
+    data = {"job_name": job.job_name}
+    response = client.put(
+        f"{settings.API_V1_STR}/job/{job.job_id}",
+        json=data,
+    )
+    assert response.status_code == 200
+    content = response.json()
+    assert content["job_id"] == job.job_id
+    assert content["job_desc"] == job.job_desc
+    assert content["is_active"] == job.is_active
+    assert content["job_name"] == data["job_name"] == job.job_name
+
+
 def test_update_job_white_space_job_name(client: TestClient, db: Session) -> None:
     job = create_random_job(db)
     job_name = random_lower_string(50)
