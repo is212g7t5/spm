@@ -7,6 +7,27 @@ const axiosLJCourseInstance = axios.create({
   headers: { "X-Custom-Header": "foobar" },
 });
 
+export const createLJCourseMapping = async (LJId, courseIds) => {
+  try {
+    const LJCoursePromise = [];
+    for (let i = 0; i < courseIds.length; i+=1) {
+      LJCoursePromise.push(
+        axiosLJCourseInstance.post("", {
+          lj_id: LJId,
+          course_id: courseIds[i],
+        })
+      );
+    }
+    const res = await Promise.all(LJCoursePromise);
+    if (res) {
+      return res;
+    }
+    throw new Error("Failed to create Learning Journey and Course mapping");
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
 
 export const deleteLearningJourneyCourseWithLJId = async (ljId) => {
   try {
