@@ -33,10 +33,24 @@ export const getSkillsForJobId = async (jobId) => {
     }
 }
 
+// BE to be updated
+export const getSkillsByJobRole = async () => {
+  try {
+    const res = await axiosJobSkillInstance.get("/skills/role");
+    if (res) {
+      return res.data;
+    }
+    throw new Error("No data returned from backend");
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
 function extractSkillIdsFromJobSkills(jobSkills) {
-    const skillIdArray = [];
-    jobSkills.forEach((jobSkillInstance) => {
-        skillIdArray.push(jobSkillInstance.skill_id)
-    });
-    return skillIdArray;
+  const skillIdArray = [];
+  jobSkills.forEach((jobSkillInstance) => {
+      skillIdArray.push(jobSkillInstance.skill_id)
+  });
+  return skillIdArray;
 }

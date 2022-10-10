@@ -6,8 +6,15 @@ import SkillTile from "./SkillTile";
 function Skill() {
   const [skills, setSkills] = useState([]);
 
-  const renderSkills = skills.map(({ skillId, skillName, skillDesc, courses }, index) => (
-    <SkillTile key={index} skillId={skillId} skillName={skillName} skillDesc={skillDesc} courses={courses} />
+  const renderSkills = skills.map(({ skillId, skillName, skillDesc, courses, isActive}, index) => (
+    <SkillTile
+      key={index}
+      skillId={skillId}
+      skillName={skillName}
+      skillDesc={skillDesc}
+      courses={courses}
+      isActive={isActive}
+    />
   ));
 
   useEffect(() => {

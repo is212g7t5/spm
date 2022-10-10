@@ -1,33 +1,55 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { getCourseById } from "src/api/course";
+import { getSkillIdsForCourse } from "src/api/skillCourse";
+import { getRegistrationByStaffAndCourseId } from "src/api/registration";
 import CourseSkillBadge from "./CourseSkillBadge";
 
 
-export default function CourseCard({ courseId, courseName }) {
+export default function CourseCard({ courseId, staffId }) {
     const statusToColor = {
         "Completed": "bg-green-500",
         "Rejected": "bg-red-500",
         "Waitlisted": "bg-blue-500",
         "Registered": "bg-yellow-500",
-        "Not Registered": "bg-purple-500"
+        "Ongoing": "bg-purple-500",
+        "Not Registered": "bg-gray-500"
     };
 
-    // I assume we call some API "Get all skills for course" here
-    const skillData = [
-        "People Management", "Data Analysis", "Project Management", "Figma", "Innovation", "Graphic Design"
-    ]
+    const [courseName, setCourseName] = useState("");
 
-    // Call Get Registration for Course_ID API here
-    const registrationData = {
-        "regStatus": "Waitlisted",
-        "completionStatus": "Not Completed"
-    }
+    const [courseSkillIds, setCourseSkillIds] = useState([]);
 
-    const courseStatus = registrationData.completionStatus === "Completed" ? registrationData.completionStatus : registrationData.regStatus
+    const [courseStatus, setCourseStatus] = useState("")
 
-    const skillList = skillData.map((skill, index) => (
+    useEffect(() => {
+        async function getCourseName(courseId) {
+            const course = await getCourseById(courseId);
+            setCourseName(course.courseName);
+        }
+
+        async function getCourseSkillIds(courseId) {
+            const skillIds = await getSkillIdsForCourse(courseId);
+            setCourseSkillIds(skillIds);
+        }
+
+        async function getCourseStatus(staffId, courseId) {
+            const registrationData = await getRegistrationByStaffAndCourseId(staffId, courseId);
+            if (Object.keys(registrationData).length === 0) {
+                setCourseStatus("Not Registered");
+            } else {
+                setCourseStatus(registrationData.completionStatus.length > 0 ? registrationData.completionStatus.trim() : registrationData.regStatus.trim());
+            }
+        }
+
+        getCourseName(courseId);
+        getCourseSkillIds(courseId);
+        getCourseStatus(staffId, courseId);
+    }, []);
+
+    const skillList = courseSkillIds.map((skillId, index) => (
         <CourseSkillBadge
             key={index}
-            skillName={skill}
+            skillId={skillId}
         />
     ))
 

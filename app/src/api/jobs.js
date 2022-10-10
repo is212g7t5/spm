@@ -57,6 +57,22 @@ export const createJob = async (jobName, jobDesc) => {
   }
 };
 
+export const updateJob = async (jobId, jobName, jobDesc, jobIsActive) => {
+  try {
+    const res = await axios.put(`${JOB_ENDPOINT}/${jobId}`, {
+      job_name: jobName,
+      job_desc: jobDesc,
+      is_active: jobIsActive,
+    });
+    if (res) {
+      return res.data;
+    }
+    throw new Error("No data returned from backend");
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
 // Utility Functions
 function transformJobsFromSnakeToCamel(snakeCaseJobs) {
   return snakeCaseJobs.map((job) => transformOneJob(job));
