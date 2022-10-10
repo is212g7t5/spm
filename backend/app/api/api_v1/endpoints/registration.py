@@ -34,6 +34,25 @@ def get_registration_by_id(
     return registration
 
 
+@router.get(
+    "/staff_and_course/{staff_id}&{course_id}", response_model=schemas.Registration
+)
+def get_registration_by_staff_and_course_id(
+    staff_id: int,
+    course_id: str,
+    db: Session = Depends(deps.get_db),
+) -> Any:
+    registration = crud.registration.get_by_staff_and_course_id(
+        db, staff_id=staff_id, course_id=course_id
+    )
+    if not registration:
+        raise HTTPException(
+            status_code=404,
+            detail="Registration details under this staff and course not found",
+        )
+    return registration
+
+
 @router.post("", response_model=schemas.Registration)
 def create_registration(
     *,

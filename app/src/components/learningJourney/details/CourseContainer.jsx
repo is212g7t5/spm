@@ -1,24 +1,32 @@
-import React from "react";
-import { mockCourses } from "src/utils/mocks";
+import React, { useEffect, useState } from "react";
+import { getLearningJourneyCoursesById } from "src/api/learningJourneyCourse";
 import AddCourseButton from "./AddCourseButton";
 import CourseCard from "./CourseCard";
 
+export default function CourseContainer({ LJId, staffId }) {
 
+    const [LJCourseIds, setLJCourseIds] = useState([]);
 
-export default function CourseContainer() {
-
-    // Call Get all Courses for LJ API here
-
-    const renderCourseCards = mockCourses.map((course, index) => (
-        <CourseCard courseName={course.courseName} courseId={course.courseId}  />
+    const renderCourseCards = LJCourseIds.map((LJCourseId, index) => (
+        <CourseCard courseId={LJCourseId} staffId={staffId}  />
     ))
+
+    useEffect(() => {
+        async function getAllCoursesForLJ(LJId) {
+            const courseIdsReturnedFromBackend = await getLearningJourneyCoursesById(LJId);
+            setLJCourseIds(courseIdsReturnedFromBackend);
+        }
+
+        getAllCoursesForLJ(LJId);
+    }, []);
 
     const statusToColor = {
         "Completed": "bg-green-500",
         "Rejected": "bg-red-500",
         "Waitlisted": "bg-blue-500",
         "Registered": "bg-yellow-500",
-        "Not Registered": "bg-purple-500"
+        "Ongoing": "bg-purple-500",
+        "Not Registered": "bg-gray-500"
     };
 
     const renderStatusToColorLegend = Object.entries(statusToColor).map(([key, value], index) => (

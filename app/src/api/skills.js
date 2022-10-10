@@ -1,6 +1,25 @@
 import axios from "axios";
 import { SKILL_ENDPOINT } from "./config";
 
+const axiosSkillInstance = axios.create({
+  baseURL: SKILL_ENDPOINT,
+  timeout: 5000,
+  headers: { "X-Custom-Header": "foobar" },
+});
+
+export const getSkillById = async (skillId) => {
+  try {
+    const res = await axiosSkillInstance.get(`/${skillId}`);
+    if (res) {
+      return skillSnakeToCamel(res.data);
+    }
+    throw new Error("No data returned from backend");
+  } catch (error) {
+    console.log(error);
+    return {};
+  }
+}
+
 export const getSkills = async () => {
   try {
     const res = await axios.get(`${SKILL_ENDPOINT}/all`);
@@ -31,12 +50,20 @@ export const getAllSkillsAndCourses = async () => {
 function combineCoursesToSkills(coursesAndSkillsArray) {
   const transformedSkills = transformSkills(coursesAndSkillsArray);
   return transformedSkills;
+// Utility Functions
+function skillSnakeToCamel(snakeCaseSkill) {
+  return {
+    skillId: snakeCaseSkill.skill_id,
+    skillName: snakeCaseSkill.skill_name,
+    skillDesc: snakeCaseSkill.skill_desc,
+    isActive: snakeCaseSkill.is_active,
+  };
 }
 
-// Utility Functions
 function transformSkills(snakeCaseSkills) {
   return snakeCaseSkills.map((skill) => transformSkill(skill));
 }
+
 function transformSkill(snakeCaseSkill) {
   const transformedCourses = transformCourses(snakeCaseSkill.courses);
   return {
@@ -48,9 +75,15 @@ function transformSkill(snakeCaseSkill) {
   };
 }
 
+function combineCoursesToSkills(coursesAndSkillsArray) {
+  const transformedSkills = transformSkills(coursesAndSkillsArray)
+  return transformedSkills
+}
+
 function transformCourses(snakeCaseCourses) {
   return snakeCaseCourses.map((course) => transformCourse(course));
 }
+
 function transformCourse(snakeCaseCourse) {
   return {
     courseId: snakeCaseCourse.course_id,
