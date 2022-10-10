@@ -53,11 +53,10 @@ export const deleteLearningJourneyWithLJId = async (ljId) => {
     const res1 = deleteLearningJourneyCourseWithLJId(ljId);
     if (res1) {
       try {
-        const res2 = await axiosLJInstance.delete(`/lj_Id=${ljId}`);
-        if (res2) {
-          return res2.data;
+        const res2 = await axiosLJInstance.delete(`/${ljId}`);
+        if (!res2) {
+          throw new Error("No data returned from backend");
         }
-        throw new Error("No data returned from backend");
       }
       catch (error) {
         console.log(error);
