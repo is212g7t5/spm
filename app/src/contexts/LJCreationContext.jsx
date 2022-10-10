@@ -5,6 +5,7 @@ const defaultLJCreationContextState = {
   selectedJobRole: {},
   setSelectedJobRole: (JobDetails) => {},
   selectedCourseDetails: {},
+  clearSelectedCourseDetails: () => {},
   addCoursesToLJ: (courseDetails) => {},
   removeCourseIdFromLJ: (courseDetails) => {},
 };
@@ -30,11 +31,16 @@ export function LJCreationContextProvider({ children }) {
     });
   };
 
+  const clearSelectedCourseDetails = () => {
+    setSelectedCourseDetails({});
+  };
+
   const LJCreationContextState = useMemo(
     () => ({
       selectedJobRole,
       setSelectedJobRole,
       selectedCourseDetails,
+      clearSelectedCourseDetails,
       addCoursesToLJ,
       removeCourseIdFromLJ,
     }),
@@ -42,6 +48,7 @@ export function LJCreationContextProvider({ children }) {
       selectedJobRole,
       setSelectedJobRole,
       selectedCourseDetails,
+      clearSelectedCourseDetails,
       addCoursesToLJ,
       removeCourseIdFromLJ,
     ],

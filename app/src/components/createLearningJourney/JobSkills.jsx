@@ -1,4 +1,3 @@
-// import { AcademicCapIcon } from "@heroicons/react/20/solid";
 export default function JobSkills({ skills, openModal, setCurrentSelectedSkill }) {
   const renderSkillsForJobRole = skills.map((skill, index) => (
     <SkillBody

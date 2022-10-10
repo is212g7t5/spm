@@ -15,7 +15,7 @@ export default function index() {
   const [currentSelectedSkill, setCurrentSelectedSkill] = useState("");
 
   const history = useHistory();
-  const { selectedJobRole } = useLJCreationContext();
+  const { selectedJobRole, clearSelectedCourseDetails } = useLJCreationContext();
 
   useEffect(() => {
     if (!selectedJobRole) {
@@ -33,6 +33,10 @@ export default function index() {
       const allCoursesAndSkills = await getAllSkillsAndCourses();
       setCoursesAndSkillsMapping(allCoursesAndSkills);
     }
+
+    return () => {
+      clearSelectedCourseDetails();
+    };
   }, []);
 
   if (!selectedJobRole || !coursesAndSkillsMapping) {

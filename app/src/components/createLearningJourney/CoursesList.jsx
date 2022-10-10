@@ -22,7 +22,7 @@ function CoursesBody({ courses }) {
   ));
 
   return (
-    <div className='flex flex-wrap gap-5 mt-5 mx-auto items-center  transition duration-150'>
+    <div className='flex grid gap-4 lg:grid-cols-2 2xl:grid-cols-3 mt-5 mx-auto items-center'>
       {Object.keys(courses).length > 0
         ? renderCourseBadges
         : "No courses added yet. Go add a course!"}
@@ -32,12 +32,14 @@ function CoursesBody({ courses }) {
 
 function CourseCard({ courseDetails }) {
   return (
-    <div className='relative block p-10 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700'>
+    <div className='relative p-10 md:h-60 xl:h-72 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700'>
       <CourseCardCloseButton courseId={courseDetails.courseId} />
       <h5 className='mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white'>
         {courseDetails.courseName}
       </h5>
-      <p className='font-normal text-gray-700 dark:text-gray-400'>{courseDetails.courseDesc}</p>
+      <p className='h-full font-normal text-gray-700 dark:text-gray-400'>
+        {courseDetails.courseDesc}
+      </p>
     </div>
   );
 }
