@@ -3,8 +3,6 @@ import { createJob } from "src/api/jobs";
 import { useUserContext } from "src/contexts/UserContext";
 import CreateJobSuccess from "./CreateJobSuccess";
 
-
-    
 export default function HRCreateJob() {
   const { currentUserType } = useUserContext();
   const [jobName, setJobName] = useState("");
