@@ -66,13 +66,3 @@ function CourseCardCloseButton({ courseId }) {
     </button>
   );
 }
-
-// {
-//     courseId: "IS111",
-//     courseName: "Introduction to Information Systems",
-//     courseStatus: "Active",
-//     courseDesc:
-//       "In this course students acquire foundational computer programming concepts and skills through Python, a widely-used programming language. Upon successful completion of this course, the students will understand and be able to appropriately apply fundamental programming concepts including variables, functions, parameters, loops and conditions as well as basic data structures including arrays (lists in Python) and hash tables (dictionaries in Python) in simple applications.",
-//     registrationStatus: "Registered",
-//     completionStatus: "Completed",
-//   },
