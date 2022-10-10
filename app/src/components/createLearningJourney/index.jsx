@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useLJCreationContext } from "src/contexts/LJCreationContext";
 
-import { mockSkillAndCourses } from "src/utils/mocks";
+import { getAllSkillsAndCourses } from "src/api/skills";
 
 import JobSkills from "./JobSkills";
 import CoursesList from "./CoursesList";
@@ -12,6 +12,7 @@ import CourseModal from "./CourseModal";
 export default function index() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [coursesAndSkillsMapping, setCoursesAndSkillsMapping] = useState([]);
+  const [currentSelectedSkill, setCurrentSelectedSkill] = useState("");
 
   const history = useHistory();
   const { selectedJobRole } = useLJCreationContext();
@@ -29,8 +30,8 @@ export default function index() {
     getCoursesAndSetState();
 
     async function getCoursesAndSetState() {
-      // const allCoursesAndSkills = getAllSkillsAndCourses();
-      const allCoursesAndSkills = mockSkillAndCourses;
+      const allCoursesAndSkills = await getAllSkillsAndCourses();
+      console.log(allCoursesAndSkills);
       setCoursesAndSkillsMapping(allCoursesAndSkills);
     }
   }, []);
@@ -44,7 +45,6 @@ export default function index() {
   };
 
   const openModal = (e) => {
-    console.log("openinng the modal");
     setIsModalOpen(true);
   };
 
@@ -55,10 +55,15 @@ export default function index() {
         You have selected Role: {selectedJobRole.jobName}
       </p>
       <JobTileDescription jobDesc={selectedJobRole.jobDesc} />
-      <JobSkills skills={selectedJobRole.skills} openModal={openModal} />
+      <JobSkills
+        setCurrentSelectedSkill={setCurrentSelectedSkill}
+        skills={selectedJobRole.skills}
+        openModal={openModal}
+      />
       <CoursesList />
       <CourseModal
-        coursesToRender={coursesAndSkillsMapping}
+        skillId={currentSelectedSkill}
+        coursesAndSkillsMapping={coursesAndSkillsMapping}
         isModalOpen={isModalOpen}
         closeModal={closeModal}
       />

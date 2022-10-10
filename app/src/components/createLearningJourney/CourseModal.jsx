@@ -1,6 +1,6 @@
 import { XMarkIcon } from "@heroicons/react/20/solid";
 
-export default function CourseModal({ coursesToRender, isModalOpen, closeModal }) {
+export default function CourseModal({ skillId, coursesAndSkillsMapping, isModalOpen, closeModal }) {
   if (!isModalOpen) {
     return null;
   }
@@ -28,36 +28,46 @@ export default function CourseModal({ coursesToRender, isModalOpen, closeModal }
       >
         <ModalHeader closeModal={closeModal} />
         <p className=''>Choose courses to add it to your Learning Journey!</p>
-        <ModalBody coursesToRender={coursesToRender} />
+        <ModalBody skillId={skillId} coursesAndSkillsMapping={coursesAndSkillsMapping} />
       </div>
     </div>
   );
 }
 
-function ModalBody({ coursesToRender }) {
+function ModalBody({ skillId, coursesAndSkillsMapping }) {
   const handleClick = (e) => {
+    e.stopPropagation();
     console.log("Hello world");
   };
 
-  const renderCourses = coursesToRender.map((course, index) => (
-    <li
-      className='block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'
-      aria-hidden='true'
-      onClick={handleClick}
-    >
-      {course.courseName}
-    </li>
-  ));
+  const targetSkillWithCourses = coursesAndSkillsMapping.find((item) => item.skillId === skillId);
+
+  const renderCourses = targetSkillWithCourses.courses.map((course, index) => {
+    console.log(course);
+
+    return (
+      <li
+        className='block py-2 px-4 text-dark hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'
+        aria-hidden='true'
+        onClick={handleClick}
+        key={index}
+      >
+        {course.courseName}
+        {course.courseDesc}
+      </li>
+    );
+  });
+
   return (
     <div
       id='dropdown'
-      className='hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 494.222px, 0px);'
+      className='z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 494.222px, 0px);'
       data-popper-reference-hidden=''
       data-popper-escaped=''
       data-popper-placement='bottom'
     >
       <ul
-        className='py-1 text-sm text-gray-700 dark:text-gray-200'
+        className='py-1 text-md text-black dark:text-gray-200'
         aria-labelledby='dropdownDefault'
       >
         {renderCourses}

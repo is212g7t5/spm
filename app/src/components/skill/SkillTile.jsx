@@ -10,11 +10,14 @@ export default function SkillTile({ skillId, skillName, skillDesc, courses }) {
       <div
         className='flex p-5 m-3 items-center justify-between bg-white rounded-lg shadow hover:shadow-lg cursor-pointer'
         onClick={() => setIsDetailsOpen(!isDetailsOpen)}
-        aria-hidden="true"
+        aria-hidden='true'
       >
         <div className='ml-5 flex items-center'>
-        <StarIcon className='fs-5 m-1 mr-2 h-5 w-5' aria-hidden='true' />
-          <div className='font-medium'>{skillName}<div className='text-gray-600 text-sm text-left'>{skillId}</div></div>
+          <StarIcon className='fs-5 m-1 mr-2 h-5 w-5' aria-hidden='true' />
+          <div className='font-medium'>
+            {skillName}
+            <div className='text-gray-600 text-sm text-left'>{skillId}</div>
+          </div>
         </div>
         <SkillTileButton isDetailsOpen={isDetailsOpen} setIsDetailsOpen={setIsDetailsOpen} />
       </div>
@@ -38,7 +41,7 @@ function SkillTileButton({ isDetailsOpen, setIsDetailsOpen }) {
 
 function SkillTileDescription({ skillDesc, courses }) {
   const renderCoursesForSkill = courses.map(({ courseId, courseName, courseDesc }, index) => (
-    <CourseBadge key={`course-${courseId}`} courseName={courseName} />
+    <CourseBadge key={index} courseName={courseName} />
   ));
 
   return (
