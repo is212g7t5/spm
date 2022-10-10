@@ -38,7 +38,7 @@ export const getJobById = async (jobId) => {
     throw new Error("No data returned from backend");
   } catch (error) {
     console.log(error);
-    return [];
+    return {};
   }
 };
 

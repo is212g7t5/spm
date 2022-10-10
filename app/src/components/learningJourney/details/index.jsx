@@ -10,7 +10,7 @@ function LearningJourneyDetails({ LJId }) {
             <h1 className="my-2 lg:text-2xl font-bold lg:text-center">Learning Journey {LJId}</h1>
             <div className="grid grid-cols-4">
                 <CourseContainer LJId={LJId} staffId={currentUserId} />
-                <JobAndSkillsContainer />
+                <JobAndSkillsContainer LJId={LJId} />
             </div>
         </>
     )

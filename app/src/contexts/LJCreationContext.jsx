@@ -4,33 +4,54 @@ import React, { useState, createContext, useContext, useMemo } from "react";
 const defaultLJCreationContextState = {
   selectedJobRole: {},
   setSelectedJobRole: (JobDetails) => {},
-  selectedCourseIds: [],
-  addCourseIdToLJ: (courseId) => {},
-  removeCourseIdFromLJ: (courseId) => {},
+  selectedCourseDetails: {},
+  clearSelectedCourseDetails: () => {},
+  addCoursesToLJ: (courseDetails) => {},
+  removeCourseIdFromLJ: (courseDetails) => {},
 };
 const LJCreationContext = createContext(defaultLJCreationContextState);
 
 export function LJCreationContextProvider({ children }) {
   const [selectedJobRole, setSelectedJobRole] = useState(null);
-  const [selectedCourseIds, setSelectedCourseIds] = useState([]);
+  const [selectedCourseDetails, setSelectedCourseDetails] = useState({});
 
-  const addCourseIdToLJ = (courseId) => {
-    setSelectedCourseIds([...selectedCourseIds, courseId]);
+  const addCoursesToLJ = (courses) => {
+    const newSelectedCourseDetails = { ...selectedCourseDetails };
+    courses.forEach((course) => {
+      newSelectedCourseDetails[course.courseId] = { ...course };
+    });
+    setSelectedCourseDetails(newSelectedCourseDetails);
   };
 
   const removeCourseIdFromLJ = (courseId) => {
-    setSelectedCourseIds(selectedCourseIds.filter((id) => id !== courseId));
+    setSelectedCourseDetails((prevSelectedCourseDetails) => {
+      const finalSelectedCourseDetails = { ...prevSelectedCourseDetails };
+      delete finalSelectedCourseDetails[courseId];
+      return finalSelectedCourseDetails;
+    });
+  };
+
+  const clearSelectedCourseDetails = () => {
+    setSelectedCourseDetails({});
   };
 
   const LJCreationContextState = useMemo(
     () => ({
       selectedJobRole,
       setSelectedJobRole,
-      selectedCourseIds,
-      addCourseIdToLJ,
+      selectedCourseDetails,
+      clearSelectedCourseDetails,
+      addCoursesToLJ,
       removeCourseIdFromLJ,
     }),
-    [selectedJobRole, setSelectedJobRole, selectedCourseIds, addCourseIdToLJ, removeCourseIdFromLJ],
+    [
+      selectedJobRole,
+      setSelectedJobRole,
+      selectedCourseDetails,
+      clearSelectedCourseDetails,
+      addCoursesToLJ,
+      removeCourseIdFromLJ,
+    ],
   );
 
   return (

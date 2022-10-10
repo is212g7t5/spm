@@ -21,6 +21,19 @@ export const getLearningJourneys = async () => {
   }
 };
 
+export const getLearningJourneyByLJId = async (LJId) => {
+  try {
+    const res = await axiosLJInstance.get(`/${LJId}`);
+    if (res) {
+      return transformLJ(res.data);
+    }
+    throw new Error("No data returned from backend");
+  } catch (error) {
+    console.log(error);
+    return {};
+  }
+}
+
 export const getLearningJourneysByStaffId = async (staffId) => {
   try {
     const res = await axiosLJInstance.get(`/Staff/${staffId}`);
