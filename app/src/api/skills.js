@@ -19,7 +19,6 @@ export const getAllSkillsAndCourses = async () => {
   try {
     const res = await axios.get(`${SKILL_ENDPOINT}/courses`);
     if (res) {
-      console.log(combineCoursesToSkills(res.data));
       return combineCoursesToSkills(res.data);
     }
     throw new Error("No data returned from backend");
@@ -29,17 +28,23 @@ export const getAllSkillsAndCourses = async () => {
   }
 };
 
+function combineCoursesToSkills(coursesAndSkillsArray) {
+  const transformedSkills = transformSkills(coursesAndSkillsArray)
+  return transformedSkills
+}
+
 // Utility Functions
 function transformSkills(snakeCaseSkills) {
   return snakeCaseSkills.map((skill) => transformSkill(skill));
 }
 function transformSkill(snakeCaseSkill) {
+  const transformedCourses = transformCourses(snakeCaseSkill.courses)
   return {
     skillId: snakeCaseSkill.skill_id,
     skillName: snakeCaseSkill.skill_name,
     skillDesc: snakeCaseSkill.skill_desc,
     isActive: snakeCaseSkill.is_active,
-    courses: []
+    courses: transformedCourses
   };
 }
 
@@ -51,25 +56,12 @@ function transformCourse(snakeCaseCourse) {
     courseId: snakeCaseCourse.course_id,
     courseName: snakeCaseCourse.course_name,
     courseDesc: snakeCaseCourse.course_desc,
-    isActive: snakeCaseCourse.is_active,
+    courseStatus: snakeCaseCourse.course_status,
+    courseType: snakeCaseCourse.course_type,
+    courseCategory: snakeCaseCourse.course_category
   };
 }
 
-function combineCoursesToSkills(coursesAndSkillsArray) {
-  const skillsCombinedWithCorrespondingCourses = {};
 
-  coursesAndSkillsArray.forEach((skillAndCourseInstance) => {
-      skillsCombinedWithCorrespondingCourses[skillAndCourseInstance.skill_id] = {
-        skillId: skillAndCourseInstance.skill_id,
-        skillName: skillAndCourseInstance.skill_name,
-        skillDesc: skillAndCourseInstance.skill_desc,
-        isActive: skillAndCourseInstance.is_active,
-        courses: skillAndCourseInstance.courses
-      };
-// how to populate course_name for each array of course related to skill?
-  });
-
-  return Object.values(skillsCombinedWithCorrespondingCourses);
-}
 
 

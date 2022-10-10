@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ChevronDownIcon, ChevronRightIcon, StarIcon } from "@heroicons/react/20/solid";
 import CourseBadge from "./CourseBadge";
 
-export default function SkillTile({ skillId, skillName, skillDesc, courses }) {
+export default function SkillTile({ skillId, skillName, skillDesc, courses, isActive }) {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
   return (
@@ -40,15 +40,15 @@ function SkillTileButton({ isDetailsOpen, setIsDetailsOpen }) {
 }
 
 function SkillTileDescription({ skillDesc, courses }) {
-  const renderCoursesForSkill = courses.map(({ courseId, courseName, courseDesc }, index) => (
-    <CourseBadge key={index} courseName={courseName} />
-  ));
+  const renderCoursesForSkill = courses.map((course, index) => {
+    const { courseId, courseName, courseDesc } = course;
+    return <CourseBadge key={index} courseName={courseName} />;
+  });
 
   return (
     <div className='m-auto flex flex-col w-11/12 p-5 px-10'>
       <p className='font-medium text-justify'>{skillDesc}</p>
-      <div className='flex mt-5'>{renderCoursesForSkill}</div>
-      {/* render courses for skill not working for some reason */}
+      <div className='flex-grid mt-5'>{renderCoursesForSkill}</div>
     </div>
   );
 }
