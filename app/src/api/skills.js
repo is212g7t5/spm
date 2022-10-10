@@ -53,11 +53,12 @@ function transformCourses(snakeCaseCourses) {
 }
 function transformCourse(snakeCaseCourse) {
   return {
-    courseCategory: snakeCaseCourse.course_category,
     courseId: snakeCaseCourse.course_id,
     courseName: snakeCaseCourse.course_name,
     courseDesc: snakeCaseCourse.course_desc,
-    courseType: snakeCaseCourse.course_type
+    courseStatus: snakeCaseCourse.course_status,
+    courseType: snakeCaseCourse.course_type,
+    courseCategory: snakeCaseCourse.course_category
   };
 }
 
