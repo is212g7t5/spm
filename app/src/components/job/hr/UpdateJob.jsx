@@ -3,6 +3,8 @@ import { updateJob } from "src/api/jobs";
 import { useUpdateJobContext } from "src/contexts/UpdateJobContext";
 import { useUserContext } from "src/contexts/UserContext";
 import UpdateJobSuccess from "./UpdateJobSuccess";
+import JobNameInput from "./form/JobNameInput";
+import JobDescTextArea from "./form/JobDescTextArea";
 import JobIsActiveToggle from "./form/JobIsActiveToggle";
 
 export default function HRUpdateJob() {
@@ -32,20 +34,6 @@ export default function HRUpdateJob() {
     }
   };
 
-  const handleJobNameChange = (e) => {
-    e.preventDefault();
-    if (e.target.value.length <= 50) {
-      setJobName(e.target.value);
-    }
-  };
-
-  const handleJobDescChange = (e) => {
-    e.preventDefault();
-    if (e.target.value.length <= 255) {
-      setJobDesc(e.target.value);
-    }
-  };
-
   const renderErrors = errors && errors.map && errors.map((error) => <p>{error}</p>);
 
   switch (currentUserType) {
@@ -55,43 +43,10 @@ export default function HRUpdateJob() {
           <h1 className='text-3xl text-left font-bold'>Update Job</h1>
           <form onSubmit={handleSubmit} className='pt-10'>
             <div className='mb-6'>
-              <label
-                htmlFor='jobName'
-                className='block mb-2 text-md font-medium text-gray-900 dark:text-gray-300 space-y-2'
-              >
-                <p>Job Name</p>
-                <p className='italic font-light text-gray-400 text-sm'>
-                  At least 1 character, maximum 50 characters. Whitespaces at the front and back
-                  will be removed.
-                </p>
-                <input
-                  type='text'
-                  id='jobName'
-                  value={jobName}
-                  onChange={handleJobNameChange}
-                  className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'
-                  placeholder='e.g. Sales Engineer'
-                />
-              </label>
+              {JobNameInput({ jobName, setJobName })}
             </div>
             <div className='mb-6'>
-              <label
-                htmlFor='jobDesc'
-                className='block mb-2 text-md font-medium text-gray-900 dark:text-gray-300 space-y-2'
-              >
-                <p>Job Description</p>
-                <p className='italic font-light text-gray-400 text-sm'>
-                  At least 1 character, maximum 255 characters.
-                </p>
-                <textarea
-                  id='jobDesc'
-                  rows={5}
-                  value={jobDesc}
-                  onChange={handleJobDescChange}
-                  className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'
-                />
-                <p className='text-right text-sm'>{jobDesc.length}/255</p>
-              </label>
+              {JobDescTextArea({ jobDesc, setJobDesc })}
             </div>
             <div className='mb-6'>
               <p className='block mb-2 text-md font-medium text-gray-900'>Job Status</p>
