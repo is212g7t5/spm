@@ -29,8 +29,8 @@ export const getAllSkillsAndCourses = async () => {
 };
 
 function combineCoursesToSkills(coursesAndSkillsArray) {
-  const transformedSkills = transformSkills(coursesAndSkillsArray)
-  return transformedSkills
+  const transformedSkills = transformSkills(coursesAndSkillsArray);
+  return transformedSkills;
 }
 
 // Utility Functions
@@ -38,13 +38,13 @@ function transformSkills(snakeCaseSkills) {
   return snakeCaseSkills.map((skill) => transformSkill(skill));
 }
 function transformSkill(snakeCaseSkill) {
-  const transformedCourses = transformCourses(snakeCaseSkill.courses)
+  const transformedCourses = transformCourses(snakeCaseSkill.courses);
   return {
     skillId: snakeCaseSkill.skill_id,
     skillName: snakeCaseSkill.skill_name,
     skillDesc: snakeCaseSkill.skill_desc,
     isActive: snakeCaseSkill.is_active,
-    courses: transformedCourses
+    courses: transformedCourses,
   };
 }
 
@@ -58,10 +58,6 @@ function transformCourse(snakeCaseCourse) {
     courseDesc: snakeCaseCourse.course_desc,
     courseStatus: snakeCaseCourse.course_status,
     courseType: snakeCaseCourse.course_type,
-    courseCategory: snakeCaseCourse.course_category
+    courseCategory: snakeCaseCourse.course_category,
   };
 }
-
-
-
-

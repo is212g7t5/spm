@@ -40,8 +40,8 @@ function SkillTileButton({ isDetailsOpen, setIsDetailsOpen }) {
 
 function SkillTileDescription({ skillDesc, courses }) {
   const renderCoursesForSkill = courses.map((course, index) => {
-    const { courseId, courseName, courseDesc,courseStatus } = course;
-    if(courseStatus === "Active"){
+    const { courseId, courseName, courseDesc, courseStatus } = course;
+    if (courseStatus === "Active") {
       return <CourseBadge key={index} courseName={courseName} />;
     }
     return null;
