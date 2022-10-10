@@ -29,6 +29,27 @@ export const createLJCourseMapping = async (LJId, courseIds) => {
   }
 };
 
+export const getLearningJourneyCoursesById = async (LJId) => {
+    try {
+        const res = await axiosLJCourseInstance.get(`/${LJId}`);
+        if (res) {
+            return extractCourseIdsFromLJAndCourseIdsObjects(res.data);
+        }
+        throw new Error("No data returned from backend");
+    } catch (error) {
+        console.log(error);
+        return [];
+    }
+};
+
+function extractCourseIdsFromLJAndCourseIdsObjects(LJAndCourseIds) {
+    const courseIdArray = [];
+    LJAndCourseIds.forEach((LJAndCourseIdInstance) => {
+        courseIdArray.push(LJAndCourseIdInstance.course_id);
+    });
+    return courseIdArray;
+}
+
 export const deleteLearningJourneyCourseWithLJId = async (ljId) => {
   try {
     const res = await axiosLJCourseInstance.delete(`all/${ljId}`);
