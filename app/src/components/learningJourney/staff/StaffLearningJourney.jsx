@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { getJobById } from "src/api/jobs";
 import { getLearningJourneysByStaffId } from "src/api/learningJourney";
 import LearningJourneyTile from "../LearningJourneyTile";
 
-function StaffLearningJourney(staffId) {
+function StaffLearningJourney({ staffId }) {
   const [learningJourneys, setLearningJourneys] = useState([]);
 
   const renderLearningJourneys = learningJourneys.map(
@@ -24,6 +25,11 @@ function StaffLearningJourney(staffId) {
     getAllLearningJourneysAndDetails(); // TODO: Change to getAllActiveJobs, Staff should not retrieve active jobs
 
     async function getAllLearningJourneysAndDetails() {
+      if (!staffId) {
+        toast.warning("No User Logged in yet");
+        return;
+      }
+
       const learningJourneysReturnedFromBackend = await getLearningJourneysByStaffId(staffId);
       for (let i = 0; i < learningJourneysReturnedFromBackend.length; i += 1) {
         jobsPromise.push(getJobById(learningJourneysReturnedFromBackend[i].jobId));
