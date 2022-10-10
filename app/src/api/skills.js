@@ -50,6 +50,7 @@ export const getAllSkillsAndCourses = async () => {
 function combineCoursesToSkills(coursesAndSkillsArray) {
   const transformedSkills = transformSkills(coursesAndSkillsArray);
   return transformedSkills;
+}
 // Utility Functions
 function skillSnakeToCamel(snakeCaseSkill) {
   return {
@@ -73,11 +74,6 @@ function transformSkill(snakeCaseSkill) {
     isActive: snakeCaseSkill.is_active,
     courses: transformedCourses,
   };
-}
-
-function combineCoursesToSkills(coursesAndSkillsArray) {
-  const transformedSkills = transformSkills(coursesAndSkillsArray)
-  return transformedSkills
 }
 
 function transformCourses(snakeCaseCourses) {
