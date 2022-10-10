@@ -12,7 +12,7 @@ export const createLJCourseMapping = async (LJId, courseIds) => {
     const LJCoursePromise = [];
     for (let i = 0; i < courseIds.length; i+=1) {
       LJCoursePromise.push(
-        axiosLJCourseInstance.post('', {
+        axiosLJCourseInstance.post("", {
           lj_id: LJId,
           course_id: courseIds[i],
         })

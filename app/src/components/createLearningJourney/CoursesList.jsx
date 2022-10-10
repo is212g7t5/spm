@@ -17,13 +17,15 @@ export default function CoursesList() {
 }
 
 function CoursesBody({ courses }) {
-  const renderCourseBadges = courses.map((courseDetails, index) => (
-    <CourseCard key={index} courseDetails={courseDetails} />
+  const renderCourseBadges = Object.keys(courses).map((courseId, index) => (
+    <CourseCard key={index} courseDetails={courses[courseId]} />
   ));
 
   return (
     <div className='flex flex-wrap gap-5 mt-5 mx-auto items-center  transition duration-150'>
-      {courses.length > 0 ? renderCourseBadges : "No courses added yet. Go add a course!"}
+      {Object.keys(courses).length > 0
+        ? renderCourseBadges
+        : "No courses added yet. Go add a course!"}
     </div>
   );
 }

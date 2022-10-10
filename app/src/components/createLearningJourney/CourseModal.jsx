@@ -1,16 +1,25 @@
+import { useState, useEffect } from "react";
 import { XMarkIcon } from "@heroicons/react/20/solid";
+import { useLJCreationContext } from "src/contexts/LJCreationContext";
 
 export default function CourseModal({ skillId, coursesAndSkillsMapping, isModalOpen, closeModal }) {
+  const [selectedCourses, setSelectedCourses] = useState([]);
+  const { addCoursesToLJ } = useLJCreationContext();
   if (!isModalOpen) {
     return null;
   }
 
   const handleCloseModal = (e) => {
     e.stopPropagation();
-
     if (!(e.target.id === "modal-base")) {
       closeModal();
     }
+  };
+
+  const handleAddCoursesToLJ = (e) => {
+    e.stopPropagation();
+    addCoursesToLJ(selectedCourses);
+    closeModal();
   };
 
   return (
@@ -27,51 +36,21 @@ export default function CourseModal({ skillId, coursesAndSkillsMapping, isModalO
         id='modal-base'
       >
         <ModalHeader closeModal={closeModal} />
-        <p className=''>Choose courses to add it to your Learning Journey!</p>
-        <ModalBody skillId={skillId} coursesAndSkillsMapping={coursesAndSkillsMapping} />
+        <p className=''>Choose a course to add it to your Learning Journey!</p>
+        <ModalBody
+          skillId={skillId}
+          selectedCourses={selectedCourses}
+          setSelectedCourses={setSelectedCourses}
+          coursesAndSkillsMapping={coursesAndSkillsMapping}
+        />
+        <button
+          type='button'
+          className='text-white bg-secondary hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'
+          onClick={handleAddCoursesToLJ}
+        >
+          Add Courses
+        </button>
       </div>
-    </div>
-  );
-}
-
-function ModalBody({ skillId, coursesAndSkillsMapping }) {
-  const handleClick = (e) => {
-    e.stopPropagation();
-    console.log("Hello world");
-  };
-
-  const targetSkillWithCourses = coursesAndSkillsMapping.find((item) => item.skillId === skillId);
-
-  const renderCourses = targetSkillWithCourses.courses.map((course, index) => {
-    console.log(course);
-
-    return (
-      <li
-        className='block py-2 px-4 text-dark hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'
-        aria-hidden='true'
-        onClick={handleClick}
-        key={index}
-      >
-        {course.courseName}
-        {course.courseDesc}
-      </li>
-    );
-  });
-
-  return (
-    <div
-      id='dropdown'
-      className='z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 494.222px, 0px);'
-      data-popper-reference-hidden=''
-      data-popper-escaped=''
-      data-popper-placement='bottom'
-    >
-      <ul
-        className='py-1 text-md text-black dark:text-gray-200'
-        aria-labelledby='dropdownDefault'
-      >
-        {renderCourses}
-      </ul>
     </div>
   );
 }
@@ -94,5 +73,65 @@ function CloseModalButton({ closeModal }) {
     >
       <XMarkIcon width={30} height={30} />
     </button>
+  );
+}
+
+function ModalBody({ skillId, coursesAndSkillsMapping, selectedCourses, setSelectedCourses }) {
+  const targetSkillWithCourses = coursesAndSkillsMapping.find((item) => item.skillId === skillId);
+
+  const renderCourses = targetSkillWithCourses.courses.map((course, index) => (
+    <CourseRow
+      selectedCourses={selectedCourses}
+      setSelectedCourses={setSelectedCourses}
+      course={course}
+      key={index}
+    />
+  ));
+
+  return (
+    <div
+      id='dropdown'
+      className='bg-white rounded divide-gray-100 shadow dark:bg-gray-700 position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 494.222px, 0px);'
+      data-popper-reference-hidden=''
+      data-popper-escaped=''
+      data-popper-placement='bottom'
+    >
+      <ul
+        className='w-full py-1 text-md text-black dark:text-gray-200'
+        aria-labelledby='dropdownDefault'
+      >
+        {renderCourses}
+      </ul>
+    </div>
+  );
+}
+
+function CourseRow({ setSelectedCourses, selectedCourses, course }) {
+  const [isActive, setIsActive] = useState(false);
+  useEffect(() => {
+    if (selectedCourses.filter((c) => c.courseId === course.courseId).length) {
+      setIsActive(true);
+    } else {
+      setIsActive(false);
+    }
+  }, [selectedCourses]);
+
+  let className;
+  if (isActive) {
+    className = "py-2 px-4 w-full text-dark bg-accent3 dark:hover:bg-primary dark:hover:text-white";
+  } else {
+    className =
+      "py-2 px-4 w-full text-dark hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white  hover:cursor-pointer";
+  }
+
+  const handleClick = (course) => (e) => {
+    e.stopPropagation();
+    setSelectedCourses([course]);
+  };
+
+  return (
+    <li className={className} aria-hidden='true' onClick={handleClick(course)}>
+      {course.courseName}
+    </li>
   );
 }

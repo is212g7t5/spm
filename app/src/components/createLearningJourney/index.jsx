@@ -31,7 +31,6 @@ export default function index() {
 
     async function getCoursesAndSetState() {
       const allCoursesAndSkills = await getAllSkillsAndCourses();
-      console.log(allCoursesAndSkills);
       setCoursesAndSkillsMapping(allCoursesAndSkills);
     }
   }, []);
