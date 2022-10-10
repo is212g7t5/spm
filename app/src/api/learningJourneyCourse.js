@@ -12,7 +12,7 @@ export const createLJCourseMapping = async (LJId, courseIds) => {
     const LJCoursePromise = [];
     for (let i = 0; i < courseIds.length; i+=1) {
       LJCoursePromise.push(
-        axiosLJCourseInstance.post('', {
+        axiosLJCourseInstance.post("", {
           lj_id: LJId,
           course_id: courseIds[i],
         })
@@ -28,3 +28,24 @@ export const createLJCourseMapping = async (LJId, courseIds) => {
     return [];
   }
 };
+
+export const getLearningJourneyCoursesById = async (LJId) => {
+    try {
+        const res = await axiosLJCourseInstance.get(`/${LJId}`);
+        if (res) {
+            return extractCourseIdsFromLJAndCourseIdsObjects(res.data);
+        }
+        throw new Error("No data returned from backend");
+    } catch (error) {
+        console.log(error);
+        return [];
+    }
+};
+
+function extractCourseIdsFromLJAndCourseIdsObjects(LJAndCourseIds) {
+    const courseIdArray = [];
+    LJAndCourseIds.forEach((LJAndCourseIdInstance) => {
+        courseIdArray.push(LJAndCourseIdInstance.course_id);
+    });
+    return courseIdArray;
+}
