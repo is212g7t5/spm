@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { deleteLearningJourneyWithLJId } from "src/api/learningJourney";
+import { deleteLJWithLJId } from "src/api/learningJourney";
 
-function LJDeletionPopUp({ljId}) {
+function LJDeletionPopUp({LJId}) {
     // Hide the popup when click on cancel
     const [isOpen, setIsOpen] = useState(true);
     const onClick = () => {setIsOpen(!isOpen)}
@@ -12,7 +12,7 @@ function LJDeletionPopUp({ljId}) {
     
     const DeleteLJButtonClick = (e) => {
         e.stopPropagation();
-        const res = deleteLearningJourneyWithLJId(ljId);
+        const res = deleteLJWithLJId(LJId);
         const onClick = setIsOpen(!isOpen);
         console.log(res);
     };

@@ -2,7 +2,7 @@ import React from "react";
 import "flowbite";
 import LJDeletionPopUpButton from "./details/LJDeletionPopUpButton";
 
-function DropdownButton(ljId) {
+function DropdownButton(LJId) {
   return (
     <div className="flex justify-end px-4 pt-4">
       <button id="dropdownButton" data-dropdown-toggle="dropdown" className="inline-block text-gray-500 hover:bg-gray-100 focus:ring-2 focus:ring-gray-100 rounded-lg text-sm p-1.5" type="button">
@@ -16,7 +16,7 @@ function DropdownButton(ljId) {
           <a href="/#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Edit</a>
         </li>
         <li>
-          <LJDeletionPopUpButton ljId={ljId}/>
+          <LJDeletionPopUpButton LJId={LJId}/>
         </li>
         </ul>
       </div>

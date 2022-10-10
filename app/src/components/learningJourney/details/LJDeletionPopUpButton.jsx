@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import LJDeletionPopUp from "./LJDeletionPopUp";
 
-function LJDeletionPopUpButton({ljId}) {
+function LJDeletionPopUpButton({LJId}) {
     const [isOpen, setIsOpen] = useState(false);
     const onClick = () => {setIsOpen(!isOpen)}
 
@@ -10,7 +10,7 @@ function LJDeletionPopUpButton({ljId}) {
             <a href="/#" className="block py-2 px-4 text-sm text-red-600 hover:bg-gray-100" onClick={onClick}>
                 Delete
             </a>
-            {isOpen && <LJDeletionPopUp ljId={ljId} />}
+            {isOpen && <LJDeletionPopUp LJId={LJId} />}
         </div>
     );
 };
