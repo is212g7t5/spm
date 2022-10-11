@@ -33,7 +33,7 @@ export const getJobById = async (jobId) => {
   try {
     const res = await axios.get(`${JOB_ENDPOINT}/${jobId}`);
     if (res) {
-      return tsfmOneJobFromSnakeToCamel(res.data);
+      return transformOneJobFromSnakeToCamel(res.data);
     }
     throw new Error("No data returned from backend");
   } catch (error) {
@@ -76,9 +76,9 @@ export const updateJob = async (jobId, jobName, jobDesc, jobIsActive) => {
 // Utility Functions
 function transformJobsFromSnakeToCamel(snakeCaseJobs) {
   console.log(snakeCaseJobs)
-  return snakeCaseJobs.map((job) => tsfmOneJobFromSnakeToCamel(job));
+  return snakeCaseJobs.map((job) => transformOneJobFromSnakeToCamel(job));
 }
-function tsfmOneJobFromSnakeToCamel(snakeCaseJob) {
+function transformOneJobFromSnakeToCamel(snakeCaseJob) {
   return {
     jobId: snakeCaseJob.job_id,
     jobName: snakeCaseJob.job_name,
