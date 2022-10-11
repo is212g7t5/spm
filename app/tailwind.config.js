@@ -11,6 +11,9 @@ module.exports = {
         accent2: "#c2410c",
         accent3: "#ff9400",
         background: "#D9D9D9",
+        dimBackgroundColor: "#111827",
+        textColor: "#FFFFFF",
+        textColor2: "#F3F4F6"
       },
     },
   },

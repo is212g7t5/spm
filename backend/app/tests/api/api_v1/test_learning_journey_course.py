@@ -108,7 +108,7 @@ def test_create_learning_journey_course(client: TestClient, db: Session) -> None
 def test_delete_learning_journey_course_by_id(client: TestClient, db: Session) -> None:
     learning_journey_course = create_random_learning_journey_course(db)
     response = client.delete(
-        f"{settings.API_V1_STR}/learning_journey_course/{learning_journey_course.lj_id}&{learning_journey_course.course_id}"
+        f"{settings.API_V1_STR}/learning_journey_course/courses/{learning_journey_course.lj_id}&{learning_journey_course.course_id}"
     )
     assert response.status_code == 200
     content = response.json()
@@ -120,8 +120,49 @@ def test_delete_learning_journey_course_by_id_non_existent(
     client: TestClient, db: Session
 ) -> None:
     response = client.delete(
-        f"{settings.API_V1_STR}/learning_journey_course/999999&999999"
+        f"{settings.API_V1_STR}/learning_journey_course/courses/999999&999999"
     )
     assert response.status_code == 404
     content = response.json()
     assert content["detail"] == "Combination of learning journey and course not found"
+
+
+def test_delete_all_courses_in_learning_journey_course_by_id(
+    client: TestClient, db: Session
+) -> None:
+    lj_id = create_random_learning_journey(db).lj_id
+
+    for i in range(5):
+        course_id = create_random_course(db).course_id
+        data = {"lj_id": lj_id, "course_id": course_id}
+        response = client.post(
+            f"{settings.API_V1_STR}/learning_journey_course",
+            json=data,
+        )
+
+    response = client.delete(
+        f"{settings.API_V1_STR}/learning_journey_course/all/{lj_id}"
+    )
+    assert response.status_code == 200
+    content = response.json()
+    assert len(content) == 5
+
+    is_learning_journey_course_in_response = False
+    for obj in content:
+        if obj["lj_id"] == lj_id:
+            is_learning_journey_course_in_response = True
+            break
+    assert is_learning_journey_course_in_response
+
+
+def test_delete_all_courses_in_learning_journey_course_by_id_non_existent(
+    client: TestClient, db: Session
+) -> None:
+    lj_id = create_random_learning_journey(db).lj_id
+
+    response = client.delete(
+        f"{settings.API_V1_STR}/learning_journey_course/all/{lj_id}"
+    )
+    assert response.status_code == 404
+    content = response.json()
+    assert content["detail"] == "No courses in learning journey"

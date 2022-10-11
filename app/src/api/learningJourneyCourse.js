@@ -49,3 +49,16 @@ function extractCourseIdsFromLJAndCourseIdsObjects(LJAndCourseIds) {
     });
     return courseIdArray;
 }
+
+export const deleteLearningJourneyCourseWithLJId = async (ljId) => {
+  try {
+    const res = await axiosLJCourseInstance.delete(`all/${ljId}`);
+    if (res) {
+      return res.data;
+    }
+    throw new Error("No data returned from backend");
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
