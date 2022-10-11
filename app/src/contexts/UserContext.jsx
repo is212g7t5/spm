@@ -12,13 +12,15 @@ const defaultUserContextState = {
   setIsUserLoggedIn: (loggedInStatus) => {},
   currentUserType: "",
   setUserTypeToStateAndSession: (userType) => {},
-  currentUserId: "1",
+  currentUserId: null,
+  setCurrentUserId: (userId) => {},
 };
 const UserContext = createContext(defaultUserContextState);
 
 export function UserProvider({ children }) {
   const [isUserLoggedin, setIsUserLoggedIn] = useState(false);
   const [currentUserType, setCurrentUserType] = useState("");
+  const [currentUserId, setCurrentUserId] = useState(null);
 
   const setUserTypeToStateAndSession = (userType) => {
     setCurrentUserType(userType);
@@ -32,7 +34,14 @@ export function UserProvider({ children }) {
       currentUserType,
       setUserTypeToStateAndSession,
     }),
-    [isUserLoggedin, setIsUserLoggedIn, currentUserType, setUserTypeToStateAndSession],
+    [
+      isUserLoggedin,
+      setIsUserLoggedIn,
+      currentUserType,
+      setUserTypeToStateAndSession,
+      currentUserId,
+      setCurrentUserId,
+    ],
   );
 
   return <UserContext.Provider value={UserContextState}>{children}</UserContext.Provider>;
