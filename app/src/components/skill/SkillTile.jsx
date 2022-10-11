@@ -22,7 +22,6 @@ export default function SkillTile({ skillId, skillName, skillDesc, courses, isAc
         <SkillTileButton isDetailsOpen={isDetailsOpen} setIsDetailsOpen={setIsDetailsOpen} />
       </div>
       {isDetailsOpen && <SkillTileDescription skillDesc={skillDesc} courses={courses} />}
-      {/* Can't seem to render courses for skill */}
     </div>
   );
 }
@@ -41,8 +40,11 @@ function SkillTileButton({ isDetailsOpen, setIsDetailsOpen }) {
 
 function SkillTileDescription({ skillDesc, courses }) {
   const renderCoursesForSkill = courses.map((course, index) => {
-    const { courseId, courseName, courseDesc } = course;
-    return <CourseBadge key={index} courseName={courseName} />;
+    const { courseId, courseName, courseDesc, courseStatus } = course;
+    if (courseStatus === "Active") {
+      return <CourseBadge key={index} courseName={courseName} />;
+    }
+    return null;
   });
 
   return (

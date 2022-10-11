@@ -18,7 +18,7 @@ export const getSkillById = async (skillId) => {
     console.log(error);
     return {};
   }
-}
+};
 
 export const getSkills = async () => {
   try {
@@ -47,6 +47,10 @@ export const getAllSkillsAndCourses = async () => {
   }
 };
 
+function combineCoursesToSkills(coursesAndSkillsArray) {
+  const transformedSkills = transformSkills(coursesAndSkillsArray);
+  return transformedSkills;
+}
 // Utility Functions
 function skillSnakeToCamel(snakeCaseSkill) {
   return {
@@ -62,19 +66,14 @@ function transformSkills(snakeCaseSkills) {
 }
 
 function transformSkill(snakeCaseSkill) {
-  const transformedCourses = transformCourses(snakeCaseSkill.courses)
+  const transformedCourses = transformCourses(snakeCaseSkill.courses);
   return {
     skillId: snakeCaseSkill.skill_id,
     skillName: snakeCaseSkill.skill_name,
     skillDesc: snakeCaseSkill.skill_desc,
     isActive: snakeCaseSkill.is_active,
-    courses: transformedCourses
+    courses: transformedCourses,
   };
-}
-
-function combineCoursesToSkills(coursesAndSkillsArray) {
-  const transformedSkills = transformSkills(coursesAndSkillsArray)
-  return transformedSkills
 }
 
 function transformCourses(snakeCaseCourses) {
@@ -88,6 +87,6 @@ function transformCourse(snakeCaseCourse) {
     courseDesc: snakeCaseCourse.course_desc,
     courseStatus: snakeCaseCourse.course_status,
     courseType: snakeCaseCourse.course_type,
-    courseCategory: snakeCaseCourse.course_category
+    courseCategory: snakeCaseCourse.course_category,
   };
 }
