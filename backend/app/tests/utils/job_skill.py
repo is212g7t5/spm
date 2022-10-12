@@ -6,8 +6,11 @@ from app.tests.utils.job import create_random_job
 from app.tests.utils.skill import create_random_skill
 
 
-def create_random_job_skill(db: Session) -> models.Job_Skill:
-    job = create_random_job(db)
+def create_random_job_skill(
+    db: Session,
+    job: models.Job = None,
+) -> models.Job_Skill:
+    job = job or create_random_job(db)
     skill = create_random_skill(db)
 
     job_skill_in = JobSkillCreate(job_id=job.job_id, skill_id=skill.skill_id)

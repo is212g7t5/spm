@@ -8,8 +8,8 @@ JOB_NAME_LENGTH = 50
 JOB_DESC_LENGTH = 255
 
 
-def create_random_job(db: Session) -> models.Job:
+def create_random_job(db: Session, is_active: bool = True) -> models.Job:
     job_name = random_lower_string(JOB_NAME_LENGTH)
     job_desc = random_lower_string(JOB_DESC_LENGTH)
-    job_in = JobCreate(job_name=job_name, job_desc=job_desc)
+    job_in = JobCreate(job_name=job_name, job_desc=job_desc, is_active=is_active)
     return crud.job.create(db=db, obj_in=job_in)
