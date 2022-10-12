@@ -1,4 +1,4 @@
-from typing import Any, Dict, Union
+from typing import Any, Dict, List, Union
 
 from sqlalchemy.orm import Session
 
@@ -10,6 +10,9 @@ from app.schemas.skill import SkillCreate, SkillUpdate
 class CRUDSkill(CRUDBase[Skill, SkillCreate, SkillUpdate]):
     def get(self, db: Session, skill_id: Any) -> Skill:
         return db.query(self.model).filter(self.model.skill_id == skill_id).first()
+
+    def get_active(self, db: Session, *, skip: int = 0) -> List[Skill]:
+        return db.query(self.model).filter(self.model.is_active == 1).offset(skip).all()
 
     def create(self, db: Session, *, obj_in: SkillCreate) -> Skill:
         db_obj = Skill(
