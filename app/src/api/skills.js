@@ -34,11 +34,24 @@ export const getSkills = async () => {
   }
 };
 
+export const getActiveSkills = async () => {
+  try {
+    const res = await axios.get(`${SKILL_ENDPOINT}/active`);
+    if (res) {
+      return transformSkills(res.data);
+    }
+    throw new Error("No data returned from backend");
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+}
+
 export const getAllSkillsAndCourses = async () => {
   try {
-    const res = await axios.get(`${SKILL_ENDPOINT}/courses`);
+    const res = await axios.get(`${SKILL_ENDPOINT}/courses/all`);
     if (res) {
-      return combineCoursesToSkills(res.data);
+      return transformSkills(res.data);
     }
     throw new Error("No data returned from backend");
   } catch (error) {
@@ -47,10 +60,19 @@ export const getAllSkillsAndCourses = async () => {
   }
 };
 
-function combineCoursesToSkills(coursesAndSkillsArray) {
-  const transformedSkills = transformSkills(coursesAndSkillsArray);
-  return transformedSkills;
-}
+export const getActiveSkillsAndCourses = async () => {
+  try {
+    const res = await axios.get(`${SKILL_ENDPOINT}/courses/active`);
+    if (res) {
+      return transformSkills(res.data);
+    }
+    throw new Error("No data returned from backend");
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
 // Utility Functions
 function skillSnakeToCamel(snakeCaseSkill) {
   return {

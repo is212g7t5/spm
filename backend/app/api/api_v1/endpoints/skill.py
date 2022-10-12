@@ -94,6 +94,8 @@ def get_active_skills_and_courses(
     for row in skills_with_courses:
         if row["courses"] is not None:
             row["courses"] = json.loads(row["courses"])
+        else:
+            row["courses"] = []
 
     return skills_with_courses
 
@@ -146,6 +148,8 @@ def get_all_skills_and_all_courses(
     for row in skills_with_courses:
         if row["courses"] is not None:
             row["courses"] = json.loads(row["courses"])
+        else:
+            row["courses"] = []
 
     return skills_with_courses
 
