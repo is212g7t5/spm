@@ -18,6 +18,7 @@ class CRUDJob(CRUDBase[Job, JobCreate, JobUpdate]):
         db_obj = Job(
             job_name=obj_in.job_name,
             job_desc=obj_in.job_desc,
+            is_active=obj_in.is_active,
         )
         db.add(db_obj)
         db.commit()

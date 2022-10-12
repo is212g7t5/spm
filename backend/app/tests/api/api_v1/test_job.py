@@ -129,6 +129,41 @@ def test_get_all_jobs_and_skills_one_job_many_skills(
     assert job_skill_in_response == 3
 
 
+def test_get_all_jobs_and_skills_inactive_job(client: TestClient, db: Session) -> None:
+    response = client.get(
+        f"{settings.API_V1_STR}/job/skills",
+    )
+
+    assert response.status_code == 200
+    original_response_len = len(response.json())
+
+    inactive_job = create_random_job(db, is_active=False)
+    job_skill_instance = create_random_job_skill(db, job=inactive_job)
+
+    response = client.get(
+        f"{settings.API_V1_STR}/job/skills?active_only=true",
+    )
+
+    assert response.status_code == 200
+    assert len(response.json()) == original_response_len
+
+    content = response.json()
+
+    is_job_skill_in_response = False
+    for obj in content:
+        if obj["job_id"] == job_skill_instance.job_id:
+            assert obj["job_name"] == job_skill_instance.job.job_name
+            assert obj["job_desc"] == job_skill_instance.job.job_desc
+            assert obj["is_job_active"] == job_skill_instance.job.is_active
+            assert obj["skill_id"] == job_skill_instance.skill.skill_id
+            assert obj["skill_name"] == job_skill_instance.skill.skill_name
+            assert obj["skill_desc"] == job_skill_instance.skill.skill_desc
+            assert obj["is_skill_active"] == job_skill_instance.skill.is_active
+            is_job_skill_in_response = True
+            break
+    assert not is_job_skill_in_response
+
+
 def test_create_job_short_job_name_pass(client: TestClient, db: Session) -> None:
     data = {"job_name": random_lower_string(1), "job_desc": "Bar"}
     response = client.post(

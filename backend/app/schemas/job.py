@@ -26,7 +26,7 @@ class JobBase(BaseModel):
 
 # Properties to receive via API on creation
 class JobCreate(JobBase):
-    pass
+    is_active: Optional[bool] = True
 
 
 # Properties to receive via API on update

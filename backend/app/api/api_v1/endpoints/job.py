@@ -30,6 +30,7 @@ def get_all_job(
 @router.get("/skills")
 def get_all_jobs_and_all_skills(
     db: Session = Depends(deps.get_db),
+    active_only: bool = False,
 ) -> Any:
     """
     Get all jobs and all their skills.
@@ -47,8 +48,10 @@ def get_all_jobs_and_all_skills(
         s.Is_Active as is_skill_active
     FROM job as j
     LEFT JOIN job_skill ON j.job_ID = job_skill.job_ID
-    LEFT JOIN skill as s ON job_skill.Skill_ID = s.Skill_ID;
-    """
+    LEFT JOIN skill as s ON job_skill.Skill_ID = s.Skill_ID{};
+    """.format(
+            " WHERE j.is_active = 1" if active_only else ""
+        )
     )
     db_cursor_obj = db.execute(sql_query)
     if not db_cursor_obj:
