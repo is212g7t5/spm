@@ -171,6 +171,41 @@ export const mockSkillAndCourses = [
       },
     ],
   },
+  {
+    skillId: 2,
+    skillName: "Spring Boot",
+    skillDesc: "Backend software engineering",
+    isActive: false,
+    courses: [
+      {
+        courseId: 1,
+        courseName: "Introduction to Information Systems 1",
+        courseStatus: "Active",
+        courseDesc:
+          "In this course students acquire foundational computer programming concepts and skills through Python, a widely-used programming language. Upon successful completion of this course, the students will understand and be able to appropriately apply fundamental programming concepts including variables, functions, parameters, loops and conditions as well as basic data structures including arrays (lists in Python) and hash tables (dictionaries in Python) in simple applications.",
+        registrationStatus: "Registered",
+        completionStatus: "Completed",
+      },
+      {
+        courseId: 2,
+        courseName: "Introduction to Information Systems 2",
+        courseStatus: "Active",
+        courseDesc:
+          "In this course students acquire foundational computer programming concepts and skills through Python, a widely-used programming language. Upon successful completion of this course, the students will understand and be able to appropriately apply fundamental programming concepts including variables, functions, parameters, loops and conditions as well as basic data structures including arrays (lists in Python) and hash tables (dictionaries in Python) in simple applications.",
+        registrationStatus: "Registered",
+        completionStatus: "Completed",
+      },
+      {
+        courseId: 3,
+        courseName: "Introduction to Information Systems 3",
+        courseStatus: "Active",
+        courseDesc:
+          "In this course students acquire foundational computer programming concepts and skills through Python, a widely-used programming language. Upon successful completion of this course, the students will understand and be able to appropriately apply fundamental programming concepts including variables, functions, parameters, loops and conditions as well as basic data structures including arrays (lists in Python) and hash tables (dictionaries in Python) in simple applications.",
+        registrationStatus: "Registered",
+        completionStatus: "Completed",
+      },
+    ],
+  }
 ];
 
 export const mockLearningJourneys = [
