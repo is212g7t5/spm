@@ -6,16 +6,19 @@ import JobTile from "../JobTile";
 function StaffJob() {
   const [jobs, setJobs] = useState([]);
 
-  const renderJobs = jobs.map(({ jobId, jobName, jobDesc, skills, isActive }, index) => (
-    <JobTile
+  const renderJobs = jobs.map(({ jobId, jobName, jobDesc, skills, isActive }, index) => {
+    if (isActive === 1) {
+      return <JobTile
       key={index}
       jobId={jobId}
       jobName={jobName}
       jobDesc={jobDesc}
       skills={skills}
       isActive={isActive}
-    />
-  ));
+      /> ;
+    }
+    return null;
+  });
 
   useEffect(() => {
     getAllJobs();
