@@ -2,12 +2,16 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useLJCreationContext } from "src/contexts/LJCreationContext";
+import { useUserContext } from "src/contexts/UserContext";
 
 import { getAllSkillsAndCourses } from "src/api/skills";
+import { createLearningJourneyWithJobId } from "src/api/learningJourney";
+import { createLJCourseMapping } from "src/api/learningJourneyCourse";
 
 import JobSkills from "./JobSkills";
 import CoursesList from "./CoursesList";
 import CourseModal from "./CourseModal";
+import SubmitButton from "./SubmitButton"
 
 export default function index() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -15,7 +19,8 @@ export default function index() {
   const [currentSelectedSkill, setCurrentSelectedSkill] = useState("");
 
   const history = useHistory();
-  const { selectedJobRole, clearSelectedCourseDetails } = useLJCreationContext();
+  const { selectedJobRole, clearSelectedCourseDetails, selectedCourseDetails } = useLJCreationContext();
+  const { currentUserId } = useUserContext();
 
   useEffect(() => {
     if (!selectedJobRole) {
@@ -51,6 +56,12 @@ export default function index() {
     setIsModalOpen(true);
   };
 
+  const onSubmitButtonClicked = async (e) => {
+    const res = await createLearningJourneyWithJobId(selectedJobRole.jobId, currentUserId);
+    const LJCourseMapping = await createLJCourseMapping(res.lj_id, selectedCourseDetails);
+    history.push("/");
+  };
+
   return (
     <div className='flex flex-col container w-9/12 max-w-7xl mt-10 p-10 mx-auto w-full bg-white rounded-lg shadow-lg shadow-blue-200 justify-around'>
       <h1 className='text-3xl text-left font-bold'>Create your Learning Journey</h1>
@@ -70,6 +81,7 @@ export default function index() {
         isModalOpen={isModalOpen}
         closeModal={closeModal}
       />
+      <SubmitButton onClick={onSubmitButtonClicked} />
     </div>
   );
 }
