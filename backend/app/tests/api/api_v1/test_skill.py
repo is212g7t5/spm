@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 
 from app.core.config import settings
 from app.tests.utils.skill import create_random_skill
+from app.tests.utils.skill_course import add_course_to_skill, create_random_skill_course
 
 
 def test_get_all_skills_non_existent(client: TestClient, db: Session) -> None:
@@ -13,6 +14,17 @@ def test_get_all_skills_non_existent(client: TestClient, db: Session) -> None:
     assert response.status_code == 404
     content = response.json()
     assert content["detail"] == "Skills not found"
+
+
+def test_get_all_skills_and_courses_non_existent(
+    client: TestClient, db: Session
+) -> None:
+    response = client.get(
+        f"{settings.API_V1_STR}/skill/courses/all",
+    )
+    assert response.status_code == 404
+    content = response.json()
+    assert content["detail"] == "No skills with courses in the database"
 
 
 def test_get_skills_by_id(client: TestClient, db: Session) -> None:
@@ -55,6 +67,111 @@ def test_get_all_skills(client: TestClient, db: Session) -> None:
             is_course_in_response = True
             break
     assert is_course_in_response
+
+
+def test_get_all_skills_active_only(client: TestClient, db: Session) -> None:
+    skill = create_random_skill(db, is_active=False)
+    response = client.get(
+        f"{settings.API_V1_STR}/skill/all?active_only=true",
+    )
+    assert response.status_code == 200
+    content = response.json()
+    assert len(content) == 2
+
+    course_not_in_response = True
+    for obj in content:
+        if obj["skill_id"] == skill.skill_id:
+            assert obj["skill_name"] == skill.skill_name
+            assert obj["skill_desc"] == skill.skill_desc
+            assert obj["is_active"] == skill.is_active
+            course_not_in_response = False
+            break
+    assert course_not_in_response
+
+
+def test_get_all_skills_and_courses(client: TestClient, db: Session) -> None:
+    skill_course_instance = create_random_skill_course(db)
+    extra_courses = add_course_to_skill(db, skill_course_instance.skill, 2)
+    extra_courses.append(skill_course_instance.course)
+
+    response = client.get(
+        f"{settings.API_V1_STR}/skill/courses/all",
+    )
+    assert response.status_code == 200
+    content = response.json()
+    assert len(content) == 4
+
+    skill_course_in_response = 0
+    for obj in content:
+        if obj["skill_id"] == skill_course_instance.skill_id:
+            assert obj["skill_name"] == skill_course_instance.skill.skill_name
+            assert obj["skill_desc"] == skill_course_instance.skill.skill_desc
+            assert obj["is_active"] == skill_course_instance.skill.is_active
+            for course in extra_courses:
+                for objCourse in obj["courses"]:
+                    if course.course_id == objCourse["course_id"]:
+                        assert course.course_desc == objCourse["course_desc"]
+                        assert course.course_name == objCourse["course_name"]
+                        assert course.course_type == objCourse["course_type"]
+                        assert course.course_status == objCourse["course_status"]
+                        assert course.course_category == objCourse["course_category"]
+                        skill_course_in_response += 1
+                        break
+    assert skill_course_in_response == 3
+
+
+def test_get_active_skills_and_courses(client: TestClient, db: Session) -> None:
+    response = client.get(
+        f"{settings.API_V1_STR}/skill/courses/all",
+    )
+    assert response.status_code == 200
+    original_response_len = len(response.json())
+
+    inactive_skill = create_random_skill(db, is_active=False)
+    skill_course_instance = create_random_skill_course(db, skill=inactive_skill)
+
+    response = client.get(
+        f"{settings.API_V1_STR}/skill/courses/active",
+    )
+    assert response.status_code == 200
+    assert (
+        len(response.json()) + 1 == original_response_len
+    )  # another inactive skill created in test_get_all_skills_active_only
+
+    content = response.json()
+
+    is_skill_course_in_response = False
+    for obj in content:
+        if obj["skill_id"] == skill_course_instance.skill_id:
+            assert obj["skill_name"] == skill_course_instance.skill.skill_name
+            assert obj["skill_desc"] == skill_course_instance.skill.skill_desc
+            assert obj["is_active"] == skill_course_instance.skill.is_active
+            for course in obj["courses"]:
+                if course["course_id"] == skill_course_instance.course_id:
+                    assert (
+                        course["course_desc"]
+                        == skill_course_instance.course.course_desc
+                    )
+                    assert (
+                        course["course_name"]
+                        == skill_course_instance.course.course_name
+                    )
+                    assert (
+                        course["course_type"]
+                        == skill_course_instance.course.course_type
+                    )
+                    assert (
+                        course["course_status"]
+                        == skill_course_instance.course.course_status
+                    )
+                    assert (
+                        course["course_category"]
+                        == skill_course_instance.course.course_category
+                    )
+                    break
+            is_skill_course_in_response = True
+            break
+    assert not is_skill_course_in_response
 
 
 def test_create_skill_no_desc(client: TestClient, db: Session) -> None:

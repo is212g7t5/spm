@@ -22,7 +22,6 @@ function StaffJob() {
 
     async function getAllJobs() {
       const jobsReturnedFromBackend = await getAllJobsAndSkills();
-      // const jobsReturnedFromBackend = [];
       if (jobsReturnedFromBackend.length === 0) {
         toast.warning("There are no jobs to display");
       }
