@@ -7,11 +7,10 @@ function Job() {
 
   switch (currentUserType) {
     case "STAFF":
+    case "MANAGER":
       return <StaffJob />;
     case "HR":
       return <HRJob/>;
-    case "MANAGER":
-      return <p>You are logged in as MANAGER so you see no Job Roles</p>;
     default:
       // temporary addition for development, should not render anything without permission
       return <StaffJob />;
