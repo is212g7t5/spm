@@ -8,19 +8,17 @@ function LJDeletionPopUp({ LJId }) {
     setIsOpen(!isOpen);
   };
 
-  function refreshPage() {
-    window.location.reload(false);
-  }
-
   if (!isOpen) {
     return null;
   }
 
   const DeleteLJButtonClick = (e) => {
     e.stopPropagation();
-    const res = deleteLJWithLJId(LJId);
-    const onClick = setIsOpen(!isOpen);
-    refreshPage();
+    async function deleteLJWithCourses() {
+      await deleteLJWithLJId(LJId);
+      window.location.reload();
+    };
+    deleteLJWithCourses()
   };
 
   return (

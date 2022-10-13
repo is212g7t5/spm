@@ -1,9 +1,14 @@
 import axios from "axios";
-import { LEARNING_JOURNEY_ENDPOINT } from "./config";
-import { deleteLearningJourneyCourseWithLJId } from "./learningJourneyCourse"
+import { LEARNING_JOURNEY_ENDPOINT, LEARNING_JOURNEY_COURSE_ENDPOINT } from "./config";
 
 const axiosLJInstance = axios.create({
   baseURL: LEARNING_JOURNEY_ENDPOINT,
+  timeout: 5000,
+  headers: { "X-Custom-Header": "foobar" },
+});
+
+const axiosLJCourseInstance = axios.create({
+  baseURL: LEARNING_JOURNEY_COURSE_ENDPOINT,
   timeout: 5000,
   headers: { "X-Custom-Header": "foobar" },
 });
@@ -62,19 +67,20 @@ export const createLearningJourneyWithJobId = async (jobId) => {
 };
 
 export const deleteLJWithLJId = async (ljId) => {
-  const deleteLJCourseRes = deleteLearningJourneyCourseWithLJId(ljId.LJId);
-  if (deleteLJCourseRes) {
-    try {
-      const deleteLJRes = await axiosLJInstance.delete(`/${ljId.LJId}`);
-      if (!deleteLJRes) {
-        throw new Error("No data returned from backend");
-      }
+  try {
+    const [deleteLJCourseRes, deleteLJRes] = await Promise.all([
+      await axiosLJCourseInstance.delete(`all/${ljId.LJId}`),
+      await axiosLJInstance.delete(`/${ljId.LJId}`),
+    ]);
+
+    if (deleteLJCourseRes && deleteLJRes) {
+      return deleteLJCourseRes.data && deleteLJRes.data
     }
-    catch (error) {
-      console.log(error)
-    };
+    throw new Error("No data returned from backend");
+  } catch (error) {
+    console.log(error);
+    return [];
   }
-  return [];
 };
 
 // Utility Functions
