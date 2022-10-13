@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAllJobsAndSkills } from "src/api/jobs";
+import { getAllActiveJobsAndSkills } from "src/api/jobs";
 import { toast } from "react-toastify";
 import JobTile from "../JobTile";
 
@@ -18,10 +18,10 @@ function StaffJob() {
   ));
 
   useEffect(() => {
-    getAllJobs(); // TODO: Change to getAllActiveJobs, Staff should not retrieve active jobs
+    getAllJobs();
 
     async function getAllJobs() {
-      const jobsReturnedFromBackend = await getAllJobsAndSkills();
+      const jobsReturnedFromBackend = await getAllActiveJobsAndSkills();
       // const jobsReturnedFromBackend = [];
       if (jobsReturnedFromBackend.length === 0) {
         toast.warning("There are no jobs to display");
