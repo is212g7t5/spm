@@ -15,22 +15,9 @@ export const getJobs = async () => {
   }
 };
 
-export const getAllJobsAndSkills = async () => {
+export const getAllJobsAndSkills = async (activeOnly=false) => {
   try {
-    const res = await axios.get(`${JOB_ENDPOINT}/skills`);
-    if (res) {
-      return combineSkillsToJobs(res.data);
-    }
-    throw new Error("No data returned from backend");
-  } catch (error) {
-    console.log(error);
-    return [];
-  }
-};
-
-export const getAllActiveJobsAndSkills = async () => {
-  try {
-    const res = await axios.get(`${JOB_ENDPOINT}/skills?active_only=true`);
+    const res = await axios.get(`${JOB_ENDPOINT}/skills?active_only=${activeOnly}`);
     if (res) {
       return combineSkillsToJobs(res.data);
     }

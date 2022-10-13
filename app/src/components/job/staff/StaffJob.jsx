@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAllActiveJobsAndSkills } from "src/api/jobs";
+import { getAllJobsAndSkills } from "src/api/jobs";
 import { toast } from "react-toastify";
 import JobTile from "../JobTile";
 
@@ -24,7 +24,7 @@ function StaffJob() {
     getAllJobs();
 
     async function getAllJobs() {
-      const jobsReturnedFromBackend = await getAllActiveJobsAndSkills();
+      const jobsReturnedFromBackend = await getAllJobsAndSkills(true);
       // const jobsReturnedFromBackend = [];
       if (jobsReturnedFromBackend.length === 0) {
         toast.warning("There are no jobs to display");
