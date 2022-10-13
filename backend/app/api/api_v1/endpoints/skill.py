@@ -16,32 +16,16 @@ router = APIRouter()
 def get_all_skill(
     db: Session = Depends(deps.get_db),
     skip: int = 0,
+    active_only: bool = False,
 ) -> Any:
     """
     Retrieve all skills.
     """
-    skills = crud.skill.get_multi(db, skip=skip)
+    skills = crud.skill.get_multi(db, skip=skip, active_only=active_only)
     if not skills:
         raise HTTPException(
             status_code=404,
             detail="Skills not found",
-        )
-    return skills
-
-
-@router.get("/active", response_model=List[schemas.Skill])
-def get_active_skill(
-    db: Session = Depends(deps.get_db),
-    skip: int = 0,
-) -> Any:
-    """
-    Retrieve all active skills.
-    """
-    skills = crud.skill.get_active(db, skip=skip)
-    if not skills:
-        raise HTTPException(
-            status_code=404,
-            detail="No active skills found",
         )
     return skills
 
