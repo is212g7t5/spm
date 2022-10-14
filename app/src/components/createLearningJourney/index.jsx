@@ -86,14 +86,14 @@ export default function index() {
         openModal={openModal}
       />
       <CoursesList />
+      <SubmitButton onClick={onSubmitButtonClicked} />
+      <p className='text-red-500 mt-2'>{errorMessage}</p>
       <CourseModal
         skillId={currentSelectedSkill}
         coursesAndSkillsMapping={coursesAndSkillsMapping}
         isModalOpen={isModalOpen}
         closeModal={closeModal}
       />
-      <SubmitButton onClick={onSubmitButtonClicked} />
-      <p className='text-red-500 mt-2'>{errorMessage}</p>
     </div>
   );
 }

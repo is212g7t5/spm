@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { getAllSkillsAndCourses } from "src/api/skills";
+import { StarIcon } from "@heroicons/react/20/solid";
 
 import SkillTile from "../SkillTile";
 
@@ -26,9 +28,25 @@ function HRSkill() {
     getAllSkills();
   }, []);
 
+  const history = useHistory();
+
+  const redirectToCreateSkillPage = () => {
+    history.push("/skills");
+  };
+
   return (
-    <div className='flex flex-col container w-11/12 max-w-7xl mt-10 bg-white p-10 mx-auto w-full rounded-lg shadow-lg shadow-blue-200'>
-      <h1 className='text-3xl text-left font-bold'>View All Skills</h1>
+    <div className='flex flex-col container mt-10 bg-white p-10 mx-auto rounded-lg shadow-lg shadow-blue-200'>
+      <div className="flex justify-between">
+        <h1 className='text-3xl text-left font-bold'>View All Skills</h1>
+        <button
+          type='button'
+          className='relative inline-flex items-center rounded-md border border-orange-500 bg-transparent px-4 py-2 text-sm font-medium text-orange-500 shadow-sm hover:text-orange-600 hover:border-orange-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-800'
+          onClick={redirectToCreateSkillPage}
+        >
+          <StarIcon className='-ml-1 mr-2 h-5 w-5' aria-hidden='true' />
+          <span>Create New Job</span>
+        </button>
+      </div>
       {skills.length === 0 ? "No Skills Found" : renderSkills}
     </div>
   );
