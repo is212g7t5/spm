@@ -100,9 +100,9 @@ export default function index() {
 
 function JobTileDescription({ jobDesc }) {
   return (
-    <div className='flex flex-col w-full p-3 px-5 bg-slate-100 rounded-lg mt-5'>
-      <p className='text-lg font-bold text-gray-900 dark:text-white'>Job Description:</p>
-      <p className='text-base text-gray-900 dark:text-white text-jusify'>{jobDesc}</p>
+    <div className='flex flex-col w-full p-3 px-5 bg-gray-100 rounded-lg mt-5'>
+      <p className='text-lg font-bold text-black dark:text-white'>Job Description:</p>
+      <p className='text-base text-black dark:text-white text-jusify'>{jobDesc}</p>
     </div>
   );
 }

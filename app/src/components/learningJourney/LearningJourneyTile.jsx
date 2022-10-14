@@ -12,12 +12,12 @@ function LearningJourneyTile({ LJId, jobName, jobDesc, isJobActive }) {
   };
 
   return (
-    <div className='max-w-sm bg-white rounded-lg border border-gray-100 hover:shadow-lg hover:shadow-orange-200 mt-10 mx-auto'>
+    <div className='max-w-sm bg-white rounded-lg border border-gray-100 hover:shadow-lg hover:shadow-accent2 mt-10 mx-auto'>
       <div className='flex justify-end px-4 pt-4'>
         <button
           id='dropdownButton'
           onClick={onClick}
-          className='inline-block text-gray-500 hover:bg-gray-100 focus:ring-2 focus:ring-gray-100 rounded-lg text-sm p-1.5'
+          className='inline-block text-black hover:bg-gray-100 focus:ring-2 focus:ring-gray-100 rounded-lg text-sm p-1.5'
           type='button'
         >
           <span className='sr-only'>Open dropdown</span>
@@ -41,8 +41,8 @@ function LearningJourneyTile({ LJId, jobName, jobDesc, isJobActive }) {
           src='https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3580&q=80'
           alt='Person'
         />
-        <h5 className='mb-1 text-xl font-medium text-gray-900'>Learning Journey {LJId}</h5>
-        <span className='text-md text-gray-500 italic'>{jobName}</span>
+        <h5 className='mb-1 text-xl font-medium text-black'>Learning Journey {LJId}</h5>
+        <span className='text-md text-black italic'>{jobName}</span>
         <span className='text-sm p-5 text-center'>{jobDesc}</span>
       </div>
     </div>

@@ -14,6 +14,6 @@ export default function CourseSkillBadge({ skillId }) {
     }, []);
 
     return (
-        <span className='m-px max-width-min bg-callToActionColor1 text-center text-white text-xs font-normal px-2 py-0.5 rounded-xl'>{skillName}</span>
+        <span className='m-px max-width-min bg-accent2 text-center text-white text-xs font-normal px-2 py-0.5 rounded-xl'>{skillName}</span>
     );
 }
