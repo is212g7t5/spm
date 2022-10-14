@@ -1,5 +1,6 @@
 import { useUserContext } from "src/contexts/UserContext";
 import StaffSkill from "./staff/StaffSkill";
+import HRSkill from "./hr/HRSkill";
 
 function Skill() {
   const { currentUserType } = useUserContext();
@@ -8,7 +9,7 @@ function Skill() {
     case "STAFF":
       return <StaffSkill />;
     case "HR":
-      return <p>You are logged in as HR so you see no skills</p>;
+      return <HRSkill />;
     case "MANAGER":
       return <p>You are logged in as MANAGER so you see no skills</p>;
     default:
