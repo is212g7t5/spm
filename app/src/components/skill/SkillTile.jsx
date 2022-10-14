@@ -16,10 +16,10 @@ export default function SkillTile({ skillId, skillName, skillDesc, courses, isAc
           <StarIcon className='fs-5 m-1 mr-2 h-5 w-5' aria-hidden='true' />
           <div className='ml-5'>
             <div className='flex space-x-3 items-center'>
-              <div className={"font-medium text-left " + (isActive ? "" : "text-gray-400")}>{skillName}</div>
+              <div className={"font-medium text-left " + (isActive ? "" : "text-black")}>{skillName}</div>
               {isActive ? "" : <CreateInactiveBadge />}
             </div>
-            <div className='text-gray-600 text-sm text-left'>{skillId}</div>
+            <div className='text-black text-sm text-left'>{skillId}</div>
           </div>
         </div>
         <SkillTileButton isDetailsOpen={isDetailsOpen} setIsDetailsOpen={setIsDetailsOpen} />
@@ -31,7 +31,7 @@ export default function SkillTile({ skillId, skillName, skillDesc, courses, isAc
 
 function CreateInactiveBadge() {
   return (
-    <span className='bg-textColor2 text-gray-400 mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800'>
+    <span className='bg-primary text-black mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800'>
       Inactive
     </span>
   );

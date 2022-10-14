@@ -49,12 +49,12 @@ export default function HRUpdateJob() {
               <JobDescTextArea jobDesc={jobDesc} setJobDesc={setJobDesc} />
             </div>
             <div className='mb-6'>
-              <p className='block mb-2 text-md font-medium text-gray-900'>Job Status</p>
+              <p className='block mb-2 text-md font-medium text-black'>Job Status</p>
               <JobIsActiveToggle jobIsActive={jobIsActive} setJobIsActive={setJobIsActive} />
             </div>
             <button
               type='submit'
-              className='text-white bg-orange-500 hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center'
+              className='text-white bg-accent2 hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center'
             >
               Update Job
             </button>

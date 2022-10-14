@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { ChevronDownIcon, ChevronRightIcon, BriefcaseIcon, PencilSquareIcon } from "@heroicons/react/20/solid";
+import {
+  ChevronDownIcon,
+  ChevronRightIcon,
+  BriefcaseIcon,
+  PencilSquareIcon,
+} from "@heroicons/react/20/solid";
 import { useHistory } from "react-router-dom";
 import { useLJCreationContext } from "src/contexts/LJCreationContext";
 import { useUpdateJobContext } from "src/contexts/UpdateJobContext";
@@ -23,7 +28,7 @@ export default function JobTile({ jobId, jobName, jobDesc, skills, isActive }) {
     e.stopPropagation();
     setUpdateJobRole({ jobId, jobName, jobDesc, skills, isActive });
     history.push("update-job");
-  }
+  };
 
   return (
     <div className='container flex-col'>
@@ -36,10 +41,12 @@ export default function JobTile({ jobId, jobName, jobDesc, skills, isActive }) {
           <BriefcaseIcon className='fs-5 ml-1 mr-2 h-5 w-5' aria-hidden='true' />
           <div className='ml-5'>
             <div className='flex space-x-5 items-center'>
-              <div className={"font-medium text-left " + (isActive ? "" : "text-gray-400")}>{jobName}</div>
-              {isActive ? "" : <CreateInactiveBadge/>}
+              <div className={"font-medium text-left " + (isActive ? "" : "text-black")}>
+                {jobName}
+              </div>
+              {isActive ? "" : <CreateInactiveBadge />}
             </div>
-            <div className='text-gray-600 text-sm text-left'>{jobId}</div>
+            <div className='text-black text-sm text-left'>{jobId}</div>
           </div>
         </div>
         <div className='flex items-center'>
@@ -47,8 +54,8 @@ export default function JobTile({ jobId, jobName, jobDesc, skills, isActive }) {
             {skills.length >= 1 && (
               <CreateLearningJourneyButton handleCreateLJButtonClick={handleCreateLJButtonClick} />
             )}
-            {currentUserType === "HR" && 
-              (<CreateEditJobButton handleEditJobButtonClick={handleEditJobButtonClick}/>
+            {currentUserType === "HR" && (
+              <CreateEditJobButton handleEditJobButtonClick={handleEditJobButtonClick} />
             )}
           </div>
           <JobTileButton isDetailsOpen={isDetailsOpen} setIsDetailsOpen={setIsDetailsOpen} />
@@ -65,7 +72,7 @@ function CreateEditJobButton({ handleEditJobButtonClick }) {
   return (
     <button
       type='button'
-      className='w-full flex items-center justify-center ml-auto text-textColor bg-secondaryColor hover:bg-tertiaryColor focus:ring-4 rounded-lg text-sm px-5 py-2.5 text-center m-1'
+      className='w-full flex items-center justify-center ml-auto text-white bg-secondary hover:bg-secondary focus:ring-4 rounded-lg text-sm px-5 py-2.5 text-center m-1'
       onClick={handleEditJobButtonClick}
     >
       <PencilSquareIcon className='mr-2 h-5 w-5' aria-hidden='true' />
@@ -76,17 +83,17 @@ function CreateEditJobButton({ handleEditJobButtonClick }) {
 
 function CreateInactiveBadge() {
   return (
-    <span className='bg-gray-200 text-gray-400 mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800'>
+    <span className='bg-gray-100 text-black mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800'>
       Inactive
     </span>
   );
 }
 
-function  CreateLearningJourneyButton({ handleCreateLJButtonClick }) {
+function CreateLearningJourneyButton({ handleCreateLJButtonClick }) {
   return (
     <button
       type='button'
-      className='w-full ml-auto text-white bg-orange-500 hover:bg-orange-600 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-1'
+      className='w-full ml-auto text-white bg-primary hover:bg-secondary focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-1'
       onClick={handleCreateLJButtonClick}
     >
       <span>Create Learning Journey</span>
@@ -112,7 +119,7 @@ function JobTileDescription({ jobDesc, skills }) {
   ));
 
   return (
-    <div className='m-auto flex flex-col w-full p-5 px-10 bg-slate-100 rounded-lg'>
+    <div className='m-auto flex flex-col w-full p-5 px-10 bg-gray-100 rounded-lg'>
       <p className='font-medium text-justify'>{jobDesc}</p>
       {skills.length ? (
         <div className='flex mt-5'>{renderSkillsForJobRole}</div>
