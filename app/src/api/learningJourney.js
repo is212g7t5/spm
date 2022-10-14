@@ -53,16 +53,16 @@ export const getLearningJourneysByStaffId = async (staffId) => {
   }
 };
 
-export const createLearningJourneyWithJobId = async (jobId) => {
+export const createLearningJourneyWithJobId = async (jobId, staffId) => {
   try {
-    const res = await axiosLJInstance.post(`/jobId=${jobId}`);
+    const res = await axiosLJInstance.post("",{job_id:jobId, staff_id:staffId});
     if (res) {
       return res.data;
     }
     throw new Error("No data returned from backend");
   } catch (error) {
     console.log(error);
-    return [];
+    return { error: "Job or Staff does not exist" };
   }
 };
 

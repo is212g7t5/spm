@@ -2,20 +2,26 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useLJCreationContext } from "src/contexts/LJCreationContext";
+import { useUserContext } from "src/contexts/UserContext";
 
 import { getAllSkillsAndCourses } from "src/api/skills";
+import { createLearningJourneyWithJobId } from "src/api/learningJourney";
+import { createLJCourseMapping } from "src/api/learningJourneyCourse";
 
 import JobSkills from "./JobSkills";
 import CoursesList from "./CoursesList";
 import CourseModal from "./CourseModal";
+import SubmitButton from "./SubmitButton"
 
 export default function index() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [coursesAndSkillsMapping, setCoursesAndSkillsMapping] = useState([]);
   const [currentSelectedSkill, setCurrentSelectedSkill] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const history = useHistory();
-  const { selectedJobRole, clearSelectedCourseDetails } = useLJCreationContext();
+  const { selectedJobRole, clearSelectedCourseDetails, selectedCourseDetails } = useLJCreationContext();
+  const { currentUserId } = useUserContext();
 
   useEffect(() => {
     if (!selectedJobRole) {
@@ -51,6 +57,22 @@ export default function index() {
     setIsModalOpen(true);
   };
 
+  const onSubmitButtonClicked = async (e) => {
+    const createRes = await createLearningJourneyWithJobId(selectedJobRole.jobId, currentUserId);
+    if ("error" in createRes) {
+      setErrorMessage(createRes.error);
+      return;
+    }
+
+    const mappingRes = await createLJCourseMapping(createRes.lj_id, selectedCourseDetails);
+    if ("error" in mappingRes) {
+      setErrorMessage(mappingRes.error);
+      return;
+    }
+
+    history.push("/");
+  };
+
   return (
     <div className='flex flex-col container w-9/12 max-w-7xl mt-10 p-10 mx-auto w-full bg-white rounded-lg shadow-lg shadow-blue-200 justify-around'>
       <h1 className='text-3xl text-left font-bold'>Create your Learning Journey</h1>
@@ -70,6 +92,8 @@ export default function index() {
         isModalOpen={isModalOpen}
         closeModal={closeModal}
       />
+      <SubmitButton onClick={onSubmitButtonClicked} />
+      <p className='text-red-500 mt-2'>{errorMessage}</p>
     </div>
   );
 }

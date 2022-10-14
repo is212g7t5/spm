@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { getActiveSkillsAndCourses } from "src/api/skills";
+import { getAllSkillsAndCourses } from "src/api/skills";
 
 import SkillTile from "../SkillTile";
 
-function StaffSkill() {
+function HRSkill() {
   const [skills, setSkills] = useState([]);
 
   const renderSkills = skills.map(({ skillId, skillName, skillDesc, courses, isActive }, index) => (
@@ -18,13 +18,12 @@ function StaffSkill() {
   ));
 
   useEffect(() => {
-    async function getActiveSkills() {
-      const skillsReturnedFromBackend = await getActiveSkillsAndCourses();
+    async function getAllSkills() {
+      const skillsReturnedFromBackend = await getAllSkillsAndCourses();
       setSkills(skillsReturnedFromBackend);
-      console.log(skillsReturnedFromBackend);
     }
 
-    getActiveSkills();
+    getAllSkills();
   }, []);
 
   return (
@@ -35,4 +34,4 @@ function StaffSkill() {
   );
 }
 
-export default StaffSkill;
+export default HRSkill;

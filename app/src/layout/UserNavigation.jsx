@@ -4,18 +4,19 @@ import { USER_TYPES, useUserContext } from "src/contexts/UserContext";
 
 export default function UserNavigation() {
   const [allUserTypes, setAllUserTypes] = useState({});
-  const { setUserTypeToStateAndSession } = useUserContext();
+  const { setUserTypeToStateAndSession, setCurrentUserIdToStateAndSession } = useUserContext();
 
   useEffect(() => {
     setAllUserTypes(USER_TYPES);
   }, []);
 
-  const handleUserNavigation = (userTypeKey) => () => {
+  const handleUserNavigation = (userId, userTypeKey) => () => {
     setUserTypeToStateAndSession(userTypeKey);
+    setCurrentUserIdToStateAndSession(userId);
   };
 
   const renderUserTypesAsMenuItems = Object.keys(allUserTypes).map((userType) => (
-    <Menu.Item onClick={handleUserNavigation(userType)} key={userType}>
+    <Menu.Item onClick={handleUserNavigation(allUserTypes[userType].id, userType)} key={userType}>
       {({ active }) => (
         <p className={`${active ? "bg-gray-100 " : ""} block px-4 py-2 text-sm text-gray-700`}>
           {allUserTypes[userType].name}

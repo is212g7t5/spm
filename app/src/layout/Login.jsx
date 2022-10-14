@@ -4,14 +4,18 @@ import { USER_TYPES, useUserContext } from "src/contexts/UserContext";
 import UserNavigation from "./UserNavigation";
 
 export default function Login() {
-  const { currentUserType, setUserTypeToStateAndSession } = useUserContext();
+  const { currentUserType, setUserTypeToStateAndSession, setCurrentUserIdToStateAndSession } = useUserContext();
 
   useEffect(() => {
     const userFromSessionStorage = sessionStorage.getItem("user");
-    if (userFromSessionStorage != null && userFromSessionStorage in USER_TYPES) {
+    const userIdFromSessionStorage = sessionStorage.getItem("userId");
+
+    if (userFromSessionStorage != null && userIdFromSessionStorage != null && userFromSessionStorage in USER_TYPES) {
       setUserTypeToStateAndSession(userFromSessionStorage);
+      setCurrentUserIdToStateAndSession(userIdFromSessionStorage);
     } else {
       setUserTypeToStateAndSession("");
+      setCurrentUserIdToStateAndSession(null);
     }
   }, []);
 
