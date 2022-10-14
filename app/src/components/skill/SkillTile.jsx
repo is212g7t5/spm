@@ -1,9 +1,15 @@
 import React, { useState } from "react";
-import { ChevronDownIcon, ChevronRightIcon, StarIcon } from "@heroicons/react/20/solid";
+import { ChevronDownIcon, ChevronRightIcon, StarIcon, PencilSquareIcon } from "@heroicons/react/20/solid";
+import { useUserContext } from "src/contexts/UserContext";
 import CourseBadge from "./CourseBadge";
 
 export default function SkillTile({ skillId, skillName, skillDesc, courses, isActive }) {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+  const { currentUserType } = useUserContext();
+
+  const handleEditSkillButtonClick = () => {
+    console.log("Edit Skill selected");
+  }
 
   return (
     <div className='container flex-col'>
@@ -22,10 +28,26 @@ export default function SkillTile({ skillId, skillName, skillDesc, courses, isAc
             <div className='text-gray-600 text-sm text-left'>{skillId}</div>
           </div>
         </div>
-        <SkillTileButton isDetailsOpen={isDetailsOpen} setIsDetailsOpen={setIsDetailsOpen} />
+        <div className="flex items-center">
+          {currentUserType === "HR" && (<CreateEditSkillButton handleEditSkillButtonClick={handleEditSkillButtonClick} />)}
+          <SkillTileButton isDetailsOpen={isDetailsOpen} setIsDetailsOpen={setIsDetailsOpen} />
+        </div>
       </div>
       {isDetailsOpen && <SkillTileDescription skillDesc={skillDesc} courses={courses} />}
     </div>
+  );
+}
+
+function CreateEditSkillButton({ handleEditSkillButtonClick }) {
+  return (
+    <button
+      type='button'
+      className='w-full flex items-center mr-5 justify-center ml-auto text-textColor bg-secondary hover:bg-tertiary focus:ring-4 rounded-lg text-sm px-5 py-2.5 text-center m-1'
+      onClick={handleEditSkillButtonClick}
+    >
+      <PencilSquareIcon className='mr-2 h-5 w-5' aria-hidden='true' />
+      <span>Edit</span>
+    </button>
   );
 }
 
