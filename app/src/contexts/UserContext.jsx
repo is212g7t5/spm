@@ -1,7 +1,7 @@
 import React, { useState, createContext, useContext, useMemo } from "react";
 
 export const USER_TYPES = {
-  STAFF: { key: "staff", name: "Staff", id: 171008 },
+  STAFF: { key: "staff", name: "Staff", id: 130001 },
   HR: { key: "hr", name: "HR", id: 160008 },
   MANAGER: { key: "manager", name: "Manager", id: 130002 },
 };
