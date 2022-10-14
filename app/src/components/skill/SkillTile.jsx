@@ -29,7 +29,9 @@ export default function SkillTile({ skillId, skillName, skillDesc, courses, isAc
           </div>
         </div>
         <div className="flex items-center">
-          {currentUserType === "HR" && (<CreateEditSkillButton handleEditSkillButtonClick={handleEditSkillButtonClick} />)}
+          {currentUserType === "HR" && (
+            <CreateEditSkillButton handleEditSkillButtonClick={handleEditSkillButtonClick} />
+          )}
           <SkillTileButton isDetailsOpen={isDetailsOpen} setIsDetailsOpen={setIsDetailsOpen} />
         </div>
       </div>
