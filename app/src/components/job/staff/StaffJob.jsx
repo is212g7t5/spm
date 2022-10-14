@@ -6,22 +6,26 @@ import JobTile from "../JobTile";
 function StaffJob() {
   const [jobs, setJobs] = useState([]);
 
-  const renderJobs = jobs.map(({ jobId, jobName, jobDesc, skills, isActive }, index) => (
-    <JobTile
+  const renderJobs = jobs.map(({ jobId, jobName, jobDesc, skills, isActive }, index) => {
+    if (isActive === 1) {
+      return <JobTile
       key={index}
       jobId={jobId}
       jobName={jobName}
       jobDesc={jobDesc}
       skills={skills}
       isActive={isActive}
-    />
-  ));
+      /> ;
+    }
+    return null;
+  });
 
   useEffect(() => {
-    getAllJobs(); // TODO: Change to getAllActiveJobs, Staff should not retrieve active jobs
+    getAllJobs();
 
     async function getAllJobs() {
-      const jobsReturnedFromBackend = await getAllJobsAndSkills();
+      const jobsReturnedFromBackend = await getAllJobsAndSkills(true);
+      // const jobsReturnedFromBackend = [];
       if (jobsReturnedFromBackend.length === 0) {
         toast.warning("There are no jobs to display");
       }

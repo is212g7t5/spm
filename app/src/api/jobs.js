@@ -15,11 +15,10 @@ export const getJobs = async () => {
   }
 };
 
-export const getAllJobsAndSkills = async () => {
+export const getAllJobsAndSkills = async (activeOnly=false) => {
   try {
-    const res = await axios.get(`${JOB_ENDPOINT}/skills`);
+    const res = await axios.get(`${JOB_ENDPOINT}/skills?active_only=${activeOnly}`);
     if (res) {
-      console.log(combineSkillsToJobs(res.data))
       return combineSkillsToJobs(res.data);
     }
     throw new Error("No data returned from backend");
