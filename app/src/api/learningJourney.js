@@ -57,7 +57,7 @@ export const createLearningJourneyWithJobId = async (jobId, staffId) => {
     throw new Error("No data returned from backend");
   } catch (error) {
     console.log(error);
-    return [];
+    return { error: "Job or Staff does not exist" };
   }
 };
 

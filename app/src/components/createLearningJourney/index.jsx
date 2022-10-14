@@ -17,6 +17,7 @@ export default function index() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [coursesAndSkillsMapping, setCoursesAndSkillsMapping] = useState([]);
   const [currentSelectedSkill, setCurrentSelectedSkill] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const history = useHistory();
   const { selectedJobRole, clearSelectedCourseDetails, selectedCourseDetails } = useLJCreationContext();
@@ -57,8 +58,18 @@ export default function index() {
   };
 
   const onSubmitButtonClicked = async (e) => {
-    const res = await createLearningJourneyWithJobId(selectedJobRole.jobId, currentUserId);
-    const LJCourseMapping = await createLJCourseMapping(res.lj_id, selectedCourseDetails);
+    const createRes = await createLearningJourneyWithJobId(selectedJobRole.jobId, currentUserId);
+    if ("error" in createRes) {
+      setErrorMessage(createRes.error);
+      return;
+    }
+
+    const mappingRes = await createLJCourseMapping(createRes.lj_id, selectedCourseDetails);
+    if ("error" in mappingRes) {
+      setErrorMessage(mappingRes.error);
+      return;
+    }
+
     history.push("/");
   };
 
@@ -82,6 +93,7 @@ export default function index() {
         closeModal={closeModal}
       />
       <SubmitButton onClick={onSubmitButtonClicked} />
+      <p className='text-red-500 mt-2'>{errorMessage}</p>
     </div>
   );
 }
