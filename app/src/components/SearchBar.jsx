@@ -8,7 +8,7 @@ export default function SearchBar({ title, searchBarPlaceholder }) {
         <div className='relative w-full'>
           <div className='flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none'>
             <svg
-              className='w-5 h-5 text-gray-500 dark:text-gray-400'
+              className='w-5 h-5 text-black dark:text-black'
               fill='currentColor'
               viewBox='0 0 20 20'
               xmlns='http://www.w3.org/2000/svg'
@@ -23,7 +23,7 @@ export default function SearchBar({ title, searchBarPlaceholder }) {
           <input
             type='text'
             id='simple-search'
-            className='bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-cyan-500 dark:focus:border-cyan-500'
+            className='bg-gray-100 border border-gray-400 text-black text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full pl-10 p-2.5  dark:bg-gray-100 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-cyan-500 dark:focus:border-cyan-500'
             placeholder={searchBarPlaceholder}
             required
           />
@@ -31,7 +31,7 @@ export default function SearchBar({ title, searchBarPlaceholder }) {
         <button
           aria-label='Submit Button'
           type='submit'
-          className='p-2.5 ml-2 text-sm font-medium text-white bg-cyan-700 rounded-lg border border-cyan-700 hover:bg-cyan-800 focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800'
+          className='p-2.5 ml-2 text-sm font-medium text-white bg-primary rounded-lg border border-cyan-700 hover:bg-primary focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:bg-primary dark:hover:bg-primary dark:focus:ring-cyan-800'
         >
           <svg
             className='w-5 h-5'

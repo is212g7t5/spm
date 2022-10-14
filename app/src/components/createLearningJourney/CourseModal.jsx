@@ -29,7 +29,7 @@ export default function CourseModal({ skillId, coursesAndSkillsMapping, isModalO
       onClick={handleCloseModal}
     >
       <div
-        className='absolute flex flex-col justify-center space-y-5 mx-auto my-auto w-3/4 h-3/4 bg-slate-100 z-99 inset-0 shadow-lg rounded-lg shadow-blue-200 items-center text-center'
+        className='absolute flex flex-col justify-center space-y-5 mx-auto my-auto w-3/4 h-3/4 bg-gray-100 z-99 inset-0 shadow-lg rounded-lg shadow-blue-200 items-center text-center'
         aria-labelledby='modal-title'
         role='dialog'
         aria-modal='true'
@@ -45,7 +45,7 @@ export default function CourseModal({ skillId, coursesAndSkillsMapping, isModalO
         />
         <button
           type='button'
-          className='text-white bg-secondary hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'
+          className='text-white bg-primary hover:bg-blue-200 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-200 dark:hover:bg-blue-200 focus:outline-none dark:focus:ring-blue-800'
           onClick={handleAddCoursesToLJ}
         >
           Add Courses
@@ -67,7 +67,7 @@ function CloseModalButton({ closeModal }) {
   return (
     <button
       type='button'
-      className='absolute top-0 right-0 text-primary-400 hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white'
+      className='absolute top-0 right-0 text-primary-400 hover:bg-gray-100 hover:text-black rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-100 dark:hover:text-white'
       data-modal-toggle='defaultModal'
       onClick={closeModal}
     >
@@ -91,13 +91,13 @@ function ModalBody({ skillId, coursesAndSkillsMapping, selectedCourses, setSelec
   return (
     <div
       id='dropdown'
-      className='bg-white rounded divide-gray-100 shadow dark:bg-gray-700 position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 494.222px, 0px);'
+      className='bg-white rounded divide-gray-100 shadow dark:bg-gray-100 position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 494.222px, 0px);'
       data-popper-reference-hidden=''
       data-popper-escaped=''
       data-popper-placement='bottom'
     >
       <ul
-        className='w-full py-1 text-md text-black dark:text-gray-200'
+        className='w-full py-1 text-md text-black dark:text-black'
         aria-labelledby='dropdownDefault'
       >
         {renderCourses}
@@ -118,10 +118,10 @@ function CourseRow({ setSelectedCourses, selectedCourses, course }) {
 
   let className;
   if (isActive) {
-    className = "py-2 px-4 w-full text-dark bg-accent3 dark:hover:bg-primary dark:hover:text-white";
+    className = "py-2 px-4 w-full text-dark bg-accent2 dark:hover:bg-secondary dark:hover:text-white";
   } else {
     className =
-      "py-2 px-4 w-full text-dark hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white  hover:cursor-pointer";
+      "py-2 px-4 w-full text-dark hover:bg-gray-100 dark:hover:bg-gray-100 dark:hover:text-white  hover:cursor-pointer";
   }
 
   const handleClick = (course) => (e) => {

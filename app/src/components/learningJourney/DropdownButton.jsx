@@ -16,7 +16,7 @@ function DropdownButton(LJId) {
       >
         <ul className='py-1' aria-labelledby='dropdownButton'>
           <li>
-            <a href='/#' className='block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100'>
+            <a href='/#' className='block py-2 px-4 text-sm text-black hover:bg-gray-100'>
               Edit
             </a>
           </li>
