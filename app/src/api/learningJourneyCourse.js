@@ -10,14 +10,14 @@ const axiosLJCourseInstance = axios.create({
 export const createLJCourseMapping = async (LJId, courseIds) => {
   try {
     const LJCoursePromise = [];
-    for (const courseId of Object.keys(courseIds)) {
+    Object.keys(courseIds).forEach(courseId => {
       LJCoursePromise.push(
         axiosLJCourseInstance.post("", {
           lj_id: LJId,
           course_id: courseId,
         })
       );
-    }
+    });
 
     const res = await Promise.all(LJCoursePromise);
     if (res) {
