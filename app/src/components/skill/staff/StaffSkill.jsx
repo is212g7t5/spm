@@ -18,13 +18,13 @@ function StaffSkill() {
   ));
 
   useEffect(() => {
-    getActiveSkills();
-
     async function getActiveSkills() {
       const skillsReturnedFromBackend = await getActiveSkillsAndCourses();
       setSkills(skillsReturnedFromBackend);
       console.log(skillsReturnedFromBackend);
     }
+
+    getActiveSkills();
   }, []);
 
   return (
