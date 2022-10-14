@@ -1,9 +1,9 @@
 import React, { useState, createContext, useContext, useMemo } from "react";
 
 export const USER_TYPES = {
-  STAFF: { key: "staff", name: "Staff" },
-  HR: { key: "hr", name: "HR" },
-  MANAGER: { key: "manager", name: "Manager" },
+  STAFF: { key: "staff", name: "Staff", id: 171008 },
+  HR: { key: "hr", name: "HR", id: 160008 },
+  MANAGER: { key: "manager", name: "Manager", id: 130002 },
 };
 
 // Do not remove default unused vars as typescript uses this for type hinting
@@ -13,7 +13,7 @@ const defaultUserContextState = {
   currentUserType: "",
   setUserTypeToStateAndSession: (userType) => {},
   currentUserId: null,
-  setCurrentUserId: (userId) => {},
+  setCurrentUserIdToStateAndSession: (userId) => {},
 };
 const UserContext = createContext(defaultUserContextState);
 
@@ -27,12 +27,19 @@ export function UserProvider({ children }) {
     sessionStorage.setItem("user", userType);
   };
 
+  const setCurrentUserIdToStateAndSession = (userId) => {
+    setCurrentUserId(userId);
+    sessionStorage.setItem("userId", userId);
+  };
+
   const UserContextState = useMemo(
     () => ({
       isUserLoggedin,
       setIsUserLoggedIn,
       currentUserType,
       setUserTypeToStateAndSession,
+      currentUserId,
+      setCurrentUserIdToStateAndSession,
     }),
     [
       isUserLoggedin,
@@ -40,7 +47,7 @@ export function UserProvider({ children }) {
       currentUserType,
       setUserTypeToStateAndSession,
       currentUserId,
-      setCurrentUserId,
+      setCurrentUserIdToStateAndSession,
     ],
   );
 

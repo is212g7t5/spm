@@ -25,7 +25,7 @@ export const createLJCourseMapping = async (LJId, courseIds) => {
     throw new Error("Failed to create Learning Journey and Course mapping");
   } catch (error) {
     console.log(error);
-    return [];
+    return { error: "Failed to create Learning Journey and Course mapping" };
   }
 };
 
