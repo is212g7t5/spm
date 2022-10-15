@@ -3,21 +3,16 @@ import { toast } from "react-toastify";
 import { getJobById } from "src/api/jobs";
 import { getLearningJourneysByStaffId } from "src/api/learningJourney";
 import LearningJourneyTile from "../LearningJourneyTile";
+import LJDeletionPopUp from "../details/LJDeletionPopUp";
 
 function StaffLearningJourney({ staffId }) {
   const [learningJourneys, setLearningJourneys] = useState([]);
+  const [selectedLJ, setSelectedLJ] = useState(null);
+  const [isDeletionModalOpen, setIsDeletionModalOpen] = useState(false);
 
-  const renderLearningJourneys = learningJourneys.map(
-    ({ LJId, jobName, jobDesc, isJobActive }, index) => (
-      <LearningJourneyTile
-        key={index}
-        LJId={LJId}
-        jobName={jobName}
-        jobDesc={jobDesc}
-        isJobActive={isJobActive}
-      />
-    ),
-  );
+  const onDeletionModalClick = () => {
+    setIsDeletionModalOpen(!isDeletionModalOpen);
+  };
 
   useEffect(() => {
     let result;
@@ -41,10 +36,23 @@ function StaffLearningJourney({ staffId }) {
         learningJourneysReturnedFromBackend[i].jobDesc = result[i].jobDesc;
         learningJourneysReturnedFromBackend[i].isJobActive = result[i].isActive;
       }
-
       setLearningJourneys(learningJourneysReturnedFromBackend);
     }
-  }, []);
+  }, [isDeletionModalOpen === true]);
+
+  const renderLearningJourneys = learningJourneys.map(
+    ({ LJId, jobName, jobDesc, isJobActive }, index) => (
+      <LearningJourneyTile
+        key={index}
+        LJId={LJId}
+        jobName={jobName}
+        jobDesc={jobDesc}
+        isJobActive={isJobActive}
+        setSelectedLJ={setSelectedLJ}
+        onDeletionModalClick={onDeletionModalClick}
+      />
+    ),
+  );
 
   return (
     <div className='flex flex-col container w-9/12 max-w-7xl mt-10 p-10 mx-auto w-full bg-white rounded-lg shadow-lg shadow-blue-200'>
@@ -52,6 +60,12 @@ function StaffLearningJourney({ staffId }) {
       <div className='flex grid lg:grid-cols-2 2xl:grid-cols-3 gap-4'>
         {learningJourneys.length === 0 ? "No Learning Journeys Found" : renderLearningJourneys}
       </div>
+
+      <LJDeletionPopUp
+        isDeletionModalOpen={isDeletionModalOpen}
+        setIsDeletionModalOpen={setIsDeletionModalOpen}
+        LJId={selectedLJ}
+      />
     </div>
   );
 }

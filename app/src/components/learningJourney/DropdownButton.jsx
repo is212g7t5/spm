@@ -1,13 +1,4 @@
-import React, { useState } from "react";
-import "flowbite";
-import LJDeletionPopUp from "./details/LJDeletionPopUp";
-
-function DropdownButton(LJId) {
-  const [isOpen, setIsOpen] = useState(false);
-  const onClick = () => {
-    setIsOpen(!isOpen);
-  };
-
+function DropdownButton({ onDeletionModalClick }) {
   return (
     <div className='relative inset-y-10 -inset-x-9'>
       <div
@@ -24,15 +15,13 @@ function DropdownButton(LJId) {
             <a
               href='/#'
               className='block py-2 px-4 text-sm text-red-600 hover:bg-gray-100'
-              onClick={onClick}
+              onClick={onDeletionModalClick}
             >
               Delete
             </a>
           </li>
         </ul>
       </div>
-
-      {isOpen && <LJDeletionPopUp LJId={LJId} />}
     </div>
   );
 }

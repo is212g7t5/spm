@@ -69,8 +69,8 @@ export const createLearningJourneyWithJobId = async (jobId, staffId) => {
 export const deleteLJWithLJId = async (ljId) => {
   try {
     const [deleteLJCourseRes, deleteLJRes] = await Promise.all([
-      await axiosLJCourseInstance.delete(`all/${ljId.LJId}`),
-      await axiosLJInstance.delete(`/${ljId.LJId}`),
+      await axiosLJCourseInstance.delete(`all/${ljId}`),
+      await axiosLJInstance.delete(`/${ljId}`),
     ]);
 
     if (deleteLJCourseRes && deleteLJRes) {
