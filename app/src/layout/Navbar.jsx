@@ -23,8 +23,8 @@ export default function Navbar() {
       href={item.href}
       className={classNames(
         isCurrent(item.href)
-          ? "bg-tertiary text-white"
-          : "text-white hover:bg-primary hover:text-white",
+          ? "bg-secondary text-white"
+          : "text-white hover:bg-secondary hover:text-white",
         "block px-3 py-2 rounded-md text-base font-medium",
       )}
       aria-current={isCurrent(item.href) ? "page" : undefined}
@@ -34,7 +34,7 @@ export default function Navbar() {
   ));
 
   return (
-    <Disclosure as='nav' className='bg-secondary'>
+    <Disclosure as='nav' className='bg-primary'>
       {({ open }) => (
         <>
           <div className='flex h-16 justify-between mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
@@ -65,7 +65,7 @@ function MobileNavbarItems({ open }) {
     <div className='flex'>
       <div className='ml-2 mr-2 flex items-center md:hidden'>
         {/* Mobile menu button */}
-        <Disclosure.Button className='inline-flex items-center justify-center rounded-md p-2 text-white hover:bg-primary hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'>
+        <Disclosure.Button className='inline-flex items-center justify-center rounded-md p-2 text-white hover:bg-secondary hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'>
           <span className='sr-only'>Open main menu</span>
           {open ? (
             <XMarkIcon className='block h-6 w-6' aria-hidden='true' />
@@ -85,8 +85,8 @@ function DeskopNavbarItems({ pageNavigation }) {
       key={routingItem.name}
       className={classNames(
         isCurrent(routingItem.href)
-          ? "bg-tertiary text-white"
-          : "text-white hover:bg-primary hover:text-white",
+          ? "bg-secondary text-white"
+          : "text-white hover:bg-secondary hover:text-white",
         "px-3 py-2 rounded-md text-sm font-medium",
       )}
       aria-current={isCurrent(routingItem.href) ? "page" : undefined}
@@ -120,7 +120,7 @@ function CreateLJButton() {
     <div className='flex-shrink-0 items-center my-auto ml-auto'>
       <button
         type='button'
-        className='relative inline-flex items-center rounded-md border border-transparent bg-orange-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-800'
+        className='relative inline-flex items-center rounded-md border border-transparent bg-secondary px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-800'
         onClick={redirectToChooseJobs}
       >
         <PlusIcon className='-ml-1 mr-2 h-5 w-5' aria-hidden='true' />

@@ -7,8 +7,8 @@ export default function CoursesList() {
 
   return (
     <div className='flex-col mt-10 bg-background rounded-lg px-5 py-3'>
-      <h2 className='text-lg font-bold text-secondary dark:text-white'>Courses Added:</h2>
-      <p className='text-sm font-light text-gray-900 dark:text-white italic'>
+      <h2 className='text-lg font-bold bg-secondary dark:text-white'>Courses Added:</h2>
+      <p className='text-sm font-light text-black dark:text-white italic'>
         Here are your courses. Click on the cross to remove a course from your Learning Journey.
       </p>
       <CoursesBody courses={selectedCourseDetails} />
@@ -32,12 +32,12 @@ function CoursesBody({ courses }) {
 
 function CourseCard({ courseDetails }) {
   return (
-    <div className='relative p-10 md:h-60 xl:h-72 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700'>
+    <div className='relative p-10 md:h-60 xl:h-72 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-100'>
       <CourseCardCloseButton courseId={courseDetails.courseId} />
-      <h5 className='mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white'>
+      <h5 className='mb-2 text-2xl font-bold tracking-tight text-black dark:text-white'>
         {courseDetails.courseName}
       </h5>
-      <p className='h-full font-normal text-gray-700 dark:text-gray-400'>
+      <p className='h-full font-normal text-black dark:text-black'>
         {courseDetails.courseDesc}
       </p>
     </div>

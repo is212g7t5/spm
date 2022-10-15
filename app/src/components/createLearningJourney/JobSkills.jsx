@@ -10,8 +10,8 @@ export default function JobSkills({ skills, openModal, setCurrentSelectedSkill }
 
   return (
     <div className='flex-col mt-5'>
-      <p className='text-lg font-bold text-gray-900 dark:text-white'>Skills Required:</p>
-      <p className='text-sm font-light text-gray-900 dark:text-white italic'>
+      <p className='text-lg font-bold text-black dark:text-white'>Skills Required:</p>
+      <p className='text-sm font-light text-black dark:text-white italic'>
         Click on a skill to look for courses
       </p>
       {renderSkillsForJobRole}
