@@ -1,44 +1,43 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { softDelete } from "src/api/jobs";
 import DeleteJobSuccess from "./DeleteJobSuccess";
 
-function DeletePopUp({trigger, setTrigger, jobId, isActive, jobName}){
+function DeletePopUp({ trigger, setTrigger, jobId, isActive, jobName }) {
+  const [jobIsActive, setJobIsActive] = useState(false);
+  const [errors, setErrors] = useState([]);
+  const [displayPopup, setDisplayPopup] = useState(false);
 
-    const [jobIsActive, setJobIsActive] = useState(false);
-    const [errors, setErrors] = useState([]);
-    const [displayPopup, setDisplayPopup] = useState(false);
+  const resetTrigger = (e) => {
+    setTrigger(false);
+  };
 
-    const resetTrigger = (e) => {
-        setTrigger(false);
-    };
+  function refreshPage() {
+    window.location.reload(false);
+  }
 
-    function refreshPage() {
-        window.location.reload(false);
+  const handleConfirm = async (e) => {
+    e.preventDefault();
+    const res = await softDelete(jobId, jobIsActive);
+    if (res.detail) {
+      const errorList = [];
+      if (res.detail.map) {
+        res.detail.map((errorMsg) => errorList.push(errorMsg.msg));
+      } else {
+        errorList.push(res.detail);
       }
+      setErrors(errorList);
+    } else {
+      setErrors([]);
+      setDisplayPopup(true);
+    }
+    //   refreshPage();
+    setTrigger(false);
+  };
 
-    const handleConfirm = async (e) => {
-        e.preventDefault();
-        const res = await softDelete(jobId, jobIsActive)
-        if (res.detail) {
-            const errorList = [];
-            if (res.detail.map) {
-              res.detail.map((errorMsg) => errorList.push(errorMsg.msg));
-            } else {
-              errorList.push(res.detail);
-            }
-            setErrors(errorList);
-          } else {
-            setErrors([]);
-            setDisplayPopup(true);
-          }
-        //   refreshPage();
-          setTrigger(false);
-    };
+  const renderErrors = errors && errors.map && errors.map((error) => <p>{error}</p>);
 
-    const renderErrors = errors && errors.map && errors.map((error) => <p>{error}</p>);
-
-    return (trigger) ? (
-<div
+  return trigger ? (
+    <div
       id='deletePopUp'
       className='flex justify-center fixed inset-0 h-screen items-center z-10 bg-dimBackgroundColor bg-opacity-60 p-5'
     >
@@ -46,9 +45,7 @@ function DeletePopUp({trigger, setTrigger, jobId, isActive, jobName}){
         <div className='container shadow-2xl shadow-black-300 px-7 py-5 grid rounded-lg bg-white'>
           <div className='grid-row py-3 text-3xl font-bold'>Warning</div>
 
-          <div className='grid-row py-3 text-lg'>
-            Are you sure you want to delete this job?
-          </div>
+          <div className='grid-row py-3 text-lg'>Are you sure you want to delete this job?</div>
 
           <div className='grid-row py-3 flex justify-end'>
             <button
@@ -66,12 +63,14 @@ function DeletePopUp({trigger, setTrigger, jobId, isActive, jobName}){
               Cancel
             </button>
             <div className='pt-5 text-red-500'>{renderErrors}</div>
-          {displayPopup ? <DeleteJobSuccess jobName={jobName} /> : null}
+            {displayPopup ? <DeleteJobSuccess jobName={jobName} /> : null}
           </div>
         </div>
       </div>
     </div>
-    ) : "";
+  ) : (
+    ""
+  );
 }
 
 export default DeletePopUp;
