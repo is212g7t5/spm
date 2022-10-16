@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ChevronDownIcon, ChevronRightIcon, BriefcaseIcon, PencilSquareIcon, TrashIcon } from "@heroicons/react/20/solid";
 import { useHistory } from "react-router-dom";
 import { useLJCreationContext } from "src/contexts/LJCreationContext";
 import { useUpdateJobContext } from "src/contexts/UpdateJobContext";
 import { useUserContext } from "src/contexts/UserContext";
+import {updateJob} from "src/api/jobs"
 import SkillBadge from "./SkillBadge";
-import JobDeletionPopUp from "./hr/JobDeletionPopUp";
+import DeletePopUp from "./hr/JobDeletionPopUp";
 
 export default function JobTile({ jobId, jobName, jobDesc, skills, isActive }) {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
@@ -14,6 +15,7 @@ export default function JobTile({ jobId, jobName, jobDesc, skills, isActive }) {
   const { setUpdateJobRole } = useUpdateJobContext();
   const { setDeleteJobRole } = useUpdateJobContext();
   const history = useHistory();
+  const [buttonPopUp, setButtonPopUp] = useState(false); // create boolean state
 
   const handleCreateLJButtonClick = (e) => {
     e.stopPropagation();
@@ -25,6 +27,10 @@ export default function JobTile({ jobId, jobName, jobDesc, skills, isActive }) {
     e.stopPropagation();
     setUpdateJobRole({ jobId, jobName, jobDesc, skills, isActive });
     history.push("update-job");
+  };
+
+  const showPopUp = (e) => {
+    setButtonPopUp(true);
   };
 
   return (
@@ -54,8 +60,21 @@ export default function JobTile({ jobId, jobName, jobDesc, skills, isActive }) {
             {currentUserType === "HR" && (
               <CreateEditJobButton handleEditJobButtonClick={handleEditJobButtonClick} />
             )}
+            <button
+            type = 'button'
+            className = 'w-full flex items-center justify-center ml-auto text-white bg-secondary hover:bg-secondary focus:ring-4 rounded-lg text-sm px-5 py-2.5 text-center m-1'
+            onClick={showPopUp}
+            >
+              <TrashIcon className='mr-2 h-5 w-5' aria-hidden='true' />
+              <span>Delete</span>
+            </button>
             {currentUserType === "HR" && (
-              <CreateDeleteJobButton jobId={jobId}/> // not sure how to position delete beside edit button, will figure out in later commits.
+              <DeletePopUp trigger={buttonPopUp}
+              setTrigger={setButtonPopUp}
+              jobId={jobId}
+              isActive={isActive}
+              // jobId={jobId}
+              /> // not sure how to position delete beside edit button, will figure out in later commits.
             )}
           </div>
           <JobTileButton isDetailsOpen={isDetailsOpen} setIsDetailsOpen={setIsDetailsOpen} />
@@ -81,17 +100,16 @@ function CreateEditJobButton({ handleEditJobButtonClick }) {
   );
 }
 
-function CreateDeleteJobButton(jobId) {
+function createDeleteJobButton(showPopUp) {
   return (
     <button
       type='button'
       className='w-full flex items-center justify-center ml-auto text-white bg-secondary hover:bg-secondary focus:ring-4 rounded-lg text-sm px-5 py-2.5 text-center m-1'
-      onClick={JobDeletionPopUp(jobId)} //not sure how to fix this, trying to call JobDeletionPopUp upon clicking "Delete button"
+      onClick={showPopUp}
     >
       <TrashIcon className='mr-2 h-5 w-5' aria-hidden='true' />
       <span>Delete</span>
     </button>
-
   );
 }
 

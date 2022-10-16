@@ -72,6 +72,21 @@ export const updateJob = async (jobId, jobName, jobDesc, jobIsActive) => {
   }
 };
 
+export const softDelete = async (jobId, jobIsActive) => {
+  try {
+    const res = await axios.put(`${JOB_ENDPOINT}/${jobId}`, {
+      is_active: false,
+    });
+    if (res) {
+      return res.data;
+    }
+    throw new Error("No data returned from backend");
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+
 // Utility Functions
 function transformJobsFromSnakeToCamel(snakeCaseJobs) {
   console.log(snakeCaseJobs)
