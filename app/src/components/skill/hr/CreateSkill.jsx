@@ -1,13 +1,39 @@
 import { useState } from "react";
+import { createSkill } from "src/api/skills";
+import CreateSkillSuccess from "./CreateSkillSuccess";
 import SkillNameInput from "./form/SkillNameInput";
 import SkillDescTextArea from "./form/SkillDescTextArea";
 
 export default function HRCreateSkill() {
   const [skillName, setSkillName] = useState("");
   const [skillDesc, setSkillDesc] = useState("");
+  const [errors, setErrors] = useState([]);
+  const [displayPopup, setDisplayPopup] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const res = await createSkill(skillName, skillDesc);
+    if (res.detail) {
+      const errorList = [];
+      if (res.detail.map) {
+        res.detail.map((errorMsg) => errorList.push(errorMsg.msg));
+      } else {
+        errorList.push(res.detail);
+      }
+      setErrors(errorList);
+    } else {
+      setErrors([]);
+      setDisplayPopup(true);
+    }
+  };
+
+  const renderErrors = errors && errors.map && errors.map((error) => <p>{error}</p>);
+
+  const resetFields = () => {
+    setSkillName("");
+    setSkillDesc("");
+    setErrors([]);
+    setDisplayPopup(false);
   };
 
   return (
@@ -27,6 +53,8 @@ export default function HRCreateSkill() {
           Create Skill
         </button>
       </form>
+      <div className='pt-5 text-red-500'>{renderErrors}</div>
+      {displayPopup ? <CreateSkillSuccess skillName={skillName} resetFields={resetFields} /> : null}
     </div>
   );
 }
