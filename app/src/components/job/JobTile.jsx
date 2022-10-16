@@ -69,11 +69,12 @@ export default function JobTile({ jobId, jobName, jobDesc, skills, isActive }) {
               <span>Delete</span>
             </button>
             {currentUserType === "HR" && (
-              <DeletePopUp trigger={buttonPopUp}
+              <DeletePopUp
+              trigger={buttonPopUp}
               setTrigger={setButtonPopUp}
               jobId={jobId}
               isActive={isActive}
-              // jobId={jobId}
+              jobName={jobName}
               /> // not sure how to position delete beside edit button, will figure out in later commits.
             )}
           </div>
