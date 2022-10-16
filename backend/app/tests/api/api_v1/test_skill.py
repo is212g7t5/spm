@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from app.core.config import settings
 from app.tests.utils.skill import create_random_skill
 from app.tests.utils.skill_course import add_course_to_skill, create_random_skill_course
+from app.tests.utils.utils import random_lower_string
 
 
 def test_get_all_skills_non_existent(client: TestClient, db: Session) -> None:
@@ -174,8 +175,8 @@ def test_get_active_skills_and_courses(client: TestClient, db: Session) -> None:
     assert not is_skill_course_in_response
 
 
-def test_create_skill_no_desc(client: TestClient, db: Session) -> None:
-    data = {"skill_name": "Foo"}
+def test_create_skill_short_skill_name_pass(client: TestClient, db: Session) -> None:
+    data = {"skill_name": random_lower_string(1), "skill_desc": "Bar"}
     response = client.post(
         f"{settings.API_V1_STR}/skill",
         json=data,
@@ -183,13 +184,143 @@ def test_create_skill_no_desc(client: TestClient, db: Session) -> None:
     assert response.status_code == 200
     content = response.json()
     assert content["skill_name"] == data["skill_name"]
-    assert content["skill_desc"] == None
+    assert content["skill_desc"] == data["skill_desc"]
     assert content["is_active"] == True
     assert "skill_id" in content
 
 
+def test_create_skill_short_skill_name_fail(client: TestClient, db: Session) -> None:
+    data = {"skill_name": "", "skill_desc": "Bar"}
+    response = client.post(
+        f"{settings.API_V1_STR}/skill",
+        json=data,
+    )
+    assert response.status_code == 422
+    content = response.json()
+    assert (
+        content["detail"][0]["msg"] == "Skill name must minimally be 1 character long"
+    )
+
+
+def test_create_skill_long_skill_name_pass(client: TestClient, db: Session) -> None:
+    data = {"skill_name": random_lower_string(50), "skill_desc": "Bar"}
+    response = client.post(
+        f"{settings.API_V1_STR}/skill",
+        json=data,
+    )
+    assert response.status_code == 200
+    content = response.json()
+    assert content["skill_name"] == data["skill_name"]
+    assert content["skill_desc"] == data["skill_desc"]
+    assert content["is_active"] == True
+    assert "skill_id" in content
+
+
+def test_create_skill_long_skill_name_fail(client: TestClient, db: Session) -> None:
+    data = {"skill_name": random_lower_string(51), "skill_desc": "Bar"}
+    response = client.post(
+        f"{settings.API_V1_STR}/skill",
+        json=data,
+    )
+    assert response.status_code == 422
+    content = response.json()
+    assert content["detail"][0]["msg"] == "Skill name cannot exceed 50 characters"
+
+
+def test_create_skill_duplicate_skill_name(client: TestClient, db: Session) -> None:
+    skill = create_random_skill(db)
+    data = {"skill_name": skill.skill_name, "skill_desc": "Bar"}
+    response = client.post(
+        f"{settings.API_V1_STR}/skill",
+        json=data,
+    )
+    assert response.status_code == 409
+    content = response.json()
+    assert content["detail"] == "Skill name already exists"
+
+
+def test_create_skill_white_space_skill_name(client: TestClient, db: Session) -> None:
+    skill_name = random_lower_string(50)
+    white_space_skill_name = " " * 50 + skill_name + " " * 50
+    data = {"skill_name": white_space_skill_name, "skill_desc": "Bar"}
+    response = client.post(
+        f"{settings.API_V1_STR}/skill",
+        json=data,
+    )
+    assert response.status_code == 200
+    content = response.json()
+    assert content["skill_name"] == skill_name
+    assert content["skill_desc"] == data["skill_desc"]
+    assert content["is_active"] == True
+    assert "skill_id" in content
+
+
+def test_create_skill_no_desc(client: TestClient, db: Session) -> None:
+    data = {"skill_name": "Foo", "skill_desc": None}
+    response = client.post(
+        f"{settings.API_V1_STR}/skill",
+        json=data,
+    )
+    assert response.status_code == 422
+
+
+def test_create_skill_short_desc_pass(client: TestClient, db: Session) -> None:
+    data = {"skill_name": "Moo", "skill_desc": random_lower_string(1)}
+    response = client.post(
+        f"{settings.API_V1_STR}/skill",
+        json=data,
+    )
+    assert response.status_code == 200
+    content = response.json()
+    assert content["skill_name"] == data["skill_name"]
+    assert content["skill_desc"] == data["skill_desc"]
+    assert content["is_active"] == True
+    assert "skill_id" in content
+
+
+def test_create_skill_short_desc_fail(client: TestClient, db: Session) -> None:
+    data = {"skill_name": "Boo", "skill_desc": ""}
+    response = client.post(
+        f"{settings.API_V1_STR}/skill",
+        json=data,
+    )
+    assert response.status_code == 422
+    content = response.json()
+    assert (
+        content["detail"][0]["msg"]
+        == "Skill description must minimally be 1 character long"
+    )
+
+
+def test_create_skill_long_desc_pass(client: TestClient, db: Session) -> None:
+    data = {"skill_name": "Meow", "skill_desc": random_lower_string(255)}
+    response = client.post(
+        f"{settings.API_V1_STR}/skill",
+        json=data,
+    )
+    assert response.status_code == 200
+    content = response.json()
+    assert content["skill_name"] == data["skill_name"]
+    assert content["skill_desc"] == data["skill_desc"]
+    assert content["is_active"] == True
+    assert "skill_id" in content
+
+
+def test_create_skill_long_desc_fail(client: TestClient, db: Session) -> None:
+    data = {"skill_name": "Crow", "skill_desc": random_lower_string(256)}
+    response = client.post(
+        f"{settings.API_V1_STR}/skill",
+        json=data,
+    )
+    assert response.status_code == 422
+    content = response.json()
+    assert (
+        content["detail"][0]["msg"] == "Skill description cannot exceed 255 characters"
+    )
+
+
 def test_create_skill_with_desc(client: TestClient, db: Session) -> None:
-    data = {"skill_name": "Foo", "skill_desc": "Bar"}
+    data = {"skill_name": "Cow", "skill_desc": "Bar"}
     response = client.post(
         f"{settings.API_V1_STR}/skill",
         json=data,
