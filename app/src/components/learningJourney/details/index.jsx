@@ -17,7 +17,7 @@ import AddCourseButton from "./AddCourseButton";
 
 function LearningJourneyDetails() {
   const { currentUserId } = useUserContext();
-  const { setSelectedJobRole, setSelectedCourseDetails } = useLJContext();
+  const { setSelectedLJId, setSelectedJobRole, setSelectedCourseDetails } = useLJContext();
 
   const { LJId } = useParams();
   const history = useHistory();
@@ -77,6 +77,7 @@ function LearningJourneyDetails() {
     console.log("starting to edit");
     console.log(LJCourseDetails);
 
+    setSelectedLJId(LJId);
     setSelectedJobRole({ jobName, isJobActive, skills });
     setSelectedCourseDetails(LJCourseDetails);
     history.push("/create-learning-journey");

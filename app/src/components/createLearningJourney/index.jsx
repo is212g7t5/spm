@@ -11,7 +11,7 @@ import { createLJCourseMapping } from "src/api/learningJourneyCourse";
 import JobSkills from "./JobSkills";
 import CoursesList from "./CoursesList";
 import CourseModal from "./CourseModal";
-import SubmitButton from "./SubmitButton"
+import SubmitButton from "./SubmitButton";
 
 export default function index() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,7 +20,8 @@ export default function index() {
   const [errorMessage, setErrorMessage] = useState("");
 
   const history = useHistory();
-  const { selectedJobRole, clearSelectedCourseDetails, selectedCourseDetails } = useLJContext();
+  const { selectedLJId, selectedJobRole, clearSelectedCourseDetails, selectedCourseDetails } =
+    useLJContext();
   const { currentUserId } = useUserContext();
 
   useEffect(() => {
@@ -34,15 +35,18 @@ export default function index() {
 
   useEffect(() => {
     getCoursesAndSetState();
+    return cleanup;
 
     async function getCoursesAndSetState() {
       const allCoursesAndSkills = await getAllSkillsAndCourses();
       setCoursesAndSkillsMapping(allCoursesAndSkills);
     }
 
-    return () => {
-      clearSelectedCourseDetails();
-    };
+    function cleanup() {
+      if (!selectedLJId) {
+        clearSelectedCourseDetails();
+      }
+    }
   }, []);
 
   if (!selectedJobRole || !coursesAndSkillsMapping) {

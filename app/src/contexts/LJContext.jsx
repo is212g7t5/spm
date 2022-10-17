@@ -2,6 +2,8 @@ import React, { useState, createContext, useContext, useMemo } from "react";
 
 // Do not remove default unused vars as typescript uses this for type hinting
 const defaultLJContextState = {
+  selectedLJId: null,
+  setSelectedLJId: (id) => {},
   selectedJobRole: {},
   setSelectedJobRole: (JobDetails) => {},
   selectedCourseDetails: {},
@@ -13,6 +15,7 @@ const defaultLJContextState = {
 const LJContext = createContext(defaultLJContextState);
 
 export function LJContextProvider({ children }) {
+  const [selectedLJId, setSelectedLJId] = useState(null);
   const [selectedJobRole, setSelectedJobRole] = useState(null);
   const [selectedCourseDetails, setSelectedCourseDetails] = useState({});
 
@@ -38,6 +41,8 @@ export function LJContextProvider({ children }) {
 
   const LJContextState = useMemo(
     () => ({
+      selectedLJId,
+      setSelectedLJId,
       selectedJobRole,
       setSelectedJobRole,
       selectedCourseDetails,
@@ -47,6 +52,8 @@ export function LJContextProvider({ children }) {
       removeCourseIdFromLJ,
     }),
     [
+      selectedLJId,
+      setSelectedLJId,
       selectedJobRole,
       setSelectedJobRole,
       selectedCourseDetails,
