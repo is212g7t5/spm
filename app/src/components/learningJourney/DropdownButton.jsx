@@ -1,11 +1,7 @@
-import React, { useState } from "react";
-import "flowbite";
-import LJDeletionPopUp from "./details/LJDeletionPopUp";
-
-function DropdownButton(LJId) {
-  const [isOpen, setIsOpen] = useState(false);
-  const onClick = () => {
-    setIsOpen(!isOpen);
+function DropdownButton({ onDeletionModalClick, navigateToLJDetails }) {
+  const handleButtonClick = () => {
+    navigateToLJDetails();
+    console.log("clicking");
   };
 
   return (
@@ -16,23 +12,25 @@ function DropdownButton(LJId) {
       >
         <ul className='py-1' aria-labelledby='dropdownButton'>
           <li>
-            <a href='/#' className='block py-2 px-4 text-sm text-black hover:bg-gray-100'>
+            <button
+              type='button'
+              className='block w-100 py-2 px-4 text-sm text-black hover:bg-gray-100'
+              onClick={handleButtonClick}
+            >
               Edit
-            </a>
+            </button>
           </li>
           <li>
             <a
               href='/#'
               className='block py-2 px-4 text-sm text-red-600 hover:bg-gray-100'
-              onClick={onClick}
+              onClick={onDeletionModalClick}
             >
               Delete
             </a>
           </li>
         </ul>
       </div>
-
-      {isOpen && <LJDeletionPopUp LJId={LJId} />}
     </div>
   );
 }

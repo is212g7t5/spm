@@ -11,9 +11,11 @@ class CRUDSkill(CRUDBase[Skill, SkillCreate, SkillUpdate]):
     def get(self, db: Session, skill_id: Any) -> Skill:
         return db.query(self.model).filter(self.model.skill_id == skill_id).first()
 
+    def get_by_skill_name(self, db: Session, skill_name: Any) -> Skill:
+        return db.query(self.model).filter(self.model.skill_name == skill_name).first()
+
     def create(self, db: Session, *, obj_in: SkillCreate) -> Skill:
         db_obj = Skill(
-            skill_id=obj_in.skill_id,
             skill_name=obj_in.skill_name,
             skill_desc=obj_in.skill_desc,
             is_active=obj_in.is_active,

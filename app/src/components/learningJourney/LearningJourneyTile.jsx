@@ -1,14 +1,30 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import DropdownButton from "./DropdownButton";
 
-function LearningJourneyTile({ LJId, jobName, jobDesc, isJobActive }) {
+function LearningJourneyTile({
+  LJId,
+  jobName,
+  jobDesc,
+  isJobActive,
+  onDeletionModalClick,
+  setSelectedLJ,
+}) {
   if (!isJobActive) {
     return null;
   }
 
-  const [isOpen, setIsOpen] = useState(false);
-  const onClick = () => {
-    setIsOpen(!isOpen);
+  const [isDropdownButtonClicked, setIsDropdownButtonClicked] = useState(false);
+
+  const history = useHistory();
+
+  const onDropdownButtonClick = () => {
+    setIsDropdownButtonClicked(!isDropdownButtonClicked);
+    setSelectedLJ(LJId);
+  };
+
+  const navigateToLJDetails = () => {
+    history.push(`/learning-journeys/${LJId}`);
   };
 
   return (
@@ -16,7 +32,7 @@ function LearningJourneyTile({ LJId, jobName, jobDesc, isJobActive }) {
       <div className='flex justify-end px-4 pt-4'>
         <button
           id='dropdownButton'
-          onClick={onClick}
+          onClick={onDropdownButtonClick}
           className='inline-block text-black hover:bg-gray-100 focus:ring-2 focus:ring-gray-100 rounded-lg text-sm p-1.5'
           type='button'
         >
@@ -32,7 +48,12 @@ function LearningJourneyTile({ LJId, jobName, jobDesc, isJobActive }) {
           </svg>
         </button>
 
-        {isOpen && <DropdownButton LJId={LJId} />}
+        {isDropdownButtonClicked && (
+          <DropdownButton
+            navigateToLJDetails={navigateToLJDetails}
+            onDeletionModalClick={onDeletionModalClick}
+          />
+        )}
       </div>
 
       <div className='flex flex-col items-center pb-10'>
