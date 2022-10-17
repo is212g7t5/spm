@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import DropdownButton from "./DropdownButton";
 
 function LearningJourneyTile({
@@ -14,9 +15,16 @@ function LearningJourneyTile({
   }
 
   const [isDropdownButtonClicked, setIsDropdownButtonClicked] = useState(false);
+
+  const history = useHistory();
+
   const onDropdownButtonClick = () => {
     setIsDropdownButtonClicked(!isDropdownButtonClicked);
     setSelectedLJ(LJId);
+  };
+
+  const navigateToLJDetails = () => {
+    history.push(`/learning-journeys/${LJId}`);
   };
 
   return (
@@ -40,7 +48,12 @@ function LearningJourneyTile({
           </svg>
         </button>
 
-        {isDropdownButtonClicked && <DropdownButton onDeletionModalClick={onDeletionModalClick} />}
+        {isDropdownButtonClicked && (
+          <DropdownButton
+            navigateToLJDetails={navigateToLJDetails}
+            onDeletionModalClick={onDeletionModalClick}
+          />
+        )}
       </div>
 
       <div className='flex flex-col items-center pb-10'>
