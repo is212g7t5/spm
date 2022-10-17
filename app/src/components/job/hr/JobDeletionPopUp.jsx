@@ -20,11 +20,7 @@ function DeletePopUp({ trigger, setTrigger, jobId, isActive, jobName }) {
     const res = await softDelete(jobId, jobIsActive);
     if (res.detail) {
       const errorList = [];
-      if (res.detail.map) {
-        res.detail.map((errorMsg) => errorList.push(errorMsg.msg));
-      } else {
-        errorList.push(res.detail);
-      }
+      errorList.push(res.detail);
       setErrors(errorList);
     } else {
       setErrors([]);
@@ -37,11 +33,10 @@ function DeletePopUp({ trigger, setTrigger, jobId, isActive, jobName }) {
     }).then(() => {
       window.location.reload();
     });
-    // refreshPage();
     setTrigger(false);
   };
 
-  const renderErrors = errors && errors.map && errors.map((error) => <p>{error}</p>);
+  const renderErrors = errors && errors.map((error) => <p>{error}</p>);
 
   return trigger ? (
     <div

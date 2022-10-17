@@ -18,10 +18,9 @@ export default function JobTile({ jobId, jobName, jobDesc, skills, isActive }) {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const { currentUserType } = useUserContext();
   const { setSelectedJobRole } = useLJCreationContext();
-  const { setUpdateJobRole } = useUpdateJobContext();
-  const { setDeleteJobRole } = useUpdateJobContext();
+  const { setUpdateJobRole, setDeleteJobRole } = useUpdateJobContext();
   const history = useHistory();
-  const [buttonPopUp, setButtonPopUp] = useState(false);
+  const [isButtonPopUpOpen, setIsButtonPopUpOpen] = useState(false);
 
   const handleCreateLJButtonClick = (e) => {
     e.stopPropagation();
@@ -36,7 +35,7 @@ export default function JobTile({ jobId, jobName, jobDesc, skills, isActive }) {
   };
 
   const showPopUp = (e) => {
-    setButtonPopUp(true);
+    setIsButtonPopUpOpen(true);
   };
 
   return (
@@ -80,8 +79,8 @@ export default function JobTile({ jobId, jobName, jobDesc, skills, isActive }) {
             </div>
             {currentUserType === "HR" && (
               <DeletePopUp
-                trigger={buttonPopUp}
-                setTrigger={setButtonPopUp}
+                trigger={isButtonPopUpOpen}
+                setTrigger={setIsButtonPopUpOpen}
                 jobId={jobId}
                 isActive={isActive}
                 jobName={jobName}
