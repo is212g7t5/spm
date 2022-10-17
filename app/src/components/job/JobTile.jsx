@@ -63,17 +63,21 @@ export default function JobTile({ jobId, jobName, jobDesc, skills, isActive }) {
             {skills.length >= 1 && (
               <CreateLearningJourneyButton handleCreateLJButtonClick={handleCreateLJButtonClick} />
             )}
-            {currentUserType === "HR" && (
-              <CreateEditJobButton handleEditJobButtonClick={handleEditJobButtonClick} />
-            )}
-            <button
-              type='button'
-              className='w-full flex items-center justify-center ml-auto text-white bg-secondary hover:bg-secondary focus:ring-4 rounded-lg text-sm px-5 py-2.5 text-center m-1'
-              onClick={showPopUp}
-            >
-              <TrashIcon className='mr-2 h-5 w-5' aria-hidden='true' />
-              <span>Delete</span>
-            </button>
+            <div className='flex'>
+              {currentUserType === "HR" && (
+                <CreateEditJobButton handleEditJobButtonClick={handleEditJobButtonClick} />
+              )}
+              {currentUserType === "HR" && isActive && (
+                <button
+                  type='button'
+                  className='w-full flex items-center justify-center ml-auto text-white bg-secondary hover:bg-secondary focus:ring-4 rounded-lg text-sm px-5 py-2.5 text-center m-1'
+                  onClick={showPopUp}
+                >
+                  <TrashIcon className='mr-2 h-5 w-5' aria-hidden='true' />
+                  <span>Delete</span>
+                </button>
+              )}
+            </div>
             {currentUserType === "HR" && (
               <DeletePopUp
                 trigger={buttonPopUp}
@@ -81,7 +85,7 @@ export default function JobTile({ jobId, jobName, jobDesc, skills, isActive }) {
                 jobId={jobId}
                 isActive={isActive}
                 jobName={jobName}
-              /> // not sure how to position delete beside edit button, will figure out in later commits.
+              />
             )}
           </div>
           <JobTileButton isDetailsOpen={isDetailsOpen} setIsDetailsOpen={setIsDetailsOpen} />
@@ -103,19 +107,6 @@ function CreateEditJobButton({ handleEditJobButtonClick }) {
     >
       <PencilSquareIcon className='mr-2 h-5 w-5' aria-hidden='true' />
       <span>Edit</span>
-    </button>
-  );
-}
-
-function createDeleteJobButton(showPopUp) {
-  return (
-    <button
-      type='button'
-      className='w-full flex items-center justify-center ml-auto text-white bg-secondary hover:bg-secondary focus:ring-4 rounded-lg text-sm px-5 py-2.5 text-center m-1'
-      onClick={showPopUp}
-    >
-      <TrashIcon className='mr-2 h-5 w-5' aria-hidden='true' />
-      <span>Delete</span>
     </button>
   );
 }

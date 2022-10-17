@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
+import swal from "sweetalert";
 import { softDelete } from "src/api/jobs";
-import DeleteJobSuccess from "./DeleteJobSuccess";
 
 function DeletePopUp({ trigger, setTrigger, jobId, isActive, jobName }) {
   const [jobIsActive, setJobIsActive] = useState(false);
   const [errors, setErrors] = useState([]);
-  const [displayPopup, setDisplayPopup] = useState(false);
 
   const resetTrigger = (e) => {
     setTrigger(false);
@@ -17,6 +16,7 @@ function DeletePopUp({ trigger, setTrigger, jobId, isActive, jobName }) {
 
   const handleConfirm = async (e) => {
     e.preventDefault();
+
     const res = await softDelete(jobId, jobIsActive);
     if (res.detail) {
       const errorList = [];
@@ -28,9 +28,16 @@ function DeletePopUp({ trigger, setTrigger, jobId, isActive, jobName }) {
       setErrors(errorList);
     } else {
       setErrors([]);
-      setDisplayPopup(true);
     }
-    //   refreshPage();
+    swal({
+      title: "Success!",
+      text: "Job has been successfully deleted!",
+      icon: "success",
+      button: "OK",
+    }).then(() => {
+      window.location.reload();
+    });
+    // refreshPage();
     setTrigger(false);
   };
 
@@ -63,7 +70,6 @@ function DeletePopUp({ trigger, setTrigger, jobId, isActive, jobName }) {
               Cancel
             </button>
             <div className='pt-5 text-red-500'>{renderErrors}</div>
-            {displayPopup ? <DeleteJobSuccess jobName={jobName} /> : null}
           </div>
         </div>
       </div>
