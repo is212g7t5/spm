@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useLJCreationContext } from "src/contexts/LJContext";
+import { useLJContext } from "src/contexts/LJContext";
 import { useUserContext } from "src/contexts/UserContext";
 
 import { getAllSkillsAndCourses } from "src/api/skills";
@@ -20,7 +20,7 @@ export default function index() {
   const [errorMessage, setErrorMessage] = useState("");
 
   const history = useHistory();
-  const { selectedJobRole, clearSelectedCourseDetails, selectedCourseDetails } = useLJCreationContext();
+  const { selectedJobRole, clearSelectedCourseDetails, selectedCourseDetails } = useLJContext();
   const { currentUserId } = useUserContext();
 
   useEffect(() => {

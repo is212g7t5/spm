@@ -1,9 +1,9 @@
 import React from "react";
-import { useLJCreationContext } from "src/contexts/LJContext";
+import { useLJContext } from "src/contexts/LJContext";
 import { XCircleIcon } from "@heroicons/react/20/solid";
 
 export default function CoursesList() {
-  const { selectedCourseDetails } = useLJCreationContext();
+  const { selectedCourseDetails } = useLJContext();
 
   return (
     <div className='flex-col mt-10 bg-background rounded-lg px-5 py-3'>
@@ -45,7 +45,7 @@ function CourseCard({ courseDetails }) {
 }
 
 function CourseCardCloseButton({ courseId }) {
-  const { removeCourseIdFromLJ } = useLJCreationContext();
+  const { removeCourseIdFromLJ } = useLJContext();
 
   const handleRemoveCourseIdFromLJ = (courseId) => (e) => {
     if (!courseId) {

@@ -6,7 +6,7 @@ import {
   PencilSquareIcon,
 } from "@heroicons/react/20/solid";
 import { useHistory } from "react-router-dom";
-import { useLJCreationContext } from "src/contexts/LJContext";
+import { useLJContext } from "src/contexts/LJContext";
 import { useUpdateJobContext } from "src/contexts/UpdateJobContext";
 import { useUserContext } from "src/contexts/UserContext";
 import SkillBadge from "./SkillBadge";
@@ -14,7 +14,7 @@ import SkillBadge from "./SkillBadge";
 export default function JobTile({ jobId, jobName, jobDesc, skills, isActive }) {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const { currentUserType } = useUserContext();
-  const { setSelectedJobRole } = useLJCreationContext();
+  const { setSelectedJobRole } = useLJContext();
   const { setUpdateJobRole } = useUpdateJobContext();
   const history = useHistory();
 
