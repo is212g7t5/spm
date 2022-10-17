@@ -60,6 +60,21 @@ export const getActiveSkillsAndCourses = async () => {
   }
 };
 
+export const createSkill = async (skillName, skillDesc) => {
+  try {
+    const res = await axios.post(`${SKILL_ENDPOINT}`, {
+      skill_name: skillName,
+      skill_desc: skillDesc,
+    });
+    if (res) {
+      return res.data;
+    }
+    throw new Error("No data returned from backend");
+  } catch (error) {
+    return error.response.data;
+  }
+}
+
 // Utility Functions
 function skillsSnakeToCamel(snakeCaseSkills) {
   return snakeCaseSkills.map((skill) => skillSnakeToCamel(skill));

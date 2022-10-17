@@ -44,7 +44,7 @@ function HRSkill() {
           onClick={redirectToCreateSkillPage}
         >
           <StarIcon className='-ml-1 mr-2 h-5 w-5' aria-hidden='true' />
-          <span>Create New Job</span>
+          <span>Create New Skill</span>
         </button>
       </div>
       {skills.length === 0 ? "No Skills Found" : renderSkills}
