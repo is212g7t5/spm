@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { XMarkIcon } from "@heroicons/react/20/solid";
-import { useLJCreationContext } from "src/contexts/LJCreationContext";
+import { useLJCreationContext } from "src/contexts/LJContext";
 
 export default function CourseModal({ skillId, coursesAndSkillsMapping, isModalOpen, closeModal }) {
   const [selectedCourses, setSelectedCourses] = useState([]);

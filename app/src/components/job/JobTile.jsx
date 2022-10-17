@@ -6,7 +6,7 @@ import {
   PencilSquareIcon,
 } from "@heroicons/react/20/solid";
 import { useHistory } from "react-router-dom";
-import { useLJCreationContext } from "src/contexts/LJCreationContext";
+import { useLJCreationContext } from "src/contexts/LJContext";
 import { useUpdateJobContext } from "src/contexts/UpdateJobContext";
 import { useUserContext } from "src/contexts/UserContext";
 import SkillBadge from "./SkillBadge";

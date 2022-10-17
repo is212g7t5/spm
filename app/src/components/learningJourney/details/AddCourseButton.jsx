@@ -1,11 +1,21 @@
 import React from "react";
-import { PlusIcon } from "@heroicons/react/20/solid";
+import { PencilIcon } from "@heroicons/react/20/solid";
 
 export default function AddCourseButton() {
-    return (
-        <button type="button" className="inline-flex items-center place-content-center outline-gray-400 outline-dashed outline-2 outline-offset-0 max-w-xs max-h-32 bg-transparent rounded-lg shadow-md hover:underline underline-offset-2 decoration-gray-400">
-            <PlusIcon className="h-6 w-6 text-black" />
-            <span className="text-black">Add Course</span>
-        </button>
-    )
+  const startEditingProcess = (e) => {
+    // 1. Update the global state with necessary stuff
+    // 2. Redirect to create learning journey page with the new stuff
+    console.log("starting to edit");
+  };
+
+  return (
+    <button
+      type='button'
+      className='inline-flex items-center place-content-center bg-secondary text-white outline-gray-400 w-48 h-12 rounded-lg shadow-md hover:underline underline-offset-2'
+      onClick={startEditingProcess}
+    >
+      <PencilIcon className='h-4 w-6' />
+      <span>Edit Learning Journey</span>
+    </button>
+  );
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { useLJCreationContext } from "src/contexts/LJCreationContext";
+import { useLJCreationContext } from "src/contexts/LJContext";
 import { XCircleIcon } from "@heroicons/react/20/solid";
 
 export default function CoursesList() {

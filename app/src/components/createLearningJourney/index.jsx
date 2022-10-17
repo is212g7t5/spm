@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useLJCreationContext } from "src/contexts/LJCreationContext";
+import { useLJCreationContext } from "src/contexts/LJContext";
 import { useUserContext } from "src/contexts/UserContext";
 
 import { getAllSkillsAndCourses } from "src/api/skills";

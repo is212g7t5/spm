@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { UserProvider } from "src/contexts/UserContext";
-import { LJCreationContextProvider } from "src/contexts/LJCreationContext";
+import { LJCreationContextProvider } from "src/contexts/LJContext";
 import { UpdateJobContextProvider } from "src/contexts/UpdateJobContext";
 import {
   Courses,

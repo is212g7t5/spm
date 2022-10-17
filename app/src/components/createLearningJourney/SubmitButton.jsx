@@ -1,5 +1,5 @@
 import React from "react";
-import { useLJCreationContext } from "src/contexts/LJCreationContext";
+import { useLJCreationContext } from "src/contexts/LJContext";
 
 export default function SubmitButton({onClick}) {
   const { selectedCourseDetails } = useLJCreationContext();
