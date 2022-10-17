@@ -27,14 +27,13 @@ function App() {
             <Layout>
               <Switch>
                 <Route exact path='/' component={LearningJourneys} />
+                <Route exact path='/learning-journeys' component={LearningJourneys} />
                 <Route exact path='/courses' component={Courses} />
-                <Route exact path='/jobs' component={Jobs} />
                 <Route exact path='/skills' component={Skills} />
                 <Route exact path='/create-skill' component={CreateSkill} />
+                <Route exact path='/jobs' component={Jobs} />
                 <Route exact path='/create-job' component={CreateJob} />
                 <Route exact path='/update-job' component={UpdateJob} />
-                <Route exact path='/skills' component={Jobs} />
-                <Route exact path='/dashboard' component={Jobs} />
                 <Route path='/create-learning-journey' component={CreateLearningJourneyPage} />
               </Switch>
             </Layout>
