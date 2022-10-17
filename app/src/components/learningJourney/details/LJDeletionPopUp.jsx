@@ -1,26 +1,23 @@
-import React, { useState } from "react";
 import { deleteLJWithLJId } from "src/api/learningJourney";
 
-function LJDeletionPopUp({ LJId }) {
+function LJDeletionPopUp({ LJId, isDeletionModalOpen, setIsDeletionModalOpen }) {
   // Hide the popup when click on cancel
-  const [isOpen, setIsOpen] = useState(true);
-  const onClick = () => {
-    setIsOpen(!isOpen);
+  const onCancelButtonClick = () => {
+    setIsDeletionModalOpen(false);
   };
 
-  function refreshPage() {
-    window.location.reload(false);
-  }
-
-  if (!isOpen) {
+  if (!isDeletionModalOpen || !LJId) {
     return null;
   }
 
-  const DeleteLJButtonClick = (e) => {
+  const onDeleteLJButtonClick = (e) => {
     e.stopPropagation();
-    const res = deleteLJWithLJId(LJId);
-    const onClick = setIsOpen(!isOpen);
-    refreshPage();
+    deleteLJWithCourses();
+
+    async function deleteLJWithCourses() {
+      await deleteLJWithLJId(LJId);
+      setIsDeletionModalOpen(false);
+    }
   };
 
   return (
@@ -40,14 +37,14 @@ function LJDeletionPopUp({ LJId }) {
             <button
               type='button'
               className='text-white bg-primary hover:bg-secondary font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2'
-              onClick={DeleteLJButtonClick}
+              onClick={onDeleteLJButtonClick}
             >
               Confirm
             </button>
             <button
               type='button'
               className='text-white bg-accent2 hover:bg-accent2 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2'
-              onClick={onClick}
+              onClick={onCancelButtonClick}
             >
               Cancel
             </button>
