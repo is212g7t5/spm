@@ -18,7 +18,7 @@ export default function JobTile({ jobId, jobName, jobDesc, skills, isActive }) {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const { currentUserType } = useUserContext();
   const { setSelectedJobRole } = useLJCreationContext();
-  const { setUpdateJobRole, setDeleteJobRole } = useUpdateJobContext();
+  const { setUpdateJobRole } = useUpdateJobContext();
   const history = useHistory();
   const [isButtonPopUpOpen, setIsButtonPopUpOpen] = useState(false);
 
