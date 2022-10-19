@@ -30,10 +30,11 @@ export const createLJCourseMapping = async (LJId, courseIds) => {
   }
 };
 
-export const getLearningJourneyCoursesById = async (LJId) => {
+export const getCourseIdsFromLJId = async (LJId) => {
     try {
         const res = await axiosLJCourseInstance.get(`/${LJId}`);
         if (res) {
+          console.log(res)
             return extractCourseIdsFromLJAndCourseIdsObjects(res.data);
         }
         throw new Error("No data returned from backend");
@@ -51,7 +52,7 @@ function extractCourseIdsFromLJAndCourseIdsObjects(LJAndCourseIds) {
     return courseIdArray;
 }
 
-export const deleteLearningJourneyCourseWithLJId = async (ljId) => {
+export const deleteLJCourseWithLJId = async (ljId) => {
   try {
     const res = await axiosLJCourseInstance.delete(`all/${ljId}`);
     if (res) {

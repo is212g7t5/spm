@@ -1,8 +1,8 @@
 import React from "react";
-import { useLJCreationContext } from "src/contexts/LJCreationContext";
+import { useLJContext } from "src/contexts/LJContext";
 
 export default function SubmitButton({onClick}) {
-  const { selectedCourseDetails } = useLJCreationContext();
+  const { selectedCourseDetails } = useLJContext();
 
   return (
     <div className="flex-shrink-0 items-center mt-5 mr-auto">

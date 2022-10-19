@@ -1,17 +1,21 @@
 import React, { useState, createContext, useContext, useMemo } from "react";
 
 // Do not remove default unused vars as typescript uses this for type hinting
-const defaultLJCreationContextState = {
+const defaultLJContextState = {
+  selectedLJId: null,
+  setSelectedLJId: (id) => {},
   selectedJobRole: {},
   setSelectedJobRole: (JobDetails) => {},
   selectedCourseDetails: {},
+  setSelectedCourseDetails: (courseDetails) => {},
   clearSelectedCourseDetails: () => {},
   addCoursesToLJ: (courseDetails) => {},
   removeCourseIdFromLJ: (courseDetails) => {},
 };
-const LJCreationContext = createContext(defaultLJCreationContextState);
+const LJContext = createContext(defaultLJContextState);
 
-export function LJCreationContextProvider({ children }) {
+export function LJContextProvider({ children }) {
+  const [selectedLJId, setSelectedLJId] = useState(null);
   const [selectedJobRole, setSelectedJobRole] = useState(null);
   const [selectedCourseDetails, setSelectedCourseDetails] = useState({});
 
@@ -35,33 +39,35 @@ export function LJCreationContextProvider({ children }) {
     setSelectedCourseDetails({});
   };
 
-  const LJCreationContextState = useMemo(
+  const LJContextState = useMemo(
     () => ({
+      selectedLJId,
+      setSelectedLJId,
       selectedJobRole,
       setSelectedJobRole,
       selectedCourseDetails,
+      setSelectedCourseDetails,
       clearSelectedCourseDetails,
       addCoursesToLJ,
       removeCourseIdFromLJ,
     }),
     [
+      selectedLJId,
+      setSelectedLJId,
       selectedJobRole,
       setSelectedJobRole,
       selectedCourseDetails,
+      setSelectedCourseDetails,
       clearSelectedCourseDetails,
       addCoursesToLJ,
       removeCourseIdFromLJ,
     ],
   );
 
-  return (
-    <LJCreationContext.Provider value={LJCreationContextState}>
-      {children}
-    </LJCreationContext.Provider>
-  );
+  return <LJContext.Provider value={LJContextState}>{children}</LJContext.Provider>;
 }
 
 // Helper functions
-export function useLJCreationContext() {
-  return useContext(LJCreationContext);
+export function useLJContext() {
+  return useContext(LJContext);
 }
