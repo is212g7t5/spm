@@ -15,13 +15,12 @@ export default function HRCreateJob() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await createJob(jobName, jobDesc);
-    if (res.detail) {
+    // If detail key exists in response, there are schematic errors in the request
+    if (res.detail && res.detail.length > 0) {
       const errorList = [];
-      if (res.detail.map) {
-        res.detail.map((errorMsg) => errorList.push(errorMsg.msg));
-      } else {
-        errorList.push(res.detail);
-      }
+      res.detail.forEach((error) => {
+        errorList.push(error.msg);
+      }); 
       setErrors(errorList);
     } else {
       setErrors([]);
@@ -29,7 +28,7 @@ export default function HRCreateJob() {
     }
   };
 
-  const renderErrors = errors && errors.map && errors.map((error) => <p>{error}</p>);
+  const renderErrors = errors && errors.map && errors.map((error) => <p key={error}>{error}</p>);
 
   const resetFields = () => {
     setJobName("");

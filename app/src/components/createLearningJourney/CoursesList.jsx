@@ -2,7 +2,7 @@ import React from "react";
 import { useLJContext } from "src/contexts/LJContext";
 import { XCircleIcon } from "@heroicons/react/20/solid";
 
-export default function CoursesList() {
+export default function CoursesList({ onDeleteSkillModalOpen }) {
   const { selectedCourseDetails } = useLJContext();
 
   return (
@@ -11,14 +11,22 @@ export default function CoursesList() {
       <p className='text-sm font-light text-black dark:text-white italic'>
         Here are your courses. Click on the cross to remove a course from your Learning Journey.
       </p>
-      <CoursesBody courses={selectedCourseDetails} />
+      <CoursesBody
+        courses={selectedCourseDetails}
+        onDeleteSkillModalOpen={onDeleteSkillModalOpen}
+      />
     </div>
   );
 }
 
-function CoursesBody({ courses }) {
+function CoursesBody({ courses, onDeleteSkillModalOpen }) {
   const renderCourseBadges = Object.keys(courses).map((courseId, index) => (
-    <CourseCard key={index} courseDetails={courses[courseId]} />
+    <CourseCard
+      key={index}
+      courseDetails={courses[courseId]}
+      numOfCourses={Object.keys(courses).length}
+      onDeleteSkillModalOpen={onDeleteSkillModalOpen}
+    />
   ));
 
   return (
@@ -30,35 +38,42 @@ function CoursesBody({ courses }) {
   );
 }
 
-function CourseCard({ courseDetails }) {
+function CourseCard({ courseDetails, numOfCourses, onDeleteSkillModalOpen }) {
   return (
     <div className='relative p-10 md:h-60 xl:h-72 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-100'>
-      <CourseCardCloseButton courseId={courseDetails.courseId} />
+      <CourseCardCloseButton
+        courseId={courseDetails.courseId}
+        numOfCourses={numOfCourses}
+        onDeleteSkillModalOpen={onDeleteSkillModalOpen}
+      />
       <h5 className='mb-2 text-2xl font-bold tracking-tight text-black dark:text-white'>
         {courseDetails.courseName}
       </h5>
-      <p className='h-full font-normal text-black dark:text-black'>
-        {courseDetails.courseDesc}
-      </p>
+      <p className='h-full font-normal text-black dark:text-black'>{courseDetails.courseDesc}</p>
     </div>
   );
 }
 
-function CourseCardCloseButton({ courseId }) {
+function CourseCardCloseButton({ courseId, numOfCourses, onDeleteSkillModalOpen }) {
   const { removeCourseIdFromLJ } = useLJContext();
 
-  const handleRemoveCourseIdFromLJ = (courseId) => (e) => {
-    if (!courseId) {
-      console.log("Course ID is not present");
-      return;
+  const handleRemoveCourseIdFromLJ = (e) => {
+    if (numOfCourses > 1) {
+      if (!courseId) {
+        console.log("Course ID is not present");
+        return;
+      }
+      removeCourseIdFromLJ(courseId);
+    } else {
+      console.log("Cannot remove last course");
+      onDeleteSkillModalOpen();
     }
-    removeCourseIdFromLJ(courseId);
   };
 
   return (
     <button
       type='button'
-      onClick={handleRemoveCourseIdFromLJ(courseId)}
+      onClick={handleRemoveCourseIdFromLJ}
       className='absolute top-3 right-3 text-red-700 border border-red-700 hover:bg-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-1.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800'
     >
       <XCircleIcon width={20} height={20} />

@@ -7,7 +7,6 @@ from sqlalchemy.orm import Session
 
 from app import crud, schemas
 from app.api import deps
-from app.core.config import settings
 
 router = APIRouter()
 
@@ -208,26 +207,18 @@ def get_all_skills_and_all_courses(
 
 @router.post("", response_model=schemas.Skill)
 def create_skill(
-    *,
-    db: Session = Depends(deps.get_db),
-    skill_name: str = Body(...),
-    skill_desc: str = Body(None),
+    *, db: Session = Depends(deps.get_db), skill_in: schemas.SkillCreate
 ) -> Any:
     """
     Create new skill.
     """
-    if not settings.USERS_OPEN_REGISTRATION:
+    skill = crud.skill.get_by_skill_name(db, skill_name=skill_in.skill_name)
+    if skill:
         raise HTTPException(
-            status_code=403,
-            detail="Open staff registration is forbidden on this server",
+            status_code=409,
+            detail="Skill name already exists",
         )
-    skill_in = schemas.SkillCreate(
-        skill_name=skill_name,
-        skill_desc=skill_desc,
-        is_active=True,
-    )
-    skill = crud.skill.create(db, obj_in=skill_in)
-    return skill
+    return crud.skill.create(db, obj_in=skill_in)
 
 
 @router.put("/{skill_id}", response_model=schemas.Skill)
