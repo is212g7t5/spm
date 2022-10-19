@@ -73,7 +73,23 @@ export const createSkill = async (skillName, skillDesc) => {
   } catch (error) {
     return error.response.data;
   }
-}
+};
+
+export const updateSkill = async (skillId, skillName, skillDesc, isActive) => {
+  try {
+    const res = await axios.put(`${SKILL_ENDPOINT}/${skillId}`, {
+      skill_name: skillName,
+      skill_desc: skillDesc,
+      is_active: isActive,
+    });
+    if (res) {
+      return res.data;
+    }
+    throw new Error("No data returned from backend");
+  } catch (error) {
+    return error.response.data;
+  }
+};
 
 // Utility Functions
 function skillsSnakeToCamel(snakeCaseSkills) {

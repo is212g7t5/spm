@@ -7,6 +7,7 @@ import SkillTile from "../SkillTile";
 
 function HRSkill() {
   const [skills, setSkills] = useState([]);
+  const [isDeactivateSkillButtonClick, setDeactivateSkillButtonClick] = useState(false);
 
   const renderSkills = skills.map(({ skillId, skillName, skillDesc, courses, isActive }, index) => (
     <SkillTile
@@ -16,6 +17,8 @@ function HRSkill() {
       skillDesc={skillDesc}
       courses={courses}
       isActive={isActive}
+      isDeactivateSkillButtonClick={isDeactivateSkillButtonClick}
+      setDeactivateSkillButtonClick={setDeactivateSkillButtonClick}
     />
   ));
 
@@ -26,7 +29,7 @@ function HRSkill() {
     }
 
     getAllSkills();
-  }, []);
+  }, [isDeactivateSkillButtonClick === true]);
 
   const history = useHistory();
 
