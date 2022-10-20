@@ -3,11 +3,19 @@ import { ArrowRightIcon, ArrowDownIcon, BookOpenIcon } from "@heroicons/react/20
 import CourseDescription from "./CourseDescription";
 import CourseStatusBadge from "./CourseStatusBadge";
 
-function CourseTile({ staffId, courseId, courseName, courseDesc, courseStatus, registrationStatus, completionStatus }) {
+function CourseTile({
+  staffId,
+  courseId,
+  courseName,
+  courseDesc,
+  courseStatus,
+  registrationStatus,
+  completionStatus,
+}) {
   const [isDescOpen, setIsDescOpen] = useState(false);
 
   if (courseStatus === "Retired") {
-    return (null);
+    return null;
   }
 
   return (
