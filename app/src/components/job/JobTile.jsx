@@ -7,7 +7,7 @@ import {
   TrashIcon,
 } from "@heroicons/react/20/solid";
 import { useHistory } from "react-router-dom";
-import { useLJCreationContext } from "src/contexts/LJCreationContext";
+import { useLJContext } from "src/contexts/LJContext";
 import { useUpdateJobContext } from "src/contexts/UpdateJobContext";
 import { useUserContext } from "src/contexts/UserContext";
 import { updateJob } from "src/api/jobs";
@@ -17,7 +17,7 @@ import DeletePopUp from "./hr/JobDeletionPopUp";
 export default function JobTile({ jobId, jobName, jobDesc, skills, isActive }) {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const { currentUserType } = useUserContext();
-  const { setSelectedJobRole } = useLJCreationContext();
+  const { setSelectedJobRole } = useLJContext();
   const { setUpdateJobRole } = useUpdateJobContext();
   const history = useHistory();
   const [isButtonPopUpOpen, setIsButtonPopUpOpen] = useState(false);

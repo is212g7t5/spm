@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useLJCreationContext } from "src/contexts/LJCreationContext";
+import { useLJContext } from "src/contexts/LJContext";
 import { useUserContext } from "src/contexts/UserContext";
 
 import { getAllSkillsAndCourses } from "src/api/skills";
@@ -22,8 +22,8 @@ export default function index() {
   const [isDeleteSkillModalOpen, setDeleteSkillModalOpen] = useState(false);
 
   const history = useHistory();
-  const { selectedJobRole, clearSelectedCourseDetails, selectedCourseDetails } =
-    useLJCreationContext();
+  const { selectedLJId, selectedJobRole, clearSelectedCourseDetails, selectedCourseDetails } =
+    useLJContext();
   const { currentUserId } = useUserContext();
 
   useEffect(() => {
@@ -37,15 +37,18 @@ export default function index() {
 
   useEffect(() => {
     getCoursesAndSetState();
+    return cleanup;
 
     async function getCoursesAndSetState() {
       const allCoursesAndSkills = await getAllSkillsAndCourses();
       setCoursesAndSkillsMapping(allCoursesAndSkills);
     }
 
-    return () => {
-      clearSelectedCourseDetails();
-    };
+    function cleanup() {
+      if (!selectedLJId) {
+        clearSelectedCourseDetails();
+      }
+    }
   }, []);
 
   if (!selectedJobRole || !coursesAndSkillsMapping) {
