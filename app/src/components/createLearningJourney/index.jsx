@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useLJCreationContext } from "src/contexts/LJCreationContext";
+import { useLJContext } from "src/contexts/LJContext";
 import { useUserContext } from "src/contexts/UserContext";
 
 import { getAllSkillsAndCourses } from "src/api/skills";
@@ -11,16 +11,19 @@ import { createLJCourseMapping } from "src/api/learningJourneyCourse";
 import JobSkills from "./JobSkills";
 import CoursesList from "./CoursesList";
 import CourseModal from "./CourseModal";
-import SubmitButton from "./SubmitButton"
+import SubmitButton from "./SubmitButton";
+import DeleteSkillModal from "./DeleteSkillModal";
 
 export default function index() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [coursesAndSkillsMapping, setCoursesAndSkillsMapping] = useState([]);
   const [currentSelectedSkill, setCurrentSelectedSkill] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [isDeleteSkillModalOpen, setDeleteSkillModalOpen] = useState(false);
 
   const history = useHistory();
-  const { selectedJobRole, clearSelectedCourseDetails, selectedCourseDetails } = useLJCreationContext();
+  const { selectedLJId, selectedJobRole, clearSelectedCourseDetails, selectedCourseDetails } =
+    useLJContext();
   const { currentUserId } = useUserContext();
 
   useEffect(() => {
@@ -34,15 +37,18 @@ export default function index() {
 
   useEffect(() => {
     getCoursesAndSetState();
+    return cleanup;
 
     async function getCoursesAndSetState() {
       const allCoursesAndSkills = await getAllSkillsAndCourses();
       setCoursesAndSkillsMapping(allCoursesAndSkills);
     }
 
-    return () => {
-      clearSelectedCourseDetails();
-    };
+    function cleanup() {
+      if (!selectedLJId) {
+        clearSelectedCourseDetails();
+      }
+    }
   }, []);
 
   if (!selectedJobRole || !coursesAndSkillsMapping) {
@@ -73,6 +79,14 @@ export default function index() {
     history.push("/");
   };
 
+  const onDeleteSkillModalOpen = (e) => {
+    setDeleteSkillModalOpen(true);
+  };
+
+  const onDeleteSkillModalClose = (e) => {
+    setDeleteSkillModalOpen(false);
+  };
+
   return (
     <div className='flex flex-col container w-9/12 max-w-7xl mt-10 p-10 mx-auto w-full bg-white rounded-lg shadow-lg shadow-blue-200 justify-around'>
       <h1 className='text-3xl text-left font-bold'>Create your Learning Journey</h1>
@@ -85,7 +99,7 @@ export default function index() {
         skills={selectedJobRole.skills}
         openModal={openModal}
       />
-      <CoursesList />
+      <CoursesList onDeleteSkillModalOpen={onDeleteSkillModalOpen} />
       <SubmitButton onClick={onSubmitButtonClicked} />
       <p className='text-red-500 mt-2'>{errorMessage}</p>
       <CourseModal
@@ -94,6 +108,13 @@ export default function index() {
         isModalOpen={isModalOpen}
         closeModal={closeModal}
       />
+
+      {isDeleteSkillModalOpen && (
+        <DeleteSkillModal
+          isDeleteSkillModalOpen={isDeleteSkillModalOpen}
+          onDeleteSkillModalClose={onDeleteSkillModalClose}
+        />
+      )}
     </div>
   );
 }

@@ -1,12 +1,34 @@
 import React, { useState } from "react";
-import { ChevronDownIcon, ChevronRightIcon, StarIcon, PencilSquareIcon } from "@heroicons/react/20/solid";
+import {
+  ChevronDownIcon,
+  ChevronRightIcon,
+  StarIcon,
+  PencilSquareIcon,
+  TrashIcon,
+} from "@heroicons/react/20/solid";
 import { useUserContext } from "src/contexts/UserContext";
 import { useUpdateSkillContext } from "src/contexts/UpdateSkillContext";
 import { useHistory } from "react-router-dom";
 import CourseBadge from "./CourseBadge";
+import DeactivateSkillModal from "./hr/DeactivateSkillModal";
+import StopDeactivateSkillModal from "./hr/StopDeactivateSkillModal";
 
-export default function SkillTile({ skillId, skillName, skillDesc, courses, isActive }) {
+export default function SkillTile({
+  skillId,
+  skillName,
+  skillDesc,
+  courses,
+  isActive,
+  selectedSkill,
+  setSelectedSkill,
+  isDeactivateSkillButtonClick,
+  setDeactivateSkillButtonClick,
+  isDeactivateSkillModalOpen,
+  setDeactivateSkillModalOpen,
+  onDeactivateSkillModalClose,
+}) {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+  const [isStopDeactivateSkillModalOpen, setStopDeactivateSkillModalOpen] = useState(false);
   const { currentUserType } = useUserContext();
   const { setUpdateSkill } = useUpdateSkillContext();
   const history = useHistory();
@@ -16,6 +38,15 @@ export default function SkillTile({ skillId, skillName, skillDesc, courses, isAc
     setUpdateSkill({ skillId, skillName, skillDesc, isActive });
     history.push("update-skill");
   }
+  
+  const onStopDeactivateSkillModalOpen = (e) => {
+    e.stopPropagation();
+    setStopDeactivateSkillModalOpen(true);
+  };
+
+  const onStopDeactivateSkillModalClose = () => {
+    setStopDeactivateSkillModalOpen(false);
+  };
 
   return (
     <div className='container flex-col'>
@@ -28,15 +59,44 @@ export default function SkillTile({ skillId, skillName, skillDesc, courses, isAc
           <StarIcon className='fs-5 m-1 mr-2 h-5 w-5' aria-hidden='true' />
           <div className='ml-5'>
             <div className='flex space-x-5 items-center'>
-              <div className={"font-medium text-left " + (isActive ? "" : "text-gray-400")}>{skillName}</div>
+              <div className={"font-medium text-left " + (isActive ? "" : "text-gray-400")}>
+                {skillName}
+              </div>
               {isActive ? "" : <CreateInactiveBadge />}
             </div>
             <div className='text-black text-sm text-left'>{skillId}</div>
           </div>
         </div>
-        <div className="flex items-center">
+        <div className='flex items-center'>
           {currentUserType === "HR" && (
-            <CreateEditSkillButton handleEditSkillButtonClick={handleEditSkillButtonClick} />
+            <div className='flex flex-col'>
+              <CreateEditSkillButton handleEditSkillButtonClick={handleEditSkillButtonClick} />
+              <CreateDeactivateSkillButton
+                skillId={skillId}
+                skillName={skillName}
+                skillDesc={skillDesc}
+                isActive={isActive}
+                setSelectedSkill={setSelectedSkill}
+                isDeactivateSkillModalOpen={isDeactivateSkillModalOpen}
+                setDeactivateSkillModalOpen={setDeactivateSkillModalOpen}
+                onStopDeactivateSkillModalOpen={onStopDeactivateSkillModalOpen}
+              />
+              {isDeactivateSkillModalOpen && (
+                <DeactivateSkillModal
+                  selectedSkill={selectedSkill}
+                  isDeactivateSkillModalOpen={isDeactivateSkillModalOpen}
+                  onDeactivateSkillModalClose={onDeactivateSkillModalClose}
+                  isDeactivateSkillButtonClick={isDeactivateSkillButtonClick}
+                  setDeactivateSkillButtonClick={setDeactivateSkillButtonClick}
+                />
+              )}
+              {isStopDeactivateSkillModalOpen && (
+                <StopDeactivateSkillModal
+                  isStopDeactivateSkillModalOpen={isStopDeactivateSkillModalOpen}
+                  onStopDeactivateSkillModalClose={onStopDeactivateSkillModalClose}
+                />
+              )}
+            </div>
           )}
           <SkillTileButton isDetailsOpen={isDetailsOpen} setIsDetailsOpen={setIsDetailsOpen} />
         </div>
@@ -58,6 +118,47 @@ function CreateEditSkillButton({ handleEditSkillButtonClick }) {
       <PencilSquareIcon className='mr-2 h-5 w-5' aria-hidden='true' />
       <span>Edit</span>
     </button>
+  );
+}
+
+function CreateDeactivateSkillButton({
+  skillId,
+  skillName,
+  skillDesc,
+  isActive,
+  setSelectedSkill,
+  isDeactivateSkillModalOpen,
+  setDeactivateSkillModalOpen,
+  onStopDeactivateSkillModalOpen,
+}) {
+  const handleDeactivateActiveSkillButtonClick = (e) => {
+    e.stopPropagation();
+    setSelectedSkill({ skillId, skillName, skillDesc });
+    setDeactivateSkillModalOpen(!isDeactivateSkillModalOpen);
+  };
+
+  return (
+    <div>
+      {isActive === 1 ? (
+        <button
+          type='button'
+          className='flex w-full items-center mr-5 justify-center ml-auto text-white bg-accent2 hover:bg-accent1 focus:ring-4 ring-tertiary rounded-lg text-sm px-1 py-2.5 text-center m-1'
+          onClick={handleDeactivateActiveSkillButtonClick}
+        >
+          <TrashIcon className='mr-2 h-5 w-5' aria-hidden='true' />
+          Deactivate
+        </button>
+      ) : (
+        <button
+          type='button'
+          className='flex w-full items-center mr-5 justify-center ml-auto text-gray-400 bg-accent2 rounded-lg text-sm px-2 py-2.5 text-center m-1'
+          onClick={onStopDeactivateSkillModalOpen}
+        >
+          <TrashIcon className='mr-2 h-5 w-5' aria-hidden='true' />
+          Deactivated
+        </button>
+      )}
+    </div>
   );
 }
 

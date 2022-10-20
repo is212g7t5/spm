@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { UserProvider } from "src/contexts/UserContext";
-import { LJCreationContextProvider } from "src/contexts/LJCreationContext";
+import { LJContextProvider } from "src/contexts/LJContext";
 import { UpdateJobContextProvider } from "src/contexts/UpdateJobContext";
 import { UpdateSkillContextProvider } from "src/contexts/UpdateSkillContext";
 import {
@@ -23,7 +23,7 @@ import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
     <Router>
-      <LJCreationContextProvider>
+      <LJContextProvider>
         <UpdateJobContextProvider>
           <UpdateSkillContextProvider>
             <UserProvider>
@@ -56,7 +56,7 @@ function App() {
             </UserProvider>
           </UpdateSkillContextProvider>
         </UpdateJobContextProvider>
-      </LJCreationContextProvider>
+      </LJContextProvider>
     </Router>
   );
 }

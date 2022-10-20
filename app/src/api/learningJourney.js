@@ -37,7 +37,7 @@ export const getLearningJourneyByLJId = async (LJId) => {
     console.log(error);
     return {};
   }
-}
+};
 
 export const getLearningJourneysByStaffId = async (staffId) => {
   try {
@@ -55,7 +55,7 @@ export const getLearningJourneysByStaffId = async (staffId) => {
 
 export const createLearningJourneyWithJobId = async (jobId, staffId) => {
   try {
-    const res = await axiosLJInstance.post("",{job_id:jobId, staff_id:staffId});
+    const res = await axiosLJInstance.post("", { job_id: jobId, staff_id: staffId });
     if (res) {
       return res.data;
     }
@@ -74,7 +74,7 @@ export const deleteLJWithLJId = async (ljId) => {
     ]);
 
     if (deleteLJCourseRes && deleteLJRes) {
-      return deleteLJCourseRes.data && deleteLJRes.data
+      return deleteLJCourseRes.data && deleteLJRes.data;
     }
     throw new Error("No data returned from backend");
   } catch (error) {
