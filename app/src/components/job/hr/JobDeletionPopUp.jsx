@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import swal from "sweetalert";
 import { softDelete } from "src/api/jobs";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function DeletePopUp({ trigger, setTrigger, jobId, isActive, jobName }) {
   const [jobIsActive, setJobIsActive] = useState(false);
@@ -14,6 +15,8 @@ function DeletePopUp({ trigger, setTrigger, jobId, isActive, jobName }) {
     window.location.reload(false);
   }
 
+  const notifySuccess = () => toast("Job was successfully deleted!");
+
   const handleConfirm = async (e) => {
     e.preventDefault();
 
@@ -25,14 +28,9 @@ function DeletePopUp({ trigger, setTrigger, jobId, isActive, jobName }) {
     } else {
       setErrors([]);
     }
-    swal({
-      title: "Success!",
-      text: "Job has been successfully deleted!",
-      icon: "success",
-      button: "OK",
-    }).then(() => {
-      window.location.reload();
-    });
+    refreshPage();
+    notifySuccess();
+    // not showing up after refreshed.
     setTrigger(false);
   };
 
