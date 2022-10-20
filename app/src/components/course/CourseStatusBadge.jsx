@@ -30,16 +30,6 @@ export default function CourseStatusBadge({ staffId, courseId }) {
     getCourseStatus(staffId, courseId);
   }, []);
 
-  if (courseStatus === "Completed") {
-    return (
-      <span
-        className={`${statusToBadgeClass[courseStatus]} text-sm font-medium mx-3 px-2.5 py-0.5 rounded`}
-      >
-        {courseStatus}
-      </span>
-    );
-  }
-
   return (
     <span
       className={`${statusToBadgeClass[courseStatus]} text-sm font-medium mx-3 px-2.5 py-0.5 rounded`}
