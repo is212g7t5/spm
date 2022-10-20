@@ -8,6 +8,16 @@ import SkillTile from "../SkillTile";
 function HRSkill() {
   const [skills, setSkills] = useState([]);
   const [isDeactivateSkillButtonClick, setDeactivateSkillButtonClick] = useState(false);
+  const [isDeactivateSkillModalOpen, setDeactivateSkillModalOpen] = useState(false);
+  const [selectedSkill, setSelectedSkill] = useState({
+    skillId: null,
+    skillName: null,
+    skillDesc: null,
+  });
+
+  const onDeactivateSkillModalClose = () => {
+    setDeactivateSkillModalOpen(false);
+  };
 
   const renderSkills = skills.map(({ skillId, skillName, skillDesc, courses, isActive }, index) => (
     <SkillTile
@@ -17,8 +27,13 @@ function HRSkill() {
       skillDesc={skillDesc}
       courses={courses}
       isActive={isActive}
+      selectedSkill={selectedSkill}
+      setSelectedSkill={setSelectedSkill}
       isDeactivateSkillButtonClick={isDeactivateSkillButtonClick}
       setDeactivateSkillButtonClick={setDeactivateSkillButtonClick}
+      isDeactivateSkillModalOpen={isDeactivateSkillModalOpen}
+      setDeactivateSkillModalOpen={setDeactivateSkillModalOpen}
+      onDeactivateSkillModalClose={onDeactivateSkillModalClose}
     />
   ));
 

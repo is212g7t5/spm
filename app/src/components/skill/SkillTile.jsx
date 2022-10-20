@@ -7,8 +7,8 @@ import {
   TrashIcon,
 } from "@heroicons/react/20/solid";
 import { useUserContext } from "src/contexts/UserContext";
-import { updateSkill } from "src/api/skills";
 import CourseBadge from "./CourseBadge";
+import DeactivateSkillModal from "./hr/DeactivateSkillModal";
 import StopDeactivateSkillModal from "./hr/StopDeactivateSkillModal";
 
 export default function SkillTile({
@@ -17,8 +17,13 @@ export default function SkillTile({
   skillDesc,
   courses,
   isActive,
+  selectedSkill,
+  setSelectedSkill,
   isDeactivateSkillButtonClick,
   setDeactivateSkillButtonClick,
+  isDeactivateSkillModalOpen,
+  setDeactivateSkillModalOpen,
+  onDeactivateSkillModalClose,
 }) {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const [isStopDeactivateSkillModalOpen, setStopDeactivateSkillModalOpen] = useState(false);
@@ -28,7 +33,8 @@ export default function SkillTile({
     console.log("Edit Skill selected");
   };
 
-  const onStopDeactivateSkillModalOpen = () => {
+  const onStopDeactivateSkillModalOpen = (e) => {
+    e.stopPropagation();
     setStopDeactivateSkillModalOpen(true);
   };
 
@@ -60,14 +66,24 @@ export default function SkillTile({
             <div className='flex flex-col'>
               <CreateEditSkillButton handleEditSkillButtonClick={handleEditSkillButtonClick} />
               <CreateDeactivateSkillButton
-                onStopDeactivateSkillModalOpen={onStopDeactivateSkillModalOpen}
                 skillId={skillId}
                 skillName={skillName}
                 skillDesc={skillDesc}
                 isActive={isActive}
-                isDeactivateSkillButtonClick={isDeactivateSkillButtonClick}
-                setDeactivateSkillButtonClick={setDeactivateSkillButtonClick}
+                setSelectedSkill={setSelectedSkill}
+                isDeactivateSkillModalOpen={isDeactivateSkillModalOpen}
+                setDeactivateSkillModalOpen={setDeactivateSkillModalOpen}
+                onStopDeactivateSkillModalOpen={onStopDeactivateSkillModalOpen}
               />
+              {isDeactivateSkillModalOpen && (
+                <DeactivateSkillModal
+                  selectedSkill={selectedSkill}
+                  isDeactivateSkillModalOpen={isDeactivateSkillModalOpen}
+                  onDeactivateSkillModalClose={onDeactivateSkillModalClose}
+                  isDeactivateSkillButtonClick={isDeactivateSkillButtonClick}
+                  setDeactivateSkillButtonClick={setDeactivateSkillButtonClick}
+                />
+              )}
               {isStopDeactivateSkillModalOpen && (
                 <StopDeactivateSkillModal
                   isStopDeactivateSkillModalOpen={isStopDeactivateSkillModalOpen}
@@ -98,22 +114,19 @@ function CreateEditSkillButton({ handleEditSkillButtonClick }) {
 }
 
 function CreateDeactivateSkillButton({
-  onStopDeactivateSkillModalOpen,
   skillId,
   skillName,
   skillDesc,
   isActive,
-  isDeactivateSkillButtonClick,
-  setDeactivateSkillButtonClick,
+  setSelectedSkill,
+  isDeactivateSkillModalOpen,
+  setDeactivateSkillModalOpen,
+  onStopDeactivateSkillModalOpen,
 }) {
-  const onDeactivateSkillButtonClick = (e) => {
+  const handleDeactivateActiveSkillButtonClick = (e) => {
     e.stopPropagation();
-    deactivateSkills();
-
-    async function deactivateSkills() {
-      await updateSkill(skillId, skillName, skillDesc, 0);
-      setDeactivateSkillButtonClick(!isDeactivateSkillButtonClick);
-    }
+    setSelectedSkill({ skillId, skillName, skillDesc });
+    setDeactivateSkillModalOpen(!isDeactivateSkillModalOpen);
   };
 
   return (
@@ -122,7 +135,7 @@ function CreateDeactivateSkillButton({
         <button
           type='button'
           className='flex w-full items-center mr-5 justify-center ml-auto text-white bg-accent2 hover:bg-accent1 focus:ring-4 ring-tertiary rounded-lg text-sm px-1 py-2.5 text-center m-1'
-          onClick={onDeactivateSkillButtonClick}
+          onClick={handleDeactivateActiveSkillButtonClick}
         >
           <TrashIcon className='mr-2 h-5 w-5' aria-hidden='true' />
           Deactivate
@@ -134,7 +147,7 @@ function CreateDeactivateSkillButton({
           onClick={onStopDeactivateSkillModalOpen}
         >
           <TrashIcon className='mr-2 h-5 w-5' aria-hidden='true' />
-          Deactivate
+          Deactivated
         </button>
       )}
     </div>

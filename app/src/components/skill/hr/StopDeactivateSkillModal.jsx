@@ -1,6 +1,6 @@
 import React from "react";
 
-function StopDeleteSkillModal({ isStopDeactivateSkillModalOpen, onStopDeactivateSkillModalClose }) {
+function StopDeactivateSkillModal({ isStopDeactivateSkillModalOpen, onStopDeactivateSkillModalClose }) {
   const modalRef = React.createRef();
 
   if (!isStopDeactivateSkillModalOpen) {
@@ -56,4 +56,4 @@ function CloseStopDeactivateSkillModalButton({ onStopDeactivateSkillModalClose }
   );
 }
 
-export default StopDeleteSkillModal;
+export default StopDeactivateSkillModal;
