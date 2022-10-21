@@ -19,8 +19,6 @@ export default function JobDeletionPopUp({
     setTrigger(false);
   };
 
-  const notifySuccess = () => toast("Job was successfully deleted!");
-
   const handleConfirm = async (e) => {
     e.stopPropagation();
 
@@ -34,7 +32,7 @@ export default function JobDeletionPopUp({
     }
     const jobsReturnedFromBackend = await getAllJobsAndSkills();
     setJobs(jobsReturnedFromBackend);
-    toast.warn("Job was successfully deleted!");
+    toast.success("Job was successfully deleted!");
     setTrigger(false);
   };
 
