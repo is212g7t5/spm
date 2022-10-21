@@ -26,7 +26,12 @@ function DeactivateSkillModal({
     deactivateSkill();
 
     async function deactivateSkill() {
-      await updateSkillDetails(selectedSkill.skillId, selectedSkill.skillName, selectedSkill.skillDesc, 0);
+      await updateSkillDetails(
+        selectedSkill.skillId,
+        selectedSkill.skillName,
+        selectedSkill.skillDesc,
+        0,
+      );
       await onDeactivateSkillModalClose();
       setDeactivateSkillButtonClick(!isDeactivateSkillButtonClick);
     }

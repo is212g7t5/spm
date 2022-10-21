@@ -37,8 +37,8 @@ export default function SkillTile({
     e.stopPropagation();
     setUpdateSkill({ skillId, skillName, skillDesc, isActive });
     history.push("update-skill");
-  }
-  
+  };
+
   const onStopDeactivateSkillModalOpen = (e) => {
     e.stopPropagation();
     setStopDeactivateSkillModalOpen(true);
@@ -101,7 +101,7 @@ export default function SkillTile({
           <SkillTileButton isDetailsOpen={isDetailsOpen} setIsDetailsOpen={setIsDetailsOpen} />
         </div>
       </div>
-      <div className="mx-3">
+      <div className='mx-3'>
         {isDetailsOpen && <SkillTileDescription skillDesc={skillDesc} courses={courses} />}
       </div>
     </div>
@@ -163,11 +163,7 @@ function CreateDeactivateSkillButton({
 }
 
 function CreateInactiveBadge() {
-  return (
-    <span className='bg-gray-100 text-gray-400 mr-2 px-2.5 py-0.5 rounded'>
-      Inactive
-    </span>
-  );
+  return <span className='bg-gray-100 text-gray-400 mr-2 px-2.5 py-0.5 rounded'>Inactive</span>;
 }
 
 function SkillTileButton({ isDetailsOpen, setIsDetailsOpen }) {
