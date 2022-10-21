@@ -12,15 +12,16 @@ import { useUpdateJobContext } from "src/contexts/UpdateJobContext";
 import { useUserContext } from "src/contexts/UserContext";
 import { updateJob } from "src/api/jobs";
 import SkillBadge from "./SkillBadge";
-import DeletePopUp from "./hr/JobDeletionPopUp";
+import JobDeletionPopUp from "./hr/JobDeletionPopUp";
 
-export default function JobTile({ jobId, jobName, jobDesc, skills, isActive }) {
+export default function JobTile({ jobId, jobName, jobDesc, skills, isActive, setJobs }) {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+  const [isButtonPopUpOpen, setIsButtonPopUpOpen] = useState(false);
+
   const { currentUserType } = useUserContext();
   const { setSelectedJobRole } = useLJContext();
   const { setUpdateJobRole } = useUpdateJobContext();
   const history = useHistory();
-  const [isButtonPopUpOpen, setIsButtonPopUpOpen] = useState(false);
 
   const handleCreateLJButtonClick = (e) => {
     e.stopPropagation();
@@ -77,17 +78,18 @@ export default function JobTile({ jobId, jobName, jobDesc, skills, isActive }) {
                 </button>
               ) : null}
             </div>
-            {currentUserType === "HR" && (
-              <DeletePopUp
-                trigger={isButtonPopUpOpen}
-                setTrigger={setIsButtonPopUpOpen}
-                jobId={jobId}
-                isActive={isActive}
-                jobName={jobName}
-              />
-            )}
           </div>
           <JobTileButton isDetailsOpen={isDetailsOpen} setIsDetailsOpen={setIsDetailsOpen} />
+          {currentUserType === "HR" && (
+            <JobDeletionPopUp
+              trigger={isButtonPopUpOpen}
+              setTrigger={setIsButtonPopUpOpen}
+              jobId={jobId}
+              isActive={isActive}
+              jobName={jobName}
+              setJobs={setJobs}
+            />
+          )}
         </div>
       </div>
       <div className='mx-3'>

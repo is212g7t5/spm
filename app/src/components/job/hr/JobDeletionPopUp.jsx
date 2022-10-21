@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { softDelete } from "src/api/jobs";
+import { softDelete, getAllJobsAndSkills } from "src/api/jobs";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function DeletePopUp({ trigger, setTrigger, jobId, isActive, jobName }) {
+export default function JobDeletionPopUp({
+  trigger,
+  setTrigger,
+  jobId,
+  isActive,
+  jobName,
+  setJobs,
+}) {
   const [jobIsActive, setJobIsActive] = useState(false);
   const [errors, setErrors] = useState([]);
 
   const resetTrigger = (e) => {
     setTrigger(false);
   };
-
-  function refreshPage() {
-    window.location.reload(false);
-  }
 
   const notifySuccess = () => toast("Job was successfully deleted!");
 
@@ -28,9 +31,9 @@ function DeletePopUp({ trigger, setTrigger, jobId, isActive, jobName }) {
     } else {
       setErrors([]);
     }
-    refreshPage();
-    notifySuccess();
-    // not showing up after refreshed.
+    const jobsReturnedFromBackend = await getAllJobsAndSkills();
+    setJobs(jobsReturnedFromBackend);
+    toast.warn("Job was successfully deleted!");
     setTrigger(false);
   };
 
@@ -67,9 +70,5 @@ function DeletePopUp({ trigger, setTrigger, jobId, isActive, jobName }) {
         </div>
       </div>
     </div>
-  ) : (
-    ""
-  );
+  ) : null;
 }
-
-export default DeletePopUp;
