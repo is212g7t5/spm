@@ -7,6 +7,8 @@ import {
   TrashIcon,
 } from "@heroicons/react/20/solid";
 import { useUserContext } from "src/contexts/UserContext";
+import { useUpdateSkillContext } from "src/contexts/UpdateSkillContext";
+import { useHistory } from "react-router-dom";
 import CourseBadge from "./CourseBadge";
 import DeactivateSkillModal from "./hr/DeactivateSkillModal";
 import StopDeactivateSkillModal from "./hr/StopDeactivateSkillModal";
@@ -28,11 +30,15 @@ export default function SkillTile({
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const [isStopDeactivateSkillModalOpen, setStopDeactivateSkillModalOpen] = useState(false);
   const { currentUserType } = useUserContext();
+  const { setUpdateSkill } = useUpdateSkillContext();
+  const history = useHistory();
 
-  const handleEditSkillButtonClick = () => {
-    console.log("Edit Skill selected");
-  };
-
+  const handleEditSkillButtonClick = (e) => {
+    e.stopPropagation();
+    setUpdateSkill({ skillId, skillName, skillDesc, isActive });
+    history.push("update-skill");
+  }
+  
   const onStopDeactivateSkillModalOpen = (e) => {
     e.stopPropagation();
     setStopDeactivateSkillModalOpen(true);
@@ -52,8 +58,8 @@ export default function SkillTile({
         <div className='flex items-center'>
           <StarIcon className='fs-5 m-1 mr-2 h-5 w-5' aria-hidden='true' />
           <div className='ml-5'>
-            <div className='flex space-x-3 items-center'>
-              <div className={"font-medium text-left " + (isActive ? "" : "text-black")}>
+            <div className='flex space-x-5 items-center'>
+              <div className={"font-medium text-left " + (isActive ? "" : "text-gray-400")}>
                 {skillName}
               </div>
               {isActive ? "" : <CreateInactiveBadge />}
@@ -95,7 +101,9 @@ export default function SkillTile({
           <SkillTileButton isDetailsOpen={isDetailsOpen} setIsDetailsOpen={setIsDetailsOpen} />
         </div>
       </div>
-      {isDetailsOpen && <SkillTileDescription skillDesc={skillDesc} courses={courses} />}
+      <div className="mx-3">
+        {isDetailsOpen && <SkillTileDescription skillDesc={skillDesc} courses={courses} />}
+      </div>
     </div>
   );
 }
@@ -104,7 +112,7 @@ function CreateEditSkillButton({ handleEditSkillButtonClick }) {
   return (
     <button
       type='button'
-      className='w-full flex items-center mr-5 justify-center ml-auto text-textColor bg-secondary hover:bg-tertiary focus:ring-4 rounded-lg text-sm px-5 py-2.5 text-center m-1'
+      className='w-full flex items-center mr-5 justify-center ml-auto text-white bg-primary hover:bg-secondary focus:ring-4 rounded-lg text-sm px-5 py-2.5 text-center m-1'
       onClick={handleEditSkillButtonClick}
     >
       <PencilSquareIcon className='mr-2 h-5 w-5' aria-hidden='true' />
@@ -156,7 +164,7 @@ function CreateDeactivateSkillButton({
 
 function CreateInactiveBadge() {
   return (
-    <span className='bg-primary text-black mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800'>
+    <span className='bg-gray-100 text-gray-400 mr-2 px-2.5 py-0.5 rounded'>
       Inactive
     </span>
   );
@@ -184,7 +192,7 @@ function SkillTileDescription({ skillDesc, courses }) {
   });
 
   return (
-    <div className='m-auto flex flex-col w-11/12 p-5 px-10'>
+    <div className='m-auto flex flex-col w-full p-5 px-10 bg-gray-100 rounded-lg'>
       <p className='font-medium text-justify'>{skillDesc}</p>
       {courses.length ? (
         <div className='flex-grid mt-5'>{renderCoursesForSkill}</div>

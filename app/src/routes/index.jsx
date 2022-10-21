@@ -2,6 +2,7 @@ import Courses from "./courses";
 import CreateJob from "./createJob";
 import UpdateJob from "./updateJob";
 import CreateSkill from "./createSkill";
+import UpdateSkill from "./updateSkill";
 import Jobs from "./jobs";
 import Skills from "./skills";
 import LearningJourneys from "./learningJourneys";
@@ -16,4 +17,5 @@ export {
   CreateLearningJourneyPage,
   Skills,
   CreateSkill,
+  UpdateSkill
 };
