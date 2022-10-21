@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useUpdateSkillContext } from "src/contexts/UpdateSkillContext";
 import { useUserContext } from "src/contexts/UserContext";
+import { updateSkillDetails } from "src/api/skills";
 import UpdateSkillSuccess from "./UpdateSkillSuccess";
 import SkillNameInput from "./form/SkillNameInput";
 import SkillDescTextArea from "./form/SkillDescTextArea";
@@ -16,9 +17,20 @@ export default function HRUpdateSkill() {
     const [errors, setErrors] = useState([]);
     const [displayPopup, setDisplayPopup] = useState(false);
 
-    const handleSubmit = async (e) => { // TODO (Charmaine): call API
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("submit pressed");
+        const res = await updateSkillDetails(updateSkill.skillId, skillName, skillDesc, skillIsActive);
+        if (res.detail) {
+            const errorList = [];
+            if (res.detail.map) {
+                res.detail.map((errorMsg) => errorList.push(errorMsg.msg));
+            } else {
+                errorList.push(res.detail);
+            }
+            setErrors(errorList);
+        } else {
+            setDisplayPopup(true);
+        }
     }
 
     const renderErrors = errors && errors.map && errors.map((error) => <p>{error}</p>);

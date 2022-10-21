@@ -75,7 +75,7 @@ export const createSkill = async (skillName, skillDesc) => {
   }
 };
 
-export const updateSkill = async (skillId, skillName, skillDesc, isActive) => {
+export const updateSkillDetails = async (skillId, skillName, skillDesc, isActive) => {
   try {
     const res = await axios.put(`${SKILL_ENDPOINT}/${skillId}`, {
       skill_name: skillName,
