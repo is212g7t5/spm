@@ -15,13 +15,14 @@ export default function JobDeletionPopUp({
   const [errors, setErrors] = useState([]);
 
   const resetTrigger = (e) => {
+    e.stopPropagation();
     setTrigger(false);
   };
 
   const notifySuccess = () => toast("Job was successfully deleted!");
 
   const handleConfirm = async (e) => {
-    e.preventDefault();
+    e.stopPropagation();
 
     const res = await softDelete(jobId, jobIsActive);
     if (res.detail) {
