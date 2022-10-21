@@ -11,7 +11,7 @@ function Skill() {
     case "HR":
       return <HRSkill />;
     case "MANAGER":
-      return <p>You are logged in as MANAGER so you see no skills</p>;
+      return <StaffSkill />;
     default:
       // temporary addition for development, should not render anything without permission
       return <StaffSkill />;
