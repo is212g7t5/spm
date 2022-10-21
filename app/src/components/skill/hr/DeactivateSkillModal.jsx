@@ -1,5 +1,5 @@
 import React from "react";
-import { updateSkill } from "src/api/skills";
+import { updateSkillDetails } from "src/api/skills";
 
 function DeactivateSkillModal({
   selectedSkill,
@@ -26,7 +26,12 @@ function DeactivateSkillModal({
     deactivateSkill();
 
     async function deactivateSkill() {
-      await updateSkill(selectedSkill.skillId, selectedSkill.skillName, selectedSkill.skillDesc, 0);
+      await updateSkillDetails(
+        selectedSkill.skillId,
+        selectedSkill.skillName,
+        selectedSkill.skillDesc,
+        0,
+      );
       await onDeactivateSkillModalClose();
       setDeactivateSkillButtonClick(!isDeactivateSkillButtonClick);
     }
