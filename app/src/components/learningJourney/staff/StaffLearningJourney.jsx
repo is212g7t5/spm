@@ -17,7 +17,7 @@ function StaffLearningJourney({ staffId }) {
   useEffect(() => {
     let result;
     const jobsPromise = [];
-    getAllLearningJourneysAndDetails(); // TODO: Change to getAllActiveJobs, Staff should not retrieve active jobs
+    getAllLearningJourneysAndDetails();
 
     async function getAllLearningJourneysAndDetails() {
       if (!staffId) {

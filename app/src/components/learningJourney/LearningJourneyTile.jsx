@@ -10,10 +10,6 @@ function LearningJourneyTile({
   onDeletionModalClick,
   setSelectedLJ,
 }) {
-  if (!isJobActive) {
-    return null;
-  }
-
   const [isDropdownButtonClicked, setIsDropdownButtonClicked] = useState(false);
 
   const history = useHistory();
@@ -63,10 +59,21 @@ function LearningJourneyTile({
           alt='Person'
         />
         <h5 className='mb-1 text-xl font-medium text-black'>Learning Journey {LJId}</h5>
-        <span className='text-md text-black italic'>{jobName}</span>
+        <span className={"text-md italic " + (isJobActive ? "text-black" : "text-gray-500")}>
+          {jobName}
+          {isJobActive ? "" : <CreateInactiveBadge />}
+        </span>
         <span className='text-sm p-5 text-center'>{jobDesc}</span>
       </div>
     </div>
+  );
+}
+
+function CreateInactiveBadge() {
+  return (
+    <span className='ml-1 bg-gray-100 text-gray-500 mr-2 px-2.5 py-0.5 rounded'>
+      Inactive
+    </span>
   );
 }
 

@@ -101,7 +101,7 @@ function LearningJourneyDetails() {
           isJobActive={isJobActive}
         />
       </div>
-      <AddCourseButton startLJEditProcess={startLJEditProcess} />
+      <AddCourseButton startLJEditProcess={startLJEditProcess} isJobActive={isJobActive} />
     </div>
   );
 }
