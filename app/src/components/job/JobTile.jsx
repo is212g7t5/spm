@@ -1,18 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ChevronDownIcon,
   ChevronRightIcon,
   BriefcaseIcon,
   PencilSquareIcon,
+  TrashIcon,
 } from "@heroicons/react/20/solid";
 import { useHistory } from "react-router-dom";
 import { useLJContext } from "src/contexts/LJContext";
 import { useUpdateJobContext } from "src/contexts/UpdateJobContext";
 import { useUserContext } from "src/contexts/UserContext";
+import { updateJob } from "src/api/jobs";
 import SkillBadge from "./SkillBadge";
+import JobDeletionPopUp from "./hr/JobDeletionPopUp";
 
-export default function JobTile({ jobId, jobName, jobDesc, skills, isActive }) {
+export default function JobTile({ jobId, jobName, jobDesc, skills, isActive, setJobs }) {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+  const [isButtonPopUpOpen, setIsButtonPopUpOpen] = useState(false);
+
   const { currentUserType } = useUserContext();
   const { setSelectedJobRole } = useLJContext();
   const { setUpdateJobRole } = useUpdateJobContext();
@@ -28,6 +33,11 @@ export default function JobTile({ jobId, jobName, jobDesc, skills, isActive }) {
     e.stopPropagation();
     setUpdateJobRole({ jobId, jobName, jobDesc, skills, isActive });
     history.push("update-job");
+  };
+
+  const showPopUp = (e) => {
+    e.stopPropagation();
+    setIsButtonPopUpOpen(true);
   };
 
   return (
@@ -54,11 +64,26 @@ export default function JobTile({ jobId, jobName, jobDesc, skills, isActive }) {
             {skills.length >= 1 && (
               <CreateLearningJourneyButton handleCreateLJButtonClick={handleCreateLJButtonClick} />
             )}
-            {currentUserType === "HR" && (
-              <CreateEditJobButton handleEditJobButtonClick={handleEditJobButtonClick} />
-            )}
+            <div className='flex'>
+              {currentUserType === "HR" && (
+                <CreateEditJobButton handleEditJobButtonClick={handleEditJobButtonClick} />
+              )}
+              {currentUserType === "HR" && isActive ? (
+                <CreateDeleteJobButton showPopUp={showPopUp}/>
+              ) : null}
+            </div>
           </div>
           <JobTileButton isDetailsOpen={isDetailsOpen} setIsDetailsOpen={setIsDetailsOpen} />
+          {currentUserType === "HR" && (
+            <JobDeletionPopUp
+              trigger={isButtonPopUpOpen}
+              setTrigger={setIsButtonPopUpOpen}
+              jobId={jobId}
+              isActive={isActive}
+              jobName={jobName}
+              setJobs={setJobs}
+            />
+          )}
         </div>
       </div>
       <div className='mx-3'>
@@ -78,6 +103,19 @@ function CreateEditJobButton({ handleEditJobButtonClick }) {
       <PencilSquareIcon className='mr-2 h-5 w-5' aria-hidden='true' />
       <span>Edit</span>
     </button>
+  );
+}
+
+function CreateDeleteJobButton({showPopUp}){
+  return (
+    <button
+    type='button'
+    className='w-full flex items-center justify-center ml-auto text-white bg-secondary hover:bg-secondary focus:ring-4 rounded-lg text-sm px-5 py-2.5 text-center m-1'
+    onClick={showPopUp}
+  >
+    <TrashIcon className='mr-2 h-5 w-5' aria-hidden='true' />
+    <span>Delete</span>
+  </button>
   );
 }
 
