@@ -1,7 +1,12 @@
-function DropdownButton({ onDeletionModalClick, navigateToLJDetails }) {
+function DropdownButton({ onDeletionModalOpen, navigateToLJDetails, onDropdownButtonClick }) {
   const handleButtonClick = () => {
     navigateToLJDetails();
     console.log("clicking");
+  };
+
+  const handleDropdownDeleteButtonClick = () => {
+    onDeletionModalOpen();
+    onDropdownButtonClick();
   };
 
   return (
@@ -10,24 +15,24 @@ function DropdownButton({ onDeletionModalClick, navigateToLJDetails }) {
         id='dropdown'
         className='absolute z-10 w-44 text-base list-none bg-white border border-gray-100 rounded divide-y divide-gray-100 opacity-100'
       >
-        <ul className='py-1' aria-labelledby='dropdownButton'>
+        <ul className='py-1 ' aria-labelledby='dropdownButton'>
           <li>
             <button
               type='button'
-              className='block w-100 py-2 px-4 text-sm text-black hover:bg-gray-100'
+              className='block w-full py-2 px-4 text-sm text-black hover:bg-gray-100 text-left'
               onClick={handleButtonClick}
             >
               View
             </button>
           </li>
           <li>
-            <a
-              href='/#'
-              className='block py-2 px-4 text-sm text-red-600 hover:bg-gray-100'
-              onClick={onDeletionModalClick}
+            <button
+              type='button'
+              className='block w-full py-2 px-4 text-sm text-red-600 hover:bg-gray-100 text-left'
+              onClick={handleDropdownDeleteButtonClick}
             >
               Delete
-            </a>
+            </button>
           </li>
         </ul>
       </div>
