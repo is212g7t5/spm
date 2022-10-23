@@ -10,16 +10,17 @@ const axiosLJCourseInstance = axios.create({
 export const createLJCourseMapping = async (LJId, courseIds) => {
   try {
     const LJCoursePromise = [];
-    Object.keys(courseIds).forEach(courseId => {
+    Object.keys(courseIds).forEach((courseId) => {
       LJCoursePromise.push(
         axiosLJCourseInstance.post("", {
           lj_id: LJId,
           course_id: courseId,
-        })
+        }),
       );
     });
 
     const res = await Promise.all(LJCoursePromise);
+    console.log(res);
     if (res) {
       return res;
     }
@@ -31,36 +32,37 @@ export const createLJCourseMapping = async (LJId, courseIds) => {
 };
 
 export const getCourseIdsFromLJId = async (LJId) => {
-    try {
-        const res = await axiosLJCourseInstance.get(`/${LJId}`);
-        if (res) {
-          console.log(res)
-            return extractCourseIdsFromLJAndCourseIdsObjects(res.data);
-        }
-        throw new Error("No data returned from backend");
-    } catch (error) {
-        console.log(error);
-        return [];
-    }
-};
-
-function extractCourseIdsFromLJAndCourseIdsObjects(LJAndCourseIds) {
-    const courseIdArray = [];
-    LJAndCourseIds.forEach((LJAndCourseIdInstance) => {
-        courseIdArray.push(LJAndCourseIdInstance.course_id);
-    });
-    return courseIdArray;
-}
-
-export const deleteLJCourseWithLJId = async (ljId) => {
   try {
-    const res = await axiosLJCourseInstance.delete(`all/${ljId}`);
+    const res = await axiosLJCourseInstance.get(`/${LJId}`);
     if (res) {
-      return res.data;
+      console.log(res);
+      return extractCourseIdsFromLJAndCourseIdsObjects(res.data);
     }
     throw new Error("No data returned from backend");
   } catch (error) {
     console.log(error);
     return [];
+  }
+};
+
+function extractCourseIdsFromLJAndCourseIdsObjects(LJAndCourseIds) {
+  const courseIdArray = [];
+  LJAndCourseIds.forEach((LJAndCourseIdInstance) => {
+    courseIdArray.push(LJAndCourseIdInstance.course_id);
+  });
+  return courseIdArray;
+}
+
+export const deleteLJCourseWithLJId = async (LJId) => {
+  try {
+    const res = await axiosLJCourseInstance.delete(`all/${LJId}`);
+    if (res) {
+      console.log(res);
+      return res.data;
+    }
+    throw new Error("No data returned from backend");
+  } catch (error) {
+    console.log(error);
+    return { error: "Failed to delete all LJ-Course mapping from LJ: " + LJId };
   }
 };
