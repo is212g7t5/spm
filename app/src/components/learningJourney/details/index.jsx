@@ -76,8 +76,6 @@ function LearningJourneyDetails() {
   const startLJEditProcess = (e) => {
     // 1. Update the global state with necessary stuff
     // 2. Redirect to create learning journey page with the new stuff
-    console.log(LJCourseDetails);
-
     setSelectedLJId(LJId);
     setSelectedJobRole({ jobName, jobDesc, isJobActive, skills });
     setSelectedCourseDetails(LJCourseDetails);

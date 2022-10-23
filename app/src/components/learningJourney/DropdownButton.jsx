@@ -1,7 +1,6 @@
 function DropdownButton({ onDeletionModalClick, navigateToLJDetails }) {
   const handleButtonClick = () => {
     navigateToLJDetails();
-    console.log("clicking");
   };
 
   return (
