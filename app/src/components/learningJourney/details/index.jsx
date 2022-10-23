@@ -23,6 +23,7 @@ function LearningJourneyDetails() {
   const history = useHistory();
 
   const [jobName, setJobName] = useState("");
+  const [jobDesc, setJobDesc] = useState("");
   const [isJobActive, setIsJobActive] = useState(true);
   const [skills, setSkills] = useState([]);
 
@@ -66,6 +67,7 @@ function LearningJourneyDetails() {
       const skillsResult = await Promise.all(skillPromises);
 
       setJobName(jobData.jobName);
+      setJobDesc(jobData.jobDesc);
       setIsJobActive(jobData.isActive);
       setSkills(skillsResult);
     }
@@ -74,13 +76,12 @@ function LearningJourneyDetails() {
   const startLJEditProcess = (e) => {
     // 1. Update the global state with necessary stuff
     // 2. Redirect to create learning journey page with the new stuff
-    console.log("starting to edit");
     console.log(LJCourseDetails);
 
     setSelectedLJId(LJId);
-    setSelectedJobRole({ jobName, isJobActive, skills });
+    setSelectedJobRole({ jobName, jobDesc, isJobActive, skills });
     setSelectedCourseDetails(LJCourseDetails);
-    history.push("/create-learning-journey");
+    history.push("/create-learning-journey?isEdit=true", { isEditing: true });
   };
 
   // Validation for LJ ID here if needed in future

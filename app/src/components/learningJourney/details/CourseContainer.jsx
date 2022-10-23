@@ -1,17 +1,16 @@
 import React from "react";
 import CourseCard from "./CourseCard";
 
-export default function CourseContainer({ LJId, staffId, LJCourseIds  }) {
-  
+export default function CourseContainer({ LJId, staffId, LJCourseIds }) {
   const renderCourseCards = LJCourseIds.map((LJCourseId, index) => (
-    <CourseCard courseId={LJCourseId} staffId={staffId} />
+    <CourseCard key={index} courseId={LJCourseId} staffId={staffId} />
   ));
 
   const renderStatusToColorLegend = Object.entries(statusToColor).map(([key, value], index) => (
-    <>
+    <React.Fragment key={key}>
       <div className={`w-3.5 h-3.5 mb-1.5 rounded-full ${value}`} />
       <span className='text-sm mb-1 ml-0.5 mr-2.5'>{key}</span>
-    </>
+    </React.Fragment>
   ));
 
   return (
