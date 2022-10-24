@@ -15,7 +15,7 @@ function DropdownButton({ onDeletionModalOpen, navigateToLJDetails, onDropdownBu
         id='dropdown'
         className='absolute z-10 w-44 text-base list-none bg-white border border-gray-100 rounded divide-y divide-gray-100 opacity-100'
       >
-        <ul className='py-1 ' aria-labelledby='dropdownButton'>
+        <ul className='py-1' aria-labelledby='dropdownButton'>
           <li>
             <button
               type='button'

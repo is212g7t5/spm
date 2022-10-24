@@ -43,7 +43,7 @@ function StaffLearningJourney({ staffId }) {
       }
       setLearningJourneys(learningJourneysReturnedFromBackend);
     }
-  }, [isDeletionModalOpen === true]);
+  }, [isDeletionButtonClicked]);
 
   const renderLearningJourneys = learningJourneys.map(
     ({ LJId, jobName, jobDesc, isJobActive }, index) => (

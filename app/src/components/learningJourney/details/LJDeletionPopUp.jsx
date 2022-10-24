@@ -19,11 +19,11 @@ function LJDeletionPopUp({
   const onDeleteLJButtonClick = (e) => {
     e.stopPropagation();
     deleteLJWithCourses();
-    onDeletionButtonClick();
 
     async function deleteLJWithCourses() {
       await deleteLJWithLJId(LJId);
-      setIsDeletionModalOpen(false);
+      await setIsDeletionModalOpen(false);
+      onDeletionButtonClick();
     }
   };
 
@@ -39,7 +39,7 @@ function LJDeletionPopUp({
   return (
     <div
       id='deletePopUp'
-      className='flex justify-center fixed inset-0 h-screen items-center z-10 p-5'
+      className='flex justify-center fixed inset-0 h-screen items-center z-10 p-5 backdrop-grayscale backdrop-blur-3xl z-8'
       aria-hidden='true'
       onClick={handleDeleteLJModalClose}
     >
