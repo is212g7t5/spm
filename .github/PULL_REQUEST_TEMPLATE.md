@@ -3,12 +3,10 @@
 Fixes [Jira ticket #]()
 <!-- Add Screenshots if there are changes or additions in frontend components -->
 
-# Acceptance Criteria:
-
-Please indicate acceptance criterias of the user story in the checklist
-
-- [ ] HR can select a Job Role from a list of active Job Roles
-- [ ] HR can view and allocate one to many active skills to the selected Job Role
+List all acceptance criterias of user story and indicate which has been solved previously and which is solved currently
+- [x] XXX (solved)
+- [x] XXX (solving)
+- [ ]
 
 ## Type of change
 
