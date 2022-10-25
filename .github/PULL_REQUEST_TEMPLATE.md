@@ -2,6 +2,12 @@
 <!-- Please add link to Jira Ticket here -->
 Fixes [Jira ticket #]()
 <!-- Add Screenshots if there are changes or additions in frontend components -->
+
+List all acceptance criterias of user story and indicate which has been solved previously and which is solved currently
+- [x] XXX (solved)
+- [x] XXX (solving)
+- [ ]
+
 ## Type of change
 
 Please delete options that are not relevant.
