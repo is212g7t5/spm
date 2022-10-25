@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useLJContext } from "src/contexts/LJContext";
 import { useUserContext } from "src/contexts/UserContext";
 
 import { getAllSkillsAndCourses } from "src/api/skills";
 import { createLearningJourneyWithJobId } from "src/api/learningJourney";
-import { createLJCourseMapping } from "src/api/learningJourneyCourse";
+import { createLJCourseMapping, deleteLJCourseWithLJId } from "src/api/learningJourneyCourse";
 
 import JobSkills from "./JobSkills";
 import CoursesList from "./CoursesList";
@@ -22,6 +22,7 @@ export default function index() {
   const [isDeleteSkillModalOpen, setDeleteSkillModalOpen] = useState(false);
 
   const history = useHistory();
+  const location = useLocation();
   const { selectedLJId, selectedJobRole, clearSelectedCourseDetails, selectedCourseDetails } =
     useLJContext();
   const { currentUserId } = useUserContext();
@@ -63,7 +64,7 @@ export default function index() {
     setIsModalOpen(true);
   };
 
-  const onSubmitButtonClicked = async (e) => {
+  const createLJ = async (e) => {
     const createRes = await createLearningJourneyWithJobId(selectedJobRole.jobId, currentUserId);
     if ("error" in createRes) {
       setErrorMessage(createRes.error);
@@ -76,6 +77,24 @@ export default function index() {
       return;
     }
 
+    toast.success(`Learning Journey ${createRes.lj_id} created successfully!`);
+    history.push("/");
+  };
+
+  const updateLJ = async (e) => {
+    const deleteExistingMappingRes = await deleteLJCourseWithLJId(selectedLJId);
+    if ("error" in deleteExistingMappingRes) {
+      setErrorMessage(deleteExistingMappingRes.error);
+      return;
+    }
+
+    const mappingRes = await createLJCourseMapping(selectedLJId, selectedCourseDetails);
+    if ("error" in mappingRes) {
+      setErrorMessage(mappingRes.error);
+      return;
+    }
+
+    toast.success(`Learning Journey ${selectedLJId} updated successfully!`);
     history.push("/");
   };
 
@@ -87,9 +106,13 @@ export default function index() {
     setDeleteSkillModalOpen(false);
   };
 
+  const isEditing = location.state && location.state.isEditing;
+
   return (
     <div className='flex flex-col container w-9/12 max-w-7xl mt-10 p-10 mx-auto w-full bg-white rounded-lg shadow-lg shadow-blue-200 justify-around'>
-      <h1 className='text-3xl text-left font-bold'>Create your Learning Journey</h1>
+      <h1 className='text-3xl text-left font-bold'>
+        {isEditing ? "Update your Learning Journey" : "Create your Learning Journey"}
+      </h1>
       <p className='font-medium text-xl text-justify'>
         You have selected Role: {selectedJobRole.jobName}
       </p>
@@ -100,7 +123,7 @@ export default function index() {
         openModal={openModal}
       />
       <CoursesList onDeleteSkillModalOpen={onDeleteSkillModalOpen} />
-      <SubmitButton onClick={onSubmitButtonClicked} />
+      <SubmitButton isEditing={isEditing} createLJ={createLJ} updateLJ={updateLJ} />
       <p className='text-red-500 mt-2'>{errorMessage}</p>
       <CourseModal
         skillId={currentSelectedSkill}
