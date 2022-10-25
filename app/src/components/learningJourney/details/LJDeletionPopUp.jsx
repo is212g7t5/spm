@@ -1,8 +1,14 @@
+import React from "react";
 import { deleteLJWithLJId } from "src/api/learningJourney";
 
-function LJDeletionPopUp({ LJId, isDeletionModalOpen, setIsDeletionModalOpen }) {
+function LJDeletionPopUp({
+  LJId,
+  isDeletionModalOpen,
+  setIsDeletionModalOpen,
+  onDeletionButtonClick,
+}) {
   // Hide the popup when click on cancel
-  const onCancelButtonClick = () => {
+  const onDeletionModalClose = () => {
     setIsDeletionModalOpen(false);
   };
 
@@ -16,16 +22,34 @@ function LJDeletionPopUp({ LJId, isDeletionModalOpen, setIsDeletionModalOpen }) 
 
     async function deleteLJWithCourses() {
       await deleteLJWithLJId(LJId);
-      setIsDeletionModalOpen(false);
+      await setIsDeletionModalOpen(false);
+      onDeletionButtonClick();
+    }
+  };
+
+  const modalRef = React.createRef();
+
+  const handleDeleteLJModalClose = (e) => {
+    e.stopPropagation();
+    if (!(modalRef.current && modalRef.current.contains(e.target))) {
+      onDeletionModalClose();
     }
   };
 
   return (
     <div
       id='deletePopUp'
-      className='flex justify-center fixed inset-0 h-screen items-center z-10 bg-dimBackgroundColor bg-opacity-60 p-5'
+      className='flex justify-center fixed inset-0 h-screen items-center z-10 p-5 backdrop-grayscale backdrop-blur-3xl z-8'
+      aria-hidden='true'
+      onClick={handleDeleteLJModalClose}
     >
-      <div className='flex-initial'>
+      <div
+        className='flex-initial'
+        aria-labelledby='modal-title'
+        role='dialog'
+        aria-modal='true'
+        ref={modalRef}
+      >
         <div className='container shadow-2xl shadow-black-300 px-7 py-5 grid rounded-lg bg-white'>
           <div className='grid-row py-3 text-3xl font-bold'>Warning</div>
 
@@ -44,7 +68,7 @@ function LJDeletionPopUp({ LJId, isDeletionModalOpen, setIsDeletionModalOpen }) 
             <button
               type='button'
               className='text-white bg-accent2 hover:bg-accent2 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2'
-              onClick={onCancelButtonClick}
+              onClick={onDeletionModalClose}
             >
               Cancel
             </button>

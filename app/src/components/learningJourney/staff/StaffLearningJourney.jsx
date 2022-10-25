@@ -9,9 +9,14 @@ function StaffLearningJourney({ staffId }) {
   const [learningJourneys, setLearningJourneys] = useState([]);
   const [selectedLJ, setSelectedLJ] = useState(null);
   const [isDeletionModalOpen, setIsDeletionModalOpen] = useState(false);
+  const [isDeletionButtonClicked, setIsDeletionButtonClicked] = useState(false);
 
-  const onDeletionModalClick = () => {
+  const onDeletionModalOpen = () => {
     setIsDeletionModalOpen(!isDeletionModalOpen);
+  };
+
+  const onDeletionButtonClick = () => {
+    setIsDeletionButtonClicked(!isDeletionButtonClicked);
   };
 
   useEffect(() => {
@@ -38,7 +43,7 @@ function StaffLearningJourney({ staffId }) {
       }
       setLearningJourneys(learningJourneysReturnedFromBackend);
     }
-  }, [isDeletionModalOpen === true]);
+  }, [isDeletionButtonClicked]);
 
   const renderLearningJourneys = learningJourneys.map(
     ({ LJId, jobName, jobDesc, isJobActive }, index) => (
@@ -49,7 +54,7 @@ function StaffLearningJourney({ staffId }) {
         jobDesc={jobDesc}
         isJobActive={isJobActive}
         setSelectedLJ={setSelectedLJ}
-        onDeletionModalClick={onDeletionModalClick}
+        onDeletionModalOpen={onDeletionModalOpen}
       />
     ),
   );
@@ -65,6 +70,7 @@ function StaffLearningJourney({ staffId }) {
         isDeletionModalOpen={isDeletionModalOpen}
         setIsDeletionModalOpen={setIsDeletionModalOpen}
         LJId={selectedLJ}
+        onDeletionButtonClick={onDeletionButtonClick}
       />
     </div>
   );
