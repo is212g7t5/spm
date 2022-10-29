@@ -16,8 +16,6 @@ export default function Navbar() {
     { name: "Job Roles", href: "/jobs" },
   ]);
 
-  // const [currentPage, setCurrentPage] = useState("");
-
   const renderDisclosureNavbarItems = pageNavigation.map((item) => (
     <Disclosure.Button
       key={item.name}
