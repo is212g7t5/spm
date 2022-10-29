@@ -16,6 +16,8 @@ export default function Navbar() {
     { name: "Job Roles", href: "/jobs" },
   ]);
 
+  // const [currentPage, setCurrentPage] = useState("");
+
   const renderDisclosureNavbarItems = pageNavigation.map((item) => (
     <Disclosure.Button
       key={item.name}
@@ -55,7 +57,7 @@ function RoutingItems({ open, pageNavigation }) {
   return (
     <>
       <MobileNavbarItems open={open} />
-      <DeskopNavbarItems pageNavigation={pageNavigation} />
+      <DesktopNavbarItems pageNavigation={pageNavigation} />
     </>
   );
 }
@@ -78,18 +80,21 @@ function MobileNavbarItems({ open }) {
   );
 }
 
-function DeskopNavbarItems({ pageNavigation }) {
+function DesktopNavbarItems({ pageNavigation }) {
+  const [currentPage, setCurrentPage] = useState("");
+
   const renderNavbarItems = pageNavigation.map((routingItem) => (
     <Link
       to={routingItem.href}
       key={routingItem.name}
       className={classNames(
         isCurrent(routingItem.href)
-          ? "bg-secondary text-white"
+          ? "bg-secondary text-white" // only behaves correctly when u reload the page. must do with routing
           : "text-white hover:bg-secondary hover:text-white",
         "px-3 py-2 rounded-md text-sm font-medium",
       )}
       aria-current={isCurrent(routingItem.href) ? "page" : undefined}
+      onClick={() => setCurrentPage(routingItem.href)}
     >
       {routingItem.name}
     </Link>
