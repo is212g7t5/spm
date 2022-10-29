@@ -22,8 +22,9 @@ cd /path/to/is212g5t7-project/backend
 ### Provide Environment Variables
 
 This backend application relies on the accompanying MySQL server for data persistence. We need to provide it the following information. Edit the `.env.example` using any text editor (`vi .env.example`).
-    1. Replace `<>` fields with the respective information
-    2. Rename `.env.example` to `.env`
+
+1. Replace `<>` fields with the respective information
+2. Rename `.env.example` to `.env`
 
 **Note: `.env` is automatically ignored by git, do not edit the PYTHONPATH variable**
 ```bash
