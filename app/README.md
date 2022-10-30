@@ -28,8 +28,9 @@ cd /path/to/is212g5t7-project/app
 ### Provide Environment Variables
 
 This frontend application relies on the accompanying backend server for computation logic and data. We need to provide it the following information. Edit the backend server URL in `.env.example` using any text editor (`vi .env.example`).
-    1. Replace `<>` fields with the respective information (backend server URL)
-    2. Rename `.env.example` to `.env`
+
+1. Replace `<>` fields with the respective information (backend server URL)
+2. Rename `.env.example` to `.env`
 
 **Note: `.env` is automatically ignored by git`**
 ```bash
