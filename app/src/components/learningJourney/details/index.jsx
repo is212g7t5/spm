@@ -64,8 +64,8 @@ function LearningJourneyDetails() {
       for (let i = 0; i < skillIds.length; i += 1) {
         skillPromises.push(getSkillById(skillIds[i]));
       }
-      const skillsResult = await Promise.all(skillPromises);
-
+      let skillsResult = await Promise.all(skillPromises);
+      skillsResult = skillsResult.filter(skill => skill.isActive);
       setJobName(jobData.jobName);
       setJobDesc(jobData.jobDesc);
       setIsJobActive(jobData.isActive);
