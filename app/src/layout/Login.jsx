@@ -4,13 +4,18 @@ import { USER_TYPES, useUserContext } from "src/contexts/UserContext";
 import UserNavigation from "./UserNavigation";
 
 export default function Login() {
-  const { currentUserType, setUserTypeToStateAndSession, setCurrentUserIdToStateAndSession } = useUserContext();
+  const { currentUserType, setUserTypeToStateAndSession, setCurrentUserIdToStateAndSession } =
+    useUserContext();
 
   useEffect(() => {
     const userFromSessionStorage = sessionStorage.getItem("user");
     const userIdFromSessionStorage = sessionStorage.getItem("userId");
 
-    if (userFromSessionStorage != null && userIdFromSessionStorage != null && userFromSessionStorage in USER_TYPES) {
+    if (
+      userFromSessionStorage != null &&
+      userIdFromSessionStorage != null &&
+      userFromSessionStorage in USER_TYPES
+    ) {
       setUserTypeToStateAndSession(userFromSessionStorage);
       setCurrentUserIdToStateAndSession(userIdFromSessionStorage);
     } else {
@@ -20,12 +25,10 @@ export default function Login() {
   }, []);
 
   return (
-    <Menu as='div' className='relative my-auto ml-5 z-50'>
-      <div>
-        <Menu.Button className='relative inline-flex items-center rounded-md border border-transparent bg-secondary px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-accent3 focus:ring-offset-2 focus:ring-offset-gray-800'>
-          <span>{currentUserType || "Login"}</span>
-        </Menu.Button>
-      </div>
+    <Menu as='div' className='relative my-auto ml-5'>
+      <Menu.Button className='relative inline-flex items-center rounded-md border border-transparent bg-secondary px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-accent3 focus:ring-offset-2 focus:ring-offset-gray-800'>
+        <span>{currentUserType || "Login"}</span>
+      </Menu.Button>
       <Transition
         enter='transition ease-out duration-200'
         enterFrom='transform opacity-0 scale-95'
