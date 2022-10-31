@@ -15,9 +15,9 @@ export const getJobs = async () => {
   }
 };
 
-export const getAllJobsAndSkills = async (activeOnly=false) => {
+export const getAllJobsAndSkills = async (activeJobAndSkillsOnly=false) => {
   try {
-    const res = await axios.get(`${JOB_ENDPOINT}/skills?active_only=${activeOnly}`);
+    const res = await axios.get(`${JOB_ENDPOINT}/skills?active_only=${activeJobAndSkillsOnly}`);
     if (res) {
       return combineSkillsToJobs(res.data);
     }
