@@ -6,7 +6,7 @@ export default function CoursesList({ onDeleteSkillModalOpen }) {
   const { selectedCourseDetails } = useLJContext();
 
   return (
-    <div className='flex-col mt-10 bg-background rounded-lg px-5 py-3'>
+    <div className='flex-col mt-10 bg-background rounded-lg'>
       <h2 className='text-lg font-bold bg-secondary dark:text-white'>Courses Added:</h2>
       <p className='text-sm font-light text-black dark:text-white italic'>
         Here are your courses. Click on the cross to remove a course from your Learning Journey.

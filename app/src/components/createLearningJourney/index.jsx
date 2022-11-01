@@ -9,7 +9,6 @@ import { createLearningJourneyWithJobId } from "src/api/learningJourney";
 import { createLJCourseMapping, deleteLJCourseWithLJId } from "src/api/learningJourneyCourse";
 
 import JobSkills from "./JobSkills";
-import CoursesList from "./CoursesList";
 import CourseModal from "./CourseModal";
 import SubmitButton from "./SubmitButton";
 import DeleteSkillModal from "./DeleteSkillModal";
@@ -123,8 +122,8 @@ export default function index() {
         setCurrentSelectedSkill={setCurrentSelectedSkill}
         skills={selectedJobRole.skills}
         openModal={openModal}
+        onDeleteSkillModalOpen={onDeleteSkillModalOpen}
       />
-      <CoursesList onDeleteSkillModalOpen={onDeleteSkillModalOpen} />
       <SubmitButton isEditing={isEditing} createLJ={createLJ} updateLJ={updateLJ} />
       <p className='text-red-500 mt-2'>{errorMessage}</p>
       <CourseModal
