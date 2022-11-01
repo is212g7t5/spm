@@ -40,7 +40,7 @@ export default function HRCreateJob() {
   switch (currentUserType) {
     case "HR":
       return (
-        <div className='relative flex flex-col container max-w-7xl mt-10 bg-white p-10 mx-auto rounded-lg shadow-lg shadow-blue-200'>
+        <div className='relative flex flex-col container max-w-7xl mt-10 bg-white p-10 mx-auto rounded-lg shadow-lg'>
           <h1 className='text-3xl text-left font-bold'>Create New Job</h1>
           <form onSubmit={handleSubmit} className='pt-10'>
             <div className='mb-6'>

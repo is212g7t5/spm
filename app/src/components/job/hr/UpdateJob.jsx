@@ -39,7 +39,7 @@ export default function HRUpdateJob() {
   switch (currentUserType) {
     case "HR":
       return (
-        <div className='relative flex flex-col container max-w-7xl mt-10 bg-white p-10 mx-auto rounded-lg shadow-lg shadow-blue-200'>
+        <div className='relative flex flex-col container max-w-7xl mt-10 bg-white p-10 mx-auto rounded-lg shadow-lg'>
           <h1 className='text-3xl text-left font-bold'>Update Job</h1>
           <form onSubmit={handleSubmit} className='pt-10'>
             <div className='mb-6'>
@@ -54,7 +54,7 @@ export default function HRUpdateJob() {
             </div>
             <button
               type='submit'
-              className='text-white bg-accent2 hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center'
+              className='text-white bg-accent2 hover:bg-accent3 focus:ring-42 focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center'
             >
               Update Job
             </button>
