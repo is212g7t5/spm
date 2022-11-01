@@ -63,7 +63,7 @@ function StaffLearningJourney({ staffId }) {
   );
 
   return (
-    <div className='flex flex-col container w-9/12 max-w-7xl mt-10 p-10 mx-auto w-full bg-white rounded-lg shadow-lg shadow-blue-200'>
+    <div className='flex flex-col container w-9/12 max-w-7xl mt-10 p-10 mx-auto w-full bg-white rounded-lg shadow-lg'>
       <h1 className='text-3xl text-left font-bold'>My Learning Journeys</h1>
       <div className='flex grid lg:grid-cols-2 2xl:grid-cols-3 gap-4'>
         {learningJourneys.length === 0 ? "No Learning Journeys Found" : renderLearningJourneys}

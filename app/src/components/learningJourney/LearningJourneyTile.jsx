@@ -24,7 +24,7 @@ function LearningJourneyTile({
   };
 
   return (
-    <div className='max-w-sm bg-white rounded-lg border border-gray-100 hover:shadow-lg hover:shadow-accent2 mt-10 mx-auto'>
+    <div className='max-w-sm bg-white rounded-lg border border-gray-100 hover:shadow-lg mt-10 mx-auto'>
       <div className='flex justify-end px-4 pt-4'>
         <button
           id='dropdownButton'

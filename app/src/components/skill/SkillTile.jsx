@@ -49,7 +49,7 @@ export default function SkillTile({
   };
 
   return (
-    <div className='container flex-col'>
+    <div className='container flex-col w-10/12 max-w-5xl mx-auto'>
       <div
         className='flex p-5 m-3 items-center justify-between bg-white rounded-lg shadow hover:shadow-lg cursor-pointer'
         onClick={() => setIsDetailsOpen(!isDetailsOpen)}

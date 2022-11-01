@@ -35,7 +35,7 @@ function HRJob() {
   };
 
   return (
-    <div className='flex flex-col container mt-10 bg-white p-10 mx-auto rounded-lg shadow-lg'>
+    <div className='flex flex-col container mt-10 bg-white p-10 mt-10 w-10/12 max-w-7xl mx-auto rounded-lg shadow-lg'>
       <div className='flex justify-between mb-5'>
         <h1 className='text-3xl text-left font-bold'>View All Job Roles</h1>
         <button

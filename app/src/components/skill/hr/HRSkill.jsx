@@ -53,7 +53,7 @@ function HRSkill() {
   };
 
   return (
-    <div className='flex flex-col container mt-10 bg-white p-10 mx-auto rounded-lg shadow-lg shadow-blue-200'>
+    <div className='flex flex-col container mt-10 bg-white p-10 mx-auto mt-10 w-10/12 max-w-7xl rounded-lg shadow-lg'>
       <div className='flex justify-between'>
         <h1 className='text-3xl text-left font-bold'>View All Skills</h1>
         <button
