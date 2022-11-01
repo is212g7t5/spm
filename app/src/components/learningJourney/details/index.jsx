@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useUserContext } from "src/contexts/UserContext";
 import { useLJContext } from "src/contexts/LJContext";
+import { useStaffContext } from "src/contexts/StaffContext";
 import { useHistory, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -17,6 +18,7 @@ import AddCourseButton from "./AddCourseButton";
 
 function LearningJourneyDetails() {
   const { currentUserId } = useUserContext();
+  const { learningJourneys } = useStaffContext();
   const { setSelectedLJId, setSelectedJobRole, setSelectedCourseDetails } = useLJContext();
 
   const { LJId } = useParams();
@@ -29,6 +31,23 @@ function LearningJourneyDetails() {
 
   const [LJCourseIds, setLJCourseIds] = useState([]);
   const [LJCourseDetails, setLJCourseDetails] = useState({});
+
+  useEffect(() => {
+    if (!currentUserId) {
+      history.push("/login");
+    }
+
+    if (!LJId) {
+      toast.error("No Learning Journey ID provided");
+      history.push("/learning-journeys");
+    }
+
+    const isLJBelongToStaff = learningJourneys.find((LJObject) => LJObject.LJId === Number(LJId));
+    if (!isLJBelongToStaff) {
+      toast.error("Invalid Access");
+      history.push("/learning-journeys");
+    }
+  }, [currentUserId, LJId]);
 
   useEffect(() => {
     getAllCoursesForLJ(LJId);
@@ -81,12 +100,6 @@ function LearningJourneyDetails() {
     setSelectedCourseDetails(LJCourseDetails);
     history.push("/create-learning-journey?isEdit=true", { isEditing: true });
   };
-
-  // Validation for LJ ID here if needed in future
-  if (!LJId) {
-    toast.error("No Learning Journey ID provided");
-    history.push("/learning-journeys");
-  }
 
   return (
     <div className='flex flex-col container w-11/12 max-w-7xl p-5 mx-auto w-full justify-around'>
