@@ -13,7 +13,8 @@ import {
   CreateLearningJourneyPage,
   Skills,
   CreateSkill,
-  UpdateSkill
+  UpdateSkill,
+  UpdateCourse
 } from "src/routes";
 
 import Layout from "./layout";
@@ -33,6 +34,7 @@ function App() {
                   <Route path='/learning-journeys' component={LearningJourneys} />
                   <Route exact path='/create-learning-journey' component={CreateLearningJourneyPage} />
                   <Route exact path='/courses' component={Courses} />
+                  <Route exact path='/update-course' component={UpdateCourse} />
                   <Route exact path='/skills' component={Skills} />
                   <Route exact path='/create-skill' component={CreateSkill} />
                   <Route exact path='/jobs' component={Jobs} />

@@ -23,8 +23,8 @@ function CourseTile({
 
   const handleEditCourseButtonClick = (e) => {
     e.stopPropagation();
-    setUpdateCourse({ courseId, courseName, courseDesc, });
-    history.push("update-course"); // need to check this again
+    setUpdateCourse({ courseId, courseName, courseDesc });
+    history.push("update-course");
   };
 
   if (currentUserType === "STAFF" && (courseStatus === "Retired" || courseStatus === "Pending")) {
