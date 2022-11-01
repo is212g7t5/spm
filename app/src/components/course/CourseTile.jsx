@@ -23,7 +23,7 @@ function CourseTile({
 
   const handleEditCourseButtonClick = (e) => {
     e.stopPropagation();
-    setUpdateCourse({ courseId, courseName, courseDesc });
+    setUpdateCourse({ courseId, courseName, courseDesc, skills });
     history.push("update-course");
   };
 
