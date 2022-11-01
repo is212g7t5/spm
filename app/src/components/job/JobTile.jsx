@@ -97,7 +97,7 @@ function CreateEditJobButton({ handleEditJobButtonClick }) {
   return (
     <button
       type='button'
-      className='w-full flex items-center justify-center ml-auto text-secondary hover:text-white bg-white hover:bg-secondary border border-secondary focus:ring-4 rounded-lg text-sm px-5 py-2.5 text-center m-1'
+      className='w-full flex items-center justify-center ml-auto text-white bg-secondary hover:bg-primary focus:ring-2 focus:ring-gray-300 rounded-lg text-sm px-5 py-2.5 text-center m-1'
       onClick={handleEditJobButtonClick}
     >
       <PencilSquareIcon className='mr-2 h-5 w-5' aria-hidden='true' />
@@ -110,7 +110,7 @@ function CreateDeleteJobButton({showPopUp}){
   return (
     <button
     type='button'
-    className='w-full flex items-center justify-center ml-auto text-secondary hover:text-white bg-white hover:bg-secondary border border-secondary focus:ring-4 rounded-lg text-sm px-5 py-2.5 text-center m-1'
+    className='w-full flex items-center justify-center ml-auto text-white bg-secondary hover:bg-primary focus:ring-2 focus:ring-gray-300 rounded-lg text-sm px-5 py-2.5 text-center m-1'
     onClick={showPopUp}
   >
     <TrashIcon className='mr-2 h-5 w-5' aria-hidden='true' />
@@ -131,7 +131,7 @@ function CreateLearningJourneyButton({ handleCreateLJButtonClick }) {
   return (
     <button
       type='button'
-      className='w-full ml-auto text-white bg-accent2 hover:bg-accent1 focus:outline-none focus:ring-2 focus:ring-accent3 focus:ring-offset-2 focus:ring-offset-gray-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-1'
+      className='w-full ml-auto text-white bg-accent2 hover:bg-accent3 focus:ring-2 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-1'
       onClick={handleCreateLJButtonClick}
     >
       <span>Create Learning Journey</span>
