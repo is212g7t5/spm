@@ -118,7 +118,7 @@ function CourseRow({ setSelectedCourses, selectedCourses, course }) {
 
   let className;
   if (isActive) {
-    className = "py-2 px-4 w-full text-accent2 hover:text-white bg-white hover:bg-accent";
+    className = "py-2 px-4 w-full text-accent2 hover:text-white bg-white hover:bg-accent4";
   } else {
     className =
       "py-2 px-4 w-full text-dark hover:bg-accent4 dark:hover:bg-gray-100 dark:hover:text-white  hover:cursor-pointer";
