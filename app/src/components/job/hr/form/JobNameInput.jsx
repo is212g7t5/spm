@@ -9,7 +9,7 @@ export default function JobNameInput({ jobName, setJobName}) {
   return (
     <label
       htmlFor='jobName'
-      className='block mb-2 text-md font-medium text-black dark:text-black space-y-2'
+      className='block mb-2 text-md font-medium text-black space-y-2'
     >
       <p>Job Name</p>
       <p className='italic font-light text-black text-sm'>
@@ -21,7 +21,7 @@ export default function JobNameInput({ jobName, setJobName}) {
         id='jobName'
         value={jobName}
         onChange={handleJobNameChange}
-        className='bg-gray-100 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'
+        className='bg-gray-100 border border-gray-300 text-black text-sm rounded-lg focus:ring-gray-400 focus:border-gray-500 block w-full p-2.5'
         placeholder='e.g. Sales Engineer'
       />
     </label>

@@ -11,7 +11,7 @@ export default function CourseDescription({ courseDesc, skills }) {
 
   return (
     <div className='m-auto flex flex-col w-full p-5 px-10 bg-gray-100 rounded-lg'>
-      <p className='font-medium text-justify'>{courseDesc}</p>
+      <p className='text-ellipsis overflow-hidden font-medium text-justify'>{courseDesc}</p>
       {skills.length ? (
         <div className='flex-grid mt-5'>{renderActiveSkills}</div>
       ) : (

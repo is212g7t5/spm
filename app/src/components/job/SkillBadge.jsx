@@ -2,7 +2,7 @@ import React from "react";
 
 export default function SkillBadge({ skillName }) {
   return (
-    <span className='bg-blue-200 text-blue-800 text-xl font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800'>
+    <span className='bg-accent4 text-accent1 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded'>
       {skillName}
     </span>
   );

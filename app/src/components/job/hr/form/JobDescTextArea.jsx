@@ -20,7 +20,7 @@ export default function JobDescTextArea({ jobDesc, setJobDesc }) {
         rows={5}
         value={jobDesc}
         onChange={handleJobDescChange}
-        className='bg-gray-100 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'
+        className='bg-gray-100 border border-gray-300 text-black text-sm rounded-lg focus:ring-gray-400 focus:border-gray-500 block w-full p-2.5'
       />
       <p className='text-right text-sm'>{jobDesc.length}/255</p>
     </label>

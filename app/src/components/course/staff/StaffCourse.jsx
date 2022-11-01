@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { getCourses } from "src/api/course";
+import { getCoursesandActiveSkills } from "src/api/course";
 import { useUserContext } from "src/contexts/UserContext";
 import CourseTile from "../CourseTile";
 
 function StaffCourse() {
   const [courses, setCourses] = useState([]);
   const { currentUserId } = useUserContext();
-  const skills = [];
 
   useEffect(() => {
-    getAllCourses();
+    getAllCoursesAndActiveSkills();
 
-    async function getAllCourses() {
-      const coursesReturnedFromBackend = await getCourses();
+    async function getAllCoursesAndActiveSkills() {
+      const coursesReturnedFromBackend = await getCoursesandActiveSkills();
       setCourses(coursesReturnedFromBackend);
     }
   }, []);
@@ -27,7 +26,7 @@ function StaffCourse() {
       courseStatus={course.courseStatus}
       registrationStatus={course.registrationStatus}
       completionStatus={course.completionStatus}
-      skills={skills}
+      skills={course.skills}
     />
   ));
 
