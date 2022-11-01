@@ -24,7 +24,7 @@ export default function CourseModal({ skillId, coursesAndSkillsMapping, isModalO
 
   return (
     <div
-      className='fixed top-0 left-0 h-screen w-screen scale-100 backdrop-blur-3xl z-8'
+      className='fixed top-0 left-0 h-screen w-screen scale-100 grayscale backdrop-blur-3xl z-50'
       aria-hidden='true'
       onClick={handleCloseModal}
     >
