@@ -24,12 +24,12 @@ export default function CourseModal({ skillId, coursesAndSkillsMapping, isModalO
 
   return (
     <div
-      className='fixed top-0 left-0 h-screen w-screen scale-100 grayscale backdrop-blur-3xl z-50'
+      className='fixed top-0 left-0 h-screen w-screen scale-100 backdrop-blur-3xl z-50'
       aria-hidden='true'
       onClick={handleCloseModal}
     >
       <div
-        className='absolute flex flex-col justify-center space-y-5 mx-auto my-auto w-3/4 h-3/4 bg-gray-100 z-99 inset-0 shadow-lg rounded-lg shadow-blue-200 items-center text-center'
+        className='absolute flex flex-col justify-center space-y-5 mx-auto my-auto w-3/4 h-3/4 bg-gray-100 z-99 inset-0 shadow-lg rounded-lg items-center text-center'
         aria-labelledby='modal-title'
         role='dialog'
         aria-modal='true'
@@ -45,7 +45,7 @@ export default function CourseModal({ skillId, coursesAndSkillsMapping, isModalO
         />
         <button
           type='button'
-          className='text-white bg-primary hover:bg-blue-200 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-200 dark:hover:bg-blue-200 focus:outline-none dark:focus:ring-blue-800'
+          className='text-white bg-accent2 hover:bg-accent3 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 focus:ring-2 focus:ring-gray-300'
           onClick={handleAddCoursesToLJ}
         >
           Add Courses
@@ -123,10 +123,10 @@ function CourseRow({ setSelectedCourses, selectedCourses, course }) {
 
   let className;
   if (isActive) {
-    className = "py-2 px-4 w-full text-dark bg-accent2";
+    className = "py-2 px-4 w-full text-accent2 hover:text-white bg-white hover:bg-accent4";
   } else {
     className =
-      "py-2 px-4 w-full text-dark hover:bg-gray-100 hover:cursor-pointer";
+      "py-2 px-4 w-full text-dark hover:bg-accent4 hover:cursor-pointer";
   }
 
   const handleClick = (course) => (e) => {

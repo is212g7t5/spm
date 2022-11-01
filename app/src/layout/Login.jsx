@@ -26,9 +26,11 @@ export default function Login() {
 
   return (
     <Menu as='div' className='relative my-auto ml-5 z-10'>
-      <Menu.Button className='relative inline-flex items-center rounded-md border border-transparent bg-secondary px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-accent3 focus:ring-offset-2 focus:ring-offset-gray-800'>
-        <span>{currentUserType || "Login"}</span>
-      </Menu.Button>
+      <div>
+        <Menu.Button className='relative inline-flex items-center rounded-md border border-transparent bg-secondary px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-accent1 focus:ring-2 focus:ring-gray-500'>
+          <span>{currentUserType || "Login"}</span>
+        </Menu.Button>
+      </div>
       <Transition
         enter='transition ease-out duration-200'
         enterFrom='transform opacity-0 scale-95'

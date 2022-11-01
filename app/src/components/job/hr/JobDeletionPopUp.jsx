@@ -41,7 +41,7 @@ export default function JobDeletionPopUp({
   return trigger ? (
     <div
       id='deletePopUp'
-      className='flex justify-center fixed inset-0 h-screen items-center z-10 bg-dimBackgroundColor bg-opacity-60 p-5'
+      className='flex justify-center fixed inset-0 h-screen items-center z-10 backdrop-blur-md p-5'
     >
       <div className='flex-initial'>
         <div className='container shadow-2xl shadow-black-300 px-7 py-5 grid rounded-lg bg-white'>
@@ -52,14 +52,14 @@ export default function JobDeletionPopUp({
           <div className='grid-row py-3 flex justify-end'>
             <button
               type='button'
-              className='text-white bg-primary hover:bg-secondary font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2'
+              className='text-white bg-secondary hover:bg-primary font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2'
               onClick={handleConfirm}
             >
               Confirm
             </button>
             <button
               type='button'
-              className='text-white bg-accent2 hover:bg-accent2 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2'
+              className='text-white bg-accent2 hover:bg-accent3 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2'
               onClick={resetTrigger}
             >
               Cancel
