@@ -6,6 +6,7 @@ import CourseTile from "../CourseTile";
 function StaffCourse() {
   const [courses, setCourses] = useState([]);
   const { currentUserId } = useUserContext();
+  const skills = [];
 
   useEffect(() => {
     getAllCourses();
@@ -26,6 +27,7 @@ function StaffCourse() {
       courseStatus={course.courseStatus}
       registrationStatus={course.registrationStatus}
       completionStatus={course.completionStatus}
+      skills={skills}
     />
   ));
 

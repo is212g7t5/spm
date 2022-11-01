@@ -24,8 +24,6 @@ function HRCourse() {
       courseName={course.courseName}
       courseDesc={course.courseDesc}
       courseStatus={course.courseStatus}
-      registrationStatus={course.registrationStatus}
-      completionStatus={course.completionStatus}
       skills={course.skills}
     />
   ));
