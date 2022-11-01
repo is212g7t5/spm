@@ -58,5 +58,6 @@ function courseSnakeToCamel(snakeCaseCourse) {
     courseStatus: snakeCaseCourse.course_status,
     courseType: snakeCaseCourse.course_type,
     courseCategory: snakeCaseCourse.course_category,
+    skills: snakeCaseCourse.skills,
   };
 }
