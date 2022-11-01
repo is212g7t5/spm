@@ -87,7 +87,8 @@ export const updateSkillDetails = async (skillId, skillName, skillDesc, isActive
     }
     throw new Error("No data returned from backend");
   } catch (error) {
-    return error.response.data;
+    console.log(error);
+    return [];
   }
 };
 

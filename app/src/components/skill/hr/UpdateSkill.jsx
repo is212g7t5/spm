@@ -29,7 +29,6 @@ export default function HRUpdateSkill() {
       }
       setErrors(errorList);
     } else {
-      setErrors([]);
       setDisplayPopup(true);
     }
   };
