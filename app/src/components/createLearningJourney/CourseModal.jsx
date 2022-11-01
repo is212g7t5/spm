@@ -10,7 +10,7 @@ export default function CourseModal({ skillId, coursesAndSkillsMapping, isModalO
   }
 
   const handleCloseModal = (e) => {
-    if ((e.target.id === "modal-outer")) {
+    if (e.target.id === "modal-outer") {
       closeModal();
     }
   };
@@ -23,8 +23,7 @@ export default function CourseModal({ skillId, coursesAndSkillsMapping, isModalO
 
   return (
     <div
-      id='modal-outer'
-      className='fixed top-0 left-0 h-screen w-screen scale-100 backdrop-blur-3xl z-8'
+      className='fixed top-0 left-0 h-screen w-screen scale-100 backdrop-blur-3xl z-50'
       aria-hidden='true'
       onClick={handleCloseModal}
     >
