@@ -24,7 +24,7 @@ export default function CourseModal({ skillId, coursesAndSkillsMapping, isModalO
 
   return (
     <div
-      className='fixed top-0 left-0 h-screen w-screen scale-100 grayscale backdrop-blur-3xl z-8'
+      className='fixed top-0 left-0 h-screen w-screen scale-100 backdrop-blur-3xl z-8'
       aria-hidden='true'
       onClick={handleCloseModal}
     >
@@ -118,10 +118,10 @@ function CourseRow({ setSelectedCourses, selectedCourses, course }) {
 
   let className;
   if (isActive) {
-    className = "py-2 px-4 w-full text-dark bg-accent2 dark:hover:bg-secondary dark:hover:text-white";
+    className = "py-2 px-4 w-full text-dark bg-accent2";
   } else {
     className =
-      "py-2 px-4 w-full text-dark hover:bg-gray-100 dark:hover:bg-gray-100 dark:hover:text-white  hover:cursor-pointer";
+      "py-2 px-4 w-full text-dark hover:bg-gray-100 hover:cursor-pointer";
   }
 
   const handleClick = (course) => (e) => {
@@ -131,7 +131,8 @@ function CourseRow({ setSelectedCourses, selectedCourses, course }) {
 
   return (
     <li className={className} aria-hidden='true' onClick={handleClick(course)}>
-      {course.courseName}
+      <span className="font-bold">{course.courseName}</span>
+      <span className="ml-3 rounded-lg bg-accent2 text-white py-1 px-2.5">{course.courseCategory}</span>
     </li>
   );
 }
