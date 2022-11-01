@@ -19,6 +19,12 @@ module.exports = {
         accent2: {
           DEFAULT: "#c2410c",
         },
+        accent3: {
+          DEFAULT: "#de6b07",
+        },
+        accent4: {
+          DEFAULT: "#ff8f2d",
+        },
       },
     },
   },

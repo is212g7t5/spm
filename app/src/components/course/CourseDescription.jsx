@@ -1,9 +1,9 @@
 import React from "react";
-import SkillBadge from "../job/SkillBadge";
+import SkillBadge from "./SkillBadge";
 
 export default function CourseDescription({ desc, skills }) {
   const renderSkillsForCourse = skills.map(({ skillId, skillName, isActive }, index) => (
-    <SkillBadge key={`skill-${skillId}`} skillName={skillName} isActive={isActive}/>
+    <SkillBadge key={`skill-${skillId}`} skillName={skillName} />
   ));
   return (
     <div className='flex flex-row w-full p-4 transition duration-150 ease-in-out'>
