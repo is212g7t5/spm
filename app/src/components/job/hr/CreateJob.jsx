@@ -18,9 +18,13 @@ export default function HRCreateJob() {
     // If detail key exists in response, there are schematic errors in the request
     if (res.detail && res.detail.length > 0) {
       const errorList = [];
-      res.detail.forEach((error) => {
-        errorList.push(error.msg);
-      }); 
+      if (res.detail.forEach) {
+        res.detail.forEach((error) => {
+          errorList.push(error.msg);
+        }); 
+      } else {
+        errorList.push(res.detail);
+      }
       setErrors(errorList);
     } else {
       setErrors([]);
