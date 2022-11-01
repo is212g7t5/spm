@@ -7,10 +7,10 @@ from app.tests.utils.skill import create_random_skill
 
 
 def create_random_skill_course(
-    db: Session, skill: models.Skill = None
+    db: Session, skill: models.Skill = None, course: models.Skill = None
 ) -> models.Skill_Course:
     skill = skill or create_random_skill(db)
-    course = create_random_course(db)
+    course = course or create_random_course(db)
 
     skill_course_in = SkillCourseCreate(
         skill_id=skill.skill_id, course_id=course.course_id

@@ -4,13 +4,18 @@ import { USER_TYPES, useUserContext } from "src/contexts/UserContext";
 import UserNavigation from "./UserNavigation";
 
 export default function Login() {
-  const { currentUserType, setUserTypeToStateAndSession, setCurrentUserIdToStateAndSession } = useUserContext();
+  const { currentUserType, setUserTypeToStateAndSession, setCurrentUserIdToStateAndSession } =
+    useUserContext();
 
   useEffect(() => {
     const userFromSessionStorage = sessionStorage.getItem("user");
     const userIdFromSessionStorage = sessionStorage.getItem("userId");
 
-    if (userFromSessionStorage != null && userIdFromSessionStorage != null && userFromSessionStorage in USER_TYPES) {
+    if (
+      userFromSessionStorage != null &&
+      userIdFromSessionStorage != null &&
+      userFromSessionStorage in USER_TYPES
+    ) {
       setUserTypeToStateAndSession(userFromSessionStorage);
       setCurrentUserIdToStateAndSession(userIdFromSessionStorage);
     } else {
@@ -20,7 +25,7 @@ export default function Login() {
   }, []);
 
   return (
-    <Menu as='div' className='relative my-auto ml-5 z-50'>
+    <Menu as='div' className='relative my-auto ml-5 z-10'>
       <div>
         <Menu.Button className='relative inline-flex items-center rounded-md border border-transparent bg-secondary px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-accent1 focus:ring-2 focus:ring-gray-500'>
           <span>{currentUserType || "Login"}</span>

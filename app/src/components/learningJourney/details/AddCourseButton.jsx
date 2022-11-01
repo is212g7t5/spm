@@ -7,7 +7,7 @@ export default function AddCourseButton({ startLJEditProcess, isJobActive }) {
     <button
       type='button'
       className={(isJobActive ? "bg-secondary hover:underline underline-offset-2" : "bg-gray-400 cursor-not-allowed") + " inline-flex items-center place-content-center w-48 h-12 text-white rounded-lg shadow-md"}
-      onClick={(isJobActive ? startLJEditProcess : "")}
+      onClick={(isJobActive ? startLJEditProcess : () => {})}
     >
       <PencilIcon className='h-4 w-6' />
       <span>Edit Learning Journey</span>
