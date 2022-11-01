@@ -79,14 +79,19 @@ function CloseModalButton({ closeModal }) {
 function ModalBody({ skillId, coursesAndSkillsMapping, selectedCourses, setSelectedCourses }) {
   const targetSkillWithCourses = coursesAndSkillsMapping.find((item) => item.skillId === skillId);
 
-  const renderCourses = targetSkillWithCourses.courses.map((course, index) => (
-    <CourseRow
-      selectedCourses={selectedCourses}
-      setSelectedCourses={setSelectedCourses}
-      course={course}
-      key={index}
-    />
-  ));
+  const renderCourses = targetSkillWithCourses.courses.map((course, index) => {
+    if (course.courseStatus === "Active") {
+      return (
+        <CourseRow
+          selectedCourses={selectedCourses}
+          setSelectedCourses={setSelectedCourses}
+          course={course}
+          key={index}
+        />
+      )
+    }
+    return null;
+  });
 
   return (
     <div
