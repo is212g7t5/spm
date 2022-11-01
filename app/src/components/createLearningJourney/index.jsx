@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { useLJContext } from "src/contexts/LJContext";
 import { useUserContext } from "src/contexts/UserContext";
 
-import { getAllSkillsAndCourses } from "src/api/skills";
+import { getAllSkillsAndCourses, getActiveSkillsAndCourses } from "src/api/skills";
 import { createLearningJourneyWithJobId } from "src/api/learningJourney";
 import { createLJCourseMapping, deleteLJCourseWithLJId } from "src/api/learningJourneyCourse";
 
@@ -41,7 +41,10 @@ export default function index() {
     return cleanup;
 
     async function getCoursesAndSetState() {
-      const allCoursesAndSkills = await getAllSkillsAndCourses();
+      // const allCoursesAndSkills = await getAllSkillsAndCourses();
+      const allCoursesAndSkills = await getActiveSkillsAndCourses();
+
+      console.log(allCoursesAndSkills);
       setCoursesAndSkillsMapping(allCoursesAndSkills);
     }
 
