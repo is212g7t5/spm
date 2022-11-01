@@ -9,10 +9,9 @@ function CourseTile({
   courseName,
   courseDesc,
   courseStatus,
-  registrationStatus,
-  completionStatus,
+  skills
 }) {
-  const [isDescOpen, setIsDescOpen] = useState(false);
+  const [isDetailsOpen, setisDetailsOpen] = useState(false);
 
   if (courseStatus !== "Active") {
     return null;
@@ -37,9 +36,9 @@ function CourseTile({
               <button
                 className='w-10 text-right flex justify-end'
                 type='button'
-                onClick={() => setIsDescOpen(!isDescOpen)}
+                onClick={() => setisDetailsOpen(!isDetailsOpen)}
               >
-                {isDescOpen ? (
+                {isDetailsOpen ? (
                   <ArrowDownIcon className='w-5 h-5 transition ease-in-out' aria-hidden='true' />
                 ) : (
                   <ArrowRightIcon className='w-5 h-5 transition ease-in-out' aria-hidden='true' />
@@ -49,7 +48,7 @@ function CourseTile({
           </div>
         </li>
       </ul>
-      {isDescOpen ? <CourseDescription desc={courseDesc} /> : null}
+      {isDetailsOpen ? <CourseDescription desc={courseDesc} skills={skills} /> : null}
     </div>
   );
 }
