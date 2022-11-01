@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { getCourses } from "src/api/course";
+import { getCoursesandActiveSkills } from "src/api/course";
 import { useUserContext } from "src/contexts/UserContext";
 import CourseTile from "../CourseTile";
 
-function StaffCourse() {
-  const [courses, setCourses] = useState([]);
+function HRCourse() {
   const { currentUserId } = useUserContext();
+  const [courses, setCourses] = useState([]);
 
   useEffect(() => {
     getAllCourses();
 
     async function getAllCourses() {
-      const coursesReturnedFromBackend = await getCourses();
+      const coursesReturnedFromBackend = await getCoursesandActiveSkills();
       setCourses(coursesReturnedFromBackend);
     }
   }, []);
@@ -26,6 +26,7 @@ function StaffCourse() {
       courseStatus={course.courseStatus}
       registrationStatus={course.registrationStatus}
       completionStatus={course.completionStatus}
+      skills={course.skills}
     />
   ));
 
@@ -37,4 +38,4 @@ function StaffCourse() {
   );
 }
 
-export default StaffCourse;
+export default HRCourse;
