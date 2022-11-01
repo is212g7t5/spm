@@ -28,7 +28,7 @@ export default function CourseModal({ skillId, coursesAndSkillsMapping, isModalO
       onClick={handleCloseModal}
     >
       <div
-        className='absolute flex flex-col justify-center space-y-5 mx-auto my-auto w-3/4 h-3/4 bg-gray-100 z-99 inset-0 shadow-lg rounded-lg shadow-blue-200 items-center text-center'
+        className='absolute flex flex-col justify-center space-y-5 mx-auto my-auto w-3/4 h-3/4 bg-gray-100 z-99 inset-0 shadow-lg rounded-lg items-center text-center'
         aria-labelledby='modal-title'
         role='dialog'
         aria-modal='true'
@@ -140,9 +140,10 @@ function CourseRow({ setSelectedCourses, selectedCourses, course }) {
 
   let className;
   if (isActive) {
-    className = "py-2 px-4 w-full text-dark bg-accent2";
+    className = "py-2 px-4 w-full text-accent2 hover:text-white bg-white hover:bg-accent4";
   } else {
-    className = "py-2 px-4 w-full text-dark hover:bg-gray-100 hover:cursor-pointer";
+    className =
+      "py-2 px-4 w-full text-dark hover:bg-accent4 hover:cursor-pointer";
   }
 
   const handleClick = (course) => (e) => {
