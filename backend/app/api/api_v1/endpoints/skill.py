@@ -226,9 +226,7 @@ def update_skill_by_id(
     *,
     db: Session = Depends(deps.get_db),
     skill_id: int,
-    skill_name: str = Body(None),
-    skill_desc: str = Body(None),
-    is_active: bool = Body(None),
+    skill_in: schemas.SkillUpdate
 ) -> Any:
     """
     Update a skill.
@@ -239,14 +237,14 @@ def update_skill_by_id(
             status_code=404,
             detail="Skill not found",
         )
-    skill_in = schemas.SkillCreate(
-        skill_id=skill.skill_id,
-        skill_name=skill_name or skill.skill_name,
-        skill_desc=skill_desc or skill.skill_desc,
-        is_active=is_active if is_active != None else skill.is_active,
-    )
-    skill = crud.skill.update(db, db_obj=skill, obj_in=skill_in)
-    return skill
+    if skill_in.skill_name:
+        existing_skill = crud.skill.get_by_skill_name(db, skill_name=skill_in.skill_name)
+        if existing_skill and existing_skill != skill:
+            raise HTTPException(
+                status_code=409,
+                detail="Skill name already exists",
+            )
+    return crud.skill.update(db, db_obj=skill, obj_in=skill_in)
 
 
 @router.delete("/{skill_id}", response_model=schemas.Skill)
