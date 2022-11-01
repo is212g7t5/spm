@@ -45,7 +45,7 @@ export default function CourseModal({ skillId, coursesAndSkillsMapping, isModalO
         />
         <button
           type='button'
-          className='text-white bg-primary hover:bg-blue-200 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-200 dark:hover:bg-blue-200 focus:outline-none dark:focus:ring-blue-800'
+          className='text-white bg-accent2 hover:bg-accent3 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2'
           onClick={handleAddCoursesToLJ}
         >
           Add Courses

@@ -23,7 +23,7 @@ export default function SearchBar({ title, searchBarPlaceholder }) {
           <input
             type='text'
             id='simple-search'
-            className='bg-gray-100 border border-gray-400 text-black text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full pl-10 p-2.5  dark:bg-gray-100 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-cyan-500 dark:focus:border-cyan-500'
+            className='bg-gray-100 border border-gray-400 focus:border-gray-400 text-black text-sm rounded-lg focus:outline-none focus:ring-2 focus:ring-accent2 block w-full pl-10 p-2.5'
             placeholder={searchBarPlaceholder}
             required
           />
@@ -31,7 +31,7 @@ export default function SearchBar({ title, searchBarPlaceholder }) {
         <button
           aria-label='Submit Button'
           type='submit'
-          className='p-2.5 ml-2 text-sm font-medium text-white bg-primary rounded-lg border border-cyan-700 hover:bg-primary focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:bg-primary dark:hover:bg-primary dark:focus:ring-cyan-800'
+          className='p-2.5 ml-2 text-sm font-medium text-white bg-primary rounded-lg hover:bg-primary focus:outline-none focus:ring-2 focus:ring-accent2'
         >
           <svg
             className='w-5 h-5'
