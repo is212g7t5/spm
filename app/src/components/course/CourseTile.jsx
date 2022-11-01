@@ -19,7 +19,7 @@ function CourseTile({
   }
 
   return (
-    <div className='flex flex-col container w-8/12 max-w-5xl mt-5 mx-auto w-full items-center justify-center bg-white rounded-lg shadow transition duration-150'>
+    <div className='flex flex-col container w-8/12 max-w-5xl mt-5 mx-auto w-full items-center justify-center bg-white rounded-lg shadow'>
       <ul className='flex flex-col divide-y w-full'>
         <li className='flex flex-row'>
           <div className='select-none cursor-pointer hover:bg-gray-100 flex flex-1 items-center p-4'>
@@ -40,9 +40,9 @@ function CourseTile({
                 onClick={() => setIsDescOpen(!isDescOpen)}
               >
                 {isDescOpen ? (
-                  <ArrowDownIcon className='w-5 h-5 transition ease-in-out' aria-hidden='true' />
+                  <ArrowDownIcon className='w-5 h-5' aria-hidden='true' />
                 ) : (
-                  <ArrowRightIcon className='w-5 h-5 transition ease-in-out' aria-hidden='true' />
+                  <ArrowRightIcon className='w-5 h-5' aria-hidden='true' />
                 )}
               </button>
             </div>
