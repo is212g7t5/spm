@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { ChevronDownIcon, ChevronRightIcon, BookOpenIcon } from "@heroicons/react/20/solid";
+import { ChevronDownIcon, ChevronRightIcon, BookOpenIcon, PencilSquareIcon } from "@heroicons/react/20/solid";
 import { useUserContext } from "src/contexts/UserContext";
+import { useUpdateCourseContext } from "src/contexts/UpdateCourseContext";
+import { useHistory } from "react-router-dom";
 import CourseDescription from "./CourseDescription";
 import RegistrationStatusBadge from "./RegistrationStatusBadge";
 
@@ -16,6 +18,14 @@ function CourseTile({
 }) {
   const { currentUserType } = useUserContext();
   const [isDescOpen, setIsDescOpen] = useState(false);
+  const { setUpdateCourse } = useUpdateCourseContext();
+  const history = useHistory();
+
+  const handleEditCourseButtonClick = (e) => {
+    e.stopPropagation();
+    setUpdateCourse({ courseId, courseName, courseDesc, });
+    history.push("update-course"); // need to check this again
+  };
 
   if (currentUserType === "STAFF" && (courseStatus === "Retired" || courseStatus === "Pending")) {
     return null;
@@ -42,6 +52,11 @@ function CourseTile({
           </div>
         </div>
         <div className='flex items-center'>
+          {currentUserType === "HR" && (
+            <div className='flex flex-col'>
+              <CreateEditCourseButton handleEditCourseButtonClick={handleEditCourseButtonClick} />
+            </div>
+          )}
           <CourseTileButton isDescOpen={isDescOpen} />
         </div>
       </div>
@@ -87,6 +102,20 @@ function CourseTile({
       </ul>
       {isDescOpen ? <CourseDescription desc={courseDesc} /> : null}
     </div> */
+  );
+}
+
+
+function CreateEditCourseButton({ handleEditCourseButtonClick }) {
+  return (
+    <button
+      type='button'
+      className='w-full flex items-center mr-5 justify-center ml-auto text-white bg-primary hover:bg-secondary focus:ring-4 rounded-lg text-sm px-5 py-2.5 text-center m-1'
+      onClick={handleEditCourseButtonClick}
+    >
+      <PencilSquareIcon className='mr-2 h-5 w-5' aria-hidden='true' />
+      <span>Edit</span>
+    </button>
   );
 }
 

@@ -1,4 +1,5 @@
 import Courses from "./courses";
+import UpdateCourse from "./updateCourses"
 import CreateJob from "./createJob";
 import UpdateJob from "./updateJob";
 import CreateSkill from "./createSkill";
