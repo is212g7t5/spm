@@ -14,7 +14,7 @@ function CourseTile({
 }) {
   const [isDescOpen, setIsDescOpen] = useState(false);
 
-  if (courseStatus === "Retired") {
+  if (courseStatus !== "Active") {
     return null;
   }
 
