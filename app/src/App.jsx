@@ -5,6 +5,8 @@ import { LJContextProvider } from "src/contexts/LJContext";
 import { UpdateJobContextProvider } from "src/contexts/UpdateJobContext";
 import { UpdateSkillContextProvider } from "src/contexts/UpdateSkillContext";
 import { UpdateCourseContextProvider } from "src/contexts/UpdateCourseContext";
+import { StaffContextProvider } from "src/contexts/StaffContext";
+
 import {
   Courses,
   Jobs,
@@ -25,6 +27,7 @@ import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
     <Router>
+      <StaffContextProvider>
       <LJContextProvider>
         <UpdateJobContextProvider>
           <UpdateSkillContextProvider>
@@ -62,6 +65,7 @@ function App() {
           </UpdateSkillContextProvider>
         </UpdateJobContextProvider>
       </LJContextProvider>
+      </StaffContextProvider>
     </Router>
   );
 }
