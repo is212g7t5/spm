@@ -1,7 +1,7 @@
 import json
 from typing import Any, List
 
-from fastapi import APIRouter, Body, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
@@ -223,10 +223,7 @@ def create_skill(
 
 @router.put("/{skill_id}", response_model=schemas.Skill)
 def update_skill_by_id(
-    *,
-    db: Session = Depends(deps.get_db),
-    skill_id: int,
-    skill_in: schemas.SkillUpdate
+    *, db: Session = Depends(deps.get_db), skill_id: int, skill_in: schemas.SkillUpdate
 ) -> Any:
     """
     Update a skill.
@@ -238,7 +235,9 @@ def update_skill_by_id(
             detail="Skill not found",
         )
     if skill_in.skill_name:
-        existing_skill = crud.skill.get_by_skill_name(db, skill_name=skill_in.skill_name)
+        existing_skill = crud.skill.get_by_skill_name(
+            db, skill_name=skill_in.skill_name
+        )
         if existing_skill and existing_skill != skill:
             raise HTTPException(
                 status_code=409,
