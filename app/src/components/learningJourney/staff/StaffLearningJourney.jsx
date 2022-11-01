@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { useStaffContext } from "src/contexts/StaffContext";
 import { getJobById } from "src/api/jobs";
 import { getLearningJourneysByStaffId } from "src/api/learningJourney";
 import LearningJourneyTile from "../LearningJourneyTile";
 import LJDeletionPopUp from "../details/LJDeletionPopUp";
 
 function StaffLearningJourney({ staffId }) {
-  const [learningJourneys, setLearningJourneys] = useState([]);
+  const { learningJourneys, setLearningJourneys } = useStaffContext();
+  
   const [selectedLJ, setSelectedLJ] = useState(null);
   const [isDeletionModalOpen, setIsDeletionModalOpen] = useState(false);
   const [isDeletionButtonClicked, setIsDeletionButtonClicked] = useState(false);
@@ -41,9 +43,10 @@ function StaffLearningJourney({ staffId }) {
         learningJourneysReturnedFromBackend[i].jobDesc = result[i].jobDesc;
         learningJourneysReturnedFromBackend[i].isJobActive = result[i].isActive;
       }
+
       setLearningJourneys(learningJourneysReturnedFromBackend);
     }
-  }, [isDeletionButtonClicked]);
+  }, [staffId]);
 
   const renderLearningJourneys = learningJourneys.map(
     ({ LJId, jobName, jobDesc, isJobActive }, index) => (

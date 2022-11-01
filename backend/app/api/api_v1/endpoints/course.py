@@ -1,6 +1,8 @@
+import json
 from typing import Any, List
 
 from fastapi import APIRouter, Body, Depends, HTTPException
+from sqlalchemy import text
 from sqlalchemy.orm import Session
 
 from app import crud, schemas
@@ -24,6 +26,59 @@ def get_all_course(
             detail="Courses not found",
         )
     return courses
+
+
+@router.get("/skills/active")
+def get_active_courses_and_skills(
+    db: Session = Depends(deps.get_db),
+) -> Any:
+    """
+    Get all courses and all their active skills.
+    """
+    sql_query = text(
+        """
+        SELECT
+            c.course_id, c.course_name, c.course_desc, c.course_status, c.course_type, c.course_category, sc.skills
+        FROM
+            course c
+            LEFT JOIN (
+                SELECT
+                    sc.course_id,
+                    JSON_ARRAYAGG(JSON_OBJECT(
+                        'skill_id', s.skill_id,
+                        'skill_name', s.skill_name,
+                        'skill_desc', s.skill_desc,
+                        'is_active', s.is_active
+                    )) skills
+                FROM skill_course sc, skill s
+                WHERE sc.skill_id = s.skill_id and
+                s.is_active = 1
+                GROUP BY sc.course_id
+            ) sc ON c.course_id = sc.course_id;
+    """
+    )
+    db_cursor_obj = db.execute(sql_query)
+    if not db_cursor_obj:
+        raise HTTPException(
+            status_code=404,
+            detail="Error getting courses with their active skills",
+        )
+
+    courses_with_skills = db_cursor_obj.all()
+    if not courses_with_skills:
+        raise HTTPException(
+            status_code=404,
+            detail="No courses with active skills in the database",
+        )
+
+    courses_with_skills = [dict(r) for r in courses_with_skills]
+    for row in courses_with_skills:
+        if row["skills"] is not None:
+            row["skills"] = json.loads(row["skills"])
+        else:
+            row["skills"] = []
+
+    return courses_with_skills
 
 
 @router.get("/{course_id}", response_model=schemas.Course)
