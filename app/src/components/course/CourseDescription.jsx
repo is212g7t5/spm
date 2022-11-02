@@ -1,10 +1,10 @@
-import { ComputerDesktopIcon } from "@heroicons/react/20/solid";
 import React from "react";
+import SkillBadge from "./SkillBadge";
 
 export default function CourseDescription({ courseDesc, skills }) {
   const renderActiveSkills = skills.map((skill, index) => {
-    if (skill.is_active === 1) {
-      return <SkillBadge skillName={skill.skill_name} />;
+    if (skill.isActive === 1) {
+      return <SkillBadge skillName={skill.skillName} />;
     }
     return null;
   });
@@ -15,16 +15,8 @@ export default function CourseDescription({ courseDesc, skills }) {
       {skills.length ? (
         <div className='flex-grid mt-5'>{renderActiveSkills}</div>
       ) : (
-        "No skill attached to this course"
+        "No skills attached to this course"
       )}
     </div>
-  );
-}
-
-function SkillBadge({ skillName }) {
-  return (
-    <span className='bg-blue-200 text-blue-800 text-xl font-semibold mr-4 px-1 py-0.3 rounded dark:bg-blue-200 dark:text-blue-800'>
-      {skillName}
-    </span>
   );
 }

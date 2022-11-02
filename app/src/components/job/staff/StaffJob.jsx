@@ -25,7 +25,6 @@ function StaffJob() {
 
     async function getAllJobs() {
       const jobsReturnedFromBackend = await getAllJobsAndSkills(true);
-      // const jobsReturnedFromBackend = [];
       if (jobsReturnedFromBackend.length === 0) {
         toast.warning("There are no jobs to display");
       }
@@ -35,7 +34,7 @@ function StaffJob() {
 
   return (
     <div className='flex flex-col container mt-10 bg-white p-10 mx-auto rounded-lg shadow-lg'>
-      <h1 className='text-3xl text-left font-bold mb-5'>View All Job Roles</h1>
+      <h1 className='text-3xl text-left font-bold'>View All Job Roles</h1>
       {jobs.length === 0 ? "No Jobs Found" : renderJobs}
     </div>
   );

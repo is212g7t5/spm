@@ -74,7 +74,7 @@ function CourseCardCloseButton({ courseId, numOfCourses, onDeleteSkillModalOpen 
     <button
       type='button'
       onClick={handleRemoveCourseIdFromLJ}
-      className='absolute top-3 right-3 text-red-700 border border-red-700 hover:bg-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-1.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800'
+      className='absolute top-3 right-3 text-red-700 border border-red-700 hover:bg-red-700 hover:text-white focus:ring-2 focus:outline-none focus:ring-gray-300 font-medium rounded-full text-sm p-1.5 text-center inline-flex items-center'
     >
       <XCircleIcon width={20} height={20} />
       <span className='sr-only'>Icon description</span>

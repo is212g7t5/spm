@@ -23,7 +23,7 @@ export default function CourseModal({ skillId, coursesAndSkillsMapping, isModalO
 
   return (
     <div
-      className='fixed top-0 left-0 h-screen w-screen scale-100 backdrop-blur-3xl z-50'
+      className='fixed top-0 left-0 h-screen w-screen scale-100 backdrop-grayscale backdrop-blur-xl z-50'
       aria-hidden='true'
       onClick={handleCloseModal}
     >
@@ -99,13 +99,13 @@ function ModalBody({
   return (
     <div>
       <div
-        className='bg-white rounded divide-gray-100 shadow dark:bg-gray-100 position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 494.222px, 0px);'
+        className='bg-white rounded divide-gray-100 shadow position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 494.222px, 0px);'
         data-popper-reference-hidden=''
         data-popper-escaped=''
         data-popper-placement='bottom'
       >
         <ul
-          className='w-full py-1 text-md text-black dark:text-black'
+          className='w-full py-1 text-md text-black'
           aria-labelledby='dropdownDefault'
         >
           {renderCourses}
@@ -120,7 +120,7 @@ function AddCourseButton({ handleAddCoursesToLJ }) {
   return (
     <button
       type='button'
-      className='text-white bg-primary hover:bg-blue-200 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm mt-5 px-5 py-2.5 mr-2 mb-2 dark:bg-blue-200 dark:hover:bg-blue-200 focus:outline-none dark:focus:ring-blue-800'
+      className='text-white bg-secondary hover:bg-primary focus:ring-2 focus:ring-gray-300 font-medium rounded-lg text-sm mt-5 px-5 py-2.5 mr-2 mb-2'
       onClick={handleAddCoursesToLJ}
     >
       Add Courses
@@ -140,10 +140,10 @@ function CourseRow({ setSelectedCourses, selectedCourses, course }) {
 
   let className;
   if (isActive) {
-    className = "py-2 px-4 w-full text-accent2 hover:text-white bg-white hover:bg-accent4";
+    className = "py-2 px-4 w-full text-accent2 bg-white hover:bg-gray-200 text-start";
   } else {
     className =
-      "py-2 px-4 w-full text-dark hover:bg-accent4 hover:cursor-pointer";
+      "py-2 px-4 w-full text-dark hover:bg-gray-200 hover:cursor-pointer text-start";
   }
 
   const handleClick = (course) => (e) => {
@@ -154,7 +154,7 @@ function CourseRow({ setSelectedCourses, selectedCourses, course }) {
   return (
     <li className={className} aria-hidden='true' onClick={handleClick(course)}>
       <span className='font-bold'>{course.courseName}</span>
-      <span className='ml-3 rounded-lg bg-accent2 text-white py-1 px-2.5'>
+      <span className='bg-accent4 text-accent1 text-sm font-semibold ml-2 px-2.5 py-0.5 rounded'>
         {course.courseCategory}
       </span>
     </li>

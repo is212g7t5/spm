@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { getCoursesandActiveSkills } from "src/api/course";
+import { toast } from "react-toastify";
+import { getAllCoursesAndActiveSkills } from "src/api/course";
 import { useUserContext } from "src/contexts/UserContext";
 import CourseTile from "../CourseTile";
 
@@ -8,10 +9,13 @@ function StaffCourse() {
   const { currentUserId } = useUserContext();
 
   useEffect(() => {
-    getAllCoursesAndActiveSkills();
+    getAllCourses();
 
-    async function getAllCoursesAndActiveSkills() {
-      const coursesReturnedFromBackend = await getCoursesandActiveSkills();
+    async function getAllCourses() {
+      const coursesReturnedFromBackend = await getAllCoursesAndActiveSkills();
+      if (coursesReturnedFromBackend.length === 0) {
+        toast.warning("There are no courses to display");
+      }
       setCourses(coursesReturnedFromBackend);
     }
   }, []);
@@ -24,14 +28,12 @@ function StaffCourse() {
       courseName={course.courseName}
       courseDesc={course.courseDesc}
       courseStatus={course.courseStatus}
-      registrationStatus={course.registrationStatus}
-      completionStatus={course.completionStatus}
       skills={course.skills}
     />
   ));
 
   return (
-    <div className='flex flex-col container mt-10 bg-white p-10 mx-auto rounded-lg shadow-lg shadow-blue-200'>
+    <div className='flex flex-col container mt-10 p-10 mx-auto w-full bg-white rounded-lg shadow-lg'>
       <h1 className='text-3xl text-left font-bold'>View All Courses</h1>
       {courses.length === 0 ? "No Courses Found" : renderCourses}
     </div>

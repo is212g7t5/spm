@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getCoursesandActiveSkills } from "src/api/course";
+import { getAllCoursesAndActiveSkills } from "src/api/course";
 import { useUserContext } from "src/contexts/UserContext";
 import CourseTile from "../CourseTile";
 
@@ -11,7 +11,7 @@ function HRCourse() {
     getAllCourses();
 
     async function getAllCourses() {
-      const coursesReturnedFromBackend = await getCoursesandActiveSkills();
+      const coursesReturnedFromBackend = await getAllCoursesAndActiveSkills();
       setCourses(coursesReturnedFromBackend);
     }
   }, []);
@@ -29,7 +29,7 @@ function HRCourse() {
   ));
 
   return (
-    <div className='flex flex-col container mt-10 bg-white p-10 mx-auto rounded-lg shadow-lg shadow-blue-200'>
+    <div className='flex flex-col container mt-10 bg-white p-10 mx-auto rounded-lg shadow-lg'>
       <h1 className='text-3xl text-left font-bold'>View All Courses</h1>
       {courses.length === 0 ? "No Courses Found" : renderCourses}
     </div>
