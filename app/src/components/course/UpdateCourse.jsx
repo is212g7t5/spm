@@ -41,6 +41,7 @@ export default function HRUpdateCourse() {
 
   console.log(allActiveSkills);
   console.log(selectedSkills);
+  console.log(skills);
 
   const renderSkillsOptions = Object.keys(allActiveSkills).map((skillId) => (
     <option value={skillId}>{allActiveSkills[skillId].skillName}</option>
@@ -62,8 +63,8 @@ export default function HRUpdateCourse() {
   ));
 
   const handleSubmit = async (e) => {
-    // to be filled in. Use Create Skill Course API
-    
+    // to be filled in. Use Create Skill Course API. compare skills and selectedSkills -> only create for selected skills that are not in skills.
+    // const pairsToBeCreated =
   };
 
   switch (currentUserType) {

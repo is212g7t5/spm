@@ -20,6 +20,21 @@ export const getSkillIdsForCourse = async (courseId) => {
   }
 };
 
+export const createSkillCourse = async (skillId, courseId) => {
+  try {
+    const res = await axios.post(`${SKILL_COURSE_ENDPOINT}`, {
+      skill_id: skillId,
+      course_id: courseId,
+    });
+    if (res) {
+      return res.data;
+    }
+    throw new Error("No data returned from backend");
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
 function extractSkillIds(courseAndSkillIdsArray) {
   const skillIdArray = [];
   courseAndSkillIdsArray.forEach((skillAndCourseIdInstance) => {
