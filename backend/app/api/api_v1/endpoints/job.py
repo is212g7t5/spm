@@ -50,7 +50,7 @@ def get_all_jobs_and_all_skills(
     LEFT JOIN job_skill ON j.job_ID = job_skill.job_ID
     LEFT JOIN skill as s ON job_skill.Skill_ID = s.Skill_ID{};
     """.format(
-            " WHERE j.is_active = 1" if active_only else ""
+            " AND s.Is_Active=1 WHERE j.is_active = 1" if active_only else ""
         )
     )
     db_cursor_obj = db.execute(sql_query)
