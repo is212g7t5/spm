@@ -35,6 +35,18 @@ export const createSkillCourse = async (skillId, courseId) => {
   }
 };
 
+export const deleteSkillCourse = async (skillId, courseId) => {
+  try {
+    const res = await axios.delete(`${SKILL_COURSE_ENDPOINT}/${skillId}&${courseId}`);
+    if (res) {
+      return res.data;
+    }
+    throw new Error("No data returned from backend");
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
 function extractSkillIds(courseAndSkillIdsArray) {
   const skillIdArray = [];
   courseAndSkillIdsArray.forEach((skillAndCourseIdInstance) => {

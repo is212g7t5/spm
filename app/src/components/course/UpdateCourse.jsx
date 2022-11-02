@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useUpdateCourseContext } from "src/contexts/UpdateCourseContext";
 import { useUserContext } from "src/contexts/UserContext";
-import { getSkillIdsForCourse } from "src/api/skillCourse";
+import { getSkillIdsForCourse, createSkillCourse, deleteSkillCourse } from "src/api/skillCourse";
 import { getSkillsObject } from "src/api/skills";
 // import UpdateCourseSuccess from "./UpdateCourseSuccess";
 import { XMarkIcon } from "@heroicons/react/20/solid";
@@ -15,6 +15,7 @@ export default function HRUpdateCourse() {
   const [courseName, setCourseName] = useState(updateCourse.courseName);
   const [courseDesc, setCourseDesc] = useState(updateCourse.courseDesc);
   const [skills, setSkills] = useState(updateCourse.skills);
+  const [skillsToBeUnassigned, setSkillsToBeUnassigned] = useState([]);
   const [allActiveSkills, setAllActiveSkills] = useState({});
   const [selectedSkills, setSelectedSkills] = useState([]);
   const [defaultSkillValue, setDefaultSkillValue] = useState("default");
@@ -42,6 +43,7 @@ export default function HRUpdateCourse() {
   console.log(allActiveSkills);
   console.log(selectedSkills);
   console.log(skills);
+  console.log(courseId);
 
   const renderSkillsOptions = Object.keys(allActiveSkills).map((skillId) => (
     <option value={skillId}>{allActiveSkills[skillId].skillName}</option>
@@ -63,8 +65,28 @@ export default function HRUpdateCourse() {
   ));
 
   const handleSubmit = async (e) => {
-    // to be filled in. Use Create Skill Course API. compare skills and selectedSkills -> only create for selected skills that are not in skills.
-    // const pairsToBeCreated =
+    // compare skills and selectedSkills -> only create for selected skills that are not in skills.
+
+    // console.log(skillsToBeExcluded);
+    // console.log(skillsToBeAssigned);
+
+    // first unassign all skills related to course
+    e.preventDefault();
+    const tempSkillArray = skills.map((skill) => skill.skill_id);
+    setSkillsToBeUnassigned(tempSkillArray);
+    // if skills to be unassigned length >0
+    skillsToBeUnassigned.map(async (skillIdToBeUnassigned) => {
+        await deleteSkillCourse(skillIdToBeUnassigned, courseId);
+    })
+
+    // e.preventDefault();
+    selectedSkills.map(async (skillIdToBeAssigned) => {
+        await createSkillCourse(skillIdToBeAssigned, courseId);
+    })
+
+    // display pop up?
+
+    // skillsToBeAssigned.filter((skillIdToBeAssigned) => skillIdToBeAssigned !== skills.map((skill) => skill.skill_id) );
   };
 
   switch (currentUserType) {
@@ -105,7 +127,7 @@ export default function HRUpdateCourse() {
               type='submit'
               className='text-white bg-accent2 hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center'
             >
-              Assign skills to course
+              Re-assign skills to course
             </button>
           </form>
         </div>
