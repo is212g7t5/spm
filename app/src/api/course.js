@@ -31,7 +31,21 @@ export const getCourseById = async (courseId) => {
     console.log(error);
     return {};
   }
-}
+};
+
+export const getCoursesandActiveSkills = async () => {
+  try {
+    const res = await axiosCourseInstance.get("/skills/active");
+    if (res) {
+      console.log(res);
+      return transformSnakeCourses(res.data);
+    }
+    throw new Error("No data returned from backend");
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
 
 function transformSnakeCourses(snakeCourses) {
   return snakeCourses.map((course) => courseSnakeToCamel(course));
@@ -44,6 +58,6 @@ function courseSnakeToCamel(snakeCaseCourse) {
     courseStatus: snakeCaseCourse.course_status,
     courseType: snakeCaseCourse.course_type,
     courseCategory: snakeCaseCourse.course_category,
-    isActive: snakeCaseCourse.is_active,
+    skills: snakeCaseCourse.skills,
   };
 }

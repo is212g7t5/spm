@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getRegistrationByStaffAndCourseId } from "src/api/registration";
 
-export default function CourseStatusBadge({ staffId, courseId }) {
+export default function RegistrationStatusBadge({ staffId, courseId }) {
   const statusToBadgeClass = {
     Completed: "bg-green-100 text-green-800",
     Rejected: "bg-red-100 text-red-800",
@@ -11,15 +11,15 @@ export default function CourseStatusBadge({ staffId, courseId }) {
     "Not Registered": "bg-gray-100 text-gray-800",
   };
 
-  const [courseStatus, setCourseStatus] = useState("");
+  const [courseStatus, setRegistrationStatus] = useState("");
 
   useEffect(() => {
-    async function getCourseStatus(staffId, courseId) {
+    async function getRegistrationStatus(staffId, courseId) {
       const registrationData = await getRegistrationByStaffAndCourseId(staffId, courseId);
       if (Object.keys(registrationData).length === 0) {
-        setCourseStatus("Not Registered");
+        setRegistrationStatus("Not Registered");
       } else {
-        setCourseStatus(
+        setRegistrationStatus(
           registrationData.completionStatus.length > 0
             ? registrationData.completionStatus.trim()
             : registrationData.regStatus.trim(),
@@ -27,7 +27,7 @@ export default function CourseStatusBadge({ staffId, courseId }) {
       }
     }
 
-    getCourseStatus(staffId, courseId);
+    getRegistrationStatus(staffId, courseId);
   }, []);
 
   return (

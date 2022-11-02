@@ -3,14 +3,14 @@ import { getCoursesandActiveSkills } from "src/api/course";
 import { useUserContext } from "src/contexts/UserContext";
 import CourseTile from "../CourseTile";
 
-function StaffCourse() {
-  const [courses, setCourses] = useState([]);
+function HRCourse() {
   const { currentUserId } = useUserContext();
+  const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    getAllCoursesAndActiveSkills();
+    getAllCourses();
 
-    async function getAllCoursesAndActiveSkills() {
+    async function getAllCourses() {
       const coursesReturnedFromBackend = await getCoursesandActiveSkills();
       setCourses(coursesReturnedFromBackend);
     }
@@ -24,18 +24,16 @@ function StaffCourse() {
       courseName={course.courseName}
       courseDesc={course.courseDesc}
       courseStatus={course.courseStatus}
-      registrationStatus={course.registrationStatus}
-      completionStatus={course.completionStatus}
       skills={course.skills}
     />
   ));
 
   return (
-    <div className='flex flex-col container w-10/12 max-w-7xl mt-10 p-10 mx-auto w-full bg-white rounded-lg shadow-lg'>
+    <div className='flex flex-col container mt-10 bg-white p-10 mx-auto rounded-lg shadow-lg shadow-blue-200'>
       <h1 className='text-3xl text-left font-bold'>View All Courses</h1>
       {courses.length === 0 ? "No Courses Found" : renderCourses}
     </div>
   );
 }
 
-export default StaffCourse;
+export default HRCourse;

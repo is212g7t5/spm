@@ -10,8 +10,7 @@ export default function CourseModal({ skillId, coursesAndSkillsMapping, isModalO
   }
 
   const handleCloseModal = (e) => {
-    e.stopPropagation();
-    if (!(e.target.id === "modal-base")) {
+    if (e.target.id === "modal-outer") {
       closeModal();
     }
   };
@@ -36,20 +35,14 @@ export default function CourseModal({ skillId, coursesAndSkillsMapping, isModalO
         id='modal-base'
       >
         <ModalHeader closeModal={closeModal} />
-        <p className=''>Choose a course to add it to your Learning Journey!</p>
+        <p className='font-bold text-2xl'>Choose a course to add it to your Learning Journey!</p>
         <ModalBody
           skillId={skillId}
           selectedCourses={selectedCourses}
           setSelectedCourses={setSelectedCourses}
           coursesAndSkillsMapping={coursesAndSkillsMapping}
+          handleAddCoursesToLJ={handleAddCoursesToLJ}
         />
-        <button
-          type='button'
-          className='text-white bg-accent2 hover:bg-accent3 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 focus:ring-2 focus:ring-gray-300'
-          onClick={handleAddCoursesToLJ}
-        >
-          Add Courses
-        </button>
       </div>
     </div>
   );
@@ -76,8 +69,18 @@ function CloseModalButton({ closeModal }) {
   );
 }
 
-function ModalBody({ skillId, coursesAndSkillsMapping, selectedCourses, setSelectedCourses }) {
+function ModalBody({
+  skillId,
+  coursesAndSkillsMapping,
+  selectedCourses,
+  setSelectedCourses,
+  handleAddCoursesToLJ,
+}) {
   const targetSkillWithCourses = coursesAndSkillsMapping.find((item) => item.skillId === skillId);
+
+  if (!coursesAndSkillsMapping || !targetSkillWithCourses) {
+    return <p className='font-bold text-red-500'>No courses currently active for this skill</p>;
+  }
 
   const renderCourses = targetSkillWithCourses.courses.map((course, index) => {
     if (course.courseStatus === "Active") {
@@ -88,26 +91,40 @@ function ModalBody({ skillId, coursesAndSkillsMapping, selectedCourses, setSelec
           course={course}
           key={index}
         />
-      )
+      );
     }
     return null;
   });
 
   return (
-    <div
-      id='dropdown'
-      className='bg-white rounded divide-gray-100 shadow dark:bg-gray-100 position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 494.222px, 0px);'
-      data-popper-reference-hidden=''
-      data-popper-escaped=''
-      data-popper-placement='bottom'
-    >
-      <ul
-        className='w-full py-1 text-md text-black dark:text-black'
-        aria-labelledby='dropdownDefault'
+    <div>
+      <div
+        className='bg-white rounded divide-gray-100 shadow dark:bg-gray-100 position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 494.222px, 0px);'
+        data-popper-reference-hidden=''
+        data-popper-escaped=''
+        data-popper-placement='bottom'
       >
-        {renderCourses}
-      </ul>
+        <ul
+          className='w-full py-1 text-md text-black dark:text-black'
+          aria-labelledby='dropdownDefault'
+        >
+          {renderCourses}
+        </ul>
+      </div>
+      <AddCourseButton handleAddCoursesToLJ={handleAddCoursesToLJ} />
     </div>
+  );
+}
+
+function AddCourseButton({ handleAddCoursesToLJ }) {
+  return (
+    <button
+      type='button'
+      className='text-white bg-primary hover:bg-blue-200 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm mt-5 px-5 py-2.5 mr-2 mb-2 dark:bg-blue-200 dark:hover:bg-blue-200 focus:outline-none dark:focus:ring-blue-800'
+      onClick={handleAddCoursesToLJ}
+    >
+      Add Courses
+    </button>
   );
 }
 
@@ -136,8 +153,10 @@ function CourseRow({ setSelectedCourses, selectedCourses, course }) {
 
   return (
     <li className={className} aria-hidden='true' onClick={handleClick(course)}>
-      <span className="font-bold">{course.courseName}</span>
-      <span className="ml-3 rounded-lg bg-accent2 text-white py-1 px-2.5">{course.courseCategory}</span>
+      <span className='font-bold'>{course.courseName}</span>
+      <span className='ml-3 rounded-lg bg-accent2 text-white py-1 px-2.5'>
+        {course.courseCategory}
+      </span>
     </li>
   );
 }

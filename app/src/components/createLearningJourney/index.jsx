@@ -4,12 +4,11 @@ import { toast } from "react-toastify";
 import { useLJContext } from "src/contexts/LJContext";
 import { useUserContext } from "src/contexts/UserContext";
 
-import { getAllSkillsAndCourses } from "src/api/skills";
+import { getActiveSkillsAndCourses } from "src/api/skills";
 import { createLearningJourneyWithJobId } from "src/api/learningJourney";
 import { createLJCourseMapping, deleteLJCourseWithLJId } from "src/api/learningJourneyCourse";
 
 import JobSkills from "./JobSkills";
-import CoursesList from "./CoursesList";
 import CourseModal from "./CourseModal";
 import SubmitButton from "./SubmitButton";
 import DeleteSkillModal from "./DeleteSkillModal";
@@ -41,7 +40,8 @@ export default function index() {
     return cleanup;
 
     async function getCoursesAndSetState() {
-      const allCoursesAndSkills = await getAllSkillsAndCourses();
+      const allCoursesAndSkills = await getActiveSkillsAndCourses();
+
       setCoursesAndSkillsMapping(allCoursesAndSkills);
     }
 
@@ -121,8 +121,8 @@ export default function index() {
         setCurrentSelectedSkill={setCurrentSelectedSkill}
         skills={selectedJobRole.skills}
         openModal={openModal}
+        onDeleteSkillModalOpen={onDeleteSkillModalOpen}
       />
-      <CoursesList onDeleteSkillModalOpen={onDeleteSkillModalOpen} />
       <SubmitButton isEditing={isEditing} createLJ={createLJ} updateLJ={updateLJ} />
       <p className='text-red-500 mt-2'>{errorMessage}</p>
       <CourseModal

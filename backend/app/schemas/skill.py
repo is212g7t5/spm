@@ -18,7 +18,8 @@ class SkillBase(BaseModel):
 
     @validator("skill_desc")
     @classmethod
-    def validate_job_desc(cls, skill_desc):
+    def validate_skill_desc(cls, skill_desc):
+        skill_desc = skill_desc.strip()
         assert (
             len(skill_desc) >= 1
         ), "Skill description must minimally be 1 character long"

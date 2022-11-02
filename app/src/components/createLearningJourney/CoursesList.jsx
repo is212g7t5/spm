@@ -6,8 +6,8 @@ export default function CoursesList({ onDeleteSkillModalOpen }) {
   const { selectedCourseDetails } = useLJContext();
 
   return (
-    <div className='flex-col mt-10 bg-background rounded-lg px-5 py-3'>
-      <h2 className='textxl font-bold text-black'>Courses Added:</h2>
+    <div className='flex-col mt-10 bg-background rounded-lg'>
+      <h2 className='text-xl font-bold text-black'>Courses Added:</h2>
       <p className='text-sm font-light text-black dark:text-white italic'>
         Here are your courses. Click on the cross to remove a course from your Learning Journey.
       </p>
@@ -49,7 +49,7 @@ function CourseCard({ courseDetails, numOfCourses, onDeleteSkillModalOpen }) {
       <h5 className='mb-2 text-2xl font-bold tracking-tight text-black dark:text-white'>
         {courseDetails.courseName}
       </h5>
-      <p className='h-full font-normal text-black dark:text-black'>{courseDetails.courseDesc}</p>
+      <p className='h-full font-normal text-black overflow-auto dark:text-black'>{courseDetails.courseDesc}</p>
     </div>
   );
 }
