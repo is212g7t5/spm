@@ -40,7 +40,6 @@ export default function index() {
     return cleanup;
 
     async function getCoursesAndSetState() {
-      // const allCoursesAndSkills = await getAllSkillsAndCourses();
       const allCoursesAndSkills = await getActiveSkillsAndCourses();
 
       setCoursesAndSkillsMapping(allCoursesAndSkills);
