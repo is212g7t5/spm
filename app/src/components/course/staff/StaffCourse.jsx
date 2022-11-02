@@ -31,7 +31,7 @@ function StaffCourse() {
   ));
 
   return (
-    <div className='flex flex-col container w-10/12 max-w-7xl mt-10 p-10 mx-auto w-full bg-white rounded-lg shadow-lg'>
+    <div className='flex flex-col container mt-10 p-10 mx-auto w-full bg-white rounded-lg shadow-lg'>
       <h1 className='text-3xl text-left font-bold'>View All Courses</h1>
       {courses.length === 0 ? "No Courses Found" : renderCourses}
     </div>
