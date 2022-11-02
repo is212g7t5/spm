@@ -10,8 +10,6 @@ function CourseTile({
   courseName,
   courseDesc,
   courseStatus,
-  registrationStatus,
-  completionStatus,
   skills,
 }) {
   const { currentUserType } = useUserContext();

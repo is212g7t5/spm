@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getCoursesandActiveSkills } from "src/api/course";
+import { getAllCoursesAndActiveSkills } from "src/api/course";
 import { useUserContext } from "src/contexts/UserContext";
 import CourseTile from "../CourseTile";
 
@@ -11,7 +11,7 @@ function HRCourse() {
     getAllCourses();
 
     async function getAllCourses() {
-      const coursesReturnedFromBackend = await getCoursesandActiveSkills();
+      const coursesReturnedFromBackend = await getAllCoursesAndActiveSkills();
       setCourses(coursesReturnedFromBackend);
     }
   }, []);
