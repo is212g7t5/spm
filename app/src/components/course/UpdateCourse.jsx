@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useUpdateCourseContext } from "src/contexts/UpdateCourseContext";
 import { useUserContext } from "src/contexts/UserContext";
 import { getSkillIdsForCourse } from "src/api/skillCourse";
-import {getActiveSkillsAndCourses} from "src/api/skills"
+import { getSkillsObject } from "src/api/skills"
 // import UpdateCourseSuccess from "./UpdateCourseSuccess";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import CourseDescription from "./CourseDescription";
@@ -16,57 +16,44 @@ export default function HRUpdateCourse() {
   const [courseName, setCourseName] = useState(updateCourse.courseName);
   const [courseDesc, setCourseDesc] = useState(updateCourse.courseDesc);
   const [skills, setSkills] = useState(updateCourse.skills);
-  const [allActiveSkills, setAllActiveSkills] = useState([]);
+  const [allActiveSkills, setAllActiveSkills] = useState({});
   const [selectedSkills, setSelectedSkills] = useState([]);
   const [defaultSkillValue, setDefaultSkillValue] = useState("default");
 
-//   console.log(courseName);
-//   console.log(courseDesc);
-//   console.log(skills);
 
   const handleSkillChange = (e) => {
     e.preventDefault();
-    setSelectedSkills([...selectedSkills, e.target.value])
+    const newSkillId = parseInt(e.target.value, 10);
+    if (!selectedSkills.includes(newSkillId)) {
+      setSelectedSkills([...selectedSkills, newSkillId])
+    }
     setDefaultSkillValue("default")
-
   }
-
-  console.log(selectedSkills);
-
-//   useEffect(() =>{
-//       initialSelectionOfSkills();
-
-//       async function initialSelectionOfSkills(){
-//           setSelectedSkills(skills);
-//       }
-//   })  Note: This does not work because skills is skill names but selectedSkills are indexes
 
   useEffect(() => {
       getAllSkills();
 
     async function getAllSkills() {
-      const skillsReturnedFromBackend = await getActiveSkillsAndCourses();
+      const skillsReturnedFromBackend = await getSkillsObject(true);
       setAllActiveSkills(skillsReturnedFromBackend);
-    //   console.log(skillsReturnedFromBackend);
+      const tempSkillArray = skills.map((skill) => skill.skill_id);
+      setSelectedSkills(tempSkillArray);
     }
   }, []);
 
-  console.log(allActiveSkills);
-//   console.log(allActiveSkills[selectedSkills[0]].skillName);
-
-  const renderSkillsOptions = allActiveSkills.map(({skillName}, index) => (
-    <option value={index}>{skillName}</option>
+  const renderSkillsOptions = Object.keys(allActiveSkills).map((skillId) => (
+    <option value={skillId}>{allActiveSkills[skillId].skillName}</option>
   ))
 
 
-  const removeSkill = index => () => {
-    setSelectedSkills(selectedSkills => selectedSkills.filter((_value, i) => i !== index));
+  const removeSkill = skillId => () => {
+    setSelectedSkills(selectedSkills => selectedSkills.filter((selectedSkillId) => selectedSkillId !== skillId));
   }
 
-  const renderSelectedSkills = selectedSkills.map((skillIndex, index) => (
+  const renderSelectedSkills = selectedSkills.map((skillId) => (
     <div className="flex bg-primaryColor text-textColor mr-2 px-3 py-1 space-x-2 rounded">
-      <span>{allActiveSkills[skillIndex].skillName}</span>
-      <button type="button" onClick={removeSkill(index)}>
+      <span>{allActiveSkills[skillId].skillName}</span>
+      <button type="button" onClick={removeSkill(skillId)}>
         <XMarkIcon className="h-6 w-6 text-textColor2"/>
       </button>
     </div>
