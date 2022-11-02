@@ -49,7 +49,7 @@ function StaffLearningJourney({ staffId }) {
   }, [staffId]);
 
   const renderLearningJourneys = learningJourneys.map(
-    ({ LJId, jobName, jobDesc, isJobActive }, index) => (
+    ({ LJId, jobName, jobDesc, isJobActive, imgUrl }, index) => (
       <LearningJourneyTile
         key={index}
         LJId={LJId}
@@ -58,12 +58,13 @@ function StaffLearningJourney({ staffId }) {
         isJobActive={isJobActive}
         setSelectedLJ={setSelectedLJ}
         onDeletionModalOpen={onDeletionModalOpen}
+        LJImgUrl="https://100k-faces.glitch.me/random-image"
       />
     ),
   );
 
   return (
-    <div className='flex flex-col container w-9/12 max-w-7xl mt-10 p-10 mx-auto w-full bg-white rounded-lg shadow-lg'>
+    <div className='flex flex-col container mt-10 p-10 mx-auto w-full w-full bg-white rounded-lg shadow-lg'>
       <h1 className='text-3xl text-left font-bold'>My Learning Journeys</h1>
       <div className='flex grid lg:grid-cols-2 2xl:grid-cols-3 gap-4'>
         {learningJourneys.length === 0 ? "No Learning Journeys Found" : renderLearningJourneys}

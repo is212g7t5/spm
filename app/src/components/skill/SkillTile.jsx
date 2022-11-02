@@ -49,7 +49,7 @@ export default function SkillTile({
   };
 
   return (
-    <div className='container flex-col w-10/12 max-w-5xl mx-auto'>
+    <div className='container flex-col'>
       <div
         className='flex p-5 m-3 items-center justify-between bg-white rounded-lg shadow hover:shadow-lg cursor-pointer'
         onClick={() => setIsDetailsOpen(!isDetailsOpen)}
@@ -112,7 +112,7 @@ function CreateEditSkillButton({ handleEditSkillButtonClick }) {
   return (
     <button
       type='button'
-      className='w-full flex items-center mr-5 justify-center ml-auto text-white bg-primary hover:bg-secondary focus:ring-4 rounded-lg text-sm px-5 py-2.5 text-center m-1'
+      className='w-full flex items-center mr-5 justify-center ml-auto text-white bg-secondary hover:bg-primary focus:ring-2 focus:ring-gray-300 rounded-lg text-sm px-5 py-2.5 text-center m-1'
       onClick={handleEditSkillButtonClick}
     >
       <PencilSquareIcon className='mr-2 h-5 w-5' aria-hidden='true' />
@@ -142,7 +142,7 @@ function CreateDeactivateSkillButton({
       {isActive === 1 ? (
         <button
           type='button'
-          className='flex w-full items-center mr-5 justify-center ml-auto text-white bg-accent2 hover:bg-accent1 focus:ring-4 ring-tertiary rounded-lg text-sm px-1 py-2.5 text-center m-1'
+          className='flex w-full items-center mr-5 justify-center ml-auto text-white bg-accent2 hover:bg-accent3 focus:ring-2 focus:ring-gray-300 ring-tertiary rounded-lg text-sm px-1 py-2.5 text-center m-1'
           onClick={handleDeactivateActiveSkillButtonClick}
         >
           <TrashIcon className='mr-2 h-5 w-5' aria-hidden='true' />
@@ -151,7 +151,7 @@ function CreateDeactivateSkillButton({
       ) : (
         <button
           type='button'
-          className='flex w-full items-center mr-5 justify-center ml-auto text-gray-400 bg-accent2 rounded-lg text-sm px-2 py-2.5 text-center m-1'
+          className='flex w-full items-center mr-5 justify-center ml-auto text-white bg-gray-400 rounded-lg text-sm px-2 py-2.5 text-center m-1'
           onClick={onStopDeactivateSkillModalOpen}
         >
           <TrashIcon className='mr-2 h-5 w-5' aria-hidden='true' />

@@ -9,6 +9,7 @@ function LearningJourneyTile({
   isJobActive,
   onDeletionModalOpen,
   setSelectedLJ,
+  LJImgUrl,
 }) {
   const [isDropdownButtonClicked, setIsDropdownButtonClicked] = useState(false);
 
@@ -29,7 +30,7 @@ function LearningJourneyTile({
         <button
           id='dropdownButton'
           onClick={onDropdownButtonClick}
-          className='inline-block text-black hover:bg-gray-100 focus:ring-2 focus:ring-gray-100 rounded-lg text-sm p-1.5'
+          className='inline-block text-black hover:bg-gray-100 focus:ring-2 focus:ring-gray-300 rounded-lg text-sm p-1.5'
           type='button'
         >
           <span className='sr-only'>Open dropdown</span>
@@ -56,7 +57,7 @@ function LearningJourneyTile({
       <div className='flex flex-col items-center pb-10'>
         <img
           className='mb-3 w-24 h-24 rounded-full shadow-lg'
-          src='https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3580&q=80'
+          src={LJImgUrl}
           alt='Person'
         />
         <h5 className='mb-1 text-xl font-medium text-black'>Learning Journey {LJId}</h5>
