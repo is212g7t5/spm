@@ -1,21 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { toast } from "react-toastify";
 import { getAllCoursesAndActiveSkills } from "src/api/course";
 import { useUserContext } from "src/contexts/UserContext";
 import CourseTile from "../CourseTile";
 
-function StaffCourse() {
-  const [courses, setCourses] = useState([]);
+function HRCourse() {
   const { currentUserId } = useUserContext();
+  const [courses, setCourses] = useState([]);
 
   useEffect(() => {
     getAllCourses();
 
     async function getAllCourses() {
       const coursesReturnedFromBackend = await getAllCoursesAndActiveSkills();
-      if (coursesReturnedFromBackend.length === 0) {
-        toast.warning("There are no courses to display");
-      }
       setCourses(coursesReturnedFromBackend);
     }
   }, []);
@@ -40,4 +36,4 @@ function StaffCourse() {
   );
 }
 
-export default StaffCourse;
+export default HRCourse;

@@ -31,7 +31,7 @@ export const getCourseById = async (courseId) => {
     console.log(error);
     return {};
   }
-}
+};
 
 export const getAllCoursesAndActiveSkills = async () => {
   try {
@@ -58,7 +58,6 @@ function courseSnakeToCamel(snakeCaseCourse) {
     courseStatus: snakeCaseCourse.course_status,
     courseType: snakeCaseCourse.course_type,
     courseCategory: snakeCaseCourse.course_category,
-    isActive: snakeCaseCourse.is_active,
   };
 }
 
