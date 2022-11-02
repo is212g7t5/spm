@@ -49,7 +49,7 @@ function CourseCard({ courseDetails, numOfCourses, onDeleteSkillModalOpen }) {
       <h5 className='mb-2 text-2xl font-bold tracking-tight text-black dark:text-white'>
         {courseDetails.courseName}
       </h5>
-      <p className='h-full font-normal text-black dark:text-black'>{courseDetails.courseDesc}</p>
+      <p className='h-full font-normal text-black overflow-auto dark:text-black'>{courseDetails.courseDesc}</p>
     </div>
   );
 }
