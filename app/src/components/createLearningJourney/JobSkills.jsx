@@ -1,5 +1,13 @@
-export default function JobSkills({ skills, openModal, setCurrentSelectedSkill }) {
-  const renderSkillsForJobRole = skills.map((skill, index) => (
+import CoursesList from "./CoursesList";
+
+export default function JobSkills({
+  skills,
+  openModal,
+  setCurrentSelectedSkill,
+  onDeleteSkillModalOpen,
+}) {
+  const activeSkills = skills.filter((skill) => skill.isActive);
+  const renderSkillsForJobRole = activeSkills.map((skill, index) => (
     <SkillBody
       key={index}
       skill={skill}
@@ -8,13 +16,25 @@ export default function JobSkills({ skills, openModal, setCurrentSelectedSkill }
     />
   ));
 
+  let finalRender;
+  if (activeSkills.length === 0) {
+    finalRender = <p className='font-bold text-red-500'>No Active Skills Currently Found</p>;
+  } else {
+    finalRender = (
+      <div>
+        {renderSkillsForJobRole}
+        <CoursesList onDeleteSkillModalOpen={onDeleteSkillModalOpen} />
+      </div>
+    );
+  }
+
   return (
     <div className='flex-col mt-5'>
       <p className='text-lg font-bold text-black dark:text-white'>Skills Required:</p>
       <p className='text-sm font-light text-black dark:text-white italic'>
         Click on a skill to look for courses
       </p>
-      {renderSkillsForJobRole}
+      {finalRender}
     </div>
   );
 }
