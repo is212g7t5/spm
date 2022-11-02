@@ -30,16 +30,8 @@ function StaffCourse() {
     />
   ));
 
-  const courseComponent = (props) => (
-    <div className='flex flex-col container w-9/12 max-w-7xl mt-10 p-10 mx-auto w-full bg-white rounded-lg shadow-lg'>
-      <p>{props}</p>
-      <h1 className='text-3xl text-left font-bold'>Courses</h1>
-      {courses.length === 0 ? "No Courses Found" : renderCourses}
-    </div>
-  )
-
   return (
-    <div className='flex flex-col container w-9/12 max-w-7xl mt-10 p-10 mx-auto w-full bg-white rounded-lg shadow-lg'>
+    <div className='flex flex-col container w-10/12 max-w-7xl mt-10 p-10 mx-auto w-full bg-white rounded-lg shadow-lg'>
       <h1 className='text-3xl text-left font-bold'>Courses</h1>
       {courses.length === 0 ? "No Courses Found" : renderCourses}
     </div>
