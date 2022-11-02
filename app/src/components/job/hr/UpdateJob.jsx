@@ -54,7 +54,7 @@ export default function HRUpdateJob() {
             </div>
             <button
               type='submit'
-              className='text-white bg-accent2 hover:bg-accent3 focus:ring-42 focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center'
+              className='text-white bg-accent2 hover:bg-accent3 focus:ring-2 focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center'
             >
               Update Job
             </button>

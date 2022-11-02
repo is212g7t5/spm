@@ -41,10 +41,10 @@ export default function JobDeletionPopUp({
   return trigger ? (
     <div
       id='deletePopUp'
-      className='flex justify-center fixed inset-0 h-screen items-center z-10 backdrop-blur-md p-5'
+      className='flex justify-center fixed inset-0 h-screen items-center z-10 backdrop-grayscale backdrop-blur-xl p-5'
     >
       <div className='flex-initial'>
-        <div className='container shadow-2xl shadow-black-300 px-7 py-5 grid rounded-lg bg-white'>
+        <div className='container shadow-lg px-7 py-5 grid rounded-lg bg-white'>
           <div className='grid-row py-3 text-3xl font-bold'>Warning</div>
 
           <div className='grid-row py-3 text-lg'>Are you sure you want to delete this job?</div>
