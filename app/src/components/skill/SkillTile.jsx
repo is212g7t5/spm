@@ -148,16 +148,7 @@ function CreateDeactivateSkillButton({
           <TrashIcon className='mr-2 h-5 w-5' aria-hidden='true' />
           Deactivate
         </button>
-      ) : (
-        <button
-          type='button'
-          className='flex w-full items-center mr-5 justify-center ml-auto text-white bg-gray-400 rounded-lg text-sm px-2 py-2.5 text-center m-1'
-          onClick={onStopDeactivateSkillModalOpen}
-        >
-          <TrashIcon className='mr-2 h-5 w-5' aria-hidden='true' />
-          Deactivated
-        </button>
-      )}
+      ) : null}
     </div>
   );
 }
