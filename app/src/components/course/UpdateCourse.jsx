@@ -17,22 +17,35 @@ export default function HRUpdateCourse() {
   const [skills, setSkills] = useState(updateCourse.skills);
   const [skillsToBeUnassigned, setSkillsToBeUnassigned] = useState([]);
   const [allActiveSkills, setAllActiveSkills] = useState({});
+  const [skillsToBeDisplayed, setSkillsToBeDisplayed] = useState([]);
   const [selectedSkills, setSelectedSkills] = useState([]);
   const [defaultSkillValue, setDefaultSkillValue] = useState("default");
 
   const handleSkillChange = (e) => {
     e.preventDefault();
     const newSkillId = parseInt(e.target.value, 10);
-    const objectToInsert = { "skill_id": newSkillId, "action" : "add" };
-    const checkIfIdExists = obj => obj.skill_id === newSkillId;
+    const objectToInsert = { skill_id: newSkillId, action: "add" };
+
+    // add skill object into selectSkills with action "add" by default
+    const checkIfIdExists = (obj) => obj.skill_id === newSkillId;
     const result = selectedSkills.some(checkIfIdExists);
-    if (!result){
-        setSelectedSkills([...selectedSkills, objectToInsert])
+    if (!result) {
+      setSelectedSkills([...selectedSkills, objectToInsert]);
+    } else {
+      const indexOfExistingSkill = selectedSkills.findIndex((obj) => obj.skill_id === newSkillId);
+      if (indexOfExistingSkill !== -1) {
+        selectedSkills[indexOfExistingSkill].action = "add";
+      }
+    }
+    // add skill object into skillsToBeDisplayed to renderSelectedSkills. Action is not important here
+    const resultOfDisplay = skillsToBeDisplayed.some(checkIfIdExists);
+    if (!resultOfDisplay) {
+      setSkillsToBeDisplayed([...skillsToBeDisplayed, objectToInsert]);
     }
     console.log(result);
-    // if (!selectedSkills.includes(newSkillId)) {
-    //   setSelectedSkills([...selectedSkills, newSkillId]);
-    // }
+    console.log(resultOfDisplay);
+    console.log(skillsToBeDisplayed);
+
     setDefaultSkillValue("default");
   };
 
@@ -43,27 +56,29 @@ export default function HRUpdateCourse() {
       const skillsReturnedFromBackend = await getSkillsObject(true);
       setAllActiveSkills(skillsReturnedFromBackend);
 
+      // populate initial skills assigned to course into selectedSkills
       const tempSkillArray = skills.map((skill) => skill.skillId);
       console.log(tempSkillArray);
       for (let i = 0; i < tempSkillArray.length; i += 1) {
         const skillIdToInsert = tempSkillArray[i];
-        const objectToInsert = { "skill_id": skillIdToInsert, "action" : "add" };
+        const objectToInsert = { skill_id: skillIdToInsert, action: "add" };
         console.log(objectToInsert);
-        const checkIfIdExists = obj => obj.skill_id === skillIdToInsert;
+        const checkIfIdExists = (obj) => obj.skill_id === skillIdToInsert;
         const result = selectedSkills.some(checkIfIdExists);
-        console.log(result)
-        if(!result){
-            selectedSkills.push(objectToInsert);
-            console.log(selectedSkills);
+        console.log(result);
+        if (!result) {
+          selectedSkills.push(objectToInsert);
+          console.log(selectedSkills);
         }
-        // setSelectedSkills([...selectedSkills, objectToInsert]); // array of objects
-
       }
+      // set skillsToBeDisplayed to selectedSkills initially
+      setSkillsToBeDisplayed(selectedSkills);
     }
   }, []);
 
   console.log(allActiveSkills);
   console.log(selectedSkills);
+  console.log(skillsToBeDisplayed);
   console.log(skills);
   console.log(courseId);
 
@@ -72,12 +87,27 @@ export default function HRUpdateCourse() {
   ));
 
   const removeSkill = (skillId) => () => {
-    setSelectedSkills((selectedSkills) =>
-      selectedSkills.filter((selectedSkillElement) => selectedSkillElement.skill_id !== skillId),
+    const checkIfSkillIsAlreadyAssigned = (obj) => obj.skill_id === skillId;
+    const result = selectedSkills.some(checkIfSkillIsAlreadyAssigned);
+    console.log(result);
+    // on click, if skill to be removed is initially assigned to course, set action = "delete"
+    if (result) {
+      const indexOfExistingSkill = selectedSkills.findIndex((obj) => obj.skill_id === skillId);
+      console.log(indexOfExistingSkill);
+      if (indexOfExistingSkill !== -1) {
+        selectedSkills[indexOfExistingSkill].action = "delete";
+      }
+      console.log(selectedSkills[indexOfExistingSkill].action);
+    }
+    // Remove skill from skillsToBeDisplayed
+    setSkillsToBeDisplayed((skillsToBeDisplayed) =>
+      skillsToBeDisplayed.filter(
+        (selectedSkillElement) => selectedSkillElement.skill_id !== skillId,
+      ),
     );
   };
 
-  const renderSelectedSkills = selectedSkills.map((skillObject) => (
+  const renderSelectedSkills = skillsToBeDisplayed.map((skillObject) => (
     <div className='flex bg-primaryColor text-textColor mr-2 px-3 py-1 space-x-2 rounded'>
       <span>{allActiveSkills[skillObject.skill_id].skillName}</span>
       <button type='button' onClick={removeSkill(skillObject.skill_id)}>
