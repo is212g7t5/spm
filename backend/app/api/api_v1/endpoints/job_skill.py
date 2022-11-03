@@ -100,3 +100,19 @@ def delete_job_skill_by_id(
         )
     job_skill = crud.job_skill.remove(db, job_id=job_id, skill_id=skill_id)
     return job_skill
+
+
+@router.delete("/{job_id}", response_model=List[schemas.JobSkill])
+def delete_job_skill_by_job_id(
+    job_id: int, db: Session = Depends(deps.get_db), skip: int = 0
+) -> Any:
+    """
+    Delete all skills under a job
+    """
+    job_skill = crud.job_skill.remove_by_job_id(db, job_id=job_id)
+    if not job_skill:
+        raise HTTPException(
+            status_code=404,
+            detail="Skills under this job not found",
+        )
+    return job_skill

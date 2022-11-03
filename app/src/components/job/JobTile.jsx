@@ -51,7 +51,7 @@ export default function JobTile({ jobId, jobName, jobDesc, skills, isActive, set
           <BriefcaseIcon className='fs-5 ml-1 mr-2 h-5 w-5' aria-hidden='true' />
           <div className='ml-5'>
             <div className='flex space-x-5 items-center'>
-              <div className={"font-medium text-left " + (isActive ? "" : "text-black")}>
+              <div className={"font-medium text-left " + (isActive ? "" : "text-gray-400")}>
                 {jobName}
               </div>
               {isActive ? "" : <CreateInactiveBadge />}
@@ -114,14 +114,14 @@ function CreateDeleteJobButton({showPopUp}){
     onClick={showPopUp}
   >
     <TrashIcon className='mr-2 h-5 w-5' aria-hidden='true' />
-    <span>Delete</span>
+    <span>Deactivate</span>
   </button>
   );
 }
 
 function CreateInactiveBadge() {
   return (
-    <span className='bg-gray-100 text-black mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800'>
+    <span className='bg-gray-100 text-gray-400 mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800'>
       Inactive
     </span>
   );

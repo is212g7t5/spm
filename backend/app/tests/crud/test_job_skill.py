@@ -53,3 +53,29 @@ def test_delete_job_skill(db: Session) -> None:
     assert job_skill3 is None
     assert job_skill2.job_id == job_skill.job_id
     assert job_skill2.skill_id == job_skill.skill_id
+
+
+def test_delete_job_skill_by_job_id(db: Session) -> None:
+    job = create_random_job(db)
+    job_skill1 = create_random_job_skill(db=db, job=job)
+    job_skill2 = create_random_job_skill(db=db, job=job)
+    job_skill3 = create_random_job_skill(db)
+
+    job_skills = crud.job_skill.remove_by_job_id(db=db, job_id=job.job_id)
+
+    job_skill4 = crud.job_skill.get(
+        db=db, job_id=job.job_id, skill_id=job_skill1.skill_id
+    )
+    job_skill5 = crud.job_skill.get(
+        db=db, job_id=job.job_id, skill_id=job_skill2.skill_id
+    )
+    job_skill6 = crud.job_skill.get(
+        db=db, job_id=job_skill3.job_id, skill_id=job_skill3.skill_id
+    )
+
+    assert job_skill4 is None
+    assert job_skill5 is None
+    assert job_skill6 is not None
+
+    for job_skill in job_skills:
+        assert job_skill.job_id == job.job_id
