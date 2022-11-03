@@ -35,7 +35,7 @@ export default function HRUpdateCourse() {
     async function getAllSkills() {
       const skillsReturnedFromBackend = await getSkillsObject(true);
       setAllActiveSkills(skillsReturnedFromBackend);
-      const tempSkillArray = skills.map((skill) => skill.skill_id);
+      const tempSkillArray = skills.map((skill) => skill.skillId);
       setSelectedSkills(tempSkillArray);
     }
   }, []);
@@ -65,34 +65,28 @@ export default function HRUpdateCourse() {
   ));
 
   const handleSubmit = async (e) => {
+    // compare skills and selectedSkills -> only create for selected skills that are not in skills.
+
+    // console.log(skillsToBeExcluded);
+    // console.log(skillsToBeAssigned);
+
+    // first unassign all skills related to course
     e.preventDefault();
-    // display confirmation pop up
-
-    // first unassign all skills related to course, then assign selected skills to course
-
-// Method 1 Not working -> POST occurs before DELETE
-    // const tempSkillArray = skills.map((skill) => skill.skill_id);
-    // setSkillsToBeUnassigned(tempSkillArray);
-    // for(let i = 0; i<skillsToBeUnassigned.length; i+=1){
-    //     deleteSkillCourse(skillsToBeUnassigned[i],courseId);
-    // }
-
-    // for(let i = 0; i<selectedSkills.length; i+=1){
-    //     createSkillCourse(selectedSkills[i],courseId);
-    // }
-
-// Method 2 Not working -> POST occurs before DELETE
     const tempSkillArray = skills.map((skill) => skill.skill_id);
     setSkillsToBeUnassigned(tempSkillArray);
     // if skills to be unassigned length >0
-
     skillsToBeUnassigned.map(async (skillIdToBeUnassigned) => {
         await deleteSkillCourse(skillIdToBeUnassigned, courseId);
     })
 
+    // e.preventDefault();
     selectedSkills.map(async (skillIdToBeAssigned) => {
         await createSkillCourse(skillIdToBeAssigned, courseId);
     })
+
+    // display pop up?
+
+    // skillsToBeAssigned.filter((skillIdToBeAssigned) => skillIdToBeAssigned !== skills.map((skill) => skill.skill_id) );
   };
 
   switch (currentUserType) {
@@ -139,6 +133,6 @@ export default function HRUpdateCourse() {
         </div>
       );
     default:
-      return null
+      return <p>FK!!!!</p>;
   }
 }
