@@ -102,9 +102,9 @@ function LearningJourneyDetails() {
   };
 
   return (
-    <div className='flex flex-col container w-11/12 max-w-7xl p-5 mx-auto w-full justify-around'>
-      <h1 className='my-2 lg:text-2xl font-bold lg:text-center'>Learning Journey {LJId}</h1>
-      <div className='grid grid-cols-4'>
+    <div className='flex flex-col container w-11/12 max-w-7xl p-5 mx-auto w-full items-center'>
+      <h1 className='my-2 text-2xl font-bold lg:text-center'>Learning Journey {LJId}</h1>
+      <div className='lg:grid lg:grid-cols-4'>
         <CourseContainer LJId={LJId} staffId={currentUserId} LJCourseIds={LJCourseIds} />
         <JobAndSkillsContainer
           LJId={LJId}

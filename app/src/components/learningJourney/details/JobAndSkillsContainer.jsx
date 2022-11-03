@@ -11,11 +11,11 @@ export default function JobAndSkillsContainer({ LJId, skills, jobName, isJobActi
   </div>;
 
   return (
-    <div className='flex flex-col w-48 mt-1 ml-9 lg:col-span-1 col-span-2'>
-      <h2 className='mb-1 lg:text-lg font-bold text-center'>Target Job Role:</h2>
+    <div className='flex flex-col w-full lg:w-48 mt-1 lg:ml-10 lg:col-span-1'>
+      <h2 className='mb-1 text-xl font-semibold text-left lg:text-center'>Target Job Role:</h2>
       <JobBadge jobName={jobName} isActive={isJobActive} />
 
-      <div className='flex flex-col mt-2 rounded-lg shadow-lg'>
+      <div className='flex flex-wrap lg:flex-col mt-2 rounded-lg shadow-lg'>
         {skillList.length === 0 ? noActiveSkillsMessage : skillList}
       </div>
     </div>
