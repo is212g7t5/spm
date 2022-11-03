@@ -79,4 +79,3 @@ def test_delete_job_skill_by_job_id(db: Session) -> None:
 
     for job_skill in job_skills:
         assert job_skill.job_id == job.job_id
-
