@@ -109,7 +109,7 @@ export default function index() {
   const isEditing = location.state && location.state.isEditing;
 
   return (
-    <div className='flex flex-col container w-9/12 max-w-7xl mt-10 p-10 mx-auto w-full bg-white rounded-lg shadow-lg justify-around'>
+    <div className='flex flex-col container mt-10 p-10 mx-auto w-full bg-white rounded-lg shadow-lg justify-around'>
       <h1 className='text-3xl text-left font-bold'>
         {isEditing ? "Update your Learning Journey" : "Create your Learning Journey"}
       </h1>
