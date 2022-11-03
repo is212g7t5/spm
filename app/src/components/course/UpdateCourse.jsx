@@ -106,16 +106,13 @@ export default function HRUpdateCourse() {
     // iterate through selectedSkills, create for action = "add", delete for action = "delete"
     e.preventDefault();
     for (let i = 0; i < selectedSkills.length; i += 1) {
-      const checkIfIdExists = (obj) => obj.skill_id === selectedSkills[i].skill_id;
-      const result = skills.some(checkIfIdExists);
-
-      if (selectedSkills[i].action === "delete" && result) {
-        // call api to delete skill course if action = "delete" and skillId exists in skills
+      if (selectedSkills[i].action === "delete") {
+        // call api to delete skill course if action = "delete"
         deleteSkillCourse(selectedSkills[i].skill_id, courseId);
       }
 
-      if (selectedSkills[i].action === "add" && !result) {
-        // call api to create skill course if action = "add" and skillId does not exist in skills
+      if (selectedSkills[i].action === "add") {
+        // call api to create skill course if action = "add"
         createSkillCourse(selectedSkills[i].skill_id, courseId);
       }
     }
@@ -153,7 +150,7 @@ export default function HRUpdateCourse() {
                   {renderSkillsOptions}
                 </select>
               </label>
-              <div className='flex space-x-2'>{renderSelectedSkills}</div>
+              <div className='flex flex-wrap'>{renderSelectedSkills}</div>
             </div>
             <button
               type='submit'
