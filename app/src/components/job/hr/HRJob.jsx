@@ -36,11 +36,11 @@ function HRJob() {
 
   return (
     <div className='flex flex-col container mt-10 bg-white p-10 mt-10 mx-auto rounded-lg shadow-lg'>
-      <div className='flex justify-between mb-5'>
+      <div className='flex md:flex-row flex-col justify-between mb-5'>
         <h1 className='text-3xl text-left font-bold'>View All Job Roles</h1>
         <button
           type='button'
-          className='relative inline-flex items-center rounded-md border border-accent2 bg-transparent px-4 py-2 text-sm font-medium text-accent2 shadow-sm hover:text-white hover:bg-accent2 focus:ring-2 focus:ring-gray-300'
+          className='w-fit mt-2 md:mt-0 relative inline-flex items-center rounded-md border border-accent2 bg-transparent px-4 py-2 text-sm font-medium text-accent2 shadow-sm hover:text-white hover:bg-accent2 focus:ring-2 focus:ring-gray-300'
           onClick={redirectToCreateJobPage}
         >
           <BriefcaseIcon className='-ml-1 mr-2 h-5 w-5' aria-hidden='true' />
