@@ -75,7 +75,7 @@ function LearningJourneyTile({
 
 function CreateInactiveBadge() {
   return (
-    <span className='ml-1 bg-gray-100 text-gray-500 mr-2 px-2.5 py-0.5 rounded'>Inactive</span>
+    <span className='ml-1 bg-gray-100 text-gray-400 mr-2 px-2.5 py-0.5 rounded'>Inactive</span>
   );
 }
 
