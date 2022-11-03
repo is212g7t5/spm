@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { updateJob } from "src/api/jobs";
-import { getSkillIdsForJobId, createJobSkill, deleteAllSkillsUnderJob } from "src/api/jobSkill";
+import { createJobSkill, deleteAllSkillsUnderJob } from "src/api/jobSkill";
 import { useUpdateJobContext } from "src/contexts/UpdateJobContext";
 import { useUserContext } from "src/contexts/UserContext";
 import UpdateJobSuccess from "./UpdateJobSuccess";
@@ -20,15 +20,6 @@ export default function HRUpdateJob() {
   const [displayPopup, setDisplayPopup] = useState(false);
   const [selectedSkills, setSelectedSkills] = useState([]);
 
-  useEffect(() => {
-    getExistingSelectedSkills();
-
-    async function getExistingSelectedSkills() {
-      const existingSkillsReturnedFromBackend = await getSkillIdsForJobId(updateJobRole.jobId);
-      setSelectedSkills(existingSkillsReturnedFromBackend);
-    }
-  }, []);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await updateJob(updateJobRole.jobId, jobName, jobDesc, jobIsActive);
@@ -40,6 +31,8 @@ export default function HRUpdateJob() {
         errorList.push(res.detail);
       }
       setErrors(errorList);
+    } else if (jobIsActive === false || jobIsActive === 0) {
+      setDisplayPopup(true);
     } else {
       setErrors([]);
       await deleteAllSkillsUnderJob(updateJobRole.jobId);
@@ -59,15 +52,20 @@ export default function HRUpdateJob() {
           <h1 className='text-3xl text-left font-bold'>Update Job</h1>
           <form onSubmit={handleSubmit} className='pt-10'>
             <div className='mb-6'>
-              <JobNameInput jobName={jobName} setJobName={setJobName} />
+              <JobNameInput jobName={jobName} setJobName={setJobName} jobIsActive={jobIsActive} />
             </div>
             <div className='mb-6'>
-              <JobDescTextArea jobDesc={jobDesc} setJobDesc={setJobDesc} />
+              <JobDescTextArea
+                jobDesc={jobDesc}
+                setJobDesc={setJobDesc}
+                jobIsActive={jobIsActive}
+              />
             </div>
 
             <JobSkillSelection
               selectedSkills={selectedSkills}
               setSelectedSkills={setSelectedSkills}
+              jobIsActive={jobIsActive}
             />
 
             <div className='mb-6'>
@@ -82,7 +80,7 @@ export default function HRUpdateJob() {
             </button>
           </form>
           <div className='pt-5 text-red-500'>{renderErrors}</div>
-          {displayPopup ? <UpdateJobSuccess jobName={jobName} /> : null}
+          {displayPopup ? <UpdateJobSuccess jobName={jobName} jobIsActive={jobIsActive} /> : null}
         </div>
       );
     default:
