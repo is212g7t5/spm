@@ -51,7 +51,7 @@ export default function SkillTile({
   return (
     <div className='container flex-col'>
       <div
-        className='flex p-5 m-3 items-center justify-between bg-white rounded-lg shadow hover:shadow-lg cursor-pointer'
+        className='flex-col flex md:flex-row p-5 m-3 md:items-center justify-between bg-white rounded-lg shadow hover:shadow-lg cursor-pointer'
         onClick={() => setIsDetailsOpen(!isDetailsOpen)}
         aria-hidden='true'
       >
@@ -67,9 +67,9 @@ export default function SkillTile({
             <div className='text-black text-sm text-left'>{skillId}</div>
           </div>
         </div>
-        <div className='flex items-center'>
+        <div className='flex items-center mt-5 md:mt-0 justify-between'>
           {currentUserType === "HR" && (
-            <div className='flex flex-col'>
+            <div className='flex md:flex-col'>
               <CreateEditSkillButton handleEditSkillButtonClick={handleEditSkillButtonClick} />
               <CreateDeactivateSkillButton
                 skillId={skillId}
@@ -112,7 +112,7 @@ function CreateEditSkillButton({ handleEditSkillButtonClick }) {
   return (
     <button
       type='button'
-      className='w-full flex items-center mr-5 justify-center ml-auto text-white bg-secondary hover:bg-primary focus:ring-2 focus:ring-gray-300 rounded-lg text-sm px-5 py-2.5 text-center m-1'
+      className='w-full flex items-center md:mr-5 justify-center ml-auto text-white bg-secondary hover:bg-primary focus:ring-2 focus:ring-gray-300 rounded-lg text-sm px-5 py-2.5 text-center m-1'
       onClick={handleEditSkillButtonClick}
     >
       <PencilSquareIcon className='mr-2 h-5 w-5' aria-hidden='true' />
@@ -148,16 +148,7 @@ function CreateDeactivateSkillButton({
           <TrashIcon className='mr-2 h-5 w-5' aria-hidden='true' />
           Deactivate
         </button>
-      ) : (
-        <button
-          type='button'
-          className='flex w-full items-center mr-5 justify-center ml-auto text-white bg-gray-400 rounded-lg text-sm px-2 py-2.5 text-center m-1'
-          onClick={onStopDeactivateSkillModalOpen}
-        >
-          <TrashIcon className='mr-2 h-5 w-5' aria-hidden='true' />
-          Deactivated
-        </button>
-      )}
+      ) : null}
     </div>
   );
 }

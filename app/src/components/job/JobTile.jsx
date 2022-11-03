@@ -43,15 +43,15 @@ export default function JobTile({ jobId, jobName, jobDesc, skills, isActive, set
   return (
     <div className='container flex-col'>
       <div
-        className='flex p-5 m-3 items-center justify-between bg-white rounded-lg shadow hover:shadow-lg cursor-pointer'
+        className='flex-col flex md:flex-row p-5 m-3 items-center justify-between bg-white rounded-lg shadow hover:shadow-lg cursor-pointer'
         onClick={() => setIsDetailsOpen(!isDetailsOpen)}
         aria-hidden='true'
       >
         <div className='flex items-center'>
           <BriefcaseIcon className='fs-5 ml-1 mr-2 h-5 w-5' aria-hidden='true' />
           <div className='ml-5'>
-            <div className='flex space-x-5 items-center'>
-              <div className={"font-medium text-left " + (isActive ? "" : "text-black")}>
+            <div className='flex flex-col lg:flex-row lg:space-x-5 lg:items-center'>
+              <div className={"font-medium text-left " + (isActive ? "" : "text-gray-400")}>
                 {jobName}
               </div>
               {isActive ? "" : <CreateInactiveBadge />}
@@ -59,8 +59,8 @@ export default function JobTile({ jobId, jobName, jobDesc, skills, isActive, set
             <div className='text-black text-sm text-left'>{jobId}</div>
           </div>
         </div>
-        <div className='flex items-center'>
-          <div className='flex flex-col'>
+        <div className='flex items-center mt-5 md:mt-0 justify-between'>
+          <div className='flex-col'>
             {skills.length >= 1 && (
               <CreateLearningJourneyButton handleCreateLJButtonClick={handleCreateLJButtonClick} />
             )}
@@ -114,14 +114,14 @@ function CreateDeleteJobButton({showPopUp}){
     onClick={showPopUp}
   >
     <TrashIcon className='mr-2 h-5 w-5' aria-hidden='true' />
-    <span>Delete</span>
+    <span>Deactivate</span>
   </button>
   );
 }
 
 function CreateInactiveBadge() {
   return (
-    <span className='bg-gray-100 text-black mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800'>
+    <span className='w-fit bg-gray-100 text-gray-400 mr-2 px-2.5 py-0.5 rounded'>
       Inactive
     </span>
   );

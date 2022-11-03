@@ -32,7 +32,7 @@ export default function RegistrationStatusBadge({ staffId, courseId }) {
 
   return (
     <span
-      className={`${statusToBadgeClass[courseStatus]} text-sm font-medium mx-3 px-2.5 py-0.5 rounded`}
+      className={`${statusToBadgeClass[courseStatus]} text-sm font-medium md:mx-3 my-1 md:my-0 px-2.5 py-0.5 rounded`}
     >
       {courseStatus}
     </span>
