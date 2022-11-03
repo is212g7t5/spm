@@ -54,3 +54,34 @@ function extractSkillIdsFromJobSkills(jobSkills) {
   });
   return skillIdArray;
 }
+
+export const createJobSkill = async (jobId, skillId) => {
+  try {
+    const res = await axiosJobSkillInstance.post("/", {
+      job_id: jobId,
+      skill_id: skillId
+    });
+    if (res) {
+      console.log(res.data);
+      return res.data;
+    }
+    throw new Error("No data returned from backend");
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+}
+
+export const deleteAllSkillsUnderJob = async (jobId) => {
+  try {
+    const res = await axiosJobSkillInstance.delete(`/${jobId}`);
+    if (res) {
+      console.log(res.data);
+      return res.data;
+    }
+    throw new Error("No data returned from backend");
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+}

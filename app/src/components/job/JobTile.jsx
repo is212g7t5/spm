@@ -160,7 +160,7 @@ function JobTileDescription({ jobDesc, skills }) {
     <div className='m-auto flex flex-col w-full p-5 px-10 bg-gray-100 rounded-lg'>
       <p className='text-ellipsis overflow-hidden font-medium text-justify'>{jobDesc}</p>
       {skills.length ? (
-        <div className='flex mt-5'>{renderSkillsForJobRole}</div>
+        <div className='flex flex-wrap mt-5'>{renderSkillsForJobRole}</div>
       ) : (
         "No current skills"
       )}

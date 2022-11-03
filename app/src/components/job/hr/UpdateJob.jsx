@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { updateJob } from "src/api/jobs";
+import { getSkillIdsForJobId, createJobSkill, deleteAllSkillsUnderJob } from "src/api/jobSkill";
 import { useUpdateJobContext } from "src/contexts/UpdateJobContext";
 import { useUserContext } from "src/contexts/UserContext";
 import UpdateJobSuccess from "./UpdateJobSuccess";
 import JobNameInput from "./form/JobNameInput";
 import JobDescTextArea from "./form/JobDescTextArea";
 import JobIsActiveToggle from "./form/JobIsActiveToggle";
+import JobSkillSelection from "./form/JobSkillSelection";
 
 export default function HRUpdateJob() {
   const { currentUserType } = useUserContext();
@@ -16,6 +18,16 @@ export default function HRUpdateJob() {
   const [jobIsActive, setJobIsActive] = useState(updateJobRole.isActive);
   const [errors, setErrors] = useState([]);
   const [displayPopup, setDisplayPopup] = useState(false);
+  const [selectedSkills, setSelectedSkills] = useState([]);
+
+  useEffect(() => {
+    getExistingSelectedSkills();
+
+    async function getExistingSelectedSkills() {
+      const existingSkillsReturnedFromBackend = await getSkillIdsForJobId(updateJobRole.jobId);
+      setSelectedSkills(existingSkillsReturnedFromBackend);
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,6 +42,10 @@ export default function HRUpdateJob() {
       setErrors(errorList);
     } else {
       setErrors([]);
+      await deleteAllSkillsUnderJob(updateJobRole.jobId);
+      selectedSkills.map(async (skillId) => {
+        await createJobSkill(res.job_id, skillId);
+      });
       setDisplayPopup(true);
     }
   };
@@ -48,6 +64,12 @@ export default function HRUpdateJob() {
             <div className='mb-6'>
               <JobDescTextArea jobDesc={jobDesc} setJobDesc={setJobDesc} />
             </div>
+
+            <JobSkillSelection
+              selectedSkills={selectedSkills}
+              setSelectedSkills={setSelectedSkills}
+            />
+
             <div className='mb-6'>
               <p className='block mb-2 text-md font-medium text-black'>Job Status</p>
               <JobIsActiveToggle jobIsActive={jobIsActive} setJobIsActive={setJobIsActive} />
