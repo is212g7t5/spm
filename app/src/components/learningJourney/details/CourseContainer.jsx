@@ -14,13 +14,17 @@ export default function CourseContainer({ LJId, staffId, LJCourseIds }) {
   ));
 
   return (
-    <div className='flex flex-col col-span-4 lg:col-span-3'>
-      <div className='lg:flex items-end'>
-        <h2 className='mr-3 mt-1 lg:text-2xl font-semibold'>Added Courses</h2>
+    <div className='flex flex-col lg:col-span-3'>
+      <div className='lg:flex'>
+        <h2 className='mt-1 text-xl font-semibold'>Added Courses</h2>
+      </div>
+      <div className="flex flex-wrap mt-2">
         {renderStatusToColorLegend}
       </div>
-      <div className='flex max-w-xs lg:max-w-4xl max-h-72 lg:max-h-screen overflow-auto bg-white rounded-lg border border-gray-200 shadow-lg'>
-        <div className='grid grid-cols-2 lg:grid-cols-3 gap-3 m-2'>{renderCourseCards}</div>
+      <div className='flex w-full max-h-72 lg:max-h-screen overflow-auto bg-white rounded-lg border border-gray-200 shadow-lg my-5 p-5'>
+        <div className='grid grid-cols-2 lg:grid-cols-3 gap-3 m-2'>
+          {renderCourseCards.length === 0 ? "No Courses added yet" : renderCourseCards}
+        </div>
       </div>
     </div>
   );
