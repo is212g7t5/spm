@@ -21,7 +21,7 @@ export default function CourseContainer({ LJId, staffId, LJCourseIds }) {
       <div className="flex flex-wrap mt-2">
         {renderStatusToColorLegend}
       </div>
-      <div className='flex max-w-xs lg:max-w-4xl max-h-72 lg:max-h-screen overflow-auto bg-white rounded-lg border border-gray-200 shadow-lg mt-5 p-5'>
+      <div className='flex max-w-xs lg:max-w-4xl max-h-72 lg:max-h-screen overflow-auto bg-white rounded-lg border border-gray-200 shadow-lg my-5 p-5'>
         <div className='grid grid-cols-2 lg:grid-cols-3 gap-3 m-2'>
           {renderCourseCards.length === 0 ? "No Courses added yet" : renderCourseCards}
         </div>
