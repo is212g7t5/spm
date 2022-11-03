@@ -22,7 +22,7 @@ class CRUDJobSkill(CRUDBase[Job_Skill, JobSkillCreate, JobSkillUpdate]):
         job_id: Any,
         skip: int = 0,
         limit: int = 100,
-        active_only: bool = False
+        active_only: bool = False,
     ) -> Job_Skill:
         return (
             db.query(self.model)
@@ -39,7 +39,7 @@ class CRUDJobSkill(CRUDBase[Job_Skill, JobSkillCreate, JobSkillUpdate]):
         skill_id: Any,
         skip: int = 0,
         limit: int = 100,
-        active_only: bool = False
+        active_only: bool = False,
     ) -> Job_Skill:
         return (
             db.query(self.model)
@@ -64,6 +64,26 @@ class CRUDJobSkill(CRUDBase[Job_Skill, JobSkillCreate, JobSkillUpdate]):
         db.delete(obj)
         db.commit()
         return obj
+
+    def remove_by_job_id(
+        self,
+        db: Session,
+        *,
+        job_id: Any,
+        skip: int = 0,
+        limit: int = 100,
+    ) -> Job_Skill:
+        objs = (
+            db.query(self.model)
+            .filter(self.model.job_id == job_id)
+            .offset(skip)
+            .limit(limit)
+            .all()
+        )
+        for obj in objs:
+            db.delete(obj)
+            db.commit()
+        return objs
 
 
 job_skill = CRUDJobSkill(Job_Skill)
