@@ -42,9 +42,6 @@ export default function HRUpdateCourse() {
     if (!resultOfDisplay) {
       setSkillsToBeDisplayed([...skillsToBeDisplayed, objectToInsert]);
     }
-    console.log(result);
-    console.log(resultOfDisplay);
-    console.log(skillsToBeDisplayed);
 
     setDefaultSkillValue("default");
   };
@@ -58,29 +55,19 @@ export default function HRUpdateCourse() {
 
       // populate initial skills assigned to course into selectedSkills
       const tempSkillArray = skills.map((skill) => skill.skillId);
-      console.log(tempSkillArray);
       for (let i = 0; i < tempSkillArray.length; i += 1) {
         const skillIdToInsert = tempSkillArray[i];
         const objectToInsert = { skill_id: skillIdToInsert, action: "add" };
-        console.log(objectToInsert);
         const checkIfIdExists = (obj) => obj.skill_id === skillIdToInsert;
         const result = selectedSkills.some(checkIfIdExists);
-        console.log(result);
         if (!result) {
           selectedSkills.push(objectToInsert);
-          console.log(selectedSkills);
         }
       }
       // set skillsToBeDisplayed to selectedSkills initially
       setSkillsToBeDisplayed(selectedSkills);
     }
   }, []);
-
-  console.log(allActiveSkills);
-  console.log(selectedSkills);
-  console.log(skillsToBeDisplayed);
-  console.log(skills);
-  console.log(courseId);
 
   const renderSkillsOptions = Object.keys(allActiveSkills).map((skillId) => (
     <option value={skillId}>{allActiveSkills[skillId].skillName}</option>
@@ -89,15 +76,12 @@ export default function HRUpdateCourse() {
   const removeSkill = (skillId) => () => {
     const checkIfSkillIsAlreadyAssigned = (obj) => obj.skill_id === skillId;
     const result = selectedSkills.some(checkIfSkillIsAlreadyAssigned);
-    console.log(result);
     // on click, if skill to be removed is initially assigned to course, set action = "delete"
     if (result) {
       const indexOfExistingSkill = selectedSkills.findIndex((obj) => obj.skill_id === skillId);
-      console.log(indexOfExistingSkill);
       if (indexOfExistingSkill !== -1) {
         selectedSkills[indexOfExistingSkill].action = "delete";
       }
-      console.log(selectedSkills[indexOfExistingSkill].action);
     }
     // Remove skill from skillsToBeDisplayed
     setSkillsToBeDisplayed((skillsToBeDisplayed) =>
@@ -117,28 +101,24 @@ export default function HRUpdateCourse() {
   ));
 
   const handleSubmit = async (e) => {
-    // compare skills and selectedSkills -> only create for selected skills that are not in skills.
+    // display confirmation pop up
 
-    // console.log(skillsToBeExcluded);
-    // console.log(skillsToBeAssigned);
-
-    // first unassign all skills related to course
+    // iterate through selectedSkills, create for action = "add", delete for action = "delete"
     e.preventDefault();
-    const tempSkillArray = skills.map((skill) => skill.skill_id);
-    setSkillsToBeUnassigned(tempSkillArray);
-    // if skills to be unassigned length >0
-    skillsToBeUnassigned.map(async (skillIdToBeUnassigned) => {
-      await deleteSkillCourse(skillIdToBeUnassigned, courseId);
-    });
+    for (let i = 0; i < selectedSkills.length; i += 1) {
+      const checkIfIdExists = (obj) => obj.skill_id === selectedSkills[i].skill_id;
+      const result = skills.some(checkIfIdExists);
 
-    // e.preventDefault();
-    selectedSkills.map(async (skillIdToBeAssigned) => {
-      await createSkillCourse(skillIdToBeAssigned, courseId);
-    });
+      if (selectedSkills[i].action === "delete" && result) {
+        // call api to delete skill course if action = "delete" and skillId exists in skills
+        deleteSkillCourse(selectedSkills[i].skill_id, courseId);
+      }
 
-    // display pop up?
-
-    // skillsToBeAssigned.filter((skillIdToBeAssigned) => skillIdToBeAssigned !== skills.map((skill) => skill.skill_id) );
+      if (selectedSkills[i].action === "add" && !result) {
+        // call api to create skill course if action = "add" and skillId does not exist in skills
+        createSkillCourse(selectedSkills[i].skill_id, courseId);
+      }
+    }
   };
 
   switch (currentUserType) {
