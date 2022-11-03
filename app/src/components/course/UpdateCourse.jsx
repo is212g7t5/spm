@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { useUpdateCourseContext } from "src/contexts/UpdateCourseContext";
 import { useUserContext } from "src/contexts/UserContext";
-import { getSkillIdsForCourse, createSkillCourse, deleteSkillCourse } from "src/api/skillCourse";
+// import { getSkillIdsForCourse, createSkillCourse, deleteSkillCourse } from "src/api/skillCourse";
 import { getSkillsObject } from "src/api/skills";
 // import UpdateCourseSuccess from "./UpdateCourseSuccess";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import CourseDescription from "./CourseDescription";
+import UpdateConfirmationPopUp from "./UpdateConfirmationPopUp";
 
 export default function HRUpdateCourse() {
   const { currentUserType } = useUserContext();
@@ -15,11 +16,14 @@ export default function HRUpdateCourse() {
   const [courseName, setCourseName] = useState(updateCourse.courseName);
   const [courseDesc, setCourseDesc] = useState(updateCourse.courseDesc);
   const [skills, setSkills] = useState(updateCourse.skills);
+  const [isConfirmPopUpOpen, setIsConfirmPopUpOpen] = useState(false);
   const [skillsToBeUnassigned, setSkillsToBeUnassigned] = useState([]);
   const [allActiveSkills, setAllActiveSkills] = useState({});
   const [skillsToBeDisplayed, setSkillsToBeDisplayed] = useState([]);
   const [selectedSkills, setSelectedSkills] = useState([]);
   const [defaultSkillValue, setDefaultSkillValue] = useState("default");
+
+  console.log(courseId);
 
   const handleSkillChange = (e) => {
     e.preventDefault();
@@ -46,6 +50,8 @@ export default function HRUpdateCourse() {
     setDefaultSkillValue("default");
   };
 
+  console.log(skills);
+
   useEffect(() => {
     getAllSkills();
 
@@ -68,6 +74,8 @@ export default function HRUpdateCourse() {
       setSkillsToBeDisplayed(selectedSkills);
     }
   }, []);
+
+  console.log(selectedSkills);
 
   const renderSkillsOptions = Object.keys(allActiveSkills).map((skillId) => (
     <option value={skillId}>{allActiveSkills[skillId].skillName}</option>
@@ -102,20 +110,8 @@ export default function HRUpdateCourse() {
 
   const handleSubmit = async (e) => {
     // display confirmation pop up
-
-    // iterate through selectedSkills, create for action = "add", delete for action = "delete"
     e.preventDefault();
-    for (let i = 0; i < selectedSkills.length; i += 1) {
-      if (selectedSkills[i].action === "delete") {
-        // call api to delete skill course if action = "delete"
-        deleteSkillCourse(selectedSkills[i].skill_id, courseId);
-      }
-
-      if (selectedSkills[i].action === "add") {
-        // call api to create skill course if action = "add"
-        createSkillCourse(selectedSkills[i].skill_id, courseId);
-      }
-    }
+    setIsConfirmPopUpOpen(true);
   };
 
   switch (currentUserType) {
@@ -137,7 +133,6 @@ export default function HRUpdateCourse() {
                 className='block mb-2 text-md font-medium text-gray-900 dark:text-gray-300 space-y-2'
               >
                 <p>Skills</p>
-                <p className='italic font-light text-gray-400 text-sm'>At least 1 skill</p>
                 <select
                   id='underline_select'
                   onChange={handleSkillChange}
@@ -159,9 +154,19 @@ export default function HRUpdateCourse() {
               Re-assign skills to course
             </button>
           </form>
+          {isConfirmPopUpOpen ? (
+            <UpdateConfirmationPopUp
+              setIsConfirmPopUpOpen={setIsConfirmPopUpOpen}
+              isConfirmPopUpOpen={isConfirmPopUpOpen}
+              selectedSkills={selectedSkills}
+              setSelectedSkills={setSelectedSkills}
+              skills={skills}
+              courseId={courseId}
+            />
+          ) : null}
         </div>
       );
     default:
-      return <p>FK!!!!</p>;
+      return null;
   }
 }

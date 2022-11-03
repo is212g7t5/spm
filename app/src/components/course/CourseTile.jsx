@@ -1,19 +1,17 @@
 import React, { useState } from "react";
-import { ChevronDownIcon, ChevronRightIcon, BookOpenIcon, PencilSquareIcon } from "@heroicons/react/20/solid";
+import {
+  ChevronDownIcon,
+  ChevronRightIcon,
+  BookOpenIcon,
+  PencilSquareIcon,
+} from "@heroicons/react/20/solid";
 import { useUserContext } from "src/contexts/UserContext";
 import { useUpdateCourseContext } from "src/contexts/UpdateCourseContext";
 import { useHistory } from "react-router-dom";
 import CourseDescription from "./CourseDescription";
 import RegistrationStatusBadge from "./RegistrationStatusBadge";
 
-function CourseTile({
-  staffId,
-  courseId,
-  courseName,
-  courseDesc,
-  courseStatus,
-  skills,
-}) {
+function CourseTile({ staffId, courseId, courseName, courseDesc, courseStatus, skills }) {
   const { currentUserType } = useUserContext();
   const [isDescOpen, setIsDescOpen] = useState(false);
   const { setUpdateCourse } = useUpdateCourseContext();
@@ -50,7 +48,7 @@ function CourseTile({
           </div>
         </div>
         <div className='flex items-center'>
-          {currentUserType === "HR" && (
+          {currentUserType === "HR" && courseStatus === "Active" &&(
             <div className='flex flex-col'>
               <CreateEditCourseButton handleEditCourseButtonClick={handleEditCourseButtonClick} />
             </div>
@@ -64,7 +62,6 @@ function CourseTile({
     </div>
   );
 }
-
 
 function CreateEditCourseButton({ handleEditCourseButtonClick }) {
   return (
