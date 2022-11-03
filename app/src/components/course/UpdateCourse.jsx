@@ -23,9 +23,16 @@ export default function HRUpdateCourse() {
   const handleSkillChange = (e) => {
     e.preventDefault();
     const newSkillId = parseInt(e.target.value, 10);
-    if (!selectedSkills.includes(newSkillId)) {
-      setSelectedSkills([...selectedSkills, newSkillId]);
+    const objectToInsert = { "skill_id": newSkillId, "action" : "add" };
+    const checkIfIdExists = obj => obj.skill_id === newSkillId;
+    const result = selectedSkills.some(checkIfIdExists);
+    if (!result){
+        setSelectedSkills([...selectedSkills, objectToInsert])
     }
+    console.log(result);
+    // if (!selectedSkills.includes(newSkillId)) {
+    //   setSelectedSkills([...selectedSkills, newSkillId]);
+    // }
     setDefaultSkillValue("default");
   };
 
@@ -35,8 +42,23 @@ export default function HRUpdateCourse() {
     async function getAllSkills() {
       const skillsReturnedFromBackend = await getSkillsObject(true);
       setAllActiveSkills(skillsReturnedFromBackend);
+
       const tempSkillArray = skills.map((skill) => skill.skillId);
-      setSelectedSkills(tempSkillArray);
+      console.log(tempSkillArray);
+      for (let i = 0; i < tempSkillArray.length; i += 1) {
+        const skillIdToInsert = tempSkillArray[i];
+        const objectToInsert = { "skill_id": skillIdToInsert, "action" : "add" };
+        console.log(objectToInsert);
+        const checkIfIdExists = obj => obj.skill_id === skillIdToInsert;
+        const result = selectedSkills.some(checkIfIdExists);
+        console.log(result)
+        if(!result){
+            selectedSkills.push(objectToInsert);
+            console.log(selectedSkills);
+        }
+        // setSelectedSkills([...selectedSkills, objectToInsert]); // array of objects
+
+      }
     }
   }, []);
 
@@ -51,14 +73,14 @@ export default function HRUpdateCourse() {
 
   const removeSkill = (skillId) => () => {
     setSelectedSkills((selectedSkills) =>
-      selectedSkills.filter((selectedSkillId) => selectedSkillId !== skillId),
+      selectedSkills.filter((selectedSkillElement) => selectedSkillElement.skill_id !== skillId),
     );
   };
 
-  const renderSelectedSkills = selectedSkills.map((skillId) => (
+  const renderSelectedSkills = selectedSkills.map((skillObject) => (
     <div className='flex bg-primaryColor text-textColor mr-2 px-3 py-1 space-x-2 rounded'>
-      <span>{allActiveSkills[skillId].skillName}</span>
-      <button type='button' onClick={removeSkill(skillId)}>
+      <span>{allActiveSkills[skillObject.skill_id].skillName}</span>
+      <button type='button' onClick={removeSkill(skillObject.skill_id)}>
         <XMarkIcon className='h-6 w-6 text-textColor2' />
       </button>
     </div>
@@ -76,13 +98,13 @@ export default function HRUpdateCourse() {
     setSkillsToBeUnassigned(tempSkillArray);
     // if skills to be unassigned length >0
     skillsToBeUnassigned.map(async (skillIdToBeUnassigned) => {
-        await deleteSkillCourse(skillIdToBeUnassigned, courseId);
-    })
+      await deleteSkillCourse(skillIdToBeUnassigned, courseId);
+    });
 
     // e.preventDefault();
     selectedSkills.map(async (skillIdToBeAssigned) => {
-        await createSkillCourse(skillIdToBeAssigned, courseId);
-    })
+      await createSkillCourse(skillIdToBeAssigned, courseId);
+    });
 
     // display pop up?
 
