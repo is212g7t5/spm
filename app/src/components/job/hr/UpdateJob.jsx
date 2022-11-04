@@ -25,7 +25,7 @@ export default function HRUpdateJob() {
     const res = await updateJob(updateJobRole.jobId, jobName, jobDesc, jobIsActive);
     if (res.detail) {
       const errorList = [];
-      if (res.detail.map) {
+      if (Array.isArray(res.detail)) {
         res.detail.map((errorMsg) => errorList.push(errorMsg.msg));
       } else {
         errorList.push(res.detail);
