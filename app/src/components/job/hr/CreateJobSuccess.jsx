@@ -1,5 +1,4 @@
 import { useHistory } from "react-router-dom";
-import { CheckCircleIcon } from "@heroicons/react/20/solid";
 
 export default function CreateJobSuccess({ jobName, resetFields }) {
   const redirectToCreateJobPage = () => {
