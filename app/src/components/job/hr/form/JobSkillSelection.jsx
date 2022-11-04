@@ -3,7 +3,12 @@ import { XMarkIcon } from "@heroicons/react/20/solid";
 import { getSkills } from "src/api/skills";
 import { getSkillIdsForJobId } from "src/api/jobSkill";
 
-export default function JobSkillSelection({ selectedSkills, setSelectedSkills, jobIsActive, jobId }) {
+export default function JobSkillSelection({
+  selectedSkills,
+  setSelectedSkills,
+  jobIsActive,
+  jobId,
+}) {
   const [defaultSkillValue, setDefaultSkillValue] = useState("default");
   const [skills, setSkills] = useState([{ skillId: 10000, skillName: "temp" }]);
 
@@ -42,23 +47,28 @@ export default function JobSkillSelection({ selectedSkills, setSelectedSkills, j
     );
   };
 
-  const renderSelectedSkills = selectedSkills.map((skillId) => (
-    <div
-      className={`flex bg-primary mr-2 px-3 py-1 m-1 space-x-2 rounded ${
-        jobIsActive === false || jobIsActive === 0 ? "text-gray-300" : "text-white"
-      }`}
-      key={skillId}
-    >
-      <span>{skills.find((skill) => skill.skillId === skillId).skillName}</span>
-      <button
-        type='button'
-        onClick={removeSkill(skillId)}
-        disabled={jobIsActive === false || jobIsActive === 0}
-      >
-        <XMarkIcon className='h-6 w-6' />
-      </button>
-    </div>
-  ));
+  const renderSelectedSkills = selectedSkills.map((skillId) => {
+    if (skills.find((skill) => skill.skillId === skillId)) {
+      return (
+        <div
+          className={`flex bg-primary mr-2 px-3 py-1 m-1 space-x-2 rounded ${
+            jobIsActive === false || jobIsActive === 0 ? "text-gray-300" : "text-white"
+          }`}
+          key={skillId}
+        >
+          <span>{skills.find((skill) => skill.skillId === skillId).skillName}</span>
+          <button
+            type='button'
+            onClick={removeSkill(skillId)}
+            disabled={jobIsActive === false || jobIsActive === 0}
+          >
+            <XMarkIcon className='h-6 w-6' />
+          </button>
+        </div>
+      );
+    }
+    return null;
+  });
 
   return (
     <div>

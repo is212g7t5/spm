@@ -69,7 +69,7 @@ export default function JobTile({ jobId, jobName, jobDesc, skills, isActive, set
                 <CreateEditJobButton handleEditJobButtonClick={handleEditJobButtonClick} />
               )}
               {currentUserType === "HR" && isActive ? (
-                <CreateDeleteJobButton showPopUp={showPopUp}/>
+                <CreateDeleteJobButton showPopUp={showPopUp} />
               ) : null}
             </div>
           </div>
@@ -106,24 +106,22 @@ function CreateEditJobButton({ handleEditJobButtonClick }) {
   );
 }
 
-function CreateDeleteJobButton({showPopUp}){
+function CreateDeleteJobButton({ showPopUp }) {
   return (
     <button
-    type='button'
-    className='w-full flex items-center justify-center ml-auto text-white bg-secondary hover:bg-primary focus:ring-2 focus:ring-gray-300 rounded-lg text-sm px-5 py-2.5 text-center m-1'
-    onClick={showPopUp}
-  >
-    <TrashIcon className='mr-2 h-5 w-5' aria-hidden='true' />
-    <span>Deactivate</span>
-  </button>
+      type='button'
+      className='w-full flex items-center justify-center ml-auto text-white bg-secondary hover:bg-primary focus:ring-2 focus:ring-gray-300 rounded-lg text-sm px-5 py-2.5 text-center m-1'
+      onClick={showPopUp}
+    >
+      <TrashIcon className='mr-2 h-5 w-5' aria-hidden='true' />
+      <span>Deactivate</span>
+    </button>
   );
 }
 
 function CreateInactiveBadge() {
   return (
-    <span className='w-fit bg-gray-100 text-gray-400 mr-2 px-2.5 py-0.5 rounded'>
-      Inactive
-    </span>
+    <span className='w-fit bg-gray-100 text-gray-400 mr-2 px-2.5 py-0.5 rounded'>Inactive</span>
   );
 }
 
@@ -152,9 +150,14 @@ function JobTileButton({ isDetailsOpen, setIsDetailsOpen }) {
 }
 
 function JobTileDescription({ jobDesc, skills }) {
-  const renderSkillsForJobRole = skills.map(({ skillId, skillName, skillDesc }, index) => (
-    <SkillBadge key={`skill-${skillId}`} skillName={skillName} />
-  ));
+  const renderSkillsForJobRole = skills.map(
+    ({ skillId, skillName, skillDesc, isActive }, index) => {
+      if (isActive) {
+        return <SkillBadge key={`skill-${skillId}`} skillName={skillName} />;
+      }
+      return null;
+    },
+  );
 
   return (
     <div className='m-auto flex flex-col w-full p-5 px-10 bg-gray-100 rounded-lg'>
