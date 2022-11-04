@@ -29,7 +29,7 @@ export default function HRCreateJob() {
       setErrors(errorList);
     } else {
       setErrors([]);
-      selectedSkills.map(async (skillId) => {
+      selectedSkills.forEach(async (skillId) => {
         await createJobSkill(res.job_id, skillId);
       });
       setDisplayPopup(true);
@@ -53,15 +53,16 @@ export default function HRCreateJob() {
           <h1 className='text-3xl text-left font-bold'>Create New Job</h1>
           <form onSubmit={handleSubmit} className='pt-10'>
             <div className='mb-6'>
-              <JobNameInput jobName={jobName} setJobName={setJobName} />
+              <JobNameInput jobName={jobName} setJobName={setJobName} jobIsActive />
             </div>
             <div className='mb-6'>
-              <JobDescTextArea jobDesc={jobDesc} setJobDesc={setJobDesc} />
+              <JobDescTextArea jobDesc={jobDesc} setJobDesc={setJobDesc} jobIsActive />
             </div>
 
             <JobSkillSelection
               selectedSkills={selectedSkills}
               setSelectedSkills={setSelectedSkills}
+              jobIsActive
             />
 
             <button

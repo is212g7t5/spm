@@ -43,7 +43,8 @@ export default function HRUpdateJob() {
     }
   };
 
-  const renderErrors = errors && errors.map && errors.map((error) => <p>{error}</p>);
+  const renderErrors =
+    errors && errors.map && errors.map((error, index) => <p key={index}>{error}</p>);
 
   switch (currentUserType) {
     case "HR":
@@ -66,6 +67,7 @@ export default function HRUpdateJob() {
               selectedSkills={selectedSkills}
               setSelectedSkills={setSelectedSkills}
               jobIsActive={jobIsActive}
+              jobId={updateJobRole.jobId}
             />
 
             <div className='mb-6'>

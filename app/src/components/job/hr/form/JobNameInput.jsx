@@ -1,8 +1,4 @@
-import { useUpdateJobContext } from "src/contexts/UpdateJobContext";
-
 export default function JobNameInput({ jobName, setJobName, jobIsActive }) {
-  const { updateJobRole } = useUpdateJobContext();
-
   const handleJobNameChange = (e) => {
     e.preventDefault();
     if (e.target.value.length <= 50) {

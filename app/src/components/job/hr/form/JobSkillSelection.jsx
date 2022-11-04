@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useUpdateJobContext } from "src/contexts/UpdateJobContext";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import { getSkills } from "src/api/skills";
 import { getSkillIdsForJobId } from "src/api/jobSkill";
 
-export default function JobSkillSelection({ selectedSkills, setSelectedSkills, jobIsActive }) {
-  const { updateJobRole } = useUpdateJobContext();
+export default function JobSkillSelection({ selectedSkills, setSelectedSkills, jobIsActive, jobId }) {
   const [defaultSkillValue, setDefaultSkillValue] = useState("default");
-  const [skills, setSkills] = useState([{ skillId: 10000, skillName: "" }]);
+  const [skills, setSkills] = useState([{ skillId: 10000, skillName: "temp" }]);
 
   useEffect(() => {
     getAllSkills();
@@ -15,7 +13,7 @@ export default function JobSkillSelection({ selectedSkills, setSelectedSkills, j
     async function getAllSkills() {
       const skillsReturnedFromBackend = await getSkills(true);
       await setSkills(skillsReturnedFromBackend);
-      const existingSkillsReturnedFromBackend = await getSkillIdsForJobId(updateJobRole.jobId);
+      const existingSkillsReturnedFromBackend = await getSkillIdsForJobId(jobId);
       setSelectedSkills(existingSkillsReturnedFromBackend);
     }
   }, []);
@@ -26,7 +24,7 @@ export default function JobSkillSelection({ selectedSkills, setSelectedSkills, j
     setDefaultSkillValue("default");
   };
 
-  const renderSkillsOptions = skills.map((skill, index) => {
+  const renderSkillsOptions = skills.map((skill) => {
     if (!selectedSkills.includes(skill.skillId)) {
       const uniqueID = skill.skillId.toString();
       return (
