@@ -17,6 +17,8 @@ export default function HRUpdateSkill() {
   const [errors, setErrors] = useState([]);
   const [displayPopup, setDisplayPopup] = useState(false);
 
+  console.log(skillName);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await updateSkillDetails(updateSkill.skillId, skillName, skillDesc, skillIsActive);

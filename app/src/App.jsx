@@ -4,6 +4,7 @@ import { UserProvider } from "src/contexts/UserContext";
 import { LJContextProvider } from "src/contexts/LJContext";
 import { UpdateJobContextProvider } from "src/contexts/UpdateJobContext";
 import { UpdateSkillContextProvider } from "src/contexts/UpdateSkillContext";
+import { UpdateCourseContextProvider } from "src/contexts/UpdateCourseContext";
 import { StaffContextProvider } from "src/contexts/StaffContext";
 
 import {
@@ -16,6 +17,7 @@ import {
   Skills,
   CreateSkill,
   UpdateSkill,
+  UpdateCourse
 } from "src/routes";
 
 import Layout from "./layout";
@@ -26,20 +28,18 @@ function App() {
   return (
     <Router>
       <StaffContextProvider>
-        <LJContextProvider>
-          <UpdateJobContextProvider>
-            <UpdateSkillContextProvider>
+      <LJContextProvider>
+        <UpdateJobContextProvider>
+          <UpdateSkillContextProvider>
+            <UpdateCourseContextProvider>
               <UserProvider>
                 <Layout>
                   <Switch>
                     <Route exact path='/' component={LearningJourneys} />
                     <Route path='/learning-journeys' component={LearningJourneys} />
-                    <Route
-                      exact
-                      path='/create-learning-journey'
-                      component={CreateLearningJourneyPage}
-                    />
+                    <Route exact path='/create-learning-journey' component={CreateLearningJourneyPage} />
                     <Route exact path='/courses' component={Courses} />
+                    <Route exact path='/update-course' component={UpdateCourse} />
                     <Route exact path='/skills' component={Skills} />
                     <Route exact path='/create-skill' component={CreateSkill} />
                     <Route exact path='/jobs' component={Jobs} />
@@ -61,9 +61,10 @@ function App() {
                   theme='colored'
                 />
               </UserProvider>
-            </UpdateSkillContextProvider>
-          </UpdateJobContextProvider>
-        </LJContextProvider>
+            </UpdateCourseContextProvider>
+          </UpdateSkillContextProvider>
+        </UpdateJobContextProvider>
+      </LJContextProvider>
       </StaffContextProvider>
     </Router>
   );

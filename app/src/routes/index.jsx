@@ -1,4 +1,5 @@
 import Courses from "./courses";
+import UpdateCourse from "./updateCourse"
 import CreateJob from "./createJob";
 import UpdateJob from "./updateJob";
 import CreateSkill from "./createSkill";
@@ -10,6 +11,7 @@ import CreateLearningJourneyPage from "./createLearningJourneyPage";
 
 export {
   Courses,
+  UpdateCourse,
   CreateJob,
   UpdateJob,
   Jobs,

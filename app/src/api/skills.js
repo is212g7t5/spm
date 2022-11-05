@@ -24,8 +24,20 @@ export const getSkills = async (activeOnly) => {
   try {
     const res = await axios.get(`${SKILL_ENDPOINT}/all?active_only=${activeOnly}`);
     if (res) {
-      console.log(skillsSnakeToCamel(res.data));
       return skillsSnakeToCamel(res.data);
+    }
+    throw new Error("No data returned from backend");
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
+export const getSkillsObject = async (activeOnly) => {
+  try {
+    const res = await axios.get(`${SKILL_ENDPOINT}/all?active_only=${activeOnly}`);
+    if (res) {
+      return transformSkillsObject(skillsSnakeToCamel(res.data));
     }
     throw new Error("No data returned from backend");
   } catch (error) {
@@ -104,6 +116,14 @@ function skillSnakeToCamel(snakeCaseSkill) {
     skillDesc: snakeCaseSkill.skill_desc,
     isActive: snakeCaseSkill.is_active,
   };
+}
+
+function transformSkillsObject(skillArray) {
+  const skillsObject = {};
+  skillArray.forEach((skill) => {
+    skillsObject[skill.skillId] = skill;
+  });
+  return skillsObject;
 }
 
 function transformSkills(snakeCaseSkills) {

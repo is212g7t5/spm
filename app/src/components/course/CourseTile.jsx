@@ -1,19 +1,27 @@
 import React, { useState } from "react";
-import { ChevronDownIcon, ChevronRightIcon, BookOpenIcon } from "@heroicons/react/20/solid";
+import {
+  ChevronDownIcon,
+  ChevronRightIcon,
+  BookOpenIcon,
+  PencilSquareIcon,
+} from "@heroicons/react/20/solid";
 import { useUserContext } from "src/contexts/UserContext";
+import { useUpdateCourseContext } from "src/contexts/UpdateCourseContext";
+import { useHistory } from "react-router-dom";
 import CourseDescription from "./CourseDescription";
 import RegistrationStatusBadge from "./RegistrationStatusBadge";
 
-function CourseTile({
-  staffId,
-  courseId,
-  courseName,
-  courseDesc,
-  courseStatus,
-  skills,
-}) {
+function CourseTile({ staffId, courseId, courseName, courseDesc, courseStatus, skills }) {
   const { currentUserType } = useUserContext();
   const [isDescOpen, setIsDescOpen] = useState(false);
+  const { setUpdateCourse } = useUpdateCourseContext();
+  const history = useHistory();
+
+  const handleEditCourseButtonClick = (e) => {
+    e.stopPropagation();
+    setUpdateCourse({ courseId, courseName, courseDesc, skills });
+    history.push("update-course");
+  };
 
   if (currentUserType === "STAFF" && (courseStatus === "Retired" || courseStatus === "Pending")) {
     return null;
@@ -40,6 +48,11 @@ function CourseTile({
           </div>
         </div>
         <div className='flex items-center'>
+          {currentUserType === "HR" && courseStatus === "Active" && (
+            <div className='flex flex-col'>
+              <CreateEditCourseButton handleEditCourseButtonClick={handleEditCourseButtonClick} />
+            </div>
+          )}
           <CourseTileButton isDescOpen={isDescOpen} />
         </div>
       </div>
@@ -47,6 +60,19 @@ function CourseTile({
         {isDescOpen && <CourseDescription courseDesc={courseDesc} skills={skills} />}
       </div>
     </div>
+  );
+}
+
+function CreateEditCourseButton({ handleEditCourseButtonClick }) {
+  return (
+    <button
+      type='button'
+      className='w-full flex items-center mr-5 justify-center ml-auto text-white bg-secondary hover:bg-primary focus:ring-2 focus:ring-gray-300 rounded-lg text-sm px-5 py-2.5 text-center m-1'
+      onClick={handleEditCourseButtonClick}
+    >
+      <PencilSquareIcon className='mr-2 h-5 w-5' aria-hidden='true' />
+      <span>Edit</span>
+    </button>
   );
 }
 
@@ -70,7 +96,9 @@ function CourseStatusBadge({ courseStatus }) {
   };
 
   return (
-    <span className={`text-sm font-medium md:mx-3 my-1 md:my-0 px-2.5 py-0.5 rounded ${badgeColour[courseStatus]}`}>
+    <span
+      className={`text-sm font-medium md:mx-3 my-1 md:my-0 px-2.5 py-0.5 rounded ${badgeColour[courseStatus]}`}
+    >
       {courseStatus}
     </span>
   );
