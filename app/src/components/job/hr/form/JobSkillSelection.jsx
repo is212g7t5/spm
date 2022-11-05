@@ -47,6 +47,8 @@ export default function JobSkillSelection({
     );
   };
 
+  let numberOfInactiveSelectedSkills = 0;
+
   const renderSelectedSkills = selectedSkills.map((skillId) => {
     if (skills.find((skill) => skill.skillId === skillId)) {
       return (
@@ -67,6 +69,7 @@ export default function JobSkillSelection({
         </div>
       );
     }
+    numberOfInactiveSelectedSkills += 1;
     return null;
   });
 
@@ -95,7 +98,7 @@ export default function JobSkillSelection({
             </select>
           </label>
 
-          {selectedSkills.length > 0 ? (
+          {selectedSkills.length > 0 && numberOfInactiveSelectedSkills !== selectedSkills.length ? (
             <div className='flex flex-wrap bg-gray-100 border border-gray-300 text-white text-sm rounded-lg focus:ring-gray-400 focus:border-gray-500 block w-full p-2.5'>
               {renderSelectedSkills}
             </div>

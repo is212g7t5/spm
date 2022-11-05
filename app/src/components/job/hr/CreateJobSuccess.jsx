@@ -27,7 +27,7 @@ export default function CreateJobSuccess({ jobName, resetFields }) {
           <div className='grid-row py-3 flex justify-end'>
             <button
               type='button'
-              className='text-white bg-accent1 hover:bg-accent2 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2'
+              className='text-white bg-accent2 hover:bg-accent3 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2'
               onClick={redirectToCreateJobPage}
             >
               Create Another Job

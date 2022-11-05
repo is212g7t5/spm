@@ -150,11 +150,14 @@ function JobTileButton({ isDetailsOpen, setIsDetailsOpen }) {
 }
 
 function JobTileDescription({ jobDesc, skills }) {
+  let numberOfInactiveSkills = 0;
+
   const renderSkillsForJobRole = skills.map(
     ({ skillId, skillName, skillDesc, isActive }, index) => {
       if (isActive) {
         return <SkillBadge key={`skill-${skillId}`} skillName={skillName} />;
       }
+      numberOfInactiveSkills += 1;
       return null;
     },
   );
@@ -162,7 +165,7 @@ function JobTileDescription({ jobDesc, skills }) {
   return (
     <div className='m-auto flex flex-col w-full p-5 px-10 bg-gray-100 rounded-lg'>
       <p className='text-ellipsis overflow-hidden font-medium text-justify'>{jobDesc}</p>
-      {skills.length ? (
+      {skills.length && numberOfInactiveSkills !== skills.length ? (
         <div className='flex flex-wrap mt-5'>{renderSkillsForJobRole}</div>
       ) : (
         "No current skills"
