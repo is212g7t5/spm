@@ -20,15 +20,17 @@ export default function HRUpdateSkill() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await updateSkillDetails(updateSkill.skillId, skillName, skillDesc, skillIsActive);
+    // If detail key exists in response, there are schematic errors in the request
     if (res.detail) {
       const errorList = [];
-      if (res.detail.map) {
+      if (Array.isArray(res.detail)) {
         res.detail.map((errorMsg) => errorList.push(errorMsg.msg));
       } else {
         errorList.push(res.detail);
       }
       setErrors(errorList);
     } else {
+      setErrors([]);
       setDisplayPopup(true);
     }
   };
