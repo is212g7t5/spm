@@ -61,17 +61,15 @@ export default function JobTile({ jobId, jobName, jobDesc, skills, isActive, set
         </div>
         <div className='flex items-center mt-5 md:mt-0 justify-between'>
           <div className='flex-col'>
-            {skills.length >= 1 && (
+            {currentUserType === "STAFF" && skills.length >= 1 && (
               <CreateLearningJourneyButton handleCreateLJButtonClick={handleCreateLJButtonClick} />
             )}
-            <div className='flex'>
-              {currentUserType === "HR" && (
+            {currentUserType === "HR" && (
+              <div className='flex md:flex-col'>
                 <CreateEditJobButton handleEditJobButtonClick={handleEditJobButtonClick} />
-              )}
-              {currentUserType === "HR" && isActive ? (
-                <CreateDeleteJobButton showPopUp={showPopUp}/>
-              ) : null}
-            </div>
+                {isActive ? <CreateDeleteJobButton showPopUp={showPopUp}/> : null}
+              </div>
+            )}
           </div>
           <JobTileButton isDetailsOpen={isDetailsOpen} setIsDetailsOpen={setIsDetailsOpen} />
           {currentUserType === "HR" && (
@@ -110,7 +108,7 @@ function CreateDeleteJobButton({showPopUp}){
   return (
     <button
     type='button'
-    className='w-full flex items-center justify-center ml-auto text-white bg-secondary hover:bg-primary focus:ring-2 focus:ring-gray-300 rounded-lg text-sm px-5 py-2.5 text-center m-1'
+    className='w-full flex items-center justify-center ml-auto text-white bg-accent2 hover:bg-accent3 focus:ring-2 focus:ring-gray-300 rounded-lg text-sm px-5 py-2.5 text-center m-1'
     onClick={showPopUp}
   >
     <TrashIcon className='mr-2 h-5 w-5' aria-hidden='true' />

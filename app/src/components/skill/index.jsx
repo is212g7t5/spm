@@ -14,8 +14,9 @@ function Skill() {
           <HRSkill />
         </>
       );
-    case "STAFF":
     case "MANAGER":
+      return <p>You are logged in as MANAGER so you see no skills</p>;
+    case "STAFF":
     default:
       return (
         <>

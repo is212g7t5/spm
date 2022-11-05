@@ -6,9 +6,12 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { PlusIcon } from "@heroicons/react/20/solid";
 import { toast } from "react-toastify";
 
+import { useUserContext } from "src/contexts/UserContext";
 import Login from "./Login";
 
 export default function Navbar() {
+  const { currentUserType } = useUserContext();
+
   const [pageNavigation, setPageNavigation] = useState([
     { name: "Learning Journeys", href: "/learning-journeys" },
     { name: "Skills", href: "/skills" },
@@ -39,7 +42,7 @@ export default function Navbar() {
         <>
           <div className='flex h-16 justify-between mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
             <RoutingItems open={open} pageNavigation={pageNavigation} />
-            <CreateLJButton />
+            {currentUserType === "STAFF" && <CreateLJButton />}
             <LoginButton />
           </div>
           <Disclosure.Panel className='md:hidden'>
