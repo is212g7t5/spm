@@ -142,7 +142,7 @@ export default function HRUpdateCourse() {
             </div>
             <button
               type='submit'
-              className='text-white bg-accent2 hover:bg-secondary focus:ring-2 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center'
+              className='text-white bg-accent2 hover:bg-accent3 focus:ring-2 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center'
             >
               Re-assign skills to course
             </button>
