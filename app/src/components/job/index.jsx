@@ -14,8 +14,9 @@ function Job() {
           <HRJob/>
         </>
       );
-    case "STAFF":
     case "MANAGER":
+      return <p>You are logged in as MANAGER so you see no Jobs</p>;
+    case "STAFF":
     default:
       // temporary addition for development, should not render anything without permission
       return (
