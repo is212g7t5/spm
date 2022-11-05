@@ -1,4 +1,5 @@
 import { useUserContext } from "src/contexts/UserContext";
+import SearchBar from "src/components/SearchBar";
 import StaffSkill from "./staff/StaffSkill";
 import HRSkill from "./hr/HRSkill";
 
@@ -6,15 +7,22 @@ function Skill() {
   const { currentUserType } = useUserContext();
 
   switch (currentUserType) {
-    case "STAFF":
-      return <StaffSkill />;
     case "HR":
-      return <HRSkill />;
+      return (
+        <>
+          <SearchBar title="Search Skills" searchBarPlaceholder="Search by name..." />
+          <HRSkill />
+        </>
+      );
+    case "STAFF":
     case "MANAGER":
-      return <StaffSkill />;
     default:
-      // temporary addition for development, should not render anything without permission
-      return <StaffSkill />;
+      return (
+        <>
+          <SearchBar title="Search Skills" searchBarPlaceholder="Search by name..." />
+          <StaffSkill />
+        </>
+      );
   }
 }
 

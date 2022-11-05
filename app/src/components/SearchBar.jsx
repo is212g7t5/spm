@@ -2,7 +2,7 @@ import React from "react";
 
 export default function SearchBar({ title, searchBarPlaceholder }) {
   return (
-    <div className='max-w-sm pl-12 pt-3'>
+    <div className='max-w-sm pt-3'>
       <h1 className='text-md font-semibold mt-2 mb-3'>{title}</h1>
       <form className='flex items-center'>
         <div className='relative w-full'>
@@ -31,7 +31,7 @@ export default function SearchBar({ title, searchBarPlaceholder }) {
         <button
           aria-label='Submit Button'
           type='submit'
-          className='p-2.5 ml-2 text-sm font-medium text-white bg-primary rounded-lg hover:bg-primary focus:ring-2 focus:ring-gray-300'
+          className='p-2.5 ml-2 text-sm font-medium text-white bg-secondary rounded-lg hover:bg-primary focus:ring-2 focus:ring-gray-300'
         >
           <svg
             className='w-5 h-5'

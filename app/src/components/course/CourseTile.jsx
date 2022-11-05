@@ -37,7 +37,7 @@ function CourseTile({ staffId, courseId, courseName, courseDesc, courseStatus, s
         <div className='flex items-center'>
           <BookOpenIcon className='fs-5 m-1 mr-2 h-5 w-5' aria-hidden='true' />
           <div className='ml-5'>
-            <div className='flex space-x-5 items-center'>
+            <div className='flex md:flex-row flex-col md:space-x-5 items-start'>
               <div className='font-medium text-left '>{courseName}</div>
               {currentUserType === "STAFF" ? (
                 <RegistrationStatusBadge staffId={staffId} courseId={courseId} />
@@ -96,7 +96,7 @@ function CourseStatusBadge({ courseStatus }) {
   };
 
   return (
-    <span className={`text-sm font-medium mx-3 px-2.5 py-0.5 rounded ${badgeColour[courseStatus]}`}>
+    <span className={`text-sm font-medium md:mx-3 my-1 md:my-0 px-2.5 py-0.5 rounded ${badgeColour[courseStatus]}`}>
       {courseStatus}
     </span>
   );
