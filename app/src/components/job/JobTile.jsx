@@ -61,17 +61,15 @@ export default function JobTile({ jobId, jobName, jobDesc, skills, isActive, set
         </div>
         <div className='flex items-center mt-5 md:mt-0 justify-between'>
           <div className='flex-col'>
-            {skills.length >= 1 && (
+            {currentUserType === "STAFF" && skills.length >= 1 && (
               <CreateLearningJourneyButton handleCreateLJButtonClick={handleCreateLJButtonClick} />
             )}
-            <div className='flex'>
-              {currentUserType === "HR" && (
+            {currentUserType === "HR" && (
+              <div className='flex md:flex-col'>
                 <CreateEditJobButton handleEditJobButtonClick={handleEditJobButtonClick} />
-              )}
-              {currentUserType === "HR" && isActive ? (
-                <CreateDeleteJobButton showPopUp={showPopUp}/>
-              ) : null}
-            </div>
+                {isActive ? <CreateDeleteJobButton showPopUp={showPopUp}/> : null}
+              </div>
+            )}
           </div>
           <JobTileButton isDetailsOpen={isDetailsOpen} setIsDetailsOpen={setIsDetailsOpen} />
           {currentUserType === "HR" && (
