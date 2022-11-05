@@ -48,7 +48,7 @@ function CourseTile({ staffId, courseId, courseName, courseDesc, courseStatus, s
           </div>
         </div>
         <div className='flex items-center'>
-          {currentUserType === "HR" && courseStatus === "Active" &&(
+          {currentUserType === "HR" && courseStatus === "Active" && (
             <div className='flex flex-col'>
               <CreateEditCourseButton handleEditCourseButtonClick={handleEditCourseButtonClick} />
             </div>
@@ -96,7 +96,9 @@ function CourseStatusBadge({ courseStatus }) {
   };
 
   return (
-    <span className={`text-sm font-medium md:mx-3 my-1 md:my-0 px-2.5 py-0.5 rounded ${badgeColour[courseStatus]}`}>
+    <span
+      className={`text-sm font-medium md:mx-3 my-1 md:my-0 px-2.5 py-0.5 rounded ${badgeColour[courseStatus]}`}
+    >
       {courseStatus}
     </span>
   );
