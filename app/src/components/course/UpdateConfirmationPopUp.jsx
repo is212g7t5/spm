@@ -19,19 +19,16 @@ export default function UpdateConfirmationPopUp({
   };
 
   const handleConfirm = async (e) => {
-    // iterate through selectedSkills, create for action = "add", delete for action = "delete"
     e.preventDefault();
     for (let i = 0; i < selectedSkills.length; i += 1) {
       const checkIfIdExists = (obj) => obj.skillId === selectedSkills[i].skill_id;
       const result = skills.some(checkIfIdExists);
       console.log(result);
       if (selectedSkills[i].action === "delete" && result) {
-        // call api to delete skill course if action = "delete"
         deleteSkillCourse(selectedSkills[i].skill_id, courseId);
       }
 
       if (selectedSkills[i].action === "add" && !result) {
-        // call api to create skill course if action = "add"
         createSkillCourse(selectedSkills[i].skill_id, courseId);
       }
     }
