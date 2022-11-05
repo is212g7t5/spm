@@ -14,7 +14,7 @@ export default function HRUpdateCourse() {
   const [courseName, setCourseName] = useState(updateCourse.courseName);
   const [courseDesc, setCourseDesc] = useState(updateCourse.courseDesc);
   const [skills, setSkills] = useState(updateCourse.skills);
-  const [isConfirmPopUpOpen, setIsConfirmPopUpOpen] = useState(false);
+  const [isSucessPopUpOpen, setIsSuccessPopUpOpen] = useState(false);
   const [skillsToBeUnassigned, setSkillsToBeUnassigned] = useState([]);
   const [allActiveSkills, setAllActiveSkills] = useState({});
   const [skillsToBeDisplayed, setSkillsToBeDisplayed] = useState([]);
@@ -92,8 +92,8 @@ export default function HRUpdateCourse() {
   };
 
   const renderSelectedSkills = skillsToBeDisplayed.map((skillObject) => (
-    <div className='flex bg-primaryColor mr-2 px-3 py-1 space-x-2 rounded'>
-      <span>{allActiveSkills[skillObject.skill_id].skillName}</span>
+    <div className='flex bg-primary mr-2 px-3 py-1 m-1 space-x-2 rounded'>
+      <span className='text-white'>{allActiveSkills[skillObject.skill_id].skillName}</span>
       <button type='button' onClick={removeSkill(skillObject.skill_id)}>
         <XMarkIcon className='h-6 w-6' />
       </button>
@@ -102,7 +102,7 @@ export default function HRUpdateCourse() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsConfirmPopUpOpen(true);
+    setIsSuccessPopUpOpen(true);
   };
 
   switch (currentUserType) {
@@ -136,7 +136,9 @@ export default function HRUpdateCourse() {
                   {renderSkillsOptions}
                 </select>
               </label>
-              <div className='flex flex-wrap'>{renderSelectedSkills}</div>
+              <div className='flex flex-wrap bg-gray-100 border border-gray-300 text-white text-sm rounded-lg focus:ring-gray-400 focus:border-gray-500 block w-full p-2.5'>
+                {renderSelectedSkills}
+              </div>
             </div>
             <button
               type='submit'
@@ -145,14 +147,14 @@ export default function HRUpdateCourse() {
               Re-assign skills to course
             </button>
           </form>
-          {isConfirmPopUpOpen ? (
+          {isSucessPopUpOpen ? (
             <UpdateConfirmationPopUp
-              setIsConfirmPopUpOpen={setIsConfirmPopUpOpen}
-              isConfirmPopUpOpen={isConfirmPopUpOpen}
+              setIsConfirmPopUpOpen={setIsSuccessPopUpOpen}
+              isConfirmPopUpOpen={isSucessPopUpOpen}
               selectedSkills={selectedSkills}
-              setSelectedSkills={setSelectedSkills}
               skills={skills}
               courseId={courseId}
+              courseName={courseName}
             />
           ) : null}
         </div>

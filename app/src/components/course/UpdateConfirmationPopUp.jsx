@@ -7,16 +7,11 @@ export default function UpdateConfirmationPopUp({
   isConfirmPopUpOpen,
   setIsConfirmPopUpOpen,
   selectedSkills,
-  setSelectedSkills,
   skills,
   courseId,
+  courseName,
 }) {
   const history = useHistory();
-
-  const resetTrigger = (e) => {
-    e.stopPropagation();
-    setIsConfirmPopUpOpen(false);
-  };
 
   const handleConfirm = async (e) => {
     e.preventDefault();
@@ -34,7 +29,6 @@ export default function UpdateConfirmationPopUp({
     }
     history.push("courses");
 
-    toast.success("Skills were successfully re-assigned!");
     setIsConfirmPopUpOpen(false);
   };
 
@@ -45,28 +39,20 @@ export default function UpdateConfirmationPopUp({
     >
       <div className='flex-initial'>
         <div className='container shadow-lg px-7 py-5 grid rounded-lg bg-white'>
-          <div className='grid-row py-3 text-3xl font-bold'>Warning</div>
+          <div className='grid-row py-3 text-3xl font-bold'>Success!</div>
 
           <div className='grid-row py-3 text-lg'>
-            Are you sure you want to re-assign skills to course?
+            Skills has successfully been re-assigned to {courseName}!
           </div>
 
-          <div className='grid-row py-3 flex justify-end'>
+          <div className='grid-row py-3 flex justify-center'>
             <button
               type='button'
               className='text-white bg-secondary hover:bg-primary font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2'
               onClick={handleConfirm}
             >
-              Confirm
+              Return to Courses
             </button>
-            <button
-              type='button'
-              className='text-white bg-accent2 hover:bg-accent3 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2'
-              onClick={resetTrigger}
-            >
-              Cancel
-            </button>
-            {/* <div className='pt-5 text-red-500'>{renderErrors}</div> */}
           </div>
         </div>
       </div>
