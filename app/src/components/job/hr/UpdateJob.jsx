@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { updateJob } from "src/api/jobs";
+import { createJobSkill, deleteAllSkillsUnderJob } from "src/api/jobSkill";
 import { useUpdateJobContext } from "src/contexts/UpdateJobContext";
 import { useUserContext } from "src/contexts/UserContext";
 import UpdateJobSuccess from "./UpdateJobSuccess";
 import JobNameInput from "./form/JobNameInput";
 import JobDescTextArea from "./form/JobDescTextArea";
 import JobIsActiveToggle from "./form/JobIsActiveToggle";
+import JobSkillSelection from "./form/JobSkillSelection";
 
 export default function HRUpdateJob() {
   const { currentUserType } = useUserContext();
@@ -16,25 +18,33 @@ export default function HRUpdateJob() {
   const [jobIsActive, setJobIsActive] = useState(updateJobRole.isActive);
   const [errors, setErrors] = useState([]);
   const [displayPopup, setDisplayPopup] = useState(false);
+  const [selectedSkills, setSelectedSkills] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await updateJob(updateJobRole.jobId, jobName, jobDesc, jobIsActive);
     if (res.detail) {
       const errorList = [];
-      if (res.detail.map) {
+      if (Array.isArray(res.detail)) {
         res.detail.map((errorMsg) => errorList.push(errorMsg.msg));
       } else {
         errorList.push(res.detail);
       }
       setErrors(errorList);
+    } else if (jobIsActive === false || jobIsActive === 0) {
+      setDisplayPopup(true);
     } else {
       setErrors([]);
+      await deleteAllSkillsUnderJob(updateJobRole.jobId);
+      selectedSkills.map(async (skillId) => {
+        await createJobSkill(res.job_id, skillId);
+      });
       setDisplayPopup(true);
     }
   };
 
-  const renderErrors = errors && errors.map && errors.map((error) => <p>{error}</p>);
+  const renderErrors =
+    errors && errors.map && errors.map((error, index) => <p key={index}>{error}</p>);
 
   switch (currentUserType) {
     case "HR":
@@ -43,11 +53,23 @@ export default function HRUpdateJob() {
           <h1 className='text-3xl text-left font-bold'>Update Job</h1>
           <form onSubmit={handleSubmit} className='pt-10'>
             <div className='mb-6'>
-              <JobNameInput jobName={jobName} setJobName={setJobName} />
+              <JobNameInput jobName={jobName} setJobName={setJobName} jobIsActive={jobIsActive} />
             </div>
             <div className='mb-6'>
-              <JobDescTextArea jobDesc={jobDesc} setJobDesc={setJobDesc} />
+              <JobDescTextArea
+                jobDesc={jobDesc}
+                setJobDesc={setJobDesc}
+                jobIsActive={jobIsActive}
+              />
             </div>
+
+            <JobSkillSelection
+              selectedSkills={selectedSkills}
+              setSelectedSkills={setSelectedSkills}
+              jobIsActive={jobIsActive}
+              jobId={updateJobRole.jobId}
+            />
+
             <div className='mb-6'>
               <p className='block mb-2 text-md font-medium text-black'>Job Status</p>
               <JobIsActiveToggle jobIsActive={jobIsActive} setJobIsActive={setJobIsActive} />
@@ -60,7 +82,7 @@ export default function HRUpdateJob() {
             </button>
           </form>
           <div className='pt-5 text-red-500'>{renderErrors}</div>
-          {displayPopup ? <UpdateJobSuccess jobName={jobName} /> : null}
+          {displayPopup ? <UpdateJobSuccess jobName={jobName} jobIsActive={jobIsActive} /> : null}
         </div>
       );
     default:

@@ -1,5 +1,4 @@
 import { useHistory } from "react-router-dom";
-import { CheckCircleIcon } from "@heroicons/react/20/solid";
 
 export default function CreateJobSuccess({ jobName, resetFields }) {
   const redirectToCreateJobPage = () => {
@@ -14,28 +13,35 @@ export default function CreateJobSuccess({ jobName, resetFields }) {
 
   return (
     <div
-      className='absolute flex flex-col justify-center space-y-5 mx-auto my-auto w-1/2 h-1/2 bg-gray-100 z-10 inset-0 shadow-lg rounded-lg items-center text-center'
+      className='flex justify-center fixed inset-0 h-screen items-center z-10 backdrop-grayscale backdrop-blur-xl p-5'
       aria-labelledby='modal-title'
       role='dialog'
       aria-modal='true'
     >
-      <CheckCircleIcon className='mx-auto h-20 w-20 text-green-500' aria-hidden='true' />
-      <p className=''>Job {jobName} has been successfully created!</p>
-      <div className='flex space-x-5'>
-        <button
-          type='button'
-          className='relative inline-flex items-center rounded-md border border-accent2 bg-transparent px-4 py-2 text-sm font-medium text-accent2 shadow-sm hover:text-white hover:bg-accent3 hover:border-accent3 focus:outline-none focus:ring-2 focus:ring-gray-300'
-          onClick={redirectToCreateJobPage}
-        >
-          <span>Create Another Job</span>
-        </button>
-        <button
-          type='button'
-          className='relative inline-flex items-center rounded-md border border-transparent bg-accent2 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-accent3 focus:outline-none focus:ring-2 focus:ring-gray-300'
-          onClick={redirectToJobPage}
-        >
-          <span>Return to Jobs</span>
-        </button>
+      <div className='flex-initial'>
+        <div className='container shadow-lg px-7 py-5 grid rounded-lg bg-white'>
+          <div className='grid-row py-3 text-3xl font-bold'>Note</div>
+
+          <div className='grid-row py-3 text-lg'>{jobName} has been successfully created!</div>
+
+          <div className='grid-row py-3 flex justify-end'>
+            <button
+              type='button'
+              className='text-white bg-accent2 hover:bg-accent3 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2'
+              onClick={redirectToCreateJobPage}
+            >
+              Create Another Job
+            </button>
+
+            <button
+              type='button'
+              className='text-white bg-secondary hover:bg-primary font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2'
+              onClick={redirectToJobPage}
+            >
+              Return to Jobs
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

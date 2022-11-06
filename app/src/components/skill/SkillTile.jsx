@@ -182,7 +182,7 @@ function SkillTileDescription({ skillDesc, courses }) {
     <div className='m-auto flex flex-col w-full p-5 px-10 bg-gray-100 rounded-lg'>
       <p className='text-ellipsis overflow-hidden font-medium text-justify'>{skillDesc}</p>
       {courses.length ? (
-        <div className='flex-grid mt-5'>{renderCoursesForSkill}</div>
+        <div className='flex flex-wrap mt-5 '>{renderCoursesForSkill}</div>
       ) : (
         "No courses attached to this skill"
       )}

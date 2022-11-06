@@ -1,4 +1,4 @@
-export default function JobDescTextArea({ jobDesc, setJobDesc }) {
+export default function JobDescTextArea({ jobDesc, setJobDesc, jobIsActive }) {
   const handleJobDescChange = (e) => {
     e.preventDefault();
     if (e.target.value.length <= 255) {
@@ -20,9 +20,12 @@ export default function JobDescTextArea({ jobDesc, setJobDesc }) {
         rows={5}
         value={jobDesc}
         onChange={handleJobDescChange}
-        className='bg-gray-100 border border-gray-300 text-black text-sm rounded-lg focus:ring-gray-400 focus:border-gray-500 block w-full p-2.5'
+        className={`bg-gray-100 border border-gray-300 ${
+          jobIsActive === false || jobIsActive === 0 ? "text-gray-500" : "text-black"
+        }  text-sm rounded-lg focus:ring-gray-400 focus:border-gray-500 block w-full p-2.5`}
+        disabled={jobIsActive === false || jobIsActive === 0}
       />
       <p className='text-right text-sm'>{jobDesc.length}/255</p>
     </label>
-  )
+  );
 }

@@ -104,7 +104,7 @@ function CreateEditJobButton({ handleEditJobButtonClick }) {
   );
 }
 
-function CreateDeleteJobButton({showPopUp}){
+function CreateDeleteJobButton({ showPopUp }) {
   return (
     <button
     type='button'
@@ -119,9 +119,7 @@ function CreateDeleteJobButton({showPopUp}){
 
 function CreateInactiveBadge() {
   return (
-    <span className='w-fit bg-gray-100 text-gray-400 mr-2 px-2.5 py-0.5 rounded'>
-      Inactive
-    </span>
+    <span className='w-fit bg-gray-100 text-gray-400 mr-2 px-2.5 py-0.5 rounded'>Inactive</span>
   );
 }
 
@@ -150,14 +148,22 @@ function JobTileButton({ isDetailsOpen, setIsDetailsOpen }) {
 }
 
 function JobTileDescription({ jobDesc, skills }) {
-  const renderSkillsForJobRole = skills.map(({ skillId, skillName, skillDesc }, index) => (
-    <SkillBadge key={`skill-${skillId}`} skillName={skillName} />
-  ));
+  let numberOfInactiveSkills = 0;
+
+  const renderSkillsForJobRole = skills.map(
+    ({ skillId, skillName, skillDesc, isActive }, index) => {
+      if (isActive) {
+        return <SkillBadge key={`skill-${skillId}`} skillName={skillName} />;
+      }
+      numberOfInactiveSkills += 1;
+      return null;
+    },
+  );
 
   return (
     <div className='m-auto flex flex-col w-full p-5 px-10 bg-gray-100 rounded-lg'>
       <p className='text-ellipsis overflow-hidden font-medium text-justify'>{jobDesc}</p>
-      {skills.length ? (
+      {skills.length && numberOfInactiveSkills !== skills.length ? (
         <div className='flex flex-wrap mt-5'>{renderSkillsForJobRole}</div>
       ) : (
         "No current skills"

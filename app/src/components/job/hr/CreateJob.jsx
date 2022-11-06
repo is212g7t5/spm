@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { createJob } from "src/api/jobs";
+import { createJobSkill } from "src/api/jobSkill";
 import { useUserContext } from "src/contexts/UserContext";
 import CreateJobSuccess from "./CreateJobSuccess";
 import JobNameInput from "./form/JobNameInput";
 import JobDescTextArea from "./form/JobDescTextArea";
+import JobSkillSelection from "./form/JobSkillSelection";
 
 export default function HRCreateJob() {
   const { currentUserType } = useUserContext();
@@ -11,6 +13,7 @@ export default function HRCreateJob() {
   const [jobDesc, setJobDesc] = useState("");
   const [errors, setErrors] = useState([]);
   const [displayPopup, setDisplayPopup] = useState(false);
+  const [selectedSkills, setSelectedSkills] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,6 +29,9 @@ export default function HRCreateJob() {
       setErrors(errorList);
     } else {
       setErrors([]);
+      selectedSkills.forEach(async (skillId) => {
+        await createJobSkill(res.job_id, skillId);
+      });
       setDisplayPopup(true);
     }
   };
@@ -36,6 +42,7 @@ export default function HRCreateJob() {
     setJobName("");
     setJobDesc("");
     setErrors([]);
+    setSelectedSkills([]);
     setDisplayPopup(false);
   };
 
@@ -46,11 +53,18 @@ export default function HRCreateJob() {
           <h1 className='text-3xl text-left font-bold'>Create New Job</h1>
           <form onSubmit={handleSubmit} className='pt-10'>
             <div className='mb-6'>
-              <JobNameInput jobName={jobName} setJobName={setJobName} />
+              <JobNameInput jobName={jobName} setJobName={setJobName} jobIsActive />
             </div>
             <div className='mb-6'>
-              <JobDescTextArea jobDesc={jobDesc} setJobDesc={setJobDesc} />
+              <JobDescTextArea jobDesc={jobDesc} setJobDesc={setJobDesc} jobIsActive />
             </div>
+
+            <JobSkillSelection
+              selectedSkills={selectedSkills}
+              setSelectedSkills={setSelectedSkills}
+              jobIsActive
+            />
+
             <button
               type='submit'
               className='text-white bg-accent2 hover:bg-accent3 focus:ring-2 focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center'
