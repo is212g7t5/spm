@@ -29,7 +29,15 @@
       <a href="#getting-started">Getting Started</a>
     </li>
     <li><a href="#continuous-integration">Continuous Integration</a></li>
-    <li><a href="#usage">Usage</a></li>
+    <li>
+        <a href="#usage">Usage</a>
+        <ul>
+            <li><a href="#access-control">Access Control</a></li>
+            <li><a href="#staff-features">Staff Features</a></li>
+            <li><a href="#hr-features">HR Features</a></li>
+            <li><a href="#manager-features">Manager Features</a></li>
+        </ul>
+    </li>
     <li><a href="#license">License</a></li>
   </ol>
 </details>
