@@ -50,7 +50,9 @@ This Learning Journey Planning System aims to allow All-In-One staff to set thei
 Find the project live at:
 
 - [Web Application](https://spm-g7t5.netlify.app/)
-- [Backend Documentation](http://spm-g7t5-api.herokuapp.com/docs)
+- [Backend Documentation](http://spm-g7t5-api-prod.herokuapp.com/docs)
+
+Due to the deployment location of the services in the US, access in other regions might face delays. This latency optimization will be resolved in subsequent releases.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -102,9 +104,168 @@ Refer to the relevant CI pipeline scripts in `/.github/workflows`.
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-To be updated nearer to first release.
+### Access Control
+
+Access control is currently being segmented into 4 possible states (`Not logged in`, `Staff`, `HR` amd `Manager`). Use the dropdown menu in the top-right corner of the navbar to toggle between the 4 states.
+<img src="assets/access_control_toggle.png" alt="Access Control Toggle" />
+
+Selecting one of the four possible states simulates the access control permissions of the particular state. Each of these states are also pegged to a specific user (specified by `id`) and the default can be changed in `/app/src/contexts/UserContext.jsx`, as defined in the `USER_TYPES` const.
+
+Alternatively, the states can be changed through the session storage of the web browser followed by a web browser refresh. For example, the `userId` and `user` can be changed as seen below.
+<img src="assets/session_storage.png" alt="Session Storage" />
+
+By extension, this means that users with multiple roles, should log in as each of their role in order to access that role's features.
+
+> For e.g., a HR user should log in as a `Staff` to view their learning journey planning, but log in as a `HR` to edit the jobs available.
+
+This design choice was made to facilitate a cleaner user interface (not having both "user" and "admin" related permissions in the same location), which will ultimately be supported by a role-separated login page in subsequent releases.
+
+### Staff Features
+
+Logging in as a Staff allows us to access learning journey planning features.
+
+#### Learning Journey
+
+By default, the main page (https://spm-g7t5.netlify.app/) leads us to the overview of a Staff's learning journeys.
+
+<img src="assets/staff/learning_journey.png" alt="Staff Learning Journey" />
+
+Clicking into the menu button unique to each learning journey allows us to view more details or delete a learning journey.
+
+<img src="assets/staff/learning_journey_menu.png" alt="Staff Learning Journey Menu" />
+
+##### Learning Journey Details
+
+Clicking on `view` leads us to the specific details of a particular learning journey.
+
+<img src="assets/staff/learning_journey_detail.png" alt="Staff Learning Journey Detail" />
+
+Within this view, we're able to see the current courses planned for a learning journey, which includes the course status and skills of each of the courses. On the right, we're able to see the target job role of the learning journey, as well as its respective skills.
+
+Clicking on `Edit Learning Journey` allows us to add/remove courses to the learning journey.
+
+<img src="assets/staff/edit_learning_journey.png" alt="Staff Edit Learning Journey" />
+
+Selecting a skill brings up a menu of its respective courses, which can then be added to the current learning journey.
+
+<img src="assets/staff/learning_journey_skill_course.png" alt="Staff Learning Journey Skill Course" />
+
+Alternatively, clicking the cross on existing courses at the bottom removes the course from the learning journey. Do note that there is a minimum of 1 course in each learning journey.
+
+Finally, selecting `Update Learning Journey` saves the course changes.
+
+#### Skills
+
+Navigate to the skills page (https://spm-g7t5.netlify.app/skills) or click on the `Skills` tab in the navbar to view all active skills. Clicking on any of the skills reveals the skill's descriptions and its accompanying courses.
+
+<img src="assets/staff/skills.png" alt="Staff Skills" />
+
+#### Courses
+
+Navigate to the courses page (https://spm-g7t5.netlify.app/courses) or click on the `Courses` tab in the navbar to view all active courses. Clicking on any of the courses reveals the course's descriptions and its accompanying skills.
+
+Each course also carries a color-coded tag, which can either be (`Not registered`, `Waitlist`, `Rejected`, `Registered`, `OnGoing`, `Completed`).
+
+<img src="assets/staff/courses.png" alt="Staff Courses" />
+
+#### Job Roles
+
+Navigate to the job roles page (https://spm-g7t5.netlify.app/jobs) or click on the `Job Roles` tab in the navbar to view all active job roles. Clicking on any of the job roles reveals the job role's descriptions and its accompanying skills.
+
+<img src="assets/staff/jobs.png" alt="Staff Jobs" />
+
+It is also on this page where new learning journeys are created. The `+ New Learning Journey` button in the navbar will reroute the user to this page so that they can specify the job role that they want to create a new learning journey for. This is then completed by clicking on the `Create Learning Journey` button in the desired job role.
+
+##### Creating a Learning Journey
+
+In the create learning journey page, the job details are displayed at the top, followed by the respective skills, similar to the update page earlier.
+
+<img src="assets/staff/create_learning_journey.png" alt="Staff Create Learning Journey" />
+
+Selecting on a skill required brings up a list of courses, which can then be added to the learning journey.
+
+<img src="assets/staff/create_learning_journey_skill_course.png" alt="Staff Create Learning Journey Skill Course" />
+
+Once at least 1 course is added to the learning course, the `Create Learning Journey` button becomes active and the user can create the learning journey with the associated courses.
+
+### HR Features
+
+Logging in as a HR allows us to access skill, course and job role management features.
+
+#### Skills
+
+A similar view to the Staff's version of skills is displayed, with the addition of 3 buttons:
+- `Create New Skill`
+- `Edit`
+- `Deactivate`
+
+<img src="assets/hr/skills.png" alt="HR Skills" />
+
+##### Create New Skill
+
+Selecting the `Create New Skill` option brings up a page to furnish the skill name and description for a new skill. By default, new skills are set to active.
+
+<img src="assets/hr/create_skill.png" alt="HR Create Skill" />
+
+#### Edit
+
+Selecting the `Edit` option on a skill brings up its respective edit skill page. Changes in the fields will then be saved after using the `Update Skill` button.
+
+<img src="assets/hr/edit_skill.png" alt="HR Edit Skill" />
+
+#### Deactivate
+
+Selecting the `Deactivate` option on a skill brings up a confirmation window to "soft-delete" a skill (i.e. set the skill to inactive). This would prevent Staff users from viewing the respective skill.
+
+<img src="assets/hr/deactivate_skill.png" alt="HR Deactivate Skill" />
 
 <p align="right">(<a href="#top">back to top</a>)</p>
+
+### Courses
+
+A similar view to the Staff's version of skills is displayed, with the addition of 1 button:
+- `Edit`
+
+Also, course statuses are displayed via color coded tags (`Active`, `Pending` and `Retired`) instead of the course registration status.
+
+<img src="assets/hr/courses.png" alt="HR Courses" />
+
+#### Edit
+
+Selecting the `Edit` option on a course brings up its respective edit course page. Skills can be assigned/removed using the dropdown box and crosses.
+
+<img src="assets/hr/edit_course.png" alt="HR Edit Course" />
+
+### Job Roles
+
+A similar view to the Staff's version of job roles is displayed, with the addition of 3 buttons:
+- `Create New Job`
+- `Edit`
+- `Deactivate`
+
+<img src="assets/hr/jobs.png" alt="HR Jobs" />
+
+##### Create New Job
+
+Selecting the `Create New Job` option brings up a page to furnish the job name and description for a new job. In addition, skills can be assigned in this page. By default, new jobs are set to active.
+
+<img src="assets/hr/create_job.png" alt="HR Create Job" />
+
+#### Edit
+
+Selecting the `Edit` option on a job role brings up its respective edit job role page. Changes in the fields will then be saved after using the `Update Job` button.
+
+<img src="assets/hr/edit_job.png" alt="HR Edit Job" />
+
+#### Deactivate
+
+Selecting the `Deactivate` option on a job role brings up a confirmation window to "soft-delete" a job role (i.e. set the job role to inactive). This would prevent Staff users from viewing the respective job role.
+
+<img src="assets/hr/deactivate_job.png" alt="HR Deactivate Job" />
+
+### Manager Features
+
+Currently, none of the first release features are unique to Managers, and therefore no notable features are available under this role. Future features such as viewing the skills of their team members will be added in subsequent releases.
 
 <!-- LICENSE -->
 ## License
