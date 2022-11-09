@@ -114,19 +114,19 @@ Refer to the relevant CI pipeline scripts in `/.github/workflows`.
 
 ### Access Control
 
-Access control is currently being segmented into 4 possible states (`Not logged in`, `Staff`, `HR` amd `Manager`). Use the dropdown menu in the top-right corner of the navbar to toggle between the 4 states.
+Access control is currently being segmented into 4 possible states (`Not logged in`, `Staff`, `HR` amd `Manager`). Use the dropdown menu in the top-right corner of the navbar to toggle between the 3 logged in states.
 <img src="assets/access_control_toggle.png" alt="Access Control Toggle" />
 
-Selecting one of the four possible states simulates the access control permissions of the particular state. Each of these states are also pegged to a specific user (specified by `id`) and the default can be changed in `/app/src/contexts/UserContext.jsx`, as defined in the `USER_TYPES` const.
+Selecting one of the three possible states simulates the access control permissions of the particular state. Each of these states is also pegged to a specific user (specified by `id`) and the default can be changed in `/app/src/contexts/UserContext.jsx`, as defined in the `USER_TYPES` const.
 
 Alternatively, the states can be changed through the session storage of the web browser followed by a web browser refresh. For example, the `userId` and `user` can be changed as seen below.
 <img src="assets/session_storage.png" alt="Session Storage" />
 
-By extension, this means that users with multiple roles, should log in as each of their role in order to access that role's features.
+By extension, this means that users, with multiple roles, should log in as each of their role in order to access that role's features.
 
 > For e.g., a HR user should log in as a `Staff` to view their learning journey planning, but log in as a `HR` to edit the jobs available.
 
-This design choice was made to facilitate a cleaner user interface (not having both "user" and "admin" related permissions in the same location), which will ultimately be supported by a role-separated login page in subsequent releases.
+This design choice was made to facilitate a clean user interface (not having both "user" and "admin" related permissions in the same location), which will ultimately be supported by a role-separated login page in subsequent releases.
 
 ### Staff Features
 
@@ -182,7 +182,7 @@ Navigate to the job roles page (https://spm-g7t5.netlify.app/jobs) or click on t
 
 <img src="assets/staff/jobs.png" alt="Staff Jobs" />
 
-It is also on this page where new learning journeys are created. The `+ New Learning Journey` button in the navbar will reroute the user to this page so that they can specify the job role that they want to create a new learning journey for. This is then completed by clicking on the `Create Learning Journey` button in the desired job role.
+It is also on this page where new learning journeys are created. The `+ New Learning Journey` button in the navbar will reroute the user to this page so that they can specify the job role that they want to create a new learning journey for. This is then completed by clicking on the `Create Learning Journey` button for the desired job role.
 
 ##### Creating a Learning Journey
 
@@ -190,15 +190,15 @@ In the create learning journey page, the job details are displayed at the top, f
 
 <img src="assets/staff/create_learning_journey.png" alt="Staff Create Learning Journey" />
 
-Selecting on a skill required brings up a list of courses, which can then be added to the learning journey.
+Selecting on a required skill brings up a list of courses, which can then be added to the learning journey.
 
 <img src="assets/staff/create_learning_journey_skill_course.png" alt="Staff Create Learning Journey Skill Course" />
 
-Once at least 1 course is added to the learning course, the `Create Learning Journey` button becomes active and the user can create the learning journey with the associated courses.
+Once at least 1 course is added to the learning journey, the `Create Learning Journey` button becomes active and the user can create the learning journey with the associated courses.
 
 ### HR Features
 
-Logging in as a HR allows us to access skill, course and job role management features.
+Logging in as HR allows us to access skill, course and job role management features.
 
 #### Skills
 
@@ -273,7 +273,7 @@ Selecting the `Deactivate` option on a job role brings up a confirmation window 
 
 ### Manager Features
 
-Currently, none of the first release features are unique to Managers, and therefore no notable features are available under this role. Future features such as viewing the skills of their team members will be added in subsequent releases.
+Currently, none of the first release features is unique to Managers, and therefore no notable features is available under this role. Future features such as viewing the skills of their team members will be added in subsequent releases.
 
 <!-- LICENSE -->
 ## License
