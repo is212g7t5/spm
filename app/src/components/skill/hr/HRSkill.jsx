@@ -6,6 +6,8 @@ import { StarIcon } from "@heroicons/react/20/solid";
 import SkillTile from "../SkillTile";
 
 function HRSkill() {
+  const history = useHistory();
+
   const [skills, setSkills] = useState([]);
   const [isDeactivateSkillButtonClick, setDeactivateSkillButtonClick] = useState(false);
   const [isDeactivateSkillModalOpen, setDeactivateSkillModalOpen] = useState(false);
@@ -46,7 +48,6 @@ function HRSkill() {
     getAllSkills();
   }, [isDeactivateSkillButtonClick === true]);
 
-  const history = useHistory();
 
   const redirectToCreateSkillPage = () => {
     history.push("/create-skill");

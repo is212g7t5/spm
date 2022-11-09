@@ -6,20 +6,6 @@ import JobTile from "../JobTile";
 function StaffJob() {
   const [jobs, setJobs] = useState([]);
 
-  const renderJobs = jobs.map(({ jobId, jobName, jobDesc, skills, isActive }, index) => {
-    if (isActive === 1) {
-      return <JobTile
-      key={index}
-      jobId={jobId}
-      jobName={jobName}
-      jobDesc={jobDesc}
-      skills={skills}
-      isActive={isActive}
-      /> ;
-    }
-    return null;
-  });
-
   useEffect(() => {
     getAllJobs();
 
@@ -31,6 +17,22 @@ function StaffJob() {
       setJobs(jobsReturnedFromBackend);
     }
   }, []);
+
+  const renderJobs = jobs.map(({ jobId, jobName, jobDesc, skills, isActive }, index) => {
+    if (isActive === 1) {
+      return (
+        <JobTile
+          key={index}
+          jobId={jobId}
+          jobName={jobName}
+          jobDesc={jobDesc}
+          skills={skills}
+          isActive={isActive}
+        />
+      );
+    }
+    return null;
+  });
 
   return (
     <div className='flex flex-col container mt-10 bg-white p-10 mx-auto rounded-lg shadow-lg'>

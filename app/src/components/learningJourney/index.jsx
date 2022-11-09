@@ -13,7 +13,8 @@ function LearningJourney() {
       return <p>You are logged in as MANAGER so you see no Learning Journeys</p>;
     default:
       // temporary addition for development, should not render anything without permission
-      return <StaffLearningJourney staffId={currentUserId} />;
+      return <p>Please log in to view any Learning Journeys</p>;
+
   }
 }
 

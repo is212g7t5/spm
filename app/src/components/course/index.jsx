@@ -17,14 +17,14 @@ function Course() {
     case "MANAGER":
       return <p>You are logged in as MANAGER so you see no courses</p>;
     case "STAFF":
-    default:
-      // temporary addition for development, should not render anything without permission
       return (
         <>
           <SearchBar title='Search Courses' searchBarPlaceholder='Search by name, ID...' />
           <StaffCourse />
         </>
       );
+    default:
+      return <p>Please log in to view courses</p>;
   }
 }
 

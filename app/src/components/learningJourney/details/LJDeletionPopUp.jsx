@@ -39,7 +39,7 @@ function LJDeletionPopUp({
   return (
     <div
       id='deletePopUp'
-      className='flex justify-center fixed inset-0 h-screen items-center z-10 p-5 backdrop-grayscale backdrop-blur-xl z-8'
+      className='flex justify-center fixed inset-0 h-screen items-center z-10 p-5 backdrop-grayscale backdrop-blur-xl z-50'
       aria-hidden='true'
       onClick={handleDeleteLJModalClose}
     >

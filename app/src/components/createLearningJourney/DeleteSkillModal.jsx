@@ -16,7 +16,7 @@ function DeleteSkillModal({ isDeleteSkillModalOpen, onDeleteSkillModalClose }) {
 
   return (
     <div
-      className='fixed top-0 left-0 h-screen w-screen scale-100 backdrop-grayscale backdrop-blur-xl z-8'
+      className='fixed top-0 left-0 h-screen w-screen scale-100 backdrop-grayscale backdrop-blur-xl z-50'
       aria-hidden='true'
       onClick={handleDeleteSkillModalClose}
     >
