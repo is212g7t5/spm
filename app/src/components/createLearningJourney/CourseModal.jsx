@@ -26,13 +26,13 @@ export default function CourseModal({ skillId, coursesAndSkillsMapping, isModalO
       className='fixed top-0 left-0 h-screen w-screen scale-100 backdrop-grayscale backdrop-blur-xl z-50'
       aria-hidden='true'
       onClick={handleCloseModal}
+      id='modal-outer'
     >
       <div
         className='absolute flex flex-col justify-center space-y-5 mx-auto my-auto w-3/4 h-3/4 bg-gray-100 z-99 inset-0 shadow-lg rounded-lg items-center text-center'
         aria-labelledby='modal-title'
         role='dialog'
         aria-modal='true'
-        id='modal-base'
       >
         <ModalHeader closeModal={closeModal} />
         <p className='font-bold text-2xl'>Choose a course to add it to your Learning Journey!</p>

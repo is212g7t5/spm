@@ -10,7 +10,6 @@ import { useHistory } from "react-router-dom";
 import { useLJContext } from "src/contexts/LJContext";
 import { useUpdateJobContext } from "src/contexts/UpdateJobContext";
 import { useUserContext } from "src/contexts/UserContext";
-import { updateJob } from "src/api/jobs";
 import SkillBadge from "./SkillBadge";
 import JobDeletionPopUp from "./hr/JobDeletionPopUp";
 
@@ -19,13 +18,14 @@ export default function JobTile({ jobId, jobName, jobDesc, skills, isActive, set
   const [isButtonPopUpOpen, setIsButtonPopUpOpen] = useState(false);
 
   const { currentUserType } = useUserContext();
-  const { setSelectedJobRole } = useLJContext();
+  const { setSelectedJobRole, clearSelectedCourseDetails } = useLJContext();
   const { setUpdateJobRole } = useUpdateJobContext();
   const history = useHistory();
 
   const handleCreateLJButtonClick = (e) => {
     e.stopPropagation();
     setSelectedJobRole({ jobId, jobName, jobDesc, skills, isActive });
+    clearSelectedCourseDetails()
     history.push("create-learning-journey");
   };
 

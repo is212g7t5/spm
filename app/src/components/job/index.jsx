@@ -17,14 +17,14 @@ function Job() {
     case "MANAGER":
       return <p>You are logged in as MANAGER so you see no Jobs</p>;
     case "STAFF":
-    default:
-      // temporary addition for development, should not render anything without permission
       return (
       <>
         <SearchBar title="Search Job Roles" searchBarPlaceholder="Search by title, skills..." />
         <StaffJob />
       </>
       );
+    default:
+      return <p>Please log in to view Jobs</p>;
   }
 }
 

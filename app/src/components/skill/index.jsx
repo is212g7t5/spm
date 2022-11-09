@@ -10,20 +10,21 @@ function Skill() {
     case "HR":
       return (
         <>
-          <SearchBar title="Search Skills" searchBarPlaceholder="Search by name..." />
+          <SearchBar title='Search Skills' searchBarPlaceholder='Search by name...' />
           <HRSkill />
         </>
       );
     case "MANAGER":
       return <p>You are logged in as MANAGER so you see no skills</p>;
     case "STAFF":
-    default:
       return (
         <>
-          <SearchBar title="Search Skills" searchBarPlaceholder="Search by name..." />
+          <SearchBar title='Search Skills' searchBarPlaceholder='Search by name...' />
           <StaffSkill />
         </>
       );
+    default:
+      return <p>Please log in to view Skills</p>;
   }
 }
 
